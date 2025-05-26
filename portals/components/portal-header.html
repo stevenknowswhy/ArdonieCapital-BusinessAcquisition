@@ -1,0 +1,187 @@
+<!-- Portal Header Component -->
+<header class="sticky top-0 z-50 bg-white dark:bg-slate-900 shadow-sm">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center py-4">
+            <!-- Logo & Portal Badge -->
+            <div class="flex-shrink-0">
+                <a href="../index.html" class="flex items-center">
+                    <span class="text-2xl font-bold text-primary-dark dark:text-primary-light">Ardonie Capital</span>
+                    <span id="portal-badge" class="ml-2 text-sm px-2 py-1 rounded">Portal</span>
+                </a>
+            </div>
+
+            <!-- Desktop Navigation -->
+            <nav id="portal-nav" class="hidden md:flex space-x-8">
+                <!-- Navigation items will be populated by individual portals -->
+            </nav>
+
+            <!-- User Menu -->
+            <div class="hidden md:flex items-center space-x-4">
+                <!-- Notifications -->
+                <button id="notifications-btn" class="relative p-2 text-slate-600 hover:text-primary-dark dark:text-slate-300 dark:hover:text-primary-light" title="Notifications">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-5 5v-5zM11 17H6l5 5v-5zM12 3v12" />
+                    </svg>
+                    <span id="notification-count" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center hidden">0</span>
+                </button>
+
+                <!-- User Profile Dropdown -->
+                <div class="relative">
+                    <button id="user-menu-btn" class="flex items-center space-x-2 text-slate-600 hover:text-primary-dark dark:text-slate-300 dark:hover:text-primary-light">
+                        <img id="user-avatar" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=32&h=32&q=80" alt="User" class="w-8 h-8 rounded-full">
+                        <span id="user-name">User</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+
+                    <!-- Dropdown Menu -->
+                    <div id="user-dropdown" class="hidden absolute right-0 mt-2 w-48 bg-white dark:bg-slate-800 rounded-md shadow-lg border border-slate-200 dark:border-slate-700">
+                        <div class="py-1">
+                            <a href="#profile" class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700">Profile Settings</a>
+                            <a href="#billing" class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700">Billing</a>
+                            <a href="#help" class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700">Help & Support</a>
+                            <div class="border-t border-slate-200 dark:border-slate-700"></div>
+                            <a href="../auth/login.html" class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700">Sign Out</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile menu button -->
+            <div class="md:hidden">
+                <button type="button" id="mobile-portal-menu-btn" class="text-slate-600 hover:text-primary-dark dark:text-slate-300 dark:hover:text-primary-light" aria-label="Open mobile menu">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div id="mobile-portal-menu" class="hidden md:hidden pb-4">
+            <div id="mobile-portal-nav" class="flex flex-col space-y-4">
+                <!-- Mobile navigation items will be populated by individual portals -->
+            </div>
+
+            <!-- Mobile User Menu -->
+            <div class="mt-4 pt-4 border-t border-slate-200 dark:border-slate-700">
+                <div class="flex items-center space-x-3 mb-4">
+                    <img id="mobile-user-avatar" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=32&h=32&q=80" alt="User" class="w-8 h-8 rounded-full">
+                    <span id="mobile-user-name" class="font-medium text-slate-900 dark:text-white">User</span>
+                </div>
+                <div class="space-y-2">
+                    <a href="#profile" class="block text-slate-600 hover:text-primary-dark dark:text-slate-300 dark:hover:text-primary-light">Profile Settings</a>
+                    <a href="#billing" class="block text-slate-600 hover:text-primary-dark dark:text-slate-300 dark:hover:text-primary-light">Billing</a>
+                    <a href="#help" class="block text-slate-600 hover:text-primary-dark dark:text-slate-300 dark:hover:text-primary-light">Help & Support</a>
+                    <a href="../auth/login.html" class="block text-slate-600 hover:text-primary-dark dark:text-slate-300 dark:hover:text-primary-light">Sign Out</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Portal Header JavaScript -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Portal header utilities
+    window.PortalHeader = {
+        // Set portal badge
+        setBadge: function(text, colorClass) {
+            const badge = document.getElementById('portal-badge');
+            badge.textContent = text;
+            badge.className = `ml-2 text-sm px-2 py-1 rounded ${colorClass}`;
+        },
+
+        // Set user info
+        setUser: function(name, avatar) {
+            document.getElementById('user-name').textContent = name;
+            document.getElementById('mobile-user-name').textContent = name;
+            if (avatar) {
+                document.getElementById('user-avatar').src = avatar;
+                document.getElementById('mobile-user-avatar').src = avatar;
+            }
+        },
+
+        // Set navigation items
+        setNavigation: function(navItems) {
+            const desktopNav = document.getElementById('portal-nav');
+            const mobileNav = document.getElementById('mobile-portal-nav');
+
+            // Clear existing navigation
+            desktopNav.innerHTML = '';
+            mobileNav.innerHTML = '';
+
+            // Add navigation items
+            navItems.forEach(item => {
+                // Desktop navigation
+                const desktopLink = document.createElement('a');
+                desktopLink.href = item.href;
+                desktopLink.textContent = item.text;
+                desktopLink.className = 'text-slate-600 hover:text-primary-dark dark:text-slate-300 dark:hover:text-primary-light';
+                if (item.active) {
+                    desktopLink.className += ' font-medium text-primary-dark dark:text-primary-light';
+                }
+                desktopNav.appendChild(desktopLink);
+
+                // Mobile navigation
+                const mobileLink = document.createElement('a');
+                mobileLink.href = item.href;
+                mobileLink.textContent = item.text;
+                mobileLink.className = 'text-slate-600 hover:text-primary-dark dark:text-slate-300 dark:hover:text-primary-light';
+                if (item.active) {
+                    mobileLink.className += ' font-medium text-primary-dark dark:text-primary-light';
+                }
+                mobileNav.appendChild(mobileLink);
+            });
+        },
+
+        // Update notification count
+        setNotificationCount: function(count) {
+            const badge = document.getElementById('notification-count');
+            if (count > 0) {
+                badge.textContent = count > 99 ? '99+' : count;
+                badge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+            }
+        }
+    };
+
+    // Mobile menu toggle
+    const mobileMenuBtn = document.getElementById('mobile-portal-menu-btn');
+    const mobileMenu = document.getElementById('mobile-portal-menu');
+
+    if (mobileMenuBtn && mobileMenu) {
+        mobileMenuBtn.addEventListener('click', function() {
+            mobileMenu.classList.toggle('hidden');
+        });
+    }
+
+    // User dropdown toggle
+    const userMenuBtn = document.getElementById('user-menu-btn');
+    const userDropdown = document.getElementById('user-dropdown');
+
+    if (userMenuBtn && userDropdown) {
+        userMenuBtn.addEventListener('click', function() {
+            userDropdown.classList.toggle('hidden');
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!userMenuBtn.contains(event.target) && !userDropdown.contains(event.target)) {
+                userDropdown.classList.add('hidden');
+            }
+        });
+    }
+
+    // Notifications button
+    const notificationsBtn = document.getElementById('notifications-btn');
+    if (notificationsBtn) {
+        notificationsBtn.addEventListener('click', function() {
+            // Placeholder for notifications functionality
+            window.PortalUtils.showNotification('Notifications feature coming soon!', 'info');
+        });
+    }
+});
+</script>

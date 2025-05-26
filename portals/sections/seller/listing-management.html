@@ -1,0 +1,283 @@
+<!-- Listing Management Section -->
+<section id="listing-management" class="py-16 bg-white dark:bg-slate-800">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-3xl font-bold text-slate-900 dark:text-white">Manage My Listing</h2>
+                <div class="flex gap-4">
+                    <button type="button" id="preview-listing-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition-colors">
+                        Preview Listing
+                    </button>
+                    <button type="button" id="save-listing-btn" class="bg-amber-500 hover:bg-amber-600 text-white font-medium py-2 px-4 rounded-md transition-colors">
+                        Save Changes
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Current Listing Status -->
+            <div class="bg-slate-50 dark:bg-slate-700 rounded-lg p-6 mb-8 border border-slate-200 dark:border-slate-600">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="text-xl font-semibold text-slate-900 dark:text-white">Elite Transmission Specialists</h3>
+                        <p class="text-slate-600 dark:text-slate-300">Arlington, TX • Listed 12 days ago</p>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-2xl font-bold text-amber-600">$650,000</div>
+                        <div class="text-sm text-slate-600 dark:text-slate-400">Asking Price</div>
+                    </div>
+                </div>
+                <div class="mt-4 flex items-center space-x-6">
+                    <div class="flex items-center">
+                        <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded mr-2">🚖 Express Seller</span>
+                        <span class="text-sm text-slate-600 dark:text-slate-400">Verified & Approved</span>
+                    </div>
+                    <div class="text-sm text-slate-600 dark:text-slate-400">127 views • 8 interested buyers</div>
+                </div>
+            </div>
+
+            <!-- Listing Form -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Left Column - Basic Information -->
+                <div class="space-y-6">
+                    <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 p-6">
+                        <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-4">Basic Information</h3>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <label for="business-name" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Business Name</label>
+                                <input type="text" id="business-name" name="business-name" value="Elite Transmission Specialists" class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
+                            </div>
+                            
+                            <div>
+                                <label for="business-type" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Business Type</label>
+                                <select id="business-type" name="business-type" class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
+                                    <option value="transmission">Transmission Shop</option>
+                                    <option value="full-service">Full Service Auto Repair</option>
+                                    <option value="body-shop">Auto Body Shop</option>
+                                    <option value="quick-lube">Quick Lube</option>
+                                    <option value="tire-shop">Tire Shop</option>
+                                    <option value="specialty">Specialty Shop</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label for="asking-price" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Asking Price</label>
+                                <input type="number" id="asking-price" name="asking-price" value="650000" class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
+                            </div>
+                            
+                            <div>
+                                <label for="annual-revenue" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Annual Revenue</label>
+                                <input type="number" id="annual-revenue" name="annual-revenue" value="485000" class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
+                            </div>
+                            
+                            <div>
+                                <label for="cash-flow" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Annual Cash Flow</label>
+                                <input type="number" id="cash-flow" name="cash-flow" value="195000" class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Location & Details -->
+                    <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 p-6">
+                        <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-4">Location & Details</h3>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <label for="address" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Address</label>
+                                <input type="text" id="address" name="address" value="1234 Main Street, Arlington, TX 76010" class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label for="square-footage" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Square Footage</label>
+                                    <input type="number" id="square-footage" name="square-footage" value="4500" class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
+                                </div>
+                                <div>
+                                    <label for="bays" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Service Bays</label>
+                                    <input type="number" id="bays" name="bays" value="6" class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label for="years-established" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Years Established</label>
+                                <input type="number" id="years-established" name="years-established" value="25" class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
+                            </div>
+                            
+                            <div>
+                                <label for="employees" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Number of Employees</label>
+                                <input type="number" id="employees" name="employees" value="8" class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column - Description & Photos -->
+                <div class="space-y-6">
+                    <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 p-6">
+                        <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-4">Business Description</h3>
+                        
+                        <div>
+                            <label for="description" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Description</label>
+                            <textarea id="description" name="description" rows="8" class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500" placeholder="Describe your business, specialties, customer base, and what makes it unique...">Established transmission repair shop with 25+ years serving the Arlington community. Specializing in automatic and manual transmission repair, rebuild, and replacement. Strong customer base with excellent reputation and repeat business. Modern equipment and experienced technicians. Includes all tools, equipment, and customer database.</textarea>
+                        </div>
+                    </div>
+
+                    <!-- Photo Management -->
+                    <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 p-6">
+                        <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-4">Photos</h3>
+                        
+                        <div class="grid grid-cols-2 gap-4 mb-4">
+                            <div class="relative">
+                                <img src="https://images.unsplash.com/photo-1486754735734-325b5831c3ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Shop exterior" class="w-full h-32 object-cover rounded-lg">
+                                <button type="button" aria-label="Remove photo" class="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="relative">
+                                <img src="https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Service bay" class="w-full h-32 object-cover rounded-lg">
+                                <button type="button" aria-label="Remove photo" class="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="border-2 border-dashed border-slate-300 dark:border-slate-600 rounded-lg p-6 text-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto text-slate-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                            </svg>
+                            <p class="text-slate-600 dark:text-slate-300 mb-2">Add more photos</p>
+                            <button type="button" class="bg-amber-500 hover:bg-amber-600 text-white font-medium py-2 px-4 rounded-md transition-colors">
+                                Upload Photos
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Express Seller Benefits -->
+                    <div class="bg-amber-50 dark:bg-amber-900/20 rounded-lg p-6 border border-amber-200 dark:border-amber-800">
+                        <h3 class="text-lg font-semibold text-amber-900 dark:text-amber-100 mb-4">🚖 Express Seller Benefits</h3>
+                        <ul class="space-y-2 text-sm text-amber-800 dark:text-amber-200">
+                            <li class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                                Priority placement in buyer searches
+                            </li>
+                            <li class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                                Access to pre-qualified Express Buyers
+                            </li>
+                            <li class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                                34-day Express Deal timeline
+                            </li>
+                            <li class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                                Verified financial and legal status
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="mt-8 flex flex-col sm:flex-row gap-4">
+                <button type="button" id="save-changes-btn" class="flex-1 bg-amber-500 hover:bg-amber-600 text-white font-medium py-3 px-6 rounded-md transition-colors">
+                    Save Changes
+                </button>
+                <button type="button" id="preview-btn" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-md transition-colors">
+                    Preview Listing
+                </button>
+                <button type="button" id="unpublish-btn" class="bg-slate-600 hover:bg-slate-700 text-white font-medium py-3 px-6 rounded-md transition-colors">
+                    Unpublish
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Listing Management JavaScript -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Listing management utilities
+    window.ListingManagement = {
+        // Save listing changes
+        saveChanges: function() {
+            if (window.PortalUtils) {
+                window.PortalUtils.showNotification('Listing changes saved successfully!', 'success');
+            }
+            // Simulate API call
+            setTimeout(() => {
+                if (window.PortalUtils) {
+                    window.PortalUtils.showNotification('Listing updated and live on marketplace', 'info');
+                }
+            }, 2000);
+        },
+
+        // Preview listing
+        previewListing: function() {
+            if (window.PortalUtils) {
+                window.PortalUtils.showNotification('Opening listing preview...', 'info');
+            }
+            // Simulate opening preview
+            setTimeout(() => {
+                window.open('../marketplace/listing-detail.html', '_blank');
+            }, 1000);
+        },
+
+        // Unpublish listing
+        unpublishListing: function() {
+            if (confirm('Are you sure you want to unpublish your listing? It will no longer be visible to buyers.')) {
+                if (window.PortalUtils) {
+                    window.PortalUtils.showNotification('Listing unpublished', 'warning');
+                }
+            }
+        },
+
+        // Initialize
+        init: function() {
+            // Set up save buttons
+            const saveButtons = ['save-listing-btn', 'save-changes-btn'];
+            saveButtons.forEach(btnId => {
+                const btn = document.getElementById(btnId);
+                if (btn) {
+                    btn.addEventListener('click', () => {
+                        this.saveChanges();
+                    });
+                }
+            });
+
+            // Set up preview buttons
+            const previewButtons = ['preview-listing-btn', 'preview-btn'];
+            previewButtons.forEach(btnId => {
+                const btn = document.getElementById(btnId);
+                if (btn) {
+                    btn.addEventListener('click', () => {
+                        this.previewListing();
+                    });
+                }
+            });
+
+            // Set up unpublish button
+            const unpublishBtn = document.getElementById('unpublish-btn');
+            if (unpublishBtn) {
+                unpublishBtn.addEventListener('click', () => {
+                    this.unpublishListing();
+                });
+            }
+        }
+    };
+
+    // Initialize when loaded
+    window.ListingManagement.init();
+});
+</script>

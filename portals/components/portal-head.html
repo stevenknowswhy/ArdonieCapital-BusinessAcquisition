@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="portal-title">Portal - AutoRepairMart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Portal-specific CSS -->
+    <link href="../assets/css/common.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            DEFAULT: '#3b82f6', // blue-500
+                            dark: '#2563eb',    // blue-600
+                            light: '#93c5fd',   // blue-300
+                        },
+                        secondary: {
+                            DEFAULT: '#64748b', // slate-500
+                            light: '#f1f5f9',   // slate-100
+                        },
+                        accent: {
+                            DEFAULT: '#10b981', // emerald-500
+                            dark: '#059669',    // emerald-600
+                        },
+                        // Portal-specific colors
+                        buyer: {
+                            DEFAULT: '#10b981', // green
+                            light: '#d1fae5',
+                        },
+                        seller: {
+                            DEFAULT: '#f59e0b', // amber
+                            light: '#fef3c7',
+                        },
+                        accountant: {
+                            DEFAULT: '#3b82f6', // blue
+                            light: '#dbeafe',
+                        },
+                        attorney: {
+                            DEFAULT: '#8b5cf6', // purple
+                            light: '#ede9fe',
+                        },
+                        lender: {
+                            DEFAULT: '#ef4444', // red
+                            light: '#fee2e2',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <!-- Portal utilities -->
+    <script>
+        // Portal configuration
+        window.PortalConfig = {
+            portalType: '', // Will be set by individual portals
+            userRole: '',
+            apiEndpoint: '/api/portals/',
+            features: {
+                notifications: true,
+                darkMode: true,
+                realTimeUpdates: true
+            }
+        };
+
+        // Portal-specific utilities
+        window.PortalUtils = {
+            // Update portal title
+            setTitle: function(title) {
+                document.getElementById('portal-title').textContent = title + ' - AutoRepairMart';
+                document.title = title + ' - AutoRepairMart';
+            },
+
+            // Set portal theme
+            setTheme: function(portalType) {
+                document.body.className = document.body.className.replace(/portal-\w+/g, '');
+                document.body.classList.add('portal-' + portalType);
+                window.PortalConfig.portalType = portalType;
+            },
+
+            // Show portal notification
+            showNotification: function(message, type = 'info') {
+                if (window.AutoRepairMart && window.AutoRepairMart.showToast) {
+                    window.AutoRepairMart.showToast(message, type);
+                }
+            },
+
+            // Format portal-specific data
+            formatDeadline: function(daysRemaining) {
+                if (daysRemaining <= 0) return 'Overdue';
+                if (daysRemaining === 1) return '1 day remaining';
+                return daysRemaining + ' days remaining';
+            },
+
+            // Calculate progress percentage
+            calculateProgress: function(currentDay, totalDays = 34) {
+                return Math.min(100, Math.round((currentDay / totalDays) * 100));
+            }
+        };
+    </script>
+</head>
+<body class="font-sans text-slate-800 bg-white dark:bg-slate-900 dark:text-slate-200">

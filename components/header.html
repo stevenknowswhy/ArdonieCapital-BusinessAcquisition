@@ -1,0 +1,52 @@
+<!-- Header -->
+<header class="sticky top-0 z-50 bg-white dark:bg-slate-900 shadow-sm">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center py-4">
+            <!-- Logo -->
+            <div class="flex-shrink-0">
+                <a href="index.html" class="flex items-center">
+                    <span class="text-2xl font-bold text-primary-dark dark:text-primary-light">Ardonie Capital</span>
+                </a>
+            </div>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex space-x-8">
+                <a href="express-deal.html" class="text-accent-dark hover:text-accent dark:text-accent-light font-medium">🚖 Express Deal</a>
+                <a href="marketplace/listings.html" class="text-slate-600 hover:text-primary-dark dark:text-slate-300 dark:hover:text-primary-light">Browse Listings</a>
+                <a href="for-sellers.html" class="text-slate-600 hover:text-primary-dark dark:text-slate-300 dark:hover:text-primary-light">For Sellers</a>
+                <a href="for-buyers.html" class="text-slate-600 hover:text-primary-dark dark:text-slate-300 dark:hover:text-primary-light">For Buyers</a>
+                <a href="education/guides.html" class="text-slate-600 hover:text-primary-dark dark:text-slate-300 dark:hover:text-primary-light">Learning Center</a>
+                <a href="auth/register.html" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary-dark hover:bg-primary shadow-sm hover:shadow transition-all">Get Started</a>
+            </nav>
+
+            <!-- Mobile menu button -->
+            <div class="md:hidden">
+                <button type="button" id="mobile-menu-button" class="text-slate-600 hover:text-primary-dark dark:text-slate-300 dark:hover:text-primary-light" aria-label="Open mobile menu" title="Open mobile menu">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation (hidden by default) -->
+        <div id="mobile-menu" class="hidden md:hidden pb-4">
+            <div class="flex flex-col space-y-4">
+                <a href="express-deal.html" class="text-accent-dark hover:text-accent dark:text-accent-light font-medium">🚖 Express Deal</a>
+                <a href="marketplace/listings.html" class="text-slate-600 hover:text-primary-dark dark:text-slate-300 dark:hover:text-primary-light">Browse Listings</a>
+                <a href="for-sellers.html" class="text-slate-600 hover:text-primary-dark dark:text-slate-300 dark:hover:text-primary-light">For Sellers</a>
+                <a href="for-buyers.html" class="text-slate-600 hover:text-primary-dark dark:text-slate-300 dark:hover:text-primary-light">For Buyers</a>
+                <a href="education/guides.html" class="text-slate-600 hover:text-primary-dark dark:text-slate-300 dark:hover:text-primary-light">Learning Center</a>
+                <a href="auth/register.html" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary-dark hover:bg-primary shadow-sm hover:shadow transition-all">Get Started</a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Mobile Menu Toggle Script -->
+<script>
+    document.getElementById('mobile-menu-button').addEventListener('click', function() {
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenu.classList.toggle('hidden');
+    });
+</script>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seller Portal - AutoRepairMart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="../assets/css/common.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            DEFAULT: '#3b82f6',
+                            dark: '#2563eb',
+                            light: '#93c5fd',
+                        },
+                        secondary: {
+                            DEFAULT: '#64748b',
+                            light: '#f1f5f9',
+                        },
+                        accent: {
+                            DEFAULT: '#10b981',
+                            dark: '#059669',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-sans text-slate-800 bg-white dark:bg-slate-900 dark:text-slate-200 portal-seller">
+
+    <!-- Portal Header -->
+    <div id="portal-header"></div>
+
+    <main class="min-h-screen bg-slate-50 dark:bg-slate-900">
+        <!-- Seller Dashboard Section -->
+        <div id="seller-dashboard"></div>
+
+        <!-- Listing Management Section -->
+        <div id="listing-management"></div>
+
+        <!-- Buyer Interest Section -->
+        <div id="buyer-interest"></div>
+
+        <!-- Express Seller Status Section -->
+        <div id="express-status"></div>
+    </main>
+
+    <!-- Portal Footer -->
+    <div id="portal-footer"></div>
+
+    <!-- Load Portal Components and Sections -->
+    <script>
+        // Portal configuration
+        window.PortalConfig = {
+            portalType: 'seller',
+            userRole: 'Express Seller',
+            apiEndpoint: '/api/portals/seller/',
+            features: {
+                notifications: true,
+                darkMode: true,
+                realTimeUpdates: true
+            }
+        };
+
+        // Function to load HTML content into a div
+        function loadSection(sectionId, filePath) {
+            fetch(filePath)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById(sectionId).innerHTML = data;
+                })
+                .catch(error => {
+                    console.error('Error loading section:', error);
+                });
+        }
+
+        // Load all portal components and sections
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load components
+            loadSection('portal-header', 'components/portal-header.html');
+            loadSection('portal-footer', 'components/portal-footer.html');
+            
+            // Load sections
+            loadSection('seller-dashboard', 'sections/seller/dashboard.html');
+            loadSection('listing-management', 'sections/seller/listing-management.html');
+            loadSection('buyer-interest', 'sections/seller/buyer-interest.html');
+            loadSection('express-status', 'sections/seller/express-status.html');
+
+            // Configure portal after components load
+            setTimeout(() => {
+                configureSellerPortal();
+            }, 500);
+        });
+
+        // Configure seller portal specific settings
+        function configureSellerPortal() {
+            // Set portal title
+            document.title = 'Seller Portal - AutoRepairMart';
+            
+            // Configure header
+            if (window.PortalHeader) {
+                window.PortalHeader.setBadge('🏪 Seller Portal', 'bg-amber-100 text-amber-800');
+                window.PortalHeader.setUser('Sarah Rodriguez', 'https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=32&h=32&q=80');
+                window.PortalHeader.setNavigation([
+                    { href: '#seller-dashboard', text: 'Dashboard', active: true },
+                    { href: '#listing-management', text: 'My Listing', active: false },
+                    { href: '#buyer-interest', text: 'Buyer Interest', active: false },
+                    { href: '#express-status', text: 'Express Status', active: false }
+                ]);
+                window.PortalHeader.setNotificationCount(5);
+            }
+
+            // Configure footer
+            if (window.PortalFooter) {
+                window.PortalFooter.setDescription('🏪 Seller Portal - Your Express Path to Selling Your Auto Shop');
+                window.PortalFooter.setTagline('Express Seller portal for 34-day sales.');
+                window.PortalFooter.setStatus('🚖 Express Seller Active');
+                window.PortalFooter.setQuickLinks([
+                    { href: '#listing-management', text: '📝 Manage My Listing' },
+                    { href: '#buyer-interest', text: '👥 View Buyer Interest' },
+                    { href: '#express-status', text: '🚖 Express Status' },
+                    { href: '../tools/due-diligence-checklist.html', text: '📊 Prepare Documents' },
+                    { href: '../education/guides.html', text: '📚 Seller Resources' }
+                ]);
+            }
+
+            // Load common utilities
+            if (window.AutoRepairMart) {
+                window.AutoRepairMart.showToast('Welcome to your Seller Portal!', 'success');
+            }
+        }
+
+        // Seller portal specific utilities
+        window.SellerPortal = {
+            // Navigate to section
+            navigateToSection: function(sectionId) {
+                const element = document.getElementById(sectionId);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                    
+                    // Update active navigation
+                    if (window.PortalHeader) {
+                        const navItems = [
+                            { href: '#seller-dashboard', text: 'Dashboard', active: sectionId === 'seller-dashboard' },
+                            { href: '#listing-management', text: 'My Listing', active: sectionId === 'listing-management' },
+                            { href: '#buyer-interest', text: 'Buyer Interest', active: sectionId === 'buyer-interest' },
+                            { href: '#express-status', text: 'Express Status', active: sectionId === 'express-status' }
+                        ];
+                        window.PortalHeader.setNavigation(navItems);
+                    }
+                }
+            },
+
+            // Refresh portal data
+            refreshData: function() {
+                if (window.SellerDashboard) window.SellerDashboard.loadData();
+                if (window.ListingManagement) window.ListingManagement.init();
+                if (window.BuyerInterest) window.BuyerInterest.init();
+                if (window.AutoRepairMart) {
+                    window.AutoRepairMart.showToast('Portal data refreshed', 'success');
+                }
+            },
+
+            // Get seller statistics
+            getStats: function() {
+                return {
+                    listingViews: 127,
+                    interestedBuyers: 8,
+                    daysListed: 12,
+                    expressStatus: 'Approved',
+                    askingPrice: '$650K'
+                };
+            }
+        };
+
+        // Handle navigation clicks
+        document.addEventListener('click', function(event) {
+            if (event.target.tagName === 'A' && event.target.getAttribute('href').startsWith('#')) {
+                event.preventDefault();
+                const sectionId = event.target.getAttribute('href').substring(1);
+                window.SellerPortal.navigateToSection(sectionId);
+            }
+        });
+
+        // Load common JavaScript utilities
+        const script = document.createElement('script');
+        script.src = '../assets/js/common.js';
+        document.head.appendChild(script);
+    </script>
+
+</body>
+</html>

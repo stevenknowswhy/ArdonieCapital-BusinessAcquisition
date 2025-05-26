@@ -1,0 +1,240 @@
+<!-- Express Listings Section -->
+<section id="express-listings" class="py-16">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-3xl font-bold text-slate-900 dark:text-white">🚖 Priority Express Listings</h2>
+                <div class="flex gap-4">
+                    <select id="listing-filter" class="px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-800 text-slate-900 dark:text-white">
+                        <option value="all">All Listings</option>
+                        <option value="hot">🔥 Hot Deals</option>
+                        <option value="new">🆕 New This Week</option>
+                        <option value="price-low">💰 Under $500K</option>
+                        <option value="price-high">💎 Premium ($1M+)</option>
+                    </select>
+                    <button class="bg-accent hover:bg-accent-dark text-white font-medium py-2 px-4 rounded-md transition-colors">
+                        View All Listings
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Express Listings Grid -->
+            <div id="listings-grid" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Listings will be populated by JavaScript -->
+            </div>
+
+            <!-- Load More Button -->
+            <div class="text-center mt-12">
+                <button id="load-more-btn" class="bg-slate-600 hover:bg-slate-700 text-white font-medium py-3 px-8 rounded-md transition-colors">
+                    Load More Listings
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Express Listings JavaScript -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Sample listings data
+    const sampleListings = [
+        {
+            id: 1,
+            name: "Premier Auto Service Center",
+            location: "Plano, TX",
+            price: 850000,
+            cashFlow: 285000,
+            type: "Full Service",
+            image: "https://images.unsplash.com/photo-1632823469850-1b7b1e8b7e1e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+            badges: ["express-seller", "hot-deal"],
+            description: "Established full-service shop in prime Plano location with loyal customer base.",
+            submittedDays: 2
+        },
+        {
+            id: 2,
+            name: "Elite Transmission Specialists",
+            location: "Arlington, TX",
+            price: 650000,
+            cashFlow: 195000,
+            type: "Transmission",
+            image: "https://images.unsplash.com/photo-1486754735734-325b5831c3ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+            badges: ["express-seller"],
+            description: "Specialized transmission shop with 25+ years in business and excellent reputation.",
+            submittedDays: 1
+        },
+        {
+            id: 3,
+            name: "DFW Collision Center",
+            location: "Fort Worth, TX",
+            price: 1200000,
+            cashFlow: 350000,
+            type: "Body Shop",
+            image: "https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+            badges: ["verified"],
+            description: "Established auto body shop with insurance partnerships and modern equipment.",
+            submittedDays: 5
+        },
+        {
+            id: 4,
+            name: "Quick Lube Express",
+            location: "Dallas, TX",
+            price: 450000,
+            cashFlow: 125000,
+            type: "Quick Lube",
+            image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+            badges: ["express-seller", "new"],
+            description: "High-volume quick lube with excellent location and steady customer flow.",
+            submittedDays: 0
+        }
+    ];
+
+    // Express Listings utilities
+    window.ExpressListings = {
+        currentListings: sampleListings,
+        displayedCount: 2,
+
+        // Format currency
+        formatCurrency: function(amount) {
+            return new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            }).format(amount);
+        },
+
+        // Get badge HTML
+        getBadgeHTML: function(badges) {
+            const badgeMap = {
+                'express-seller': '<div class="absolute top-4 right-4 bg-accent text-white text-xs font-bold px-2 py-1 rounded">🚖 Express Seller</div>',
+                'hot-deal': '<div class="absolute top-4 left-4 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">🔥 Hot Deal</div>',
+                'verified': '<div class="absolute top-4 right-4 bg-blue-500 text-white text-xs font-bold px-2 py-1 rounded">✓ Verified</div>',
+                'new': '<div class="absolute top-4 left-4 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded">🆕 New</div>'
+            };
+            
+            return badges.map(badge => badgeMap[badge] || '').join('');
+        },
+
+        // Create listing card HTML
+        createListingCard: function(listing) {
+            return `
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow-lg border border-slate-200 dark:border-slate-700 overflow-hidden card-hover">
+                    <div class="relative">
+                        <img src="${listing.image}" alt="${listing.name}" class="w-full h-48 object-cover">
+                        ${this.getBadgeHTML(listing.badges)}
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-primary-light/20 text-primary-dark dark:text-primary-light text-xs font-medium px-2.5 py-0.5 rounded">${listing.type}</span>
+                            <div class="ml-auto flex items-center text-sm text-slate-600 dark:text-slate-400">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                                ${listing.location}
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-2">${listing.name}</h3>
+                        <p class="text-slate-600 dark:text-slate-300 mb-4 line-clamp-2">${listing.description}</p>
+                        <div class="grid grid-cols-2 gap-4 mb-4">
+                            <div>
+                                <div class="text-sm text-slate-500 dark:text-slate-400">Asking Price</div>
+                                <div class="text-lg font-bold text-primary-dark">${this.formatCurrency(listing.price)}</div>
+                            </div>
+                            <div>
+                                <div class="text-sm text-slate-500 dark:text-slate-400">Cash Flow</div>
+                                <div class="text-lg font-bold text-primary-dark">${this.formatCurrency(listing.cashFlow)}/year</div>
+                            </div>
+                        </div>
+                        <div class="flex gap-3">
+                            <button onclick="window.ExpressListings.viewDealRoom(${listing.id})" class="flex-1 bg-primary-dark hover:bg-primary text-white font-medium py-2 px-4 rounded-md transition-colors">
+                                View Deal Room
+                            </button>
+                            <button onclick="window.ExpressListings.saveListing(${listing.id})" class="bg-slate-200 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 font-medium py-2 px-4 rounded-md transition-colors">
+                                Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        },
+
+        // Render listings
+        renderListings: function(listings = null) {
+            const grid = document.getElementById('listings-grid');
+            const listingsToShow = listings || this.currentListings.slice(0, this.displayedCount);
+            
+            grid.innerHTML = listingsToShow.map(listing => this.createListingCard(listing)).join('');
+        },
+
+        // Filter listings
+        filterListings: function(filterType) {
+            let filtered = [...this.currentListings];
+            
+            switch(filterType) {
+                case 'hot':
+                    filtered = filtered.filter(listing => listing.badges.includes('hot-deal'));
+                    break;
+                case 'new':
+                    filtered = filtered.filter(listing => listing.badges.includes('new') || listing.submittedDays <= 1);
+                    break;
+                case 'price-low':
+                    filtered = filtered.filter(listing => listing.price < 500000);
+                    break;
+                case 'price-high':
+                    filtered = filtered.filter(listing => listing.price >= 1000000);
+                    break;
+                default:
+                    // Show all
+                    break;
+            }
+            
+            this.renderListings(filtered);
+        },
+
+        // Load more listings
+        loadMore: function() {
+            this.displayedCount += 2;
+            this.renderListings();
+            
+            if (this.displayedCount >= this.currentListings.length) {
+                document.getElementById('load-more-btn').style.display = 'none';
+            }
+        },
+
+        // View deal room
+        viewDealRoom: function(listingId) {
+            window.PortalUtils.showNotification(`Opening Deal Room for listing ${listingId}...`, 'info');
+            // Simulate navigation to deal room
+            setTimeout(() => {
+                window.location.href = `#deal-room-${listingId}`;
+            }, 1000);
+        },
+
+        // Save listing
+        saveListing: function(listingId) {
+            window.PortalUtils.showNotification('Listing saved to your favorites!', 'success');
+        },
+
+        // Initialize
+        init: function() {
+            this.renderListings();
+            
+            // Set up filter
+            const filterSelect = document.getElementById('listing-filter');
+            filterSelect.addEventListener('change', (e) => {
+                this.filterListings(e.target.value);
+            });
+            
+            // Set up load more button
+            const loadMoreBtn = document.getElementById('load-more-btn');
+            loadMoreBtn.addEventListener('click', () => {
+                this.loadMore();
+            });
+        }
+    };
+
+    // Initialize when loaded
+    window.ExpressListings.init();
+});
+</script>

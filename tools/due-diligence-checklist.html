@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Express Due Diligence Checklist - AutoRepairMart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            DEFAULT: '#3b82f6',
+                            dark: '#2563eb',
+                            light: '#93c5fd',
+                        },
+                        secondary: {
+                            DEFAULT: '#64748b',
+                            light: '#f1f5f9',
+                        },
+                        accent: {
+                            DEFAULT: '#10b981',
+                            dark: '#059669',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-sans text-slate-800 bg-white dark:bg-slate-900 dark:text-slate-200">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white dark:bg-slate-900 shadow-sm">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex-shrink-0">
+                    <a href="../index.html" class="flex items-center">
+                        <span class="text-2xl font-bold text-primary-dark dark:text-primary-light">Ardonie Capital</span>
+                    </a>
+                </div>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="../express-deal.html" class="text-accent-dark hover:text-accent dark:text-accent-light font-medium">🚖 Express Deal</a>
+                    <a href="../marketplace/listings.html" class="text-slate-600 hover:text-primary-dark dark:text-slate-300 dark:hover:text-primary-light">Browse Listings</a>
+                    <a href="../auth/login.html" class="text-slate-600 hover:text-primary-dark dark:text-slate-300 dark:hover:text-primary-light">Login</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="min-h-screen bg-slate-50 dark:bg-slate-900">
+        <!-- Hero Section -->
+        <section class="bg-gradient-to-br from-accent/10 to-primary/10 dark:from-accent/20 dark:to-primary/20 py-16">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-4xl mx-auto text-center">
+                    <div class="mb-6">
+                        <span class="inline-flex items-center px-4 py-2 rounded-full text-lg font-bold bg-accent text-white">
+                            📋 Express Due Diligence Checklist
+                        </span>
+                    </div>
+                    <h1 class="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">
+                        34-Day Express Due Diligence
+                    </h1>
+                    <p class="text-xl text-slate-600 dark:text-slate-300 mb-8 max-w-3xl mx-auto">
+                        Streamlined checklist for Express Buyers and Express Sellers to complete due diligence in 14 days (Days 15-28 of the Express Process).
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Checklist Section -->
+        <section class="py-16">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-4xl mx-auto">
+                    <!-- Financial Documents -->
+                    <div class="bg-white dark:bg-slate-800 rounded-lg shadow-lg border border-slate-200 dark:border-slate-700 p-8 mb-8">
+                        <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-6 flex items-center">
+                            <span class="bg-primary/10 text-primary-dark rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">1</span>
+                            Financial Documentation Review
+                        </h2>
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <input type="checkbox" id="financial-1" class="mt-1 mr-3 h-5 w-5 text-accent border-slate-300 rounded focus:ring-accent">
+                                <label for="financial-1" class="text-slate-700 dark:text-slate-300">
+                                    <strong>3-Year P&L Statements</strong> - CPA-verified profit and loss statements (pre-verified for Express Sellers)
+                                </label>
+                            </div>
+                            <div class="flex items-start">
+                                <input type="checkbox" id="financial-2" class="mt-1 mr-3 h-5 w-5 text-accent border-slate-300 rounded focus:ring-accent">
+                                <label for="financial-2" class="text-slate-700 dark:text-slate-300">
+                                    <strong>Tax Returns</strong> - Business tax returns for past 3 years
+                                </label>
+                            </div>
+                            <div class="flex items-start">
+                                <input type="checkbox" id="financial-3" class="mt-1 mr-3 h-5 w-5 text-accent border-slate-300 rounded focus:ring-accent">
+                                <label for="financial-3" class="text-slate-700 dark:text-slate-300">
+                                    <strong>Cash Flow Analysis</strong> - Monthly cash flow for past 24 months
+                                </label>
+                            </div>
+                            <div class="flex items-start">
+                                <input type="checkbox" id="financial-4" class="mt-1 mr-3 h-5 w-5 text-accent border-slate-300 rounded focus:ring-accent">
+                                <label for="financial-4" class="text-slate-700 dark:text-slate-300">
+                                    <strong>Bank Statements</strong> - Business bank statements for past 12 months
+                                </label>
+                            </div>
+                            <div class="flex items-start">
+                                <input type="checkbox" id="financial-5" class="mt-1 mr-3 h-5 w-5 text-accent border-slate-300 rounded focus:ring-accent">
+                                <label for="financial-5" class="text-slate-700 dark:text-slate-300">
+                                    <strong>Professional Valuation</strong> - Independent business valuation report (included for Express Sellers)
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Legal Documents -->
+                    <div class="bg-white dark:bg-slate-800 rounded-lg shadow-lg border border-slate-200 dark:border-slate-700 p-8 mb-8">
+                        <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-6 flex items-center">
+                            <span class="bg-primary/10 text-primary-dark rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">2</span>
+                            Legal & Regulatory Compliance
+                        </h2>
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <input type="checkbox" id="legal-1" class="mt-1 mr-3 h-5 w-5 text-accent border-slate-300 rounded focus:ring-accent">
+                                <label for="legal-1" class="text-slate-700 dark:text-slate-300">
+                                    <strong>Business License</strong> - Current Texas business license and DFW city permits
+                                </label>
+                            </div>
+                            <div class="flex items-start">
+                                <input type="checkbox" id="legal-2" class="mt-1 mr-3 h-5 w-5 text-accent border-slate-300 rounded focus:ring-accent">
+                                <label for="legal-2" class="text-slate-700 dark:text-slate-300">
+                                    <strong>Environmental Compliance</strong> - EPA compliance certificates and waste disposal records
+                                </label>
+                            </div>
+                            <div class="flex items-start">
+                                <input type="checkbox" id="legal-3" class="mt-1 mr-3 h-5 w-5 text-accent border-slate-300 rounded focus:ring-accent">
+                                <label for="legal-3" class="text-slate-700 dark:text-slate-300">
+                                    <strong>Lease Agreement</strong> - Property lease terms, renewal options, and landlord consent
+                                </label>
+                            </div>
+                            <div class="flex items-start">
+                                <input type="checkbox" id="legal-4" class="mt-1 mr-3 h-5 w-5 text-accent border-slate-300 rounded focus:ring-accent">
+                                <label for="legal-4" class="text-slate-700 dark:text-slate-300">
+                                    <strong>Insurance Policies</strong> - General liability, workers comp, and professional insurance
+                                </label>
+                            </div>
+                            <div class="flex items-start">
+                                <input type="checkbox" id="legal-5" class="mt-1 mr-3 h-5 w-5 text-accent border-slate-300 rounded focus:ring-accent">
+                                <label for="legal-5" class="text-slate-700 dark:text-slate-300">
+                                    <strong>Employee Agreements</strong> - Employment contracts, non-compete agreements, and HR records
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Operations Review -->
+                    <div class="bg-white dark:bg-slate-800 rounded-lg shadow-lg border border-slate-200 dark:border-slate-700 p-8 mb-8">
+                        <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-6 flex items-center">
+                            <span class="bg-primary/10 text-primary-dark rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">3</span>
+                            Operations & Equipment Assessment
+                        </h2>
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <input type="checkbox" id="operations-1" class="mt-1 mr-3 h-5 w-5 text-accent border-slate-300 rounded focus:ring-accent">
+                                <label for="operations-1" class="text-slate-700 dark:text-slate-300">
+                                    <strong>Equipment Inventory</strong> - Complete list of tools, lifts, diagnostic equipment with values
+                                </label>
+                            </div>
+                            <div class="flex items-start">
+                                <input type="checkbox" id="operations-2" class="mt-1 mr-3 h-5 w-5 text-accent border-slate-300 rounded focus:ring-accent">
+                                <label for="operations-2" class="text-slate-700 dark:text-slate-300">
+                                    <strong>Customer Database</strong> - Customer list, service history, and retention metrics
+                                </label>
+                            </div>
+                            <div class="flex items-start">
+                                <input type="checkbox" id="operations-3" class="mt-1 mr-3 h-5 w-5 text-accent border-slate-300 rounded focus:ring-accent">
+                                <label for="operations-3" class="text-slate-700 dark:text-slate-300">
+                                    <strong>Vendor Relationships</strong> - Parts suppliers, service contracts, and payment terms
+                                </label>
+                            </div>
+                            <div class="flex items-start">
+                                <input type="checkbox" id="operations-4" class="mt-1 mr-3 h-5 w-5 text-accent border-slate-300 rounded focus:ring-accent">
+                                <label for="operations-4" class="text-slate-700 dark:text-slate-300">
+                                    <strong>Technology Systems</strong> - POS system, management software, and digital tools
+                                </label>
+                            </div>
+                            <div class="flex items-start">
+                                <input type="checkbox" id="operations-5" class="mt-1 mr-3 h-5 w-5 text-accent border-slate-300 rounded focus:ring-accent">
+                                <label for="operations-5" class="text-slate-700 dark:text-slate-300">
+                                    <strong>Physical Inspection</strong> - Facility condition, safety compliance, and maintenance records
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Market Analysis -->
+                    <div class="bg-white dark:bg-slate-800 rounded-lg shadow-lg border border-slate-200 dark:border-slate-700 p-8 mb-8">
+                        <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-6 flex items-center">
+                            <span class="bg-primary/10 text-primary-dark rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">4</span>
+                            Market & Competition Analysis
+                        </h2>
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <input type="checkbox" id="market-1" class="mt-1 mr-3 h-5 w-5 text-accent border-slate-300 rounded focus:ring-accent">
+                                <label for="market-1" class="text-slate-700 dark:text-slate-300">
+                                    <strong>Local Competition</strong> - Analysis of competing auto repair shops within 5-mile radius
+                                </label>
+                            </div>
+                            <div class="flex items-start">
+                                <input type="checkbox" id="market-2" class="mt-1 mr-3 h-5 w-5 text-accent border-slate-300 rounded focus:ring-accent">
+                                <label for="market-2" class="text-slate-700 dark:text-slate-300">
+                                    <strong>Demographics</strong> - Local area demographics and vehicle ownership statistics
+                                </label>
+                            </div>
+                            <div class="flex items-start">
+                                <input type="checkbox" id="market-3" class="mt-1 mr-3 h-5 w-5 text-accent border-slate-300 rounded focus:ring-accent">
+                                <label for="market-3" class="text-slate-700 dark:text-slate-300">
+                                    <strong>Online Presence</strong> - Google reviews, website, social media, and digital reputation
+                                </label>
+                            </div>
+                            <div class="flex items-start">
+                                <input type="checkbox" id="market-4" class="mt-1 mr-3 h-5 w-5 text-accent border-slate-300 rounded focus:ring-accent">
+                                <label for="market-4" class="text-slate-700 dark:text-slate-300">
+                                    <strong>Growth Opportunities</strong> - Potential for expansion, new services, or market penetration
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Progress Tracker -->
+                    <div class="bg-accent/10 rounded-lg p-8 text-center">
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-4">Due Diligence Progress</h3>
+                        <div class="bg-white dark:bg-slate-800 rounded-lg p-4 mb-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm text-slate-600 dark:text-slate-400">Completion Progress</span>
+                                <span id="progress-percentage" class="text-sm font-medium text-accent-dark">0%</span>
+                            </div>
+                            <div class="bg-slate-200 dark:bg-slate-600 h-3 rounded-full">
+                                <div id="progress-bar" class="bg-accent h-3 rounded-full transition-all duration-300" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <p class="text-slate-600 dark:text-slate-300 mb-6">
+                            Complete all checklist items to proceed to Express Close (Days 29-34)
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                            <button id="save-progress" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary-dark hover:bg-primary shadow-sm hover:shadow transition-all">
+                                Save Progress
+                            </button>
+                            <button id="export-checklist" class="inline-flex items-center px-6 py-3 border border-slate-300 dark:border-slate-600 text-base font-medium rounded-md text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all">
+                                Export Checklist
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white py-8">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <div class="text-2xl font-bold text-primary-light mb-4">Ardonie Capital</div>
+                <p class="text-slate-400 mb-4">Express Due Diligence for 34-day closings</p>
+                <div class="flex justify-center space-x-6">
+                    <a href="../privacy.html" class="text-slate-400 hover:text-white">Privacy Policy</a>
+                    <a href="../terms.html" class="text-slate-400 hover:text-white">Terms of Service</a>
+                    <a href="../contact.html" class="text-slate-400 hover:text-white">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Progress Tracking -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            const progressBar = document.getElementById('progress-bar');
+            const progressPercentage = document.getElementById('progress-percentage');
+
+            function updateProgress() {
+                const totalCheckboxes = checkboxes.length;
+                const checkedBoxes = document.querySelectorAll('input[type="checkbox"]:checked').length;
+                const percentage = Math.round((checkedBoxes / totalCheckboxes) * 100);
+
+                progressBar.style.width = percentage + '%';
+                progressPercentage.textContent = percentage + '%';
+            }
+
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', updateProgress);
+            });
+
+            // Save progress functionality
+            document.getElementById('save-progress').addEventListener('click', function() {
+                const checkedItems = [];
+                checkboxes.forEach(checkbox => {
+                    if (checkbox.checked) {
+                        checkedItems.push(checkbox.id);
+                    }
+                });
+                localStorage.setItem('dueDiligenceProgress', JSON.stringify(checkedItems));
+                alert('Progress saved successfully!');
+            });
+
+            // Load saved progress
+            const savedProgress = localStorage.getItem('dueDiligenceProgress');
+            if (savedProgress) {
+                const checkedItems = JSON.parse(savedProgress);
+                checkedItems.forEach(itemId => {
+                    const checkbox = document.getElementById(itemId);
+                    if (checkbox) {
+                        checkbox.checked = true;
+                    }
+                });
+                updateProgress();
+            }
+
+            // Export functionality
+            document.getElementById('export-checklist').addEventListener('click', function() {
+                alert('Export functionality would generate a PDF report of the checklist progress.');
+            });
+        });
+    </script>
+</body>
+</html>

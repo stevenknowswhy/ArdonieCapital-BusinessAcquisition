@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buyer Portal - AutoRepairMart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="../assets/css/common.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            DEFAULT: '#3b82f6',
+                            dark: '#2563eb',
+                            light: '#93c5fd',
+                        },
+                        secondary: {
+                            DEFAULT: '#64748b',
+                            light: '#f1f5f9',
+                        },
+                        accent: {
+                            DEFAULT: '#10b981',
+                            dark: '#059669',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-sans text-slate-800 bg-white dark:bg-slate-900 dark:text-slate-200 portal-buyer">
+
+    <!-- Portal Header -->
+    <div id="portal-header"></div>
+
+    <main class="min-h-screen bg-slate-50 dark:bg-slate-900">
+        <!-- Dashboard Section -->
+        <div id="buyer-dashboard"></div>
+
+        <!-- Express Listings Section -->
+        <div id="express-listings"></div>
+
+        <!-- Active Deals Section -->
+        <div id="active-deals"></div>
+
+        <!-- Financing Section -->
+        <div id="financing-section"></div>
+    </main>
+
+    <!-- Portal Footer -->
+    <div id="portal-footer"></div>
+
+    <!-- Load Portal Components and Sections -->
+    <script>
+        // Portal configuration
+        window.PortalConfig = {
+            portalType: 'buyer',
+            userRole: 'Express Buyer',
+            apiEndpoint: '/api/portals/buyer/',
+            features: {
+                notifications: true,
+                darkMode: true,
+                realTimeUpdates: true
+            }
+        };
+
+        // Function to load HTML content into a div
+        function loadSection(sectionId, filePath) {
+            fetch(filePath)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById(sectionId).innerHTML = data;
+                })
+                .catch(error => {
+                    console.error('Error loading section:', error);
+                });
+        }
+
+        // Load all portal components and sections
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load components
+            loadSection('portal-header', 'components/portal-header.html');
+            loadSection('portal-footer', 'components/portal-footer.html');
+            
+            // Load sections
+            loadSection('buyer-dashboard', 'sections/buyer/dashboard.html');
+            loadSection('express-listings', 'sections/buyer/express-listings.html');
+            loadSection('active-deals', 'sections/buyer/active-deals.html');
+            loadSection('financing-section', 'sections/buyer/financing.html');
+
+            // Configure portal after components load
+            setTimeout(() => {
+                configureBuyerPortal();
+            }, 500);
+        });
+
+        // Configure buyer portal specific settings
+        function configureBuyerPortal() {
+            // Set portal title
+            document.title = 'Buyer Portal - AutoRepairMart';
+            
+            // Configure header
+            if (window.PortalHeader) {
+                window.PortalHeader.setBadge('🏢 Buyer Portal', 'bg-green-100 text-green-800');
+                window.PortalHeader.setUser('Michael Chen', 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=32&h=32&q=80');
+                window.PortalHeader.setNavigation([
+                    { href: '#buyer-dashboard', text: 'Dashboard', active: true },
+                    { href: '#express-listings', text: 'Express Listings', active: false },
+                    { href: '#active-deals', text: 'My Deals', active: false },
+                    { href: '#financing-section', text: 'Financing', active: false }
+                ]);
+                window.PortalHeader.setNotificationCount(3);
+            }
+
+            // Configure footer
+            if (window.PortalFooter) {
+                window.PortalFooter.setDescription('🏢 Buyer Portal - Your Express Path to Auto Shop Ownership');
+                window.PortalFooter.setTagline('Express Buyer portal for 34-day acquisitions.');
+                window.PortalFooter.setStatus('🚖 Express Buyer Active');
+                window.PortalFooter.setQuickLinks([
+                    { href: '#express-listings', text: '🔍 Browse Express Listings' },
+                    { href: '#active-deals', text: '📋 My Active Deals' },
+                    { href: '#financing-section', text: '💰 Financing Dashboard' },
+                    { href: '../tools/due-diligence-checklist.html', text: '📊 Due Diligence Tools' },
+                    { href: '../education/guides.html', text: '📚 Buyer Resources' }
+                ]);
+            }
+
+            // Load common utilities
+            if (window.AutoRepairMart) {
+                window.AutoRepairMart.showToast('Welcome to your Buyer Portal!', 'success');
+            }
+        }
+
+        // Buyer portal specific utilities
+        window.BuyerPortal = {
+            // Navigate to section
+            navigateToSection: function(sectionId) {
+                const element = document.getElementById(sectionId);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                    
+                    // Update active navigation
+                    if (window.PortalHeader) {
+                        const navItems = [
+                            { href: '#buyer-dashboard', text: 'Dashboard', active: sectionId === 'buyer-dashboard' },
+                            { href: '#express-listings', text: 'Express Listings', active: sectionId === 'express-listings' },
+                            { href: '#active-deals', text: 'My Deals', active: sectionId === 'active-deals' },
+                            { href: '#financing-section', text: 'Financing', active: sectionId === 'financing-section' }
+                        ];
+                        window.PortalHeader.setNavigation(navItems);
+                    }
+                }
+            },
+
+            // Refresh portal data
+            refreshData: function() {
+                if (window.BuyerDashboard) window.BuyerDashboard.loadData();
+                if (window.ExpressListings) window.ExpressListings.init();
+                if (window.ActiveDeals) window.ActiveDeals.init();
+                if (window.AutoRepairMart) {
+                    window.AutoRepairMart.showToast('Portal data refreshed', 'success');
+                }
+            },
+
+            // Get buyer statistics
+            getStats: function() {
+                return {
+                    financingAmount: '$1.2M',
+                    activeDeals: 2,
+                    daysRemaining: 12,
+                    completedDeals: 0,
+                    savedListings: 5
+                };
+            }
+        };
+
+        // Handle navigation clicks
+        document.addEventListener('click', function(event) {
+            if (event.target.tagName === 'A' && event.target.getAttribute('href').startsWith('#')) {
+                event.preventDefault();
+                const sectionId = event.target.getAttribute('href').substring(1);
+                window.BuyerPortal.navigateToSection(sectionId);
+            }
+        });
+
+        // Load common JavaScript utilities
+        const script = document.createElement('script');
+        script.src = '../assets/js/common.js';
+        document.head.appendChild(script);
+    </script>
+
+</body>
+</html>

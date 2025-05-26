@@ -1,0 +1,293 @@
+<!-- Buyer Interest Section -->
+<section id="buyer-interest" class="py-16">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-3xl font-bold text-slate-900 dark:text-white">Buyer Interest</h2>
+                <div class="flex gap-4">
+                    <select id="interest-filter" name="filter" aria-label="Filter buyer interest" class="px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-800 text-slate-900 dark:text-white">
+                        <option value="all">All Inquiries</option>
+                        <option value="express">Express Buyers Only</option>
+                        <option value="qualified">Qualified Buyers</option>
+                        <option value="recent">Recent Inquiries</option>
+                    </select>
+                    <button type="button" class="bg-amber-500 hover:bg-amber-600 text-white font-medium py-2 px-4 rounded-md transition-colors">
+                        Export List
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Interest Summary -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                    <div class="text-2xl font-bold text-slate-900 dark:text-white">8</div>
+                    <div class="text-sm text-slate-600 dark:text-slate-400">Total Interested Buyers</div>
+                </div>
+                <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                    <div class="text-2xl font-bold text-green-600">3</div>
+                    <div class="text-sm text-slate-600 dark:text-slate-400">Express Buyers</div>
+                </div>
+                <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                    <div class="text-2xl font-bold text-blue-600">5</div>
+                    <div class="text-sm text-slate-600 dark:text-slate-400">New This Week</div>
+                </div>
+                <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                    <div class="text-2xl font-bold text-orange-600">2</div>
+                    <div class="text-sm text-slate-600 dark:text-slate-400">Awaiting Response</div>
+                </div>
+            </div>
+
+            <!-- Buyer Interest List -->
+            <div class="space-y-6">
+                <!-- Express Buyer 1 -->
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 p-6">
+                    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+                        <div class="flex-1">
+                            <div class="flex items-center mb-2">
+                                <h3 class="text-lg font-semibold text-slate-900 dark:text-white mr-3">Michael Chen</h3>
+                                <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">🚖 Express Buyer</span>
+                                <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded ml-2">Pre-Approved</span>
+                            </div>
+                            <p class="text-slate-600 dark:text-slate-300 mb-2">Interested in transmission shop • Financing: Pre-approved up to $1.2M</p>
+                            <div class="flex items-center text-sm text-slate-500 dark:text-slate-400">
+                                <span class="mr-4">Inquired: 2 days ago</span>
+                                <span class="mr-4">Experience: 15 years automotive</span>
+                                <span>Location: Dallas, TX</span>
+                            </div>
+                            <div class="mt-3">
+                                <p class="text-sm text-slate-700 dark:text-slate-300 italic">"Very interested in your transmission shop. I have 15 years experience in automotive repair and am looking to expand into transmission work. Would like to schedule a visit."</p>
+                            </div>
+                        </div>
+                        <div class="mt-4 lg:mt-0 lg:ml-6">
+                            <div class="flex gap-3">
+                                <button type="button" class="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md transition-colors">
+                                    Respond
+                                </button>
+                                <button type="button" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition-colors">
+                                    Schedule Visit
+                                </button>
+                                <button type="button" class="bg-slate-600 hover:bg-slate-700 text-white font-medium py-2 px-4 rounded-md transition-colors">
+                                    View Profile
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Express Buyer 2 -->
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 p-6">
+                    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+                        <div class="flex-1">
+                            <div class="flex items-center mb-2">
+                                <h3 class="text-lg font-semibold text-slate-900 dark:text-white mr-3">Jennifer Park</h3>
+                                <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">🚖 Express Buyer</span>
+                                <span class="bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded ml-2">Awaiting Response</span>
+                            </div>
+                            <p class="text-slate-600 dark:text-slate-300 mb-2">Interested in acquisition • Financing: SBA pre-approved</p>
+                            <div class="flex items-center text-sm text-slate-500 dark:text-slate-400">
+                                <span class="mr-4">Inquired: 1 day ago</span>
+                                <span class="mr-4">Experience: Business owner</span>
+                                <span>Location: Plano, TX</span>
+                            </div>
+                            <div class="mt-3">
+                                <p class="text-sm text-slate-700 dark:text-slate-300 italic">"I own two other auto repair shops and am looking to add a transmission specialist to my portfolio. What equipment is included in the sale?"</p>
+                            </div>
+                        </div>
+                        <div class="mt-4 lg:mt-0 lg:ml-6">
+                            <div class="flex gap-3">
+                                <button type="button" class="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md transition-colors">
+                                    Respond
+                                </button>
+                                <button type="button" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition-colors">
+                                    Schedule Visit
+                                </button>
+                                <button type="button" class="bg-slate-600 hover:bg-slate-700 text-white font-medium py-2 px-4 rounded-md transition-colors">
+                                    View Profile
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Regular Buyer -->
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 p-6">
+                    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+                        <div class="flex-1">
+                            <div class="flex items-center mb-2">
+                                <h3 class="text-lg font-semibold text-slate-900 dark:text-white mr-3">David Thompson</h3>
+                                <span class="bg-slate-100 text-slate-800 text-xs font-medium px-2.5 py-0.5 rounded">Regular Buyer</span>
+                            </div>
+                            <p class="text-slate-600 dark:text-slate-300 mb-2">General inquiry • Financing: Traditional loan</p>
+                            <div class="flex items-center text-sm text-slate-500 dark:text-slate-400">
+                                <span class="mr-4">Inquired: 3 days ago</span>
+                                <span class="mr-4">Experience: First-time buyer</span>
+                                <span>Location: Fort Worth, TX</span>
+                            </div>
+                            <div class="mt-3">
+                                <p class="text-sm text-slate-700 dark:text-slate-300 italic">"I'm interested in learning more about your business. This would be my first auto shop purchase. Can we discuss the training and transition process?"</p>
+                            </div>
+                        </div>
+                        <div class="mt-4 lg:mt-0 lg:ml-6">
+                            <div class="flex gap-3">
+                                <button type="button" class="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md transition-colors">
+                                    Respond
+                                </button>
+                                <button type="button" class="bg-slate-600 hover:bg-slate-700 text-white font-medium py-2 px-4 rounded-md transition-colors">
+                                    View Profile
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Inquiry -->
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 p-6">
+                    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+                        <div class="flex-1">
+                            <div class="flex items-center mb-2">
+                                <h3 class="text-lg font-semibold text-slate-900 dark:text-white mr-3">Lisa Rodriguez</h3>
+                                <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">🚖 Express Buyer</span>
+                                <span class="bg-orange-100 text-orange-800 text-xs font-medium px-2.5 py-0.5 rounded ml-2">New</span>
+                            </div>
+                            <p class="text-slate-600 dark:text-slate-300 mb-2">Serious buyer inquiry • Financing: Cash + SBA</p>
+                            <div class="flex items-center text-sm text-slate-500 dark:text-slate-400">
+                                <span class="mr-4">Inquired: 4 hours ago</span>
+                                <span class="mr-4">Experience: 20 years automotive</span>
+                                <span>Location: Arlington, TX</span>
+                            </div>
+                            <div class="mt-3">
+                                <p class="text-sm text-slate-700 dark:text-slate-300 italic">"I'm very interested in your transmission shop. I have significant cash down and SBA pre-approval. Available to visit this week."</p>
+                            </div>
+                        </div>
+                        <div class="mt-4 lg:mt-0 lg:ml-6">
+                            <div class="flex gap-3">
+                                <button type="button" class="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md transition-colors">
+                                    Respond
+                                </button>
+                                <button type="button" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition-colors">
+                                    Schedule Visit
+                                </button>
+                                <button type="button" class="bg-slate-600 hover:bg-slate-700 text-white font-medium py-2 px-4 rounded-md transition-colors">
+                                    View Profile
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Response Templates -->
+            <div class="mt-12 bg-slate-50 dark:bg-slate-700 rounded-lg p-6 border border-slate-200 dark:border-slate-600">
+                <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-4">Quick Response Templates</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <button type="button" class="text-left p-4 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-amber-300 transition-colors">
+                        <div class="font-medium text-slate-900 dark:text-white mb-2">Thank You for Interest</div>
+                        <div class="text-sm text-slate-600 dark:text-slate-400">Standard acknowledgment response</div>
+                    </button>
+                    <button type="button" class="text-left p-4 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-amber-300 transition-colors">
+                        <div class="font-medium text-slate-900 dark:text-white mb-2">Schedule Visit</div>
+                        <div class="text-sm text-slate-600 dark:text-slate-400">Invite for shop tour and meeting</div>
+                    </button>
+                    <button type="button" class="text-left p-4 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-amber-300 transition-colors">
+                        <div class="font-medium text-slate-900 dark:text-white mb-2">Request Qualification</div>
+                        <div class="text-sm text-slate-600 dark:text-slate-400">Ask for financing pre-approval</div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Buyer Interest JavaScript -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Buyer interest utilities
+    window.BuyerInterest = {
+        // Respond to buyer
+        respondToBuyer: function(buyerName) {
+            if (window.PortalUtils) {
+                window.PortalUtils.showNotification(`Opening message composer for ${buyerName}...`, 'info');
+            }
+            // Simulate opening message composer
+            setTimeout(() => {
+                if (window.PortalUtils) {
+                    window.PortalUtils.showNotification('Message composer opened', 'success');
+                }
+            }, 1000);
+        },
+
+        // Schedule visit
+        scheduleVisit: function(buyerName) {
+            if (window.PortalUtils) {
+                window.PortalUtils.showNotification(`Opening calendar to schedule visit with ${buyerName}...`, 'info');
+            }
+            // Simulate opening calendar
+            setTimeout(() => {
+                if (window.PortalUtils) {
+                    window.PortalUtils.showNotification('Calendar opened for scheduling', 'success');
+                }
+            }, 1000);
+        },
+
+        // View buyer profile
+        viewProfile: function(buyerName) {
+            if (window.PortalUtils) {
+                window.PortalUtils.showNotification(`Opening profile for ${buyerName}...`, 'info');
+            }
+            // Simulate opening profile
+            setTimeout(() => {
+                window.location.href = '#buyer-profile';
+            }, 1000);
+        },
+
+        // Filter interest
+        filterInterest: function(filterType) {
+            if (window.PortalUtils) {
+                window.PortalUtils.showNotification(`Filtering by: ${filterType}`, 'info');
+            }
+            // Simulate filtering
+        },
+
+        // Initialize
+        init: function() {
+            // Set up filter
+            const filterSelect = document.getElementById('interest-filter');
+            if (filterSelect) {
+                filterSelect.addEventListener('change', (e) => {
+                    this.filterInterest(e.target.value);
+                });
+            }
+
+            // Set up response buttons
+            const responseButtons = document.querySelectorAll('button:contains("Respond")');
+            responseButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const buyerName = btn.closest('.bg-white, .dark\\:bg-slate-800').querySelector('h3').textContent;
+                    this.respondToBuyer(buyerName);
+                });
+            });
+
+            // Set up schedule buttons
+            const scheduleButtons = document.querySelectorAll('button:contains("Schedule Visit")');
+            scheduleButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const buyerName = btn.closest('.bg-white, .dark\\:bg-slate-800').querySelector('h3').textContent;
+                    this.scheduleVisit(buyerName);
+                });
+            });
+
+            // Set up profile buttons
+            const profileButtons = document.querySelectorAll('button:contains("View Profile")');
+            profileButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const buyerName = btn.closest('.bg-white, .dark\\:bg-slate-800').querySelector('h3').textContent;
+                    this.viewProfile(buyerName);
+                });
+            });
+        }
+    };
+
+    // Initialize when loaded
+    window.BuyerInterest.init();
+});
+</script>

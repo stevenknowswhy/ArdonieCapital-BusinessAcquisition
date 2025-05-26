@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - AutoRepairMart DFW Auto Shop Marketplace</title>
+    <meta name="description" content="Contact AutoRepairMart for questions about buying or selling auto repair shops in DFW. Get expert support for your Express Path transaction.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#3b82f6',
+                        'primary-dark': '#2563eb',
+                        'primary-light': '#60a5fa',
+                        'secondary': '#64748b',
+                        'secondary-light': '#f1f5f9',
+                        'accent': '#10b981',
+                        'accent-dark': '#059669'
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-white dark:bg-slate-900 text-slate-900 dark:text-white">
+    <!-- Header -->
+    <header class="bg-white dark:bg-slate-900 shadow-sm border-b border-slate-200 dark:border-slate-800">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <a href="index.html" class="flex items-center">
+                        <span class="text-2xl font-bold text-primary-dark dark:text-primary-light">AutoRepairMart</span>
+                    </a>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="index.html" class="text-slate-600 hover:text-primary-dark dark:text-slate-300 dark:hover:text-primary-light">Home</a>
+                    <a href="how-it-works.html" class="text-slate-600 hover:text-primary-dark dark:text-slate-300 dark:hover:text-primary-light">How It Works</a>
+                    <a href="for-sellers.html" class="text-slate-600 hover:text-primary-dark dark:text-slate-300 dark:hover:text-primary-light">For Sellers</a>
+                    <a href="for-buyers.html" class="text-slate-600 hover:text-primary-dark dark:text-slate-300 dark:hover:text-primary-light">For Buyers</a>
+                    <a href="about.html" class="text-slate-600 hover:text-primary-dark dark:text-slate-300 dark:hover:text-primary-light">About</a>
+                    <a href="contact.html" class="text-primary-dark dark:text-primary-light font-medium">Contact</a>
+                    <a href="#" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary-dark hover:bg-primary shadow-sm hover:shadow transition-all">Get Started</a>
+                </nav>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button type="button" id="mobile-menu-button" class="text-slate-600 hover:text-primary-dark dark:text-slate-300 dark:hover:text-primary-light" aria-label="Open mobile menu">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Navigation -->
+            <div id="mobile-menu" class="hidden md:hidden">
+                <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 border-t border-slate-200 dark:border-slate-700">
+                    <a href="index.html" class="block px-3 py-2 text-slate-600 hover:text-primary-dark dark:text-slate-300 dark:hover:text-primary-light">Home</a>
+                    <a href="how-it-works.html" class="block px-3 py-2 text-slate-600 hover:text-primary-dark dark:text-slate-300 dark:hover:text-primary-light">How It Works</a>
+                    <a href="for-sellers.html" class="block px-3 py-2 text-slate-600 hover:text-primary-dark dark:text-slate-300 dark:hover:text-primary-light">For Sellers</a>
+                    <a href="for-buyers.html" class="block px-3 py-2 text-slate-600 hover:text-primary-dark dark:text-slate-300 dark:hover:text-primary-light">For Buyers</a>
+                    <a href="about.html" class="block px-3 py-2 text-slate-600 hover:text-primary-dark dark:text-slate-300 dark:hover:text-primary-light">About</a>
+                    <a href="contact.html" class="block px-3 py-2 text-primary-dark dark:text-primary-light font-medium">Contact</a>
+                    <a href="#" class="block px-3 py-2 text-white bg-primary-dark hover:bg-primary rounded-md">Get Started</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="py-16 bg-gradient-to-br from-secondary-light to-white dark:from-slate-800 dark:to-slate-900">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-4xl mx-auto text-center">
+                    <div class="inline-flex items-center bg-accent/10 text-accent-dark px-4 py-2 rounded-full mb-6">
+                        <span class="mr-2">📞</span>
+                        <span class="font-semibold">Contact AutoRepairMart</span>
+                    </div>
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 dark:text-white mb-6">
+                        Get Expert Support for Your<br>
+                        <span class="text-primary-dark dark:text-primary-light">Auto Shop Transaction</span>
+                    </h1>
+                    <p class="text-xl md:text-2xl text-slate-600 dark:text-slate-300 mb-8">
+                        Whether you're buying, selling, or partnering with us, our DFW automotive experts are here to help you succeed with the Express Path program.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row justify-center gap-4">
+                        <a href="#contact-forms" class="inline-flex items-center justify-center px-8 py-4 border border-transparent text-lg font-medium rounded-md text-white bg-primary-dark hover:bg-primary shadow-lg hover:shadow-xl transition-all">
+                            Contact Us Now
+                        </a>
+                        <a href="#faq" class="inline-flex items-center justify-center px-8 py-4 border-2 border-primary-dark text-lg font-medium rounded-md text-primary-dark bg-transparent hover:bg-primary-dark hover:text-white shadow-lg hover:shadow-xl transition-all">
+                            View FAQ
+                        </a>
+                    </div>
+
+                    <p class="text-slate-600 dark:text-slate-300 text-sm mt-6">Response within 24 hours • DFW local expertise • Express Path specialists</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Methods Section -->
+        <section class="py-16 bg-white dark:bg-slate-900">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-6xl mx-auto">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">Multiple Ways to Reach Us</h2>
+                        <p class="text-xl text-slate-600 dark:text-slate-300">Choose the contact method that works best for you</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <!-- General Inquiries -->
+                        <div class="bg-secondary-light dark:bg-slate-800 rounded-lg p-6 text-center">
+                            <div class="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full text-primary-dark mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-3 text-slate-900 dark:text-white">General Questions</h3>
+                            <p class="text-slate-600 dark:text-slate-300 mb-4">Have questions about our platform or Express Path program?</p>
+                            <div class="space-y-2 text-sm">
+                                <p class="text-slate-600 dark:text-slate-300">
+                                    <strong>Email:</strong> info@autorepairmart.com
+                                </p>
+                                <p class="text-slate-600 dark:text-slate-300">
+                                    <strong>Phone:</strong> (214) 555-0123
+                                </p>
+                                <p class="text-slate-600 dark:text-slate-300">
+                                    <strong>Hours:</strong> Mon-Fri 8AM-6PM CST
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Sales Support -->
+                        <div class="bg-secondary-light dark:bg-slate-800 rounded-lg p-6 text-center">
+                            <div class="inline-flex items-center justify-center w-16 h-16 bg-accent/10 rounded-full text-accent-dark mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-3 text-slate-900 dark:text-white">Buying & Selling</h3>
+                            <p class="text-slate-600 dark:text-slate-300 mb-4">Ready to buy or sell an auto repair shop? Get expert guidance.</p>
+                            <div class="space-y-2 text-sm">
+                                <p class="text-slate-600 dark:text-slate-300">
+                                    <strong>Email:</strong> sales@autorepairmart.com
+                                </p>
+                                <p class="text-slate-600 dark:text-slate-300">
+                                    <strong>Phone:</strong> (214) 555-0124
+                                </p>
+                                <p class="text-slate-600 dark:text-slate-300">
+                                    <strong>Hours:</strong> Mon-Sat 7AM-7PM CST
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Partnership Support -->
+                        <div class="bg-secondary-light dark:bg-slate-800 rounded-lg p-6 text-center">
+                            <div class="inline-flex items-center justify-center w-16 h-16 bg-blue-100 dark:bg-blue-900/20 rounded-full text-blue-600 dark:text-blue-400 mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-3 text-slate-900 dark:text-white">Professional Partners</h3>
+                            <p class="text-slate-600 dark:text-slate-300 mb-4">Interested in joining our Express Path network?</p>
+                            <div class="space-y-2 text-sm">
+                                <p class="text-slate-600 dark:text-slate-300">
+                                    <strong>Email:</strong> partners@autorepairmart.com
+                                </p>
+                                <p class="text-slate-600 dark:text-slate-300">
+                                    <strong>Phone:</strong> (214) 555-0125
+                                </p>
+                                <p class="text-slate-600 dark:text-slate-300">
+                                    <strong>Hours:</strong> Mon-Fri 9AM-5PM CST
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Forms Section -->
+        <section id="contact-forms" class="py-16 bg-secondary-light dark:bg-slate-800">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-6xl mx-auto">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">Send Us a Message</h2>
+                        <p class="text-xl text-slate-600 dark:text-slate-300">Choose the form that best matches your inquiry</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <!-- General Contact Form -->
+                        <div class="bg-white dark:bg-slate-900 rounded-lg shadow-lg p-8">
+                            <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">General Inquiry</h3>
+                            <form class="space-y-6">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label for="general-first-name" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">First Name</label>
+                                        <input type="text" id="general-first-name" name="general-first-name" class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary">
+                                    </div>
+                                    <div>
+                                        <label for="general-last-name" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Last Name</label>
+                                        <input type="text" id="general-last-name" name="general-last-name" class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary">
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label for="general-email" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Email Address</label>
+                                    <input type="email" id="general-email" name="general-email" class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary">
+                                </div>
+
+                                <div>
+                                    <label for="general-phone" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Phone Number (Optional)</label>
+                                    <input type="tel" id="general-phone" name="general-phone" class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary">
+                                </div>
+
+                                <div>
+                                    <label for="general-subject" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Subject</label>
+                                    <select id="general-subject" name="general-subject" class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary">
+                                        <option value="">Select a subject</option>
+                                        <option value="platform-info">Platform Information</option>
+                                        <option value="express-path">Express Path Program</option>
+                                        <option value="pricing">Pricing & Fees</option>
+                                        <option value="technical-support">Technical Support</option>
+                                        <option value="media-inquiry">Media Inquiry</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label for="general-message" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Message</label>
+                                    <textarea id="general-message" name="general-message" rows="4" placeholder="Tell us how we can help you..." class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"></textarea>
+                                </div>
+
+                                <div class="text-center">
+                                    <button type="submit" class="inline-flex items-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary-dark hover:bg-primary shadow-sm hover:shadow-lg transition-all">
+                                        Send Message
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Express Path Inquiry Form -->
+                        <div class="bg-white dark:bg-slate-900 rounded-lg shadow-lg p-8">
+                            <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">Express Path Inquiry</h3>
+                            <form class="space-y-6">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label for="express-first-name" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">First Name</label>
+                                        <input type="text" id="express-first-name" name="express-first-name" class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent">
+                                    </div>
+                                    <div>
+                                        <label for="express-last-name" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Last Name</label>
+                                        <input type="text" id="express-last-name" name="express-last-name" class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent">
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label for="express-email" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Email Address</label>
+                                    <input type="email" id="express-email" name="express-email" class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent">
+                                </div>
+
+                                <div>
+                                    <label for="express-phone" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Phone Number</label>
+                                    <input type="tel" id="express-phone" name="express-phone" class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent">
+                                </div>
+
+                                <div>
+                                    <label for="express-interest" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">I'm Interested In</label>
+                                    <select id="express-interest" name="express-interest" class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent">
+                                        <option value="">Select your interest</option>
+                                        <option value="buying">Buying an auto repair shop</option>
+                                        <option value="selling">Selling my auto repair shop</option>
+                                        <option value="express-buyer">Express Buyer badge</option>
+                                        <option value="express-seller">Express Seller badge</option>
+                                        <option value="partnership">Professional partnership</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label for="express-timeline" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Timeline</label>
+                                    <select id="express-timeline" name="express-timeline" class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent">
+                                        <option value="">Select timeline</option>
+                                        <option value="asap">ASAP (Express Path)</option>
+                                        <option value="3-months">Within 3 months</option>
+                                        <option value="6-months">Within 6 months</option>
+                                        <option value="1-year">Within 1 year</option>
+                                        <option value="exploring">Just exploring</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label for="express-details" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Additional Details</label>
+                                    <textarea id="express-details" name="express-details" rows="3" placeholder="Tell us about your specific needs, location preferences, budget range, etc." class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent"></textarea>
+                                </div>
+
+                                <div class="text-center">
+                                    <button type="submit" class="inline-flex items-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-accent hover:bg-accent-dark shadow-sm hover:shadow-lg transition-all">
+                                        Start Express Path Inquiry
+                                        <span class="ml-2">🚖</span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="py-16 bg-white dark:bg-slate-900">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-4xl mx-auto">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">Frequently Asked Questions</h2>
+                        <p class="text-xl text-slate-600 dark:text-slate-300">Quick answers to common questions</p>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="bg-secondary-light dark:bg-slate-800 rounded-lg p-6">
+                            <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-3">How quickly can I expect a response?</h3>
+                            <p class="text-slate-600 dark:text-slate-300">We respond to all inquiries within 24 hours during business days. Express Path inquiries typically receive a response within 4-6 hours.</p>
+                        </div>
+
+                        <div class="bg-secondary-light dark:bg-slate-800 rounded-lg p-6">
+                            <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-3">What is the Express Path program?</h3>
+                            <p class="text-slate-600 dark:text-slate-300">Express Path is our 34-day transaction program for qualified buyers and sellers. It includes priority matching, dedicated support, and a guaranteed timeline from initial contact to closing.</p>
+                        </div>
+
+                        <div class="bg-secondary-light dark:bg-slate-800 rounded-lg p-6">
+                            <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-3">Do you charge fees for initial consultations?</h3>
+                            <p class="text-slate-600 dark:text-slate-300">No, initial consultations and platform access are completely free. We only earn when you successfully complete a transaction through our marketplace.</p>
+                        </div>
+
+                        <div class="bg-secondary-light dark:bg-slate-800 rounded-lg p-6">
+                            <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-3">What areas do you serve?</h3>
+                            <p class="text-slate-600 dark:text-slate-300">We focus exclusively on the Dallas-Fort Worth metropolitan area, including Dallas, Fort Worth, Plano, Arlington, Irving, Garland, and surrounding communities.</p>
+                        </div>
+
+                        <div class="bg-secondary-light dark:bg-slate-800 rounded-lg p-6">
+                            <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-3">Can you help with financing?</h3>
+                            <p class="text-slate-600 dark:text-slate-300">Yes, our network includes SBA lenders and alternative financing specialists who understand auto repair shop acquisitions. We can connect you with pre-approved financing options.</p>
+                        </div>
+
+                        <div class="bg-secondary-light dark:bg-slate-800 rounded-lg p-6">
+                            <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-3">What if I'm not ready to buy or sell immediately?</h3>
+                            <p class="text-slate-600 dark:text-slate-300">That's perfectly fine! We can help you prepare for a future transaction, provide market insights, and keep you informed about opportunities that match your criteria.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Response Time Section -->
+        <section class="py-16 bg-secondary-light dark:bg-slate-800">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-4xl mx-auto text-center">
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">What to Expect</h2>
+                    <p class="text-xl text-slate-600 dark:text-slate-300 mb-8">Here's what happens after you contact us</p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="text-center">
+                            <div class="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full text-primary-dark mb-4">
+                                <span class="text-2xl font-bold">1</span>
+                            </div>
+                            <h3 class="text-lg font-semibold mb-2 text-slate-900 dark:text-white">Initial Response</h3>
+                            <p class="text-slate-600 dark:text-slate-300">We'll respond within 24 hours to acknowledge your inquiry and schedule a consultation.</p>
+                        </div>
+
+                        <div class="text-center">
+                            <div class="inline-flex items-center justify-center w-16 h-16 bg-accent/10 rounded-full text-accent-dark mb-4">
+                                <span class="text-2xl font-bold">2</span>
+                            </div>
+                            <h3 class="text-lg font-semibold mb-2 text-slate-900 dark:text-white">Consultation Call</h3>
+                            <p class="text-slate-600 dark:text-slate-300">We'll discuss your goals, timeline, and how our Express Path program can help you succeed.</p>
+                        </div>
+
+                        <div class="text-center">
+                            <div class="inline-flex items-center justify-center w-16 h-16 bg-blue-100 dark:bg-blue-900/20 rounded-full text-blue-600 dark:text-blue-400 mb-4">
+                                <span class="text-2xl font-bold">3</span>
+                            </div>
+                            <h3 class="text-lg font-semibold mb-2 text-slate-900 dark:text-white">Action Plan</h3>
+                            <p class="text-slate-600 dark:text-slate-300">We'll create a customized plan and connect you with the right opportunities or buyers.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="py-16 bg-gradient-to-br from-primary to-primary-dark dark:from-primary-dark to-primary">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-4xl mx-auto text-center">
+                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Ready to Get Started?</h2>
+                    <p class="text-xl text-blue-100 mb-8">Contact us today and discover how the Express Path program can accelerate your auto shop transaction.</p>
+
+                    <div class="flex flex-col sm:flex-row justify-center gap-4">
+                        <a href="#contact-forms" class="inline-flex items-center justify-center px-8 py-4 border border-transparent text-lg font-medium rounded-md text-primary-dark bg-white hover:bg-blue-50 shadow-lg hover:shadow-xl transition-all">
+                            Send Us a Message
+                        </a>
+                        <a href="tel:+12145550123" class="inline-flex items-center justify-center px-8 py-4 border-2 border-white text-lg font-medium rounded-md text-white bg-transparent hover:bg-white hover:text-primary-dark shadow-lg hover:shadow-xl transition-all">
+                            Call (214) 555-0123
+                        </a>
+                    </div>
+
+                    <p class="text-blue-100 text-sm mt-6">24-hour response • Free consultation • DFW expertise</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 dark:bg-slate-950 text-slate-300">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="text-center">
+                <div class="flex items-center justify-center mb-4">
+                    <span class="text-2xl font-bold text-white">AutoRepairMart</span>
+                </div>
+                <p class="text-slate-400 mb-4">Connecting DFW auto repair shop owners with qualified buyers through our trusted marketplace.</p>
+                <div class="flex justify-center space-x-6">
+                    <a href="index.html" class="text-slate-400 hover:text-white transition-colors">Home</a>
+                    <a href="how-it-works.html" class="text-slate-400 hover:text-white transition-colors">How It Works</a>
+                    <a href="for-sellers.html" class="text-slate-400 hover:text-white transition-colors">For Sellers</a>
+                    <a href="for-buyers.html" class="text-slate-400 hover:text-white transition-colors">For Buyers</a>
+                    <a href="partner-with-us.html" class="text-slate-400 hover:text-white transition-colors">Partner With Us</a>
+                    <a href="about.html" class="text-slate-400 hover:text-white transition-colors">About</a>
+                </div>
+                <div class="mt-4 text-slate-400 text-sm">
+                    © 2024 AutoRepairMart. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>

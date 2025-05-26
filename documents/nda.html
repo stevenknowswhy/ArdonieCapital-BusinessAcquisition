@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NDA Generator - AutoRepairMart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            DEFAULT: '#3b82f6',
+                            dark: '#2563eb',
+                            light: '#93c5fd',
+                        },
+                        secondary: {
+                            DEFAULT: '#64748b',
+                            light: '#f1f5f9',
+                        },
+                        accent: {
+                            DEFAULT: '#10b981',
+                            dark: '#059669',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-sans text-slate-800 bg-slate-50 dark:bg-slate-900 dark:text-slate-200">
+    <!-- Header -->
+    <header class="bg-white dark:bg-slate-800 shadow-sm border-b border-slate-200 dark:border-slate-700">
+        <div class="px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="../index.html" class="flex items-center">
+                        <span class="text-xl font-bold text-primary-dark dark:text-primary-light">AutoRepairMart</span>
+                    </a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="../dashboard/dashboard.html" class="text-slate-600 dark:text-slate-300 hover:text-primary-dark">Dashboard</a>
+                    <a href="templates.html" class="text-slate-600 dark:text-slate-300 hover:text-primary-dark">← Back to Templates</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="max-w-4xl mx-auto p-6">
+        <!-- Page Header -->
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-slate-900 dark:text-white mb-2">Non-Disclosure Agreement Generator</h1>
+            <p class="text-slate-600 dark:text-slate-300">Generate a customized NDA for your business acquisition discussions.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Form -->
+            <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 p-6">
+                <h2 class="text-xl font-semibold text-slate-900 dark:text-white mb-6">NDA Details</h2>
+                
+                <form id="ndaForm" class="space-y-6">
+                    <!-- NDA Type -->
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">NDA Type</label>
+                        <div class="space-y-2">
+                            <label class="flex items-center">
+                                <input type="radio" name="ndaType" value="mutual" checked class="text-primary focus:ring-primary">
+                                <span class="ml-2 text-sm text-slate-600 dark:text-slate-300">Mutual NDA (Both parties share confidential information)</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="ndaType" value="one-way" class="text-primary focus:ring-primary">
+                                <span class="ml-2 text-sm text-slate-600 dark:text-slate-300">One-Way NDA (Only one party shares information)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Disclosing Party -->
+                    <div>
+                        <label for="disclosingParty" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Disclosing Party (Your Information)</label>
+                        <input type="text" id="disclosingParty" name="disclosingParty" placeholder="Your Name or Company Name" required class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary">
+                    </div>
+
+                    <!-- Receiving Party -->
+                    <div>
+                        <label for="receivingParty" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Receiving Party (Other Party)</label>
+                        <input type="text" id="receivingParty" name="receivingParty" placeholder="Other Party's Name or Company Name" required class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary">
+                    </div>
+
+                    <!-- Purpose -->
+                    <div>
+                        <label for="purpose" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Purpose of Disclosure</label>
+                        <textarea id="purpose" name="purpose" rows="3" placeholder="e.g., Evaluation of potential business acquisition of auto repair shop..." required class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"></textarea>
+                    </div>
+
+                    <!-- Duration -->
+                    <div>
+                        <label for="duration" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Duration (Years)</label>
+                        <select id="duration" name="duration" required class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary">
+                            <option value="2">2 Years</option>
+                            <option value="3" selected>3 Years</option>
+                            <option value="5">5 Years</option>
+                            <option value="indefinite">Indefinite</option>
+                        </select>
+                    </div>
+
+                    <!-- Governing Law -->
+                    <div>
+                        <label for="governingLaw" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Governing Law (State)</label>
+                        <select id="governingLaw" name="governingLaw" required class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary">
+                            <option value="Texas" selected>Texas</option>
+                            <option value="California">California</option>
+                            <option value="New York">New York</option>
+                            <option value="Florida">Florida</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <!-- Generate Button -->
+                    <button type="submit" class="w-full bg-primary-dark hover:bg-primary text-white font-medium py-3 px-4 rounded-md transition-all">
+                        Generate NDA
+                    </button>
+                </form>
+            </div>
+
+            <!-- Preview -->
+            <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 p-6">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-xl font-semibold text-slate-900 dark:text-white">Document Preview</h2>
+                    <div class="flex space-x-2">
+                        <button id="downloadBtn" class="bg-accent hover:bg-accent-dark text-white font-medium py-2 px-4 rounded-md transition-all" disabled>
+                            Download PDF
+                        </button>
+                        <button id="emailBtn" class="bg-primary-dark hover:bg-primary text-white font-medium py-2 px-4 rounded-md transition-all" disabled>
+                            Email
+                        </button>
+                    </div>
+                </div>
+
+                <div id="documentPreview" class="prose prose-sm max-w-none dark:prose-invert">
+                    <div class="text-center text-slate-500 dark:text-slate-400 py-12">
+                        Fill out the form to generate your NDA preview
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Legal Disclaimer -->
+        <div class="mt-8 p-4 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg border border-yellow-200 dark:border-yellow-800">
+            <p class="text-sm text-yellow-800 dark:text-yellow-200">
+                <strong>Legal Disclaimer:</strong> This NDA template is provided for informational purposes only and does not constitute legal advice. 
+                Always consult with a qualified attorney before using any legal documents in your business transactions.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('ndaForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            generateNDA();
+        });
+
+        function generateNDA() {
+            const formData = new FormData(document.getElementById('ndaForm'));
+            const data = Object.fromEntries(formData);
+            
+            const ndaContent = `
+                <div class="text-center mb-8">
+                    <h1 class="text-2xl font-bold mb-2">NON-DISCLOSURE AGREEMENT</h1>
+                    <p class="text-sm text-slate-600 dark:text-slate-400">${data.ndaType === 'mutual' ? 'Mutual' : 'One-Way'} Confidentiality Agreement</p>
+                </div>
+
+                <div class="space-y-4 text-sm">
+                    <p>This Non-Disclosure Agreement ("Agreement") is entered into on ____________, 20__ by and between:</p>
+                    
+                    <p><strong>Disclosing Party:</strong> ${data.disclosingParty || '[DISCLOSING PARTY NAME]'}</p>
+                    <p><strong>Receiving Party:</strong> ${data.receivingParty || '[RECEIVING PARTY NAME]'}</p>
+                    
+                    <h3 class="text-lg font-semibold mt-6 mb-3">1. Purpose</h3>
+                    <p>The purpose of this Agreement is to permit the parties to evaluate: ${data.purpose || '[PURPOSE OF DISCLOSURE]'}</p>
+                    
+                    <h3 class="text-lg font-semibold mt-6 mb-3">2. Definition of Confidential Information</h3>
+                    <p>For purposes of this Agreement, "Confidential Information" shall include all information or material that has or could have commercial value or other utility in the business in which Disclosing Party is engaged, including but not limited to:</p>
+                    <ul class="list-disc pl-6 space-y-1">
+                        <li>Financial statements, records, and projections</li>
+                        <li>Customer lists and information</li>
+                        <li>Vendor and supplier information</li>
+                        <li>Business plans and strategies</li>
+                        <li>Operational procedures and methods</li>
+                        <li>Equipment specifications and conditions</li>
+                        <li>Any other proprietary business information</li>
+                    </ul>
+                    
+                    <h3 class="text-lg font-semibold mt-6 mb-3">3. Obligations of Receiving Party</h3>
+                    <p>Receiving Party agrees to:</p>
+                    <ul class="list-disc pl-6 space-y-1">
+                        <li>Hold and maintain the Confidential Information in strict confidence</li>
+                        <li>Not disclose the Confidential Information to any third parties</li>
+                        <li>Use the Confidential Information solely for the Purpose stated above</li>
+                        <li>Take reasonable precautions to protect the confidentiality of the information</li>
+                    </ul>
+                    
+                    <h3 class="text-lg font-semibold mt-6 mb-3">4. Term</h3>
+                    <p>This Agreement shall remain in effect for ${data.duration === 'indefinite' ? 'an indefinite period' : data.duration + ' years'} from the date of execution, unless terminated earlier by mutual written consent.</p>
+                    
+                    <h3 class="text-lg font-semibold mt-6 mb-3">5. Return of Materials</h3>
+                    <p>Upon termination of this Agreement or upon request by the Disclosing Party, Receiving Party shall promptly return or destroy all documents, materials, and other tangible manifestations of Confidential Information.</p>
+                    
+                    <h3 class="text-lg font-semibold mt-6 mb-3">6. Governing Law</h3>
+                    <p>This Agreement shall be governed by and construed in accordance with the laws of the State of ${data.governingLaw || 'Texas'}.</p>
+                    
+                    <div class="mt-8 pt-8 border-t border-slate-200 dark:border-slate-600">
+                        <div class="grid grid-cols-2 gap-8">
+                            <div>
+                                <p class="font-semibold">Disclosing Party:</p>
+                                <br><br>
+                                <div class="border-b border-slate-300 dark:border-slate-600 pb-1">
+                                    ${data.disclosingParty || '[DISCLOSING PARTY NAME]'}
+                                </div>
+                                <p class="text-xs mt-1">Signature</p>
+                                <br>
+                                <div class="border-b border-slate-300 dark:border-slate-600 pb-1 w-24"></div>
+                                <p class="text-xs mt-1">Date</p>
+                            </div>
+                            <div>
+                                <p class="font-semibold">Receiving Party:</p>
+                                <br><br>
+                                <div class="border-b border-slate-300 dark:border-slate-600 pb-1">
+                                    ${data.receivingParty || '[RECEIVING PARTY NAME]'}
+                                </div>
+                                <p class="text-xs mt-1">Signature</p>
+                                <br>
+                                <div class="border-b border-slate-300 dark:border-slate-600 pb-1 w-24"></div>
+                                <p class="text-xs mt-1">Date</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('documentPreview').innerHTML = ndaContent;
+            document.getElementById('downloadBtn').disabled = false;
+            document.getElementById('emailBtn').disabled = false;
+        }
+
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+            alert('PDF download functionality would be implemented here');
+        });
+
+        document.getElementById('emailBtn').addEventListener('click', function() {
+            alert('Email functionality would be implemented here');
+        });
+    </script>
+</body>
+</html>

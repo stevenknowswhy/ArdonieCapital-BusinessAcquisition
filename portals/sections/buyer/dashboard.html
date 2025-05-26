@@ -1,0 +1,157 @@
+<!-- Buyer Dashboard Section -->
+<section class="bg-gradient-to-br from-green-50 to-blue-100 dark:from-green-900/20 dark:to-blue-900/20 py-12">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+            <div class="flex items-center justify-between mb-6">
+                <div>
+                    <h1 class="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">
+                        Welcome Back, <span id="buyer-name">Michael</span>! 🏢
+                    </h1>
+                    <p class="text-xl text-slate-600 dark:text-slate-300">
+                        Your Express Buyer dashboard for DFW auto repair shop acquisitions
+                    </p>
+                </div>
+                <div class="hidden md:block">
+                    <div class="bg-accent text-white px-4 py-2 rounded-full font-bold text-lg">
+                        🚖 Express Buyer
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Status Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-lg border border-slate-200 dark:border-slate-700">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <div class="text-2xl font-bold text-slate-900 dark:text-white">🏅 Approved</div>
+                            <div class="text-sm text-slate-600 dark:text-slate-400">Financing Status</div>
+                        </div>
+                        <div class="text-green-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="mt-2 text-sm text-slate-600 dark:text-slate-400">
+                        Pre-approved up to <span id="financing-amount">$1.2M</span>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-lg border border-slate-200 dark:border-slate-700">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <div class="text-2xl font-bold text-slate-900 dark:text-white" id="active-deals-count">2</div>
+                            <div class="text-sm text-slate-600 dark:text-slate-400">Active Deals</div>
+                        </div>
+                        <div class="text-blue-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="mt-2 text-sm text-slate-600 dark:text-slate-400">
+                        In due diligence phase
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-lg border border-slate-200 dark:border-slate-700">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <div class="text-2xl font-bold text-slate-900 dark:text-white" id="days-remaining">12</div>
+                            <div class="text-sm text-slate-600 dark:text-slate-400">Days Remaining</div>
+                        </div>
+                        <div class="text-orange-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="mt-2 text-sm text-slate-600 dark:text-slate-400">
+                        To complete Express Deal
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Quick Actions Section -->
+<section class="py-8 bg-white dark:bg-slate-800">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">Quick Actions</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <button class="bg-accent hover:bg-accent-dark text-white p-6 rounded-lg shadow-sm transition-colors text-left">
+                    <div class="text-2xl mb-2">🔍</div>
+                    <div class="font-semibold mb-1">Browse Express Listings</div>
+                    <div class="text-sm opacity-90">View priority seller listings</div>
+                </button>
+                
+                <button class="bg-blue-600 hover:bg-blue-700 text-white p-6 rounded-lg shadow-sm transition-colors text-left">
+                    <div class="text-2xl mb-2">📋</div>
+                    <div class="font-semibold mb-1">Continue Due Diligence</div>
+                    <div class="text-sm opacity-90">Complete pending reviews</div>
+                </button>
+                
+                <button class="bg-purple-600 hover:bg-purple-700 text-white p-6 rounded-lg shadow-sm transition-colors text-left">
+                    <div class="text-2xl mb-2">💰</div>
+                    <div class="font-semibold mb-1">Request Financing</div>
+                    <div class="text-sm opacity-90">Apply for deal funding</div>
+                </button>
+                
+                <button class="bg-orange-600 hover:bg-orange-700 text-white p-6 rounded-lg shadow-sm transition-colors text-left">
+                    <div class="text-2xl mb-2">📞</div>
+                    <div class="font-semibold mb-1">Contact Navigator</div>
+                    <div class="text-sm opacity-90">Get expert guidance</div>
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Dashboard JavaScript -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Buyer dashboard utilities
+    window.BuyerDashboard = {
+        // Update buyer information
+        setBuyerInfo: function(name, financingAmount, activeDeals, daysRemaining) {
+            document.getElementById('buyer-name').textContent = name;
+            document.getElementById('financing-amount').textContent = financingAmount;
+            document.getElementById('active-deals-count').textContent = activeDeals;
+            document.getElementById('days-remaining').textContent = daysRemaining;
+        },
+
+        // Load dashboard data
+        loadData: function() {
+            // Simulate API call
+            setTimeout(() => {
+                this.setBuyerInfo('Michael Chen', '$1.2M', '2', '12');
+                window.PortalUtils.showNotification('Dashboard updated', 'success');
+            }, 1000);
+        },
+
+        // Initialize dashboard
+        init: function() {
+            this.loadData();
+            
+            // Set up quick action buttons
+            const quickActions = document.querySelectorAll('section:last-child button');
+            quickActions.forEach((button, index) => {
+                button.addEventListener('click', () => {
+                    const actions = [
+                        () => window.location.href = '#express-listings',
+                        () => window.location.href = '#my-deals',
+                        () => window.location.href = '#financing',
+                        () => window.PortalUtils.showNotification('Contacting your Deal Navigator...', 'info')
+                    ];
+                    actions[index]();
+                });
+            });
+        }
+    };
+
+    // Initialize when loaded
+    window.BuyerDashboard.init();
+});
+</script>

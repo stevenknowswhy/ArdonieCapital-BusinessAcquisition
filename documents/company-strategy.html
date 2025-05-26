@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Strategy - AutoRepairMart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="../assets/css/common.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { DEFAULT: '#3b82f6', dark: '#2563eb', light: '#93c5fd' },
+                        secondary: { DEFAULT: '#64748b', light: '#f1f5f9' },
+                        accent: { DEFAULT: '#10b981', dark: '#059669' }
+                    },
+                    fontFamily: { sans: ['Inter', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-sans text-slate-800 bg-white dark:bg-slate-900 dark:text-slate-200">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white dark:bg-slate-900 shadow-sm">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex-shrink-0">
+                    <a href="../index.html" class="flex items-center">
+                        <span class="text-2xl font-bold text-primary-dark dark:text-primary-light">AutoRepairMart</span>
+                    </a>
+                </div>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="../index.html" class="text-slate-600 hover:text-primary-dark">Home</a>
+                    <a href="../documents/business-plan.html" class="text-slate-600 hover:text-primary-dark">Business Plan</a>
+                    <a href="../documents/marketing-plan.html" class="text-slate-600 hover:text-primary-dark">Marketing Plan</a>
+                    <a href="../contact.html" class="text-slate-600 hover:text-primary-dark">Contact</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="min-h-screen py-12">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Header Section -->
+            <div class="text-center mb-12">
+                <h1 class="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">
+                    AutoRepairMart
+                    <span class="text-primary-dark">Company Strategy</span>
+                </h1>
+                <p class="text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto">
+                    🎯 Strategic roadmap for building the premier auto repair shop transaction platform
+                </p>
+            </div>
+
+            <!-- Strategy Content -->
+            <div class="max-w-5xl mx-auto space-y-12">
+                
+                <!-- Vision & Mission -->
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-8">
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-6 flex items-center">
+                        <span class="text-primary-dark mr-3">🎯</span>
+                        Vision & Mission
+                    </h2>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <div class="p-6 bg-gradient-to-br from-primary/10 to-accent/10 rounded-lg">
+                            <h3 class="text-2xl font-semibold mb-4 text-primary-dark">Our Vision</h3>
+                            <p class="text-lg text-slate-700 dark:text-slate-300 leading-relaxed">
+                                To become the definitive platform for automotive business transactions nationwide, revolutionizing how auto repair shops change hands through technology, expertise, and unmatched efficiency.
+                            </p>
+                        </div>
+                        <div class="p-6 bg-gradient-to-br from-accent/10 to-primary/10 rounded-lg">
+                            <h3 class="text-2xl font-semibold mb-4 text-accent-dark">Our Mission</h3>
+                            <p class="text-lg text-slate-700 dark:text-slate-300 leading-relaxed">
+                                To streamline auto repair shop transactions by connecting qualified buyers and sellers through our Express Deal Package, reducing transaction time from months to just 34 days while ensuring successful outcomes for all parties.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Core Values -->
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-8">
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-6 flex items-center">
+                        <span class="text-accent mr-3">⭐</span>
+                        Core Values
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="p-6 border border-primary/20 rounded-lg text-center">
+                            <div class="text-4xl mb-4">🤝</div>
+                            <h3 class="text-lg font-semibold mb-2 text-primary-dark">Trust & Integrity</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm">Building lasting relationships through transparent, honest business practices and reliable service delivery.</p>
+                        </div>
+                        <div class="p-6 border border-accent/20 rounded-lg text-center">
+                            <div class="text-4xl mb-4">⚡</div>
+                            <h3 class="text-lg font-semibold mb-2 text-accent-dark">Speed & Efficiency</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm">Revolutionizing transaction timelines through streamlined processes and innovative technology solutions.</p>
+                        </div>
+                        <div class="p-6 border border-orange-200 rounded-lg text-center">
+                            <div class="text-4xl mb-4">🎯</div>
+                            <h3 class="text-lg font-semibold mb-2 text-orange-600">Industry Expertise</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm">Deep automotive industry knowledge and specialized understanding of repair shop operations and challenges.</p>
+                        </div>
+                        <div class="p-6 border border-purple-200 rounded-lg text-center">
+                            <div class="text-4xl mb-4">🌟</div>
+                            <h3 class="text-lg font-semibold mb-2 text-purple-600">Customer Success</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm">Prioritizing successful outcomes for buyers, sellers, and professional partners in every transaction.</p>
+                        </div>
+                        <div class="p-6 border border-blue-200 rounded-lg text-center">
+                            <div class="text-4xl mb-4">🚀</div>
+                            <h3 class="text-lg font-semibold mb-2 text-blue-600">Innovation</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm">Continuously improving our platform and processes to stay ahead of market needs and expectations.</p>
+                        </div>
+                        <div class="p-6 border border-green-200 rounded-lg text-center">
+                            <div class="text-4xl mb-4">🏆</div>
+                            <h3 class="text-lg font-semibold mb-2 text-green-600">Excellence</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm">Maintaining the highest standards in service quality, professional partnerships, and platform performance.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Strategic Pillars -->
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-8">
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-6 flex items-center">
+                        <span class="text-blue-500 mr-3">🏛️</span>
+                        Strategic Pillars
+                    </h2>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="text-xl font-semibold mb-4 text-primary-dark">Market Dominance</h3>
+                            <div class="space-y-3">
+                                <div class="p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
+                                    <h4 class="font-semibold text-blue-700 dark:text-blue-300">Geographic Expansion</h4>
+                                    <p class="text-blue-600 dark:text-blue-400 text-sm">DFW → Texas → National markets</p>
+                                </div>
+                                <div class="p-3 bg-green-50 dark:bg-green-900/20 rounded">
+                                    <h4 class="font-semibold text-green-700 dark:text-green-300">Market Share Growth</h4>
+                                    <p class="text-green-600 dark:text-green-400 text-sm">Capture 25% of regional transactions</p>
+                                </div>
+                                <div class="p-3 bg-purple-50 dark:bg-purple-900/20 rounded">
+                                    <h4 class="font-semibold text-purple-700 dark:text-purple-300">Brand Recognition</h4>
+                                    <p class="text-purple-600 dark:text-purple-400 text-sm">Become synonymous with auto shop transactions</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-4 text-accent-dark">Technology Leadership</h3>
+                            <div class="space-y-3">
+                                <div class="p-3 bg-slate-50 dark:bg-slate-700 rounded">
+                                    <h4 class="font-semibold text-slate-900 dark:text-white">Platform Innovation</h4>
+                                    <p class="text-slate-600 dark:text-slate-400 text-sm">AI-powered matching, automated workflows</p>
+                                </div>
+                                <div class="p-3 bg-slate-50 dark:bg-slate-700 rounded">
+                                    <h4 class="font-semibold text-slate-900 dark:text-white">Data Analytics</h4>
+                                    <p class="text-slate-600 dark:text-slate-400 text-sm">Market insights, valuation tools, predictive modeling</p>
+                                </div>
+                                <div class="p-3 bg-slate-50 dark:bg-slate-700 rounded">
+                                    <h4 class="font-semibold text-slate-900 dark:text-white">Mobile Experience</h4>
+                                    <p class="text-slate-600 dark:text-slate-400 text-sm">Native apps for all user types</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Growth Strategy -->
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-8">
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-6 flex items-center">
+                        <span class="text-green-500 mr-3">📈</span>
+                        Growth Strategy & Phases
+                    </h2>
+                    <div class="space-y-8">
+                        <!-- Phase 1 -->
+                        <div class="border-l-4 border-primary pl-6">
+                            <h3 class="text-xl font-semibold mb-3 text-primary-dark">Phase 1: DFW Market Leadership (Year 1-2)</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div class="p-4 bg-primary/10 rounded-lg">
+                                    <h4 class="font-semibold text-primary-dark mb-2">Objectives</h4>
+                                    <ul class="text-sm text-slate-600 dark:text-slate-400 space-y-1">
+                                        <li>• 25% market share in DFW</li>
+                                        <li>• 100+ transactions annually</li>
+                                        <li>• $2M+ revenue</li>
+                                    </ul>
+                                </div>
+                                <div class="p-4 bg-accent/10 rounded-lg">
+                                    <h4 class="font-semibold text-accent-dark mb-2">Key Initiatives</h4>
+                                    <ul class="text-sm text-slate-600 dark:text-slate-400 space-y-1">
+                                        <li>• Platform development</li>
+                                        <li>• Professional network building</li>
+                                        <li>• Brand establishment</li>
+                                    </ul>
+                                </div>
+                                <div class="p-4 bg-orange-100 dark:bg-orange-900/20 rounded-lg">
+                                    <h4 class="font-semibold text-orange-600 mb-2">Success Metrics</h4>
+                                    <ul class="text-sm text-slate-600 dark:text-slate-400 space-y-1">
+                                        <li>• 80% brand awareness</li>
+                                        <li>• 34-day avg transaction time</li>
+                                        <li>• 95% customer satisfaction</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Phase 2 -->
+                        <div class="border-l-4 border-accent pl-6">
+                            <h3 class="text-xl font-semibold mb-3 text-accent-dark">Phase 2: Texas Expansion (Year 2-3)</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div class="p-4 bg-accent/10 rounded-lg">
+                                    <h4 class="font-semibold text-accent-dark mb-2">Objectives</h4>
+                                    <ul class="text-sm text-slate-600 dark:text-slate-400 space-y-1">
+                                        <li>• Enter Houston, Austin, San Antonio</li>
+                                        <li>• 300+ transactions annually</li>
+                                        <li>• $5M+ revenue</li>
+                                    </ul>
+                                </div>
+                                <div class="p-4 bg-blue-100 dark:bg-blue-900/20 rounded-lg">
+                                    <h4 class="font-semibold text-blue-600 mb-2">Key Initiatives</h4>
+                                    <ul class="text-sm text-slate-600 dark:text-slate-400 space-y-1">
+                                        <li>• Market replication strategy</li>
+                                        <li>• Regional partnerships</li>
+                                        <li>• Technology scaling</li>
+                                    </ul>
+                                </div>
+                                <div class="p-4 bg-purple-100 dark:bg-purple-900/20 rounded-lg">
+                                    <h4 class="font-semibold text-purple-600 mb-2">Success Metrics</h4>
+                                    <ul class="text-sm text-slate-600 dark:text-slate-400 space-y-1">
+                                        <li>• 4 major Texas markets</li>
+                                        <li>• 50+ professional partners</li>
+                                        <li>• 20% Texas market share</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Phase 3 -->
+                        <div class="border-l-4 border-orange-500 pl-6">
+                            <h3 class="text-xl font-semibold mb-3 text-orange-600">Phase 3: National Scale (Year 3-5)</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div class="p-4 bg-orange-100 dark:bg-orange-900/20 rounded-lg">
+                                    <h4 class="font-semibold text-orange-600 mb-2">Objectives</h4>
+                                    <ul class="text-sm text-slate-600 dark:text-slate-400 space-y-1">
+                                        <li>• 10+ major metropolitan markets</li>
+                                        <li>• 1000+ transactions annually</li>
+                                        <li>• $15M+ revenue</li>
+                                    </ul>
+                                </div>
+                                <div class="p-4 bg-green-100 dark:bg-green-900/20 rounded-lg">
+                                    <h4 class="font-semibold text-green-600 mb-2">Key Initiatives</h4>
+                                    <ul class="text-sm text-slate-600 dark:text-slate-400 space-y-1">
+                                        <li>• Franchise/licensing model</li>
+                                        <li>• Strategic acquisitions</li>
+                                        <li>• Platform licensing</li>
+                                    </ul>
+                                </div>
+                                <div class="p-4 bg-blue-100 dark:bg-blue-900/20 rounded-lg">
+                                    <h4 class="font-semibold text-blue-600 mb-2">Success Metrics</h4>
+                                    <ul class="text-sm text-slate-600 dark:text-slate-400 space-y-1">
+                                        <li>• National brand recognition</li>
+                                        <li>• Industry thought leadership</li>
+                                        <li>• IPO readiness</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Competitive Strategy -->
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-8">
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-6 flex items-center">
+                        <span class="text-purple-500 mr-3">⚔️</span>
+                        Competitive Strategy
+                    </h2>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="text-xl font-semibold mb-4 text-primary-dark">Competitive Advantages</h3>
+                            <div class="space-y-3">
+                                <div class="flex items-start">
+                                    <span class="text-accent mr-3 mt-1">🎯</span>
+                                    <div>
+                                        <h4 class="font-semibold text-slate-900 dark:text-white">Industry Specialization</h4>
+                                        <p class="text-slate-600 dark:text-slate-400 text-sm">First platform dedicated exclusively to auto repair shop transactions</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <span class="text-accent mr-3 mt-1">⚡</span>
+                                    <div>
+                                        <h4 class="font-semibold text-slate-900 dark:text-white">Speed Advantage</h4>
+                                        <p class="text-slate-600 dark:text-slate-400 text-sm">34-day Express Deal Package vs. 6-12 month industry standard</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <span class="text-accent mr-3 mt-1">🏢</span>
+                                    <div>
+                                        <h4 class="font-semibold text-slate-900 dark:text-white">Local Expertise</h4>
+                                        <p class="text-slate-600 dark:text-slate-400 text-sm">Deep DFW market knowledge and established professional networks</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <span class="text-accent mr-3 mt-1">🔧</span>
+                                    <div>
+                                        <h4 class="font-semibold text-slate-900 dark:text-white">Technology Platform</h4>
+                                        <p class="text-slate-600 dark:text-slate-400 text-sm">Purpose-built tools for automotive business transactions</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-4 text-accent-dark">Defensive Strategies</h3>
+                            <div class="space-y-3">
+                                <div class="p-3 bg-slate-50 dark:bg-slate-700 rounded">
+                                    <h4 class="font-semibold text-slate-900 dark:text-white">Network Effects</h4>
+                                    <p class="text-slate-600 dark:text-slate-400 text-sm">Build strong professional networks that create switching costs</p>
+                                </div>
+                                <div class="p-3 bg-slate-50 dark:bg-slate-700 rounded">
+                                    <h4 class="font-semibold text-slate-900 dark:text-white">Brand Loyalty</h4>
+                                    <p class="text-slate-600 dark:text-slate-400 text-sm">Exceptional service creates customer advocates and referrals</p>
+                                </div>
+                                <div class="p-3 bg-slate-50 dark:bg-slate-700 rounded">
+                                    <h4 class="font-semibold text-slate-900 dark:text-white">Continuous Innovation</h4>
+                                    <p class="text-slate-600 dark:text-slate-400 text-sm">Stay ahead through technology and process improvements</p>
+                                </div>
+                                <div class="p-3 bg-slate-50 dark:bg-slate-700 rounded">
+                                    <h4 class="font-semibold text-slate-900 dark:text-white">Strategic Partnerships</h4>
+                                    <p class="text-slate-600 dark:text-slate-400 text-sm">Exclusive relationships with key industry players</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Success Metrics -->
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-8">
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-6 flex items-center">
+                        <span class="text-orange-500 mr-3">📊</span>
+                        Key Success Metrics
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="text-center p-6 bg-primary/10 rounded-lg">
+                            <div class="text-3xl font-bold text-primary-dark mb-2">25%</div>
+                            <div class="text-sm text-slate-600 dark:text-slate-400">Market Share Target</div>
+                        </div>
+                        <div class="text-center p-6 bg-accent/10 rounded-lg">
+                            <div class="text-3xl font-bold text-accent-dark mb-2">34</div>
+                            <div class="text-sm text-slate-600 dark:text-slate-400">Days to Close</div>
+                        </div>
+                        <div class="text-center p-6 bg-orange-100 dark:bg-orange-900/20 rounded-lg">
+                            <div class="text-3xl font-bold text-orange-600 mb-2">95%</div>
+                            <div class="text-sm text-slate-600 dark:text-slate-400">Customer Satisfaction</div>
+                        </div>
+                        <div class="text-center p-6 bg-green-100 dark:bg-green-900/20 rounded-lg">
+                            <div class="text-3xl font-bold text-green-600 mb-2">$15M</div>
+                            <div class="text-sm text-slate-600 dark:text-slate-400">Revenue Target (Year 5)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Call to Action -->
+                <div class="bg-gradient-to-r from-primary/10 to-accent/10 rounded-lg p-8 text-center">
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-4">Ready to Execute This Strategy?</h2>
+                    <p class="text-xl text-slate-700 dark:text-slate-300 mb-8 max-w-3xl mx-auto">
+                        Join AutoRepairMart in executing this comprehensive strategy to revolutionize the auto repair shop transaction industry.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <a href="../auth/register.html" class="inline-flex items-center px-8 py-4 border border-transparent text-lg font-medium rounded-md text-white bg-primary-dark hover:bg-primary shadow-lg hover:shadow-xl transition-all">
+                            Join Our Mission
+                        </a>
+                        <a href="../contact.html" class="inline-flex items-center px-8 py-4 border border-slate-300 text-lg font-medium rounded-md text-slate-700 bg-white hover:bg-slate-50 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-600 dark:hover:bg-slate-700 shadow-lg hover:shadow-xl transition-all">
+                            Discuss Partnership
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white py-8">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-slate-400">© 2024 AutoRepairMart. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

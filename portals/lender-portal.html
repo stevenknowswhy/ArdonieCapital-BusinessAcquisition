@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lender Portal - AutoRepairMart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="../assets/css/common.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            DEFAULT: '#3b82f6',
+                            dark: '#2563eb',
+                            light: '#93c5fd',
+                        },
+                        secondary: {
+                            DEFAULT: '#64748b',
+                            light: '#f1f5f9',
+                        },
+                        accent: {
+                            DEFAULT: '#10b981',
+                            dark: '#059669',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-sans text-slate-800 bg-white dark:bg-slate-900 dark:text-slate-200 portal-lender">
+
+    <!-- Portal Header -->
+    <div id="portal-header"></div>
+
+    <main class="min-h-screen bg-slate-50 dark:bg-slate-900">
+        <!-- Lender Dashboard Section -->
+        <section class="bg-gradient-to-br from-red-50 to-orange-100 dark:from-red-900/20 dark:to-orange-900/20 py-12">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-4xl mx-auto text-center">
+                    <h1 class="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">
+                        🏦 Lender Portal
+                    </h1>
+                    <p class="text-xl text-slate-600 dark:text-slate-300 mb-8">
+                        Fast-track financing for Express Deal participants in the DFW auto repair market
+                    </p>
+                    <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-lg border border-slate-200 dark:border-slate-700">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                            <div>
+                                <div class="text-3xl font-bold text-red-600 mb-2">3</div>
+                                <div class="text-sm text-slate-600 dark:text-slate-400">Days Avg Approval</div>
+                            </div>
+                            <div>
+                                <div class="text-3xl font-bold text-accent-dark mb-2">$2.1M</div>
+                                <div class="text-sm text-slate-600 dark:text-slate-400">Avg Deal Size</div>
+                            </div>
+                            <div>
+                                <div class="text-3xl font-bold text-orange-600 mb-2">7</div>
+                                <div class="text-sm text-slate-600 dark:text-slate-400">Pending Applications</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pending Applications -->
+        <section class="py-16">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-6xl mx-auto">
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-8">Pending Financing Applications</h2>
+                    
+                    <div class="space-y-6">
+                        <!-- Application 1 -->
+                        <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 p-6">
+                            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+                                <div class="flex-1">
+                                    <div class="flex items-center mb-2">
+                                        <h3 class="text-lg font-semibold text-slate-900 dark:text-white mr-3">Michael Chen - DFW Collision Center</h3>
+                                        <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded">Due Today</span>
+                                    </div>
+                                    <p class="text-slate-600 dark:text-slate-300 mb-2">Fort Worth, TX • Requested: $1.2M • Express Buyer</p>
+                                    <div class="flex items-center text-sm text-slate-500 dark:text-slate-400">
+                                        <span class="mr-4">Credit Score: 750</span>
+                                        <span class="mr-4">Down Payment: 25%</span>
+                                        <span>SBA Eligible</span>
+                                    </div>
+                                </div>
+                                <div class="mt-4 lg:mt-0 lg:ml-6">
+                                    <div class="flex gap-3">
+                                        <button class="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md transition-colors">
+                                            Approve
+                                        </button>
+                                        <button class="bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-md transition-colors">
+                                            Decline
+                                        </button>
+                                        <button class="bg-slate-600 hover:bg-slate-700 text-white font-medium py-2 px-4 rounded-md transition-colors">
+                                            Review
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Application 2 -->
+                        <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 p-6">
+                            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+                                <div class="flex-1">
+                                    <div class="flex items-center mb-2">
+                                        <h3 class="text-lg font-semibold text-slate-900 dark:text-white mr-3">Jennifer Park - Quick Lube Express</h3>
+                                        <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">2 Days Remaining</span>
+                                    </div>
+                                    <p class="text-slate-600 dark:text-slate-300 mb-2">Dallas, TX • Requested: $450K • Express Buyer</p>
+                                    <div class="flex items-center text-sm text-slate-500 dark:text-slate-400">
+                                        <span class="mr-4">Credit Score: 720</span>
+                                        <span class="mr-4">Down Payment: 20%</span>
+                                        <span>Conventional Loan</span>
+                                    </div>
+                                </div>
+                                <div class="mt-4 lg:mt-0 lg:ml-6">
+                                    <div class="flex gap-3">
+                                        <button class="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md transition-colors">
+                                            Approve
+                                        </button>
+                                        <button class="bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-md transition-colors">
+                                            Decline
+                                        </button>
+                                        <button class="bg-slate-600 hover:bg-slate-700 text-white font-medium py-2 px-4 rounded-md transition-colors">
+                                            Review
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Lender Performance -->
+        <section class="py-16 bg-white dark:bg-slate-800">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-4xl mx-auto">
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-8">Performance Dashboard</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="bg-slate-50 dark:bg-slate-700 rounded-lg p-6 text-center">
+                            <div class="text-3xl font-bold text-green-600 mb-2">24</div>
+                            <div class="text-sm text-slate-600 dark:text-slate-400">Loans Approved This Month</div>
+                        </div>
+                        <div class="bg-slate-50 dark:bg-slate-700 rounded-lg p-6 text-center">
+                            <div class="text-3xl font-bold text-blue-600 mb-2">$18.5M</div>
+                            <div class="text-sm text-slate-600 dark:text-slate-400">Total Funded</div>
+                        </div>
+                        <div class="bg-slate-50 dark:bg-slate-700 rounded-lg p-6 text-center">
+                            <div class="text-3xl font-bold text-purple-600 mb-2">2.8</div>
+                            <div class="text-sm text-slate-600 dark:text-slate-400">Avg Days to Approve</div>
+                        </div>
+                        <div class="bg-slate-50 dark:bg-slate-700 rounded-lg p-6 text-center">
+                            <div class="text-3xl font-bold text-orange-600 mb-2">94%</div>
+                            <div class="text-sm text-slate-600 dark:text-slate-400">Approval Rate</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Portal Footer -->
+    <div id="portal-footer"></div>
+
+    <!-- Load Portal Components -->
+    <script>
+        // Portal configuration
+        window.PortalConfig = {
+            portalType: 'lender',
+            userRole: 'Lender Partner',
+            apiEndpoint: '/api/portals/lender/',
+            features: {
+                notifications: true,
+                darkMode: true,
+                realTimeUpdates: true
+            }
+        };
+
+        // Function to load HTML content into a div
+        function loadSection(sectionId, filePath) {
+            fetch(filePath)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById(sectionId).innerHTML = data;
+                })
+                .catch(error => {
+                    console.error('Error loading section:', error);
+                });
+        }
+
+        // Load portal components
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load components
+            loadSection('portal-header', 'components/portal-header.html');
+            loadSection('portal-footer', 'components/portal-footer.html');
+
+            // Configure portal after components load
+            setTimeout(() => {
+                configureLenderPortal();
+            }, 500);
+        });
+
+        // Configure lender portal specific settings
+        function configureLenderPortal() {
+            // Set portal title
+            document.title = 'Lender Portal - AutoRepairMart';
+            
+            // Configure header
+            if (window.PortalHeader) {
+                window.PortalHeader.setBadge('🏦 Lender Portal', 'bg-red-100 text-red-800');
+                window.PortalHeader.setUser('David Thompson', 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=32&h=32&q=80');
+                window.PortalHeader.setNavigation([
+                    { href: '#dashboard', text: 'Dashboard', active: true },
+                    { href: '#applications', text: 'Applications', active: false },
+                    { href: '#portfolio', text: 'Portfolio', active: false },
+                    { href: '#reports', text: 'Reports', active: false }
+                ]);
+                window.PortalHeader.setNotificationCount(7);
+            }
+
+            // Configure footer
+            if (window.PortalFooter) {
+                window.PortalFooter.setDescription('🏦 Lender Portal - Fast-Track Financing for Express Deals');
+                window.PortalFooter.setTagline('Lender partner portal for 3-day approvals.');
+                window.PortalFooter.setStatus('🚖 Express Lender Partner');
+                window.PortalFooter.setQuickLinks([
+                    { href: '#applications', text: '📋 Review Applications' },
+                    { href: '#portfolio', text: '💼 Loan Portfolio' },
+                    { href: '#reports', text: '📊 Performance Reports' },
+                    { href: '../education/guides.html', text: '📚 Lender Resources' }
+                ]);
+            }
+
+            // Load common utilities
+            if (window.AutoRepairMart) {
+                window.AutoRepairMart.showToast('Welcome to your Lender Portal!', 'success');
+            }
+        }
+
+        // Load common JavaScript utilities
+        const script = document.createElement('script');
+        script.src = '../assets/js/common.js';
+        document.head.appendChild(script);
+    </script>
+
+</body>
+</html>

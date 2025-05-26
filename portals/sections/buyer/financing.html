@@ -1,0 +1,238 @@
+<!-- Financing Section -->
+<section id="financing" class="py-16">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-8">🏅 Financing Dashboard</h2>
+            
+            <div class="bg-white dark:bg-slate-800 rounded-lg shadow-lg border border-slate-200 dark:border-slate-700 p-8">
+                <div class="flex items-center mb-6">
+                    <div class="bg-green-100 dark:bg-green-900/30 rounded-full p-3 mr-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white">Pre-Approved Financing</h3>
+                        <p class="text-slate-600 dark:text-slate-300">Your Express Buyer package includes pre-approved financing</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="text-lg font-semibold text-slate-900 dark:text-white mb-4">Financing Details</h4>
+                        <div class="space-y-3">
+                            <div class="flex justify-between">
+                                <span class="text-slate-600 dark:text-slate-400">Pre-Approved Amount:</span>
+                                <span class="font-semibold text-slate-900 dark:text-white" id="approved-amount">$1,200,000</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-slate-600 dark:text-slate-400">Interest Rate:</span>
+                                <span class="font-semibold text-slate-900 dark:text-white" id="interest-rate">7.25% - 9.5%</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-slate-600 dark:text-slate-400">Term:</span>
+                                <span class="font-semibold text-slate-900 dark:text-white" id="loan-term">10-15 years</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-slate-600 dark:text-slate-400">Down Payment:</span>
+                                <span class="font-semibold text-slate-900 dark:text-white" id="down-payment">15-25%</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-slate-600 dark:text-slate-400">Approval Status:</span>
+                                <span class="font-semibold text-green-600" id="approval-status">✅ Approved</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="text-lg font-semibold text-slate-900 dark:text-white mb-4">Lender Partners</h4>
+                        <div class="space-y-3">
+                            <div class="bg-slate-50 dark:bg-slate-700 rounded-lg p-3">
+                                <div class="font-medium text-slate-900 dark:text-white">SBA Preferred Lender</div>
+                                <div class="text-sm text-slate-600 dark:text-slate-400">Primary financing option</div>
+                                <div class="text-xs text-green-600 mt-1">✓ Pre-approved</div>
+                            </div>
+                            <div class="bg-slate-50 dark:bg-slate-700 rounded-lg p-3">
+                                <div class="font-medium text-slate-900 dark:text-white">Alternative Fintech</div>
+                                <div class="text-sm text-slate-600 dark:text-slate-400">Fast approval backup</div>
+                                <div class="text-xs text-green-600 mt-1">✓ Pre-approved</div>
+                            </div>
+                            <div class="bg-slate-50 dark:bg-slate-700 rounded-lg p-3">
+                                <div class="font-medium text-slate-900 dark:text-white">Equipment Financing</div>
+                                <div class="text-sm text-slate-600 dark:text-slate-400">For tools and equipment</div>
+                                <div class="text-xs text-blue-600 mt-1">Available on request</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Financing Calculator -->
+                <div class="mt-8 pt-6 border-t border-slate-200 dark:border-slate-700">
+                    <h4 class="text-lg font-semibold text-slate-900 dark:text-white mb-4">Financing Calculator</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                        <div>
+                            <label for="purchase-price" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Purchase Price</label>
+                            <input type="number" id="purchase-price" class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-white" placeholder="850000" value="850000">
+                        </div>
+                        <div>
+                            <label for="down-payment-percent" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Down Payment %</label>
+                            <input type="number" id="down-payment-percent" class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-white" placeholder="20" value="20" min="15" max="50">
+                        </div>
+                        <div>
+                            <label for="interest-rate-calc" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Interest Rate %</label>
+                            <input type="number" id="interest-rate-calc" class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-white" placeholder="8.5" value="8.5" step="0.1">
+                        </div>
+                    </div>
+                    
+                    <!-- Calculation Results -->
+                    <div class="bg-slate-50 dark:bg-slate-700 rounded-lg p-6">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                            <div>
+                                <div class="text-2xl font-bold text-slate-900 dark:text-white" id="calc-down-payment">$170,000</div>
+                                <div class="text-sm text-slate-600 dark:text-slate-400">Down Payment Required</div>
+                            </div>
+                            <div>
+                                <div class="text-2xl font-bold text-slate-900 dark:text-white" id="calc-loan-amount">$680,000</div>
+                                <div class="text-sm text-slate-600 dark:text-slate-400">Loan Amount</div>
+                            </div>
+                            <div>
+                                <div class="text-2xl font-bold text-accent-dark" id="calc-monthly-payment">$6,847</div>
+                                <div class="text-sm text-slate-600 dark:text-slate-400">Est. Monthly Payment</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 pt-6 border-t border-slate-200 dark:border-slate-700">
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button type="button" id="request-financing-btn" class="flex-1 bg-green-600 hover:bg-green-700 text-white font-medium py-3 px-6 rounded-md transition-colors">
+                            Request Financing for Deal
+                        </button>
+                        <button type="button" id="view-docs-btn" class="flex-1 bg-slate-600 hover:bg-slate-700 text-white font-medium py-3 px-6 rounded-md transition-colors">
+                            View Financing Documents
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Financing Activity -->
+            <div class="mt-8 bg-white dark:bg-slate-800 rounded-lg shadow-lg border border-slate-200 dark:border-slate-700 p-8">
+                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6">Recent Financing Activity</h3>
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-700 rounded-lg">
+                        <div>
+                            <div class="font-medium text-slate-900 dark:text-white">DFW Collision Center - Financing Request</div>
+                            <div class="text-sm text-slate-600 dark:text-slate-400">Submitted 2 days ago • $1.2M requested</div>
+                        </div>
+                        <span class="bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded">Under Review</span>
+                    </div>
+                    <div class="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-700 rounded-lg">
+                        <div>
+                            <div class="font-medium text-slate-900 dark:text-white">Pre-Approval Application</div>
+                            <div class="text-sm text-slate-600 dark:text-slate-400">Completed 1 week ago • Up to $1.2M</div>
+                        </div>
+                        <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">Approved</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Financing JavaScript -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Financing utilities
+    window.BuyerFinancing = {
+        // Calculate financing
+        calculateFinancing: function() {
+            const purchasePrice = parseFloat(document.getElementById('purchase-price').value) || 0;
+            const downPaymentPercent = parseFloat(document.getElementById('down-payment-percent').value) || 20;
+            const interestRate = parseFloat(document.getElementById('interest-rate-calc').value) || 8.5;
+            const termYears = 12; // Default term
+
+            const downPayment = purchasePrice * (downPaymentPercent / 100);
+            const loanAmount = purchasePrice - downPayment;
+            
+            // Calculate monthly payment using loan formula
+            const monthlyRate = (interestRate / 100) / 12;
+            const numPayments = termYears * 12;
+            const monthlyPayment = loanAmount * (monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / (Math.pow(1 + monthlyRate, numPayments) - 1);
+
+            // Update display
+            document.getElementById('calc-down-payment').textContent = this.formatCurrency(downPayment);
+            document.getElementById('calc-loan-amount').textContent = this.formatCurrency(loanAmount);
+            document.getElementById('calc-monthly-payment').textContent = this.formatCurrency(monthlyPayment);
+        },
+
+        // Format currency
+        formatCurrency: function(amount) {
+            return new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            }).format(amount);
+        },
+
+        // Request financing
+        requestFinancing: function() {
+            if (window.PortalUtils) {
+                window.PortalUtils.showNotification('Financing request submitted to lender partners', 'success');
+            }
+            // Simulate API call
+            setTimeout(() => {
+                if (window.PortalUtils) {
+                    window.PortalUtils.showNotification('Lender will contact you within 24 hours', 'info');
+                }
+            }, 2000);
+        },
+
+        // View documents
+        viewDocuments: function() {
+            if (window.PortalUtils) {
+                window.PortalUtils.showNotification('Opening financing document library...', 'info');
+            }
+            // Simulate opening document viewer
+            setTimeout(() => {
+                window.location.href = '#financing-documents';
+            }, 1000);
+        },
+
+        // Initialize
+        init: function() {
+            // Set up calculator inputs
+            const inputs = ['purchase-price', 'down-payment-percent', 'interest-rate-calc'];
+            inputs.forEach(inputId => {
+                const input = document.getElementById(inputId);
+                if (input) {
+                    input.addEventListener('input', () => {
+                        this.calculateFinancing();
+                    });
+                }
+            });
+
+            // Set up buttons
+            const requestBtn = document.getElementById('request-financing-btn');
+            if (requestBtn) {
+                requestBtn.addEventListener('click', () => {
+                    this.requestFinancing();
+                });
+            }
+
+            const docsBtn = document.getElementById('view-docs-btn');
+            if (docsBtn) {
+                docsBtn.addEventListener('click', () => {
+                    this.viewDocuments();
+                });
+            }
+
+            // Initial calculation
+            this.calculateFinancing();
+        }
+    };
+
+    // Initialize when loaded
+    window.BuyerFinancing.init();
+});
+</script>

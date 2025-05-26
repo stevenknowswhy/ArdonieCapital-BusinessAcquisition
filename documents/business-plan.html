@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Plan - Ardonie Capital</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="../assets/css/common.css" rel="stylesheet">
+    <!-- AOS (Animate On Scroll) for animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            DEFAULT: '#3b82f6',
+                            dark: '#2563eb',
+                            light: '#93c5fd',
+                        },
+                        secondary: {
+                            DEFAULT: '#64748b',
+                            light: '#f1f5f9',
+                        },
+                        accent: {
+                            DEFAULT: '#10b981',
+                            dark: '#059669',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-sans text-slate-800 bg-white dark:bg-slate-900 dark:text-slate-200">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white dark:bg-slate-900 shadow-sm">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex-shrink-0">
+                    <a href="../index.html" class="flex items-center">
+                        <span class="text-2xl font-bold text-primary-dark dark:text-primary-light">Ardonie Capital</span>
+                    </a>
+                </div>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="../index.html" class="text-slate-600 hover:text-primary-dark dark:text-slate-300 dark:hover:text-primary-light">Home</a>
+                    <a href="one-page-pitch.html" class="text-slate-600 hover:text-primary-dark dark:text-slate-300 dark:hover:text-primary-light">One-Page Pitch</a>
+                    <a href="../prelaunch-express.html" class="text-slate-600 hover:text-primary-dark dark:text-slate-300 dark:hover:text-primary-light">Pilot Program</a>
+                    <a href="../auth/register.html" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary-dark hover:bg-primary shadow-sm hover:shadow transition-all">Get Started</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="min-h-screen">
+        <!-- Hero Section -->
+        <div class="relative bg-gradient-to-br from-primary/10 via-white to-accent/10 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 py-20 overflow-hidden">
+            <div class="absolute inset-0 bg-grid-pattern opacity-5"></div>
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative">
+                <div class="text-center mb-16" data-aos="fade-up">
+                    <div class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-primary-dark to-accent text-white rounded-full text-lg font-bold mb-8 shadow-lg pulse-glow">
+                        <span class="text-2xl mr-3">📋</span>
+                        Comprehensive Business Strategy
+                    </div>
+                    <h1 class="text-5xl md:text-7xl font-black text-slate-900 dark:text-white mb-6 leading-tight">
+                        <span class="bg-gradient-to-r from-primary-dark to-accent bg-clip-text text-transparent">Ardonie Capital</span>
+                        <br>
+                        <span class="text-3xl md:text-4xl font-bold text-slate-700 dark:text-slate-300">Business Plan Outline</span>
+                    </h1>
+                    <p class="text-xl md:text-2xl text-slate-600 dark:text-slate-300 max-w-4xl mx-auto leading-relaxed mb-8">
+                        Complete strategic framework for revolutionizing DFW auto repair shop transactions through
+                        <span class="font-semibold text-accent-dark">technology-enabled, expert-guided solutions.</span>
+                    </p>
+
+                    <!-- Quick Stats -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
+                        <div class="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl p-6 text-center shadow-lg">
+                            <div class="text-3xl font-black text-primary-dark mb-2">9</div>
+                            <div class="text-slate-600 dark:text-slate-300 font-medium">Comprehensive Sections</div>
+                        </div>
+                        <div class="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl p-6 text-center shadow-lg">
+                            <div class="text-3xl font-black text-accent-dark mb-2">34</div>
+                            <div class="text-slate-600 dark:text-slate-300 font-medium">Day Target Timeline</div>
+                        </div>
+                        <div class="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl p-6 text-center shadow-lg">
+                            <div class="text-3xl font-black text-orange-600 mb-2">$2.1B</div>
+                            <div class="text-slate-600 dark:text-slate-300 font-medium">DFW Market Size</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
+
+
+            <!-- Business Plan Overview -->
+            <div class="bg-white dark:bg-slate-800 rounded-3xl p-8 mb-20 shadow-xl border border-slate-100 dark:border-slate-700" data-aos="fade-up">
+                <h2 class="text-3xl font-black text-slate-900 dark:text-white text-center mb-12">
+                    <span class="text-primary-dark">🎯</span> Business Plan Structure
+                </h2>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <div>
+                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">Strategic Framework</h3>
+                        <p class="text-lg text-slate-700 dark:text-slate-300 leading-relaxed mb-6">
+                            Our comprehensive business plan outlines the complete strategy for transforming DFW auto repair shop transactions through innovative technology, expert guidance, and streamlined processes.
+                        </p>
+
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <div class="w-8 h-8 bg-primary/20 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
+                                    <span class="text-primary text-sm">📊</span>
+                                </div>
+                                <span class="text-slate-700 dark:text-slate-300">Market analysis and competitive positioning</span>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="w-8 h-8 bg-accent/20 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
+                                    <span class="text-accent text-sm">🚀</span>
+                                </div>
+                                <span class="text-slate-700 dark:text-slate-300">Express Path methodology and implementation</span>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="w-8 h-8 bg-orange-500/20 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
+                                    <span class="text-orange-500 text-sm">💰</span>
+                                </div>
+                                <span class="text-slate-700 dark:text-slate-300">Financial projections and revenue models</span>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="w-8 h-8 bg-purple-500/20 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
+                                    <span class="text-purple-500 text-sm">🤝</span>
+                                </div>
+                                <span class="text-slate-700 dark:text-slate-300">Partnership strategy and vendor ecosystem</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">Key Documents</h3>
+                        <div class="space-y-4">
+                            <a href="one-page-pitch.html" class="block p-4 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-2xl border border-blue-100 dark:border-blue-800/30 hover:shadow-lg transition-all">
+                                <div class="flex items-center">
+                                    <div class="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center text-white text-lg mr-4">
+                                        📄
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-slate-900 dark:text-white">One-Page Pitch</h4>
+                                        <p class="text-blue-600 dark:text-blue-400 text-sm">Executive summary with interactive charts</p>
+                                    </div>
+                                </div>
+                            </a>
+
+                            <a href="../prelaunch-express.html" class="block p-4 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-2xl border border-green-100 dark:border-green-800/30 hover:shadow-lg transition-all">
+                                <div class="flex items-center">
+                                    <div class="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center text-white text-lg mr-4">
+                                        🚀
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-slate-900 dark:text-white">Pilot Program</h4>
+                                        <p class="text-green-600 dark:text-green-400 text-sm">Prelaunch Express Program details</p>
+                                    </div>
+                                </div>
+                            </a>
+
+                            <div class="p-4 bg-gradient-to-r from-purple-50 to-violet-50 dark:from-purple-900/20 dark:to-violet-900/20 rounded-2xl border border-purple-100 dark:border-purple-800/30">
+                                <div class="flex items-center">
+                                    <div class="w-12 h-12 bg-purple-500 rounded-xl flex items-center justify-center text-white text-lg mr-4">
+                                        📊
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-slate-900 dark:text-white">Financial Projections</h4>
+                                        <p class="text-purple-600 dark:text-purple-400 text-sm">Coming soon - Detailed financial models</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 1: Executive Summary -->
+            <div class="bg-gradient-to-br from-primary/5 to-accent/5 dark:from-slate-800 dark:to-slate-900 rounded-3xl p-8 mb-12 shadow-xl border border-primary/10" data-aos="fade-up">
+                <h2 class="text-3xl font-black text-slate-900 dark:text-white mb-8">
+                    <span class="text-primary-dark">1.</span> Executive Summary
+                    <span class="text-sm font-normal text-slate-500 ml-4">(Write LAST, but comes FIRST)</span>
+                </h2>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="space-y-6">
+                        <div class="p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-lg">
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">1.1 Business Concept</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm">
+                                Modern marketplace for buying/selling DFW auto repair shops, featuring an "Express Path" for 34-day deals.
+                            </p>
+                            <a href="one-page-pitch.html" class="inline-flex items-center text-primary-dark hover:text-primary text-sm font-medium mt-3">
+                                View Details <span class="ml-1">→</span>
+                            </a>
+                        </div>
+
+                        <div class="p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-lg">
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">1.2-1.4 Mission, Vision & Values</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm">
+                                Core organizational principles and strategic direction for transforming auto repair shop transactions.
+                            </p>
+                            <span class="inline-flex items-center text-slate-500 text-sm font-medium mt-3">
+                                In Development <span class="ml-1">⏳</span>
+                            </span>
+                        </div>
+
+                        <div class="p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-lg">
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">1.5 Problem & Solution</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm">
+                                Addressing slow, complex M&A processes with streamlined, tech-enabled, expert-guided solutions.
+                            </p>
+                            <a href="one-page-pitch.html#pain-points" class="inline-flex items-center text-primary-dark hover:text-primary text-sm font-medium mt-3">
+                                View Analysis <span class="ml-1">→</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-lg">
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">1.6 Target Market</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm">
+                                Initial focus on DFW auto repair shops (2,500+ shops, $2.1B market value, 375+ annual transactions).
+                            </p>
+                            <a href="one-page-pitch.html#market-opportunity" class="inline-flex items-center text-primary-dark hover:text-primary text-sm font-medium mt-3">
+                                Market Data <span class="ml-1">→</span>
+                            </a>
+                        </div>
+
+                        <div class="p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-lg">
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">1.7 Competitive Advantage</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm">
+                                Express Path, Express Badges, vendor vetting, Deal Navigators, standardization, speed, trust.
+                            </p>
+                            <a href="one-page-pitch.html#competitive-advantages" class="inline-flex items-center text-primary-dark hover:text-primary text-sm font-medium mt-3">
+                                View Advantages <span class="ml-1">→</span>
+                            </a>
+                        </div>
+
+                        <div class="p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-lg">
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">1.8-1.10 Team, Projections & Funding</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm">
+                                Management team overview, 3-year financial projections ($500K-$3.5M), and funding requirements.
+                            </p>
+                            <span class="inline-flex items-center text-slate-500 text-sm font-medium mt-3">
+                                In Development <span class="ml-1">⏳</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2: Company Description -->
+            <div class="bg-white dark:bg-slate-800 rounded-3xl p-8 mb-12 shadow-xl border border-slate-100 dark:border-slate-700" data-aos="fade-up">
+                <h2 class="text-3xl font-black text-slate-900 dark:text-white mb-8">
+                    <span class="text-accent">2.</span> Company Description
+                </h2>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="space-y-6">
+                        <div class="p-6 bg-gradient-to-br from-accent/5 to-accent/10 rounded-2xl border border-accent/20">
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">2.1 Company Overview</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm">
+                                Detailed description of AutoRepairMart's mission, vision, and core business operations.
+                            </p>
+                        </div>
+
+                        <div class="p-6 bg-gradient-to-br from-blue/5 to-blue/10 rounded-2xl border border-blue/20">
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">2.2 Legal Structure & Ownership</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm">
+                                Business entity formation (LLC, S-Corp), ownership structure, and governance framework.
+                            </p>
+                        </div>
+
+                        <div class="p-6 bg-gradient-to-br from-purple/5 to-purple/10 rounded-2xl border border-purple/20">
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">2.3 Company History</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm">
+                                Startup vision, founding story, and key milestones in company development.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="p-6 bg-gradient-to-br from-orange/5 to-orange/10 rounded-2xl border border-orange/20">
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">2.4 Location & Facilities</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm">
+                                Virtual operations model, DFW market focus, and future facility requirements.
+                            </p>
+                        </div>
+
+                        <div class="p-6 bg-gradient-to-br from-green/5 to-green/10 rounded-2xl border border-green/20">
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">2.5 Strategic Partnerships</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm">
+                                Vision for law firms, financial institutions, and accounting partnerships.
+                            </p>
+                            <a href="one-page-pitch.html#professional-partners" class="inline-flex items-center text-green-600 hover:text-green-700 text-sm font-medium mt-3">
+                                View Partner Strategy <span class="ml-1">→</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 3: Market Analysis -->
+            <div class="bg-gradient-to-br from-blue/5 to-indigo/5 dark:from-slate-800 dark:to-slate-900 rounded-3xl p-8 mb-12 shadow-xl border border-blue/10" data-aos="fade-up">
+                <h2 class="text-3xl font-black text-slate-900 dark:text-white mb-8">
+                    <span class="text-blue-600">3.</span> Market Analysis
+                </h2>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="space-y-6">
+                        <div class="p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-lg">
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">3.1 Industry Overview</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm">
+                                Small business M&A market trends, online marketplace evolution, and industry dynamics.
+                            </p>
+                        </div>
+
+                        <div class="p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-lg">
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">3.2 Target Market Identification</h3>
+                            <div class="space-y-3">
+                                <div class="text-sm">
+                                    <span class="font-semibold text-blue-600">3.2.1 DFW Auto Repair Sector:</span>
+                                    <span class="text-slate-600 dark:text-slate-400"> Size, deal values, growth trends</span>
+                                </div>
+                                <div class="text-sm">
+                                    <span class="font-semibold text-green-600">3.2.2 Seller Profile:</span>
+                                    <span class="text-slate-600 dark:text-slate-400"> Demographics, motivations, pain points</span>
+                                </div>
+                                <div class="text-sm">
+                                    <span class="font-semibold text-purple-600">3.2.3 Buyer Profile:</span>
+                                    <span class="text-slate-600 dark:text-slate-400"> Demographics, funding capabilities</span>
+                                </div>
+                            </div>
+                            <a href="one-page-pitch.html#market-opportunity" class="inline-flex items-center text-blue-600 hover:text-blue-700 text-sm font-medium mt-3">
+                                View Market Data <span class="ml-1">→</span>
+                            </a>
+                        </div>
+
+                        <div class="p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-lg">
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">3.3 Market Needs</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm">
+                                Why DFW auto shop owners need AutoRepairMart: speed, complexity reduction, trust building.
+                            </p>
+                            <a href="one-page-pitch.html#pain-points" class="inline-flex items-center text-blue-600 hover:text-blue-700 text-sm font-medium mt-3">
+                                Pain Point Analysis <span class="ml-1">→</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-lg">
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">3.4 Market Size & Trends</h3>
+                            <div class="space-y-3">
+                                <div class="flex justify-between">
+                                    <span class="text-slate-600 dark:text-slate-400 text-sm">DFW Auto Repair Shops:</span>
+                                    <span class="font-semibold text-blue-600">2,500+</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-slate-600 dark:text-slate-400 text-sm">Total Market Value:</span>
+                                    <span class="font-semibold text-blue-600">$2.1B</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-slate-600 dark:text-slate-400 text-sm">Annual Transactions:</span>
+                                    <span class="font-semibold text-blue-600">375+</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-slate-600 dark:text-slate-400 text-sm">Ownership Turnover:</span>
+                                    <span class="font-semibold text-blue-600">15%</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-lg">
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">3.5 Competition Analysis</h3>
+                            <div class="space-y-3">
+                                <div class="text-sm">
+                                    <span class="font-semibold text-red-600">3.5.1 Direct Competitors:</span>
+                                    <span class="text-slate-600 dark:text-slate-400"> Local DFW brokers, BizBuySell</span>
+                                </div>
+                                <div class="text-sm">
+                                    <span class="font-semibold text-orange-600">3.5.2 Indirect Competitors:</span>
+                                    <span class="text-slate-600 dark:text-slate-400"> DIY sales, generalist brokers</span>
+                                </div>
+                                <div class="text-sm">
+                                    <span class="font-semibold text-green-600">3.5.3 SWOT Analysis:</span>
+                                    <span class="text-slate-600 dark:text-slate-400"> Competitive positioning</span>
+                                </div>
+                                <div class="text-sm">
+                                    <span class="font-semibold text-blue-600">3.5.4 Our Advantages:</span>
+                                    <span class="text-slate-600 dark:text-slate-400"> Express Path, badges, specialization</span>
+                                </div>
+                            </div>
+                            <a href="one-page-pitch.html#competitive-advantages" class="inline-flex items-center text-blue-600 hover:text-blue-700 text-sm font-medium mt-3">
+                                View Advantages <span class="ml-1">→</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 4: Products & Services -->
+            <div class="bg-gradient-to-br from-green/5 to-emerald/5 dark:from-slate-800 dark:to-slate-900 rounded-3xl p-8 mb-12 shadow-xl border border-green/10" data-aos="fade-up">
+                <h2 class="text-3xl font-black text-slate-900 dark:text-white mb-8">
+                    <span class="text-green-600">4.</span> Products & Services
+                </h2>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="space-y-6">
+                        <div class="p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-lg">
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">4.1 Platform Overview</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm">
+                                AutoRepairMart website/application architecture and core functionality.
+                            </p>
+                        </div>
+
+                        <div class="p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-lg">
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">4.2 For Sellers</h3>
+                            <div class="space-y-2 text-sm">
+                                <div><span class="font-semibold text-orange-600">4.2.1</span> Listing Services</div>
+                                <div><span class="font-semibold text-orange-600">4.2.2</span> Express Seller Program</div>
+                                <div><span class="font-semibold text-orange-600">4.2.3</span> Document Templates</div>
+                                <div><span class="font-semibold text-orange-600">4.2.4</span> Deal Navigator Support</div>
+                            </div>
+                        </div>
+
+                        <div class="p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-lg">
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">4.3 For Buyers</h3>
+                            <div class="space-y-2 text-sm">
+                                <div><span class="font-semibold text-blue-600">4.3.1</span> Search & Matchmaking</div>
+                                <div><span class="font-semibold text-blue-600">4.3.2</span> Express Buyer Program</div>
+                                <div><span class="font-semibold text-blue-600">4.3.3</span> Vetted Listings Access</div>
+                                <div><span class="font-semibold text-blue-600">4.3.4</span> Financing Guidance</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-lg">
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">4.4 For Vendors</h3>
+                            <div class="space-y-2 text-sm">
+                                <div><span class="font-semibold text-purple-600">4.4.1</span> Partner Program Overview</div>
+                                <div><span class="font-semibold text-purple-600">4.4.2</span> Lead Generation & Checklists</div>
+                            </div>
+                            <a href="one-page-pitch.html#professional-partners" class="inline-flex items-center text-purple-600 hover:text-purple-700 text-sm font-medium mt-3">
+                                View Partner Details <span class="ml-1">→</span>
+                            </a>
+                        </div>
+
+                        <div class="p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-lg">
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">4.5 Express Path Package</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm mb-3">
+                                Detailed 34-day close process involving Express Sellers, Express Buyers, and pre-selected vendors.
+                            </p>
+                            <a href="../express-deal.html" class="inline-flex items-center text-green-600 hover:text-green-700 text-sm font-medium">
+                                View Express Deal <span class="ml-1">→</span>
+                            </a>
+                        </div>
+
+                        <div class="p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-lg">
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">4.6-4.7 Technology & Future</h3>
+                            <div class="space-y-2 text-sm">
+                                <div><span class="font-semibold text-slate-600">4.6</span> MVP via Bubble, custom build plans</div>
+                                <div><span class="font-semibold text-slate-600">4.7</span> Long-term product vision</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 5: Marketing & Sales Strategy -->
+            <div class="bg-gradient-to-br from-purple/5 to-violet/5 dark:from-slate-800 dark:to-slate-900 rounded-3xl p-8 mb-12 shadow-xl border border-purple/10" data-aos="fade-up">
+                <h2 class="text-3xl font-black text-slate-900 dark:text-white mb-8">
+                    <span class="text-purple-600">5.</span> Marketing & Sales Strategy
+                </h2>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="space-y-6">
+                        <div class="p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-lg">
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">5.1-5.2 Target Audience & Objectives</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm">
+                                DFW Auto Repair Sellers & Buyers, listing goals, badged user targets.
+                            </p>
+                        </div>
+
+                        <div class="p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-lg">
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">5.3 Marketing Strategies</h3>
+                            <div class="space-y-2 text-sm">
+                                <div><span class="font-semibold text-purple-600">5.3.1</span> Online: SEO, SEM/PPC, content, social</div>
+                                <div><span class="font-semibold text-purple-600">5.3.2</span> Offline: DFW events, associations</div>
+                                <div><span class="font-semibold text-purple-600">5.3.3</span> PR: Launch announcements</div>
+                            </div>
+                        </div>
+
+                        <div class="p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-lg">
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">5.4 Sales Strategy</h3>
+                            <div class="space-y-2 text-sm">
+                                <div><span class="font-semibold text-purple-600">5.4.1</span> Seller Acquisition</div>
+                                <div><span class="font-semibold text-purple-600">5.4.2</span> Buyer Acquisition</div>
+                                <div><span class="font-semibold text-purple-600">5.4.3</span> Vendor/Partner Recruitment</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-lg">
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">5.5 Pricing & Revenue Model</h3>
+                            <div class="space-y-3">
+                                <div class="flex justify-between">
+                                    <span class="text-slate-600 dark:text-slate-400 text-sm">Transaction Fees:</span>
+                                    <span class="font-semibold text-green-600">3-5%</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-slate-600 dark:text-slate-400 text-sm">Express Badges:</span>
+                                    <span class="font-semibold text-blue-600">$500-$999</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-slate-600 dark:text-slate-400 text-sm">Referral Fees:</span>
+                                    <span class="font-semibold text-purple-600">Variable</span>
+                                </div>
+                            </div>
+                            <a href="one-page-pitch.html#business-model" class="inline-flex items-center text-purple-600 hover:text-purple-700 text-sm font-medium mt-3">
+                                View Revenue Model <span class="ml-1">→</span>
+                            </a>
+                        </div>
+
+                        <div class="p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-lg">
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">5.6 Branding & Positioning</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm">
+                                Core values: speed, trust, simplicity, expertise in DFW auto repair transactions.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 6: Operations Plan -->
+            <div class="bg-gradient-to-br from-orange/5 to-red/5 dark:from-slate-800 dark:to-slate-900 rounded-3xl p-8 mb-12 shadow-xl border border-orange/10" data-aos="fade-up">
+                <h2 class="text-3xl font-black text-slate-900 dark:text-white mb-8">
+                    <span class="text-orange-600">6.</span> Operations Plan
+                </h2>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="space-y-6">
+                        <div class="p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-lg">
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">6.1 Key Operational Processes</h3>
+                            <div class="space-y-2 text-sm">
+                                <div><span class="font-semibold text-orange-600">6.1.1</span> User Onboarding Workflow</div>
+                                <div><span class="font-semibold text-orange-600">6.1.2</span> Listing Creation & Approval</div>
+                                <div><span class="font-semibold text-orange-600">6.1.3</span> Express Badge Vetting</div>
+                                <div><span class="font-semibold text-orange-600">6.1.4</span> Matchmaking & Introductions</div>
+                                <div><span class="font-semibold text-orange-600">6.1.5</span> Deal Navigator Workflow</div>
+                                <div><span class="font-semibold text-orange-600">6.1.6</span> Express Package Management</div>
+                            </div>
+                        </div>
+
+                        <div class="p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-lg">
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">6.2 Technology Plan</h3>
+                            <div class="space-y-2 text-sm">
+                                <div><span class="font-semibold text-orange-600">6.2.1</span> MVP Development (Bubble.io)</div>
+                                <div><span class="font-semibold text-orange-600">6.2.2</span> Future Technology Roadmap</div>
+                                <div><span class="font-semibold text-orange-600">6.2.3</span> Data Security & Privacy</div>
+                            </div>
+                        </div>
+
+                        <div class="p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-lg">
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">6.3-6.5 Support & Compliance</h3>
+                            <div class="space-y-2 text-sm">
+                                <div><span class="font-semibold text-orange-600">6.3</span> Customer Service & Deal Navigators</div>
+                                <div><span class="font-semibold text-orange-600">6.4</span> Location & Facilities (Remote)</div>
+                                <div><span class="font-semibold text-orange-600">6.5</span> Legal & Regulatory Compliance</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="p-6 bg-gradient-to-br from-orange-50 to-red-50 dark:from-orange-900/20 dark:to-red-900/20 rounded-2xl border border-orange-100 dark:border-orange-800/30">
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">Pilot Program Integration</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm mb-3">
+                                Operations plan includes comprehensive pilot program execution and feedback integration.
+                            </p>
+                            <a href="../prelaunch-express.html" class="inline-flex items-center text-orange-600 hover:text-orange-700 text-sm font-medium">
+                                View Pilot Program <span class="ml-1">→</span>
+                            </a>
+                        </div>
+
+                        <div class="p-6 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-2xl border border-blue-100 dark:border-blue-800/30">
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">Express Path Operations</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm mb-3">
+                                Detailed operational framework for managing 34-day transaction timelines.
+                            </p>
+                            <a href="../express-deal.html" class="inline-flex items-center text-blue-600 hover:text-blue-700 text-sm font-medium">
+                                View Express Deal <span class="ml-1">→</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 7: Management Team & Organization -->
+            <div class="bg-gradient-to-br from-indigo/5 to-blue/5 dark:from-slate-800 dark:to-slate-900 rounded-3xl p-8 mb-12 shadow-xl border border-indigo/10" data-aos="fade-up">
+                <h2 class="text-3xl font-black text-slate-900 dark:text-white mb-8">
+                    <span class="text-indigo-600">7.</span> Management Team & Organization
+                </h2>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="space-y-6">
+                        <div class="p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-lg">
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">7.1 Founders & Key Personnel</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm">
+                                Background, expertise, and roles of founding team members.
+                            </p>
+                        </div>
+
+                        <div class="p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-lg">
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">7.2 Organizational Structure</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm">
+                                Initial organizational chart and reporting relationships.
+                            </p>
+                        </div>
+
+                        <div class="p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-lg">
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">7.3 Deal Navigator Team</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm">
+                                Role definition, required skills, and recruitment strategy.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-lg">
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">7.4 Advisory Board</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm">
+                                Planned experts in M&A, technology, and DFW market knowledge.
+                            </p>
+                        </div>
+
+                        <div class="p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-lg">
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">7.5 Staffing Plan</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm">
+                                Future growth hiring strategy and organizational scaling.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 8: Financial Plan & Projections -->
+            <div class="bg-gradient-to-br from-green/5 to-emerald/5 dark:from-slate-800 dark:to-slate-900 rounded-3xl p-8 mb-12 shadow-xl border border-green/10" data-aos="fade-up">
+                <h2 class="text-3xl font-black text-slate-900 dark:text-white mb-8">
+                    <span class="text-green-600">8.</span> Financial Plan & Projections
+                </h2>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="space-y-6">
+                        <div class="p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-lg">
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">8.1-8.2 Startup Costs & Funding</h3>
+                            <div class="space-y-2 text-sm">
+                                <div><span class="font-semibold text-green-600">8.1</span> MVP development, marketing, legal fees</div>
+                                <div><span class="font-semibold text-green-600">8.2</span> Personal investment, angel investors</div>
+                            </div>
+                        </div>
+
+                        <div class="p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-lg">
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">8.3 Key Financial Assumptions</h3>
+                            <div class="space-y-3">
+                                <div class="flex justify-between">
+                                    <span class="text-slate-600 dark:text-slate-400 text-sm">Average Deal Size:</span>
+                                    <span class="font-semibold text-green-600">$200K-$2M</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-slate-600 dark:text-slate-400 text-sm">Commission Rate:</span>
+                                    <span class="font-semibold text-green-600">3-5%</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-slate-600 dark:text-slate-400 text-sm">Annual Growth:</span>
+                                    <span class="font-semibold text-green-600">150-200%</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-lg">
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">8.4 Financial Projections</h3>
+                            <div class="space-y-2 text-sm">
+                                <div><span class="font-semibold text-green-600">8.4.1</span> Pro Forma Income Statement</div>
+                                <div><span class="font-semibold text-green-600">8.4.2</span> Pro Forma Balance Sheet</div>
+                                <div><span class="font-semibold text-green-600">8.4.3</span> Pro Forma Cash Flow</div>
+                            </div>
+                            <a href="one-page-pitch.html#business-model" class="inline-flex items-center text-green-600 hover:text-green-700 text-sm font-medium mt-3">
+                                View Revenue Model <span class="ml-1">→</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-lg">
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">8.5 Break-Even Analysis</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm">
+                                Transaction volume required to achieve profitability and cash flow positive operations.
+                            </p>
+                        </div>
+
+                        <div class="p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-lg">
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">8.6 Key Performance Indicators</h3>
+                            <div class="space-y-2 text-sm">
+                                <div>• Number of listings and active buyers</div>
+                                <div>• Express badges issued</div>
+                                <div>• Average time-to-close</div>
+                                <div>• Customer acquisition cost</div>
+                                <div>• Transaction completion rate</div>
+                            </div>
+                        </div>
+
+                        <div class="p-6 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-2xl border border-green-100 dark:border-green-800/30">
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">3-Year Revenue Projection</h3>
+                            <div class="space-y-3">
+                                <div class="flex justify-between">
+                                    <span class="text-slate-600 dark:text-slate-400 text-sm">Year 1:</span>
+                                    <span class="font-semibold text-green-600">$500K - $800K</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-slate-600 dark:text-slate-400 text-sm">Year 2:</span>
+                                    <span class="font-semibold text-green-600">$1.2M - $2.0M</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-slate-600 dark:text-slate-400 text-sm">Year 3:</span>
+                                    <span class="font-semibold text-green-600">$2.0M - $3.5M</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 9: Appendix -->
+            <div class="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-900 rounded-3xl p-8 mb-12 shadow-xl border border-slate-200 dark:border-slate-700" data-aos="fade-up">
+                <h2 class="text-3xl font-black text-slate-900 dark:text-white mb-8">
+                    <span class="text-slate-600">9.</span> Appendix (Supporting Documents)
+                </h2>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="space-y-6">
+                        <div class="p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-lg">
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">Documentation</h3>
+                            <div class="space-y-2 text-sm">
+                                <div>• Resumes of key personnel</div>
+                                <div>• Market research data and charts</div>
+                                <div>• Letters of intent from potential partners</div>
+                                <div>• Detailed financial spreadsheets</div>
+                            </div>
+                        </div>
+
+                        <div class="p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-lg">
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">Technical Assets</h3>
+                            <div class="space-y-2 text-sm">
+                                <div>• Platform mockups and wireframes</div>
+                                <div>• Vendor checklists (drafts)</div>
+                                <div>• Process flow diagrams</div>
+                                <div>• Technology architecture plans</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="p-6 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-2xl border border-blue-100 dark:border-blue-800/30">
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">Available Resources</h3>
+                            <div class="space-y-3">
+                                <a href="one-page-pitch.html" class="block p-3 bg-white dark:bg-slate-800 rounded-lg border hover:shadow-md transition-all">
+                                    <div class="flex items-center">
+                                        <span class="text-blue-500 mr-3">📄</span>
+                                        <span class="font-medium text-slate-900 dark:text-white">One-Page Pitch</span>
+                                    </div>
+                                </a>
+
+                                <a href="../prelaunch-express.html" class="block p-3 bg-white dark:bg-slate-800 rounded-lg border hover:shadow-md transition-all">
+                                    <div class="flex items-center">
+                                        <span class="text-green-500 mr-3">🚀</span>
+                                        <span class="font-medium text-slate-900 dark:text-white">Pilot Program Details</span>
+                                    </div>
+                                </a>
+
+                                <div class="p-3 bg-white dark:bg-slate-800 rounded-lg border opacity-60">
+                                    <div class="flex items-center">
+                                        <span class="text-slate-400 mr-3">📊</span>
+                                        <span class="font-medium text-slate-500">Financial Models (Coming Soon)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Call to Action -->
+            <div class="bg-gradient-to-r from-primary/10 to-accent/10 rounded-3xl p-8 text-center" data-aos="fade-up">
+                <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-4">Ready to Transform the Auto Repair Industry?</h2>
+                <p class="text-xl text-slate-700 dark:text-slate-300 mb-8 max-w-3xl mx-auto">
+                    Join Ardonie Capital in revolutionizing how auto repair shops change hands in the DFW market and beyond.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="../prelaunch-express.html" class="inline-flex items-center px-8 py-4 border border-transparent text-lg font-medium rounded-md text-white bg-primary-dark hover:bg-primary shadow-lg hover:shadow-xl transition-all">
+                        <span class="text-2xl mr-3">🚀</span>
+                        Join Pilot Program
+                    </a>
+                    <a href="../contact.html" class="inline-flex items-center px-8 py-4 border border-slate-300 text-lg font-medium rounded-md text-slate-700 bg-white hover:bg-slate-50 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-600 dark:hover:bg-slate-700 shadow-lg hover:shadow-xl transition-all">
+                        Contact Our Team
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+
+    <!-- JavaScript -->
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true,
+            offset: 100
+        });
+
+        // Load footer
+        fetch('../components/footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer-placeholder').innerHTML = data;
+            });
+    </script>
+
+</body>
+</html>

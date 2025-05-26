@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Express Deal Package - Ardonie Capital</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            DEFAULT: '#3b82f6',
+                            dark: '#2563eb',
+                            light: '#93c5fd',
+                        },
+                        secondary: {
+                            DEFAULT: '#64748b',
+                            light: '#f1f5f9',
+                        },
+                        accent: {
+                            DEFAULT: '#10b981',
+                            dark: '#059669',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-sans text-slate-800 bg-white dark:bg-slate-900 dark:text-slate-200">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white dark:bg-slate-900 shadow-sm">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex-shrink-0">
+                    <a href="index.html" class="flex items-center">
+                        <span class="text-2xl font-bold text-primary-dark dark:text-primary-light">Ardonie Capital</span>
+                    </a>
+                </div>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="index.html" class="text-slate-600 hover:text-primary-dark dark:text-slate-300 dark:hover:text-primary-light">Home</a>
+                    <a href="marketplace/listings.html" class="text-slate-600 hover:text-primary-dark dark:text-slate-300 dark:hover:text-primary-light">Browse Listings</a>
+                    <a href="auth/login.html" class="text-slate-600 hover:text-primary-dark dark:text-slate-300 dark:hover:text-primary-light">Login</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="min-h-screen bg-slate-50 dark:bg-slate-900">
+        <!-- Hero Section -->
+        <section class="bg-gradient-to-br from-accent/10 to-primary/10 dark:from-accent/20 dark:to-primary/20 py-16">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-4xl mx-auto text-center">
+                    <div class="mb-6">
+                        <span class="inline-flex items-center px-4 py-2 rounded-full text-lg font-bold bg-accent text-white">
+                            🚖 Express Deal Package
+                        </span>
+                    </div>
+                    <h1 class="text-4xl md:text-6xl font-bold text-slate-900 dark:text-white mb-6">
+                        Close Your DFW Auto Repair Deal in
+                        <span class="text-accent-dark">34 Days</span>
+                    </h1>
+                    <p class="text-xl text-slate-600 dark:text-slate-300 mb-8 max-w-3xl mx-auto">
+                        Skip the 6-month wait. Our Express Deal Package connects pre-vetted buyers with pre-verified sellers
+                        through our network of DFW automotive industry experts.
+                    </p>
+
+                    <!-- Speed Comparison Chart -->
+                    <div class="bg-white dark:bg-slate-800 rounded-lg p-8 mb-8 border border-slate-200 dark:border-slate-700">
+                        <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-6">Deal Timeline Comparison</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div class="text-center">
+                                <div class="text-4xl font-bold text-slate-400 dark:text-slate-500 mb-2">198 Days</div>
+                                <div class="text-sm text-slate-600 dark:text-slate-400 mb-4">Traditional Market Average</div>
+                                <div class="bg-slate-200 dark:bg-slate-600 h-4 rounded-full">
+                                    <div class="bg-slate-400 h-4 rounded-full" style="width: 100%"></div>
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-4xl font-bold text-accent-dark mb-2">34 Days</div>
+                                <div class="text-sm text-accent-dark font-medium mb-4">🚖 Express Deal Package</div>
+                                <div class="bg-slate-200 dark:bg-slate-600 h-4 rounded-full">
+                                    <div class="bg-accent h-4 rounded-full" style="width: 17%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Package Options -->
+        <section class="py-16">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-4">Choose Your Express Package</h2>
+                    <p class="text-xl text-slate-600 dark:text-slate-300">Get pre-vetted status and access to our 34-day closing process</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                    <!-- Express Buyer Package -->
+                    <div class="bg-white dark:bg-slate-800 rounded-lg shadow-lg border border-slate-200 dark:border-slate-700 p-8">
+                        <div class="text-center mb-6">
+                            <div class="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary-dark" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">Express Buyer Package</h3>
+                            <div class="text-4xl font-bold text-primary-dark mb-2">$3,999</div>
+                            <p class="text-slate-600 dark:text-slate-300">One-time fee for verified buyer status</p>
+                        </div>
+
+                        <div class="space-y-4 mb-8">
+                            <div class="flex items-start">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-accent-dark mt-1 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                                <div>
+                                    <div class="font-medium text-slate-900 dark:text-white">🏅 Financing Pre-Approval</div>
+                                    <div class="text-sm text-slate-600 dark:text-slate-300">SBA/fintech lender pre-qualification (3-day approval)</div>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-accent-dark mt-1 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                                <div>
+                                    <div class="font-medium text-slate-900 dark:text-white">✅ Verified Buyer Badge</div>
+                                    <div class="text-sm text-slate-600 dark:text-slate-300">ID/financial verification for seller confidence</div>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-accent-dark mt-1 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                                <div>
+                                    <div class="font-medium text-slate-900 dark:text-white">🚖 Priority Access</div>
+                                    <div class="text-sm text-slate-600 dark:text-slate-300">First access to Express Seller listings</div>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-accent-dark mt-1 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                                <div>
+                                    <div class="font-medium text-slate-900 dark:text-white">Legal Document Package</div>
+                                    <div class="text-sm text-slate-600 dark:text-slate-300">Pre-approved NDAs, LOIs ($1,000 value included)</div>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-accent-dark mt-1 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                                <div>
+                                    <div class="font-medium text-slate-900 dark:text-white">Dedicated Deal Navigator</div>
+                                    <div class="text-sm text-slate-600 dark:text-slate-300">Personal support throughout 34-day process</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="w-full bg-primary-dark hover:bg-primary text-white font-bold py-3 px-6 rounded-md transition-all">
+                            Become Express Buyer
+                        </button>
+                    </div>
+
+                    <!-- Express Seller Package -->
+                    <div class="bg-white dark:bg-slate-800 rounded-lg shadow-lg border border-slate-200 dark:border-slate-700 p-8">
+                        <div class="text-center mb-6">
+                            <div class="inline-flex items-center justify-center w-16 h-16 bg-accent/10 rounded-full mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-accent-dark" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">Express Seller Package</h3>
+                            <div class="text-4xl font-bold text-accent-dark mb-2">$500</div>
+                            <p class="text-slate-600 dark:text-slate-300">One-time fee for verified seller status</p>
+                        </div>
+
+                        <div class="space-y-4 mb-8">
+                            <div class="flex items-start">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-accent-dark mt-1 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                                <div>
+                                    <div class="font-medium text-slate-900 dark:text-white">💼 Financial Verification</div>
+                                    <div class="text-sm text-slate-600 dark:text-slate-300">CPA-verified financials (3-year P&L, tax returns)</div>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-accent-dark mt-1 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                                <div>
+                                    <div class="font-medium text-slate-900 dark:text-white">⚖️ Legal Document Review</div>
+                                    <div class="text-sm text-slate-600 dark:text-slate-300">Attorney review of leases, permits, contracts</div>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-accent-dark mt-1 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                                <div>
+                                    <div class="font-medium text-slate-900 dark:text-white">📊 Professional Valuation</div>
+                                    <div class="text-sm text-slate-600 dark:text-slate-300">Expert valuation report ($300 value included)</div>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-accent-dark mt-1 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                                <div>
+                                    <div class="font-medium text-slate-900 dark:text-white">🚖 Express Seller Badge</div>
+                                    <div class="text-sm text-slate-600 dark:text-slate-300">Priority placement and buyer confidence</div>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-accent-dark mt-1 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                                <div>
+                                    <div class="font-medium text-slate-900 dark:text-white">Express Deal Room</div>
+                                    <div class="text-sm text-slate-600 dark:text-slate-300">Pre-organized documents for instant buyer access</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="w-full bg-accent hover:bg-accent-dark text-white font-bold py-3 px-6 rounded-md transition-all">
+                            Become Express Seller
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 34-Day Process -->
+        <section class="py-16 bg-white dark:bg-slate-800">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-4">The 34-Day Express Process</h2>
+                    <p class="text-xl text-slate-600 dark:text-slate-300">How Express Buyers and Express Sellers close deals faster</p>
+                </div>
+
+                <div class="max-w-4xl mx-auto">
+                    <div class="space-y-8">
+                        <!-- Week 1 -->
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 w-24 text-center">
+                                <div class="bg-accent text-white rounded-full w-12 h-12 flex items-center justify-center font-bold mx-auto mb-2">1</div>
+                                <div class="text-sm text-slate-500 dark:text-slate-400">Days 1-7</div>
+                            </div>
+                            <div class="ml-6 flex-1">
+                                <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-2">Discovery & Matching</h3>
+                                <p class="text-slate-600 dark:text-slate-300">Express Buyers get priority access to Express Seller listings. Smart matching based on verified criteria and pre-approved financing.</p>
+                            </div>
+                        </div>
+
+                        <!-- Week 2 -->
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 w-24 text-center">
+                                <div class="bg-accent text-white rounded-full w-12 h-12 flex items-center justify-center font-bold mx-auto mb-2">2</div>
+                                <div class="text-sm text-slate-500 dark:text-slate-400">Days 8-14</div>
+                            </div>
+                            <div class="ml-6 flex-1">
+                                <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-2">Connect & Evaluate</h3>
+                                <p class="text-slate-600 dark:text-slate-300">Pre-approved NDAs enable instant Deal Room access. Buyers review pre-verified financials and valuation reports.</p>
+                            </div>
+                        </div>
+
+                        <!-- Week 3-4 -->
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 w-24 text-center">
+                                <div class="bg-accent text-white rounded-full w-12 h-12 flex items-center justify-center font-bold mx-auto mb-2">3</div>
+                                <div class="text-sm text-slate-500 dark:text-slate-400">Days 15-28</div>
+                            </div>
+                            <div class="ml-6 flex-1">
+                                <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-2">Express Due Diligence</h3>
+                                <p class="text-slate-600 dark:text-slate-300">Streamlined DD with pre-approved documents and automated checklists. Deal Navigator coordinates with pre-vetted attorney network.</p>
+                            </div>
+                        </div>
+
+                        <!-- Week 5 -->
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 w-24 text-center">
+                                <div class="bg-accent text-white rounded-full w-12 h-12 flex items-center justify-center font-bold mx-auto mb-2">🚖</div>
+                                <div class="text-sm text-slate-500 dark:text-slate-400">Days 29-34</div>
+                            </div>
+                            <div class="ml-6 flex-1">
+                                <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-2">Express Close</h3>
+                                <p class="text-slate-600 dark:text-slate-300">Rapid closing with pre-approved escrow setup (1% fee, 1-day processing) and standardized legal documents.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Partner Network -->
+        <section class="py-16 bg-slate-50 dark:bg-slate-900">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-4">Pre-Vetted DFW Partner Network</h2>
+                    <p class="text-xl text-slate-600 dark:text-slate-300">Our Express Deal Package includes access to automotive industry specialists</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                    <div class="text-center">
+                        <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                            <div class="text-4xl mb-4">⚖️</div>
+                            <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-2">M&A Attorneys</h3>
+                            <p class="text-slate-600 dark:text-slate-300">DFW legal experts specializing in auto repair shop transactions</p>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                            <div class="text-4xl mb-4">🏦</div>
+                            <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-2">SBA/Fintech Lenders</h3>
+                            <p class="text-slate-600 dark:text-slate-300">Fast-approval financing partners (3-day pre-qualification)</p>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                            <div class="text-4xl mb-4">📊</div>
+                            <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-2">Valuation Experts</h3>
+                            <p class="text-slate-600 dark:text-slate-300">Certified business appraisers with automotive industry focus</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="py-16 bg-gradient-to-r from-accent to-primary">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold text-white mb-4">Ready to Close Your Deal in 34 Days?</h2>
+                    <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+                        Join our pilot program and be among the first 10 Express participants in DFW
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <a href="auth/register.html" class="inline-flex items-center px-8 py-3 border border-transparent text-lg font-medium rounded-md text-accent bg-white hover:bg-slate-50 shadow-sm hover:shadow transition-all">
+                            Start Express Journey
+                        </a>
+                        <a href="mailto:info@ardoniecapital.com" class="inline-flex items-center px-8 py-3 border border-white text-lg font-medium rounded-md text-white hover:bg-white/10 transition-all">
+                            Schedule Consultation
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white py-8">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <div class="text-2xl font-bold text-primary-light mb-4">Ardonie Capital</div>
+                <p class="text-slate-400 mb-4">Closing DFW auto repair deals in 34 days</p>
+                <div class="flex justify-center space-x-6">
+                    <a href="#" class="text-slate-400 hover:text-white">Privacy Policy</a>
+                    <a href="#" class="text-slate-400 hover:text-white">Terms of Service</a>
+                    <a href="#" class="text-slate-400 hover:text-white">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

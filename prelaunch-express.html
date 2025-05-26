@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prelaunch Express Program - Ardonie Capital</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="assets/css/common.css" rel="stylesheet">
+    <!-- AOS (Animate On Scroll) for animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            DEFAULT: '#3b82f6',
+                            dark: '#2563eb',
+                            light: '#93c5fd',
+                        },
+                        secondary: {
+                            DEFAULT: '#64748b',
+                            light: '#f1f5f9',
+                        },
+                        accent: {
+                            DEFAULT: '#10b981',
+                            dark: '#059669',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-sans text-slate-800 bg-white dark:bg-slate-900 dark:text-slate-200">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white dark:bg-slate-900 shadow-sm">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex-shrink-0">
+                    <a href="index.html" class="flex items-center">
+                        <span class="text-2xl font-bold text-primary-dark dark:text-primary-light">Ardonie Capital</span>
+                    </a>
+                </div>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="index.html" class="text-slate-600 hover:text-primary-dark dark:text-slate-300 dark:hover:text-primary-light">Home</a>
+                    <a href="express-deal.html" class="text-slate-600 hover:text-primary-dark dark:text-slate-300 dark:hover:text-primary-light">Express Deal</a>
+                    <a href="marketplace/listings.html" class="text-slate-600 hover:text-primary-dark dark:text-slate-300 dark:hover:text-primary-light">Browse Listings</a>
+                    <a href="auth/register.html" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary-dark hover:bg-primary shadow-sm hover:shadow transition-all">Join Program</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="min-h-screen">
+        <!-- Hero Section -->
+        <div class="relative bg-gradient-to-br from-primary/10 via-white to-accent/10 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 py-20 overflow-hidden">
+            <div class="absolute inset-0 bg-grid-pattern opacity-5"></div>
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative">
+                <div class="text-center mb-16" data-aos="fade-up">
+                    <div class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-accent to-accent-dark text-white rounded-full text-lg font-bold mb-8 shadow-lg pulse-glow">
+                        <span class="text-2xl mr-3">🚀</span>
+                        Limited Time - Founding Members Only
+                    </div>
+                    <h1 class="text-5xl md:text-7xl font-black text-slate-900 dark:text-white mb-6 leading-tight">
+                        <span class="bg-gradient-to-r from-primary-dark to-accent bg-clip-text text-transparent">Prelaunch Express</span>
+                        <br>
+                        <span class="text-3xl md:text-4xl font-bold text-slate-700 dark:text-slate-300">Pilot Program</span>
+                    </h1>
+                    <p class="text-xl md:text-2xl text-slate-600 dark:text-slate-300 max-w-4xl mx-auto leading-relaxed mb-8">
+                        Be among the first to experience revolutionary 34-day auto repair shop transactions in DFW.
+                        <span class="font-semibold text-accent-dark">Deep discounts for qualified pilot participants.</span>
+                    </p>
+
+                    <!-- Program Stats -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
+                        <div class="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl p-6 text-center shadow-lg">
+                            <div class="text-3xl font-black text-primary-dark mb-2">34 Days</div>
+                            <div class="text-slate-600 dark:text-slate-300 font-medium">Target Transaction Time</div>
+                        </div>
+                        <div class="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl p-6 text-center shadow-lg">
+                            <div class="text-3xl font-black text-accent-dark mb-2">80%</div>
+                            <div class="text-slate-600 dark:text-slate-300 font-medium">Discount on All Fees</div>
+                        </div>
+                        <div class="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl p-6 text-center shadow-lg">
+                            <div class="text-3xl font-black text-orange-600 mb-2">20</div>
+                            <div class="text-slate-600 dark:text-slate-300 font-medium">Pilot Participants</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
+
+            <!-- Program Overview -->
+            <div class="bg-white dark:bg-slate-800 rounded-3xl p-8 mb-20 shadow-xl border border-slate-100 dark:border-slate-700" data-aos="fade-up">
+                <h2 class="text-3xl font-black text-slate-900 dark:text-white text-center mb-12">
+                    <span class="text-primary-dark">🎯</span> Program Overview
+                </h2>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <div>
+                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">What is the Prelaunch Express Program?</h3>
+                        <p class="text-lg text-slate-700 dark:text-slate-300 leading-relaxed mb-6">
+                            Our exclusive pilot program designed to test and refine the Ardonie Capital Express Deal Package with real DFW auto repair shop transactions. Qualified participants receive unprecedented access to our revolutionary 34-day transaction process at deeply discounted rates.
+                        </p>
+
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <div class="w-8 h-8 bg-accent/20 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
+                                    <span class="text-accent text-sm">✓</span>
+                                </div>
+                                <span class="text-slate-700 dark:text-slate-300">Complete Express Seller/Buyer vetting process</span>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="w-8 h-8 bg-accent/20 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
+                                    <span class="text-accent text-sm">✓</span>
+                                </div>
+                                <span class="text-slate-700 dark:text-slate-300">Access to dedicated Deal Navigator support</span>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="w-8 h-8 bg-accent/20 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
+                                    <span class="text-accent text-sm">✓</span>
+                                </div>
+                                <span class="text-slate-700 dark:text-slate-300">Priority matching with qualified counterparts</span>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="w-8 h-8 bg-accent/20 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
+                                    <span class="text-accent text-sm">✓</span>
+                                </div>
+                                <span class="text-slate-700 dark:text-slate-300">Structured feedback collection for platform improvement</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">Program Objectives</h3>
+                        <div class="space-y-6">
+                            <div class="p-6 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-2xl border border-blue-100 dark:border-blue-800/30">
+                                <h4 class="font-bold text-blue-700 dark:text-blue-300 mb-2">Validate Express Path</h4>
+                                <p class="text-blue-600 dark:text-blue-400 text-sm">Test our 34-day transaction process with real buyers and sellers</p>
+                            </div>
+
+                            <div class="p-6 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-2xl border border-green-100 dark:border-green-800/30">
+                                <h4 class="font-bold text-green-700 dark:text-green-300 mb-2">Close Pilot Deal</h4>
+                                <p class="text-green-600 dark:text-green-400 text-sm">Successfully complete at least one transaction within 60 days</p>
+                            </div>
+
+                            <div class="p-6 bg-gradient-to-r from-purple-50 to-violet-50 dark:from-purple-900/20 dark:to-violet-900/20 rounded-2xl border border-purple-100 dark:border-purple-800/30">
+                                <h4 class="font-bold text-purple-700 dark:text-purple-300 mb-2">Refine Platform</h4>
+                                <p class="text-purple-600 dark:text-purple-400 text-sm">Collect feedback to optimize user experience and processes</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Qualification Requirements -->
+            <div class="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-900 rounded-3xl p-8 mb-20 shadow-xl border border-slate-200 dark:border-slate-700" data-aos="fade-up">
+                <h2 class="text-3xl font-black text-slate-900 dark:text-white text-center mb-12">
+                    <span class="text-accent">📋</span> Qualification Requirements
+                </h2>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <!-- Express Sellers -->
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-lg">
+                        <div class="flex items-center mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center text-white text-2xl mr-4">
+                                🏪
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-slate-900 dark:text-white">Express Sellers</h3>
+                                <p class="text-orange-600 font-medium">Auto Repair Shop Owners</p>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div class="p-4 bg-orange-50 dark:bg-orange-900/20 rounded-xl border border-orange-100 dark:border-orange-800/30">
+                                <h4 class="font-semibold text-slate-900 dark:text-white mb-2">Business Requirements</h4>
+                                <ul class="text-sm text-slate-600 dark:text-slate-400 space-y-1">
+                                    <li>• DFW-based auto repair shop (operational 2+ years)</li>
+                                    <li>• Annual revenue $200K - $2M</li>
+                                    <li>• Clean financial records (last 3 years)</li>
+                                    <li>• Current business licenses and certifications</li>
+                                </ul>
+                            </div>
+
+                            <div class="p-4 bg-orange-50 dark:bg-orange-900/20 rounded-xl border border-orange-100 dark:border-orange-800/30">
+                                <h4 class="font-semibold text-slate-900 dark:text-white mb-2">Commitment Requirements</h4>
+                                <ul class="text-sm text-slate-600 dark:text-slate-400 space-y-1">
+                                    <li>• Complete Express Seller vetting process</li>
+                                    <li>• Provide structured feedback at key milestones</li>
+                                    <li>• Participate in 2-3 brief feedback interviews</li>
+                                    <li>• Commit to 60-day pilot timeline</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Express Buyers -->
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-lg">
+                        <div class="flex items-center mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center text-white text-2xl mr-4">
+                                🏢
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-slate-900 dark:text-white">Express Buyers</h3>
+                                <p class="text-blue-600 font-medium">Qualified Acquirers</p>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div class="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl border border-blue-100 dark:border-blue-800/30">
+                                <h4 class="font-semibold text-slate-900 dark:text-white mb-2">Financial Requirements</h4>
+                                <ul class="text-sm text-slate-600 dark:text-slate-400 space-y-1">
+                                    <li>• Verified financing capacity ($200K - $2M)</li>
+                                    <li>• Down payment capability (20-30%)</li>
+                                    <li>• Credit score 650+ or equivalent business credit</li>
+                                    <li>• Proof of funds or pre-approval letter</li>
+                                </ul>
+                            </div>
+
+                            <div class="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl border border-blue-100 dark:border-blue-800/30">
+                                <h4 class="font-semibold text-slate-900 dark:text-white mb-2">Experience Requirements</h4>
+                                <ul class="text-sm text-slate-600 dark:text-slate-400 space-y-1">
+                                    <li>• Automotive industry experience (3+ years)</li>
+                                    <li>• Business management experience</li>
+                                    <li>• Complete Express Buyer vetting process</li>
+                                    <li>• Commit to active participation and feedback</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Discount Structure & Benefits -->
+            <div class="bg-white dark:bg-slate-800 rounded-3xl p-8 mb-20 shadow-xl border border-slate-100 dark:border-slate-700" data-aos="fade-up">
+                <h2 class="text-3xl font-black text-slate-900 dark:text-white text-center mb-12">
+                    <span class="text-green-500">💰</span> Exclusive Pilot Pricing
+                </h2>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Express Seller Package -->
+                    <div class="bg-gradient-to-br from-orange-50 to-red-50 dark:from-orange-900/20 dark:to-red-900/20 rounded-2xl p-8 border border-orange-100 dark:border-orange-800/30 card-hover-lift">
+                        <div class="text-center mb-6">
+                            <div class="w-16 h-16 bg-orange-500 rounded-2xl flex items-center justify-center text-white text-2xl mx-auto mb-4">
+                                🏪
+                            </div>
+                            <h3 class="text-2xl font-bold text-slate-900 dark:text-white">Express Seller Package</h3>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div class="text-center">
+                                <div class="text-sm text-slate-500 line-through">Regular Price: $2,500</div>
+                                <div class="text-3xl font-black text-orange-600 mb-2">$500</div>
+                                <div class="text-sm text-orange-700 dark:text-orange-400">80% Pilot Discount</div>
+                            </div>
+
+                            <div class="space-y-3">
+                                <div class="flex items-center text-sm">
+                                    <span class="text-accent mr-2">✓</span>
+                                    <span>Complete business valuation</span>
+                                </div>
+                                <div class="flex items-center text-sm">
+                                    <span class="text-accent mr-2">✓</span>
+                                    <span>Financial documentation review</span>
+                                </div>
+                                <div class="flex items-center text-sm">
+                                    <span class="text-accent mr-2">✓</span>
+                                    <span>Express Seller badge certification</span>
+                                </div>
+                                <div class="flex items-center text-sm">
+                                    <span class="text-accent mr-2">✓</span>
+                                    <span>Priority marketplace placement</span>
+                                </div>
+                                <div class="flex items-center text-sm">
+                                    <span class="text-accent mr-2">✓</span>
+                                    <span>Dedicated Deal Navigator support</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Express Buyer Package -->
+                    <div class="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-2xl p-8 border border-blue-100 dark:border-blue-800/30 card-hover-lift">
+                        <div class="text-center mb-6">
+                            <div class="w-16 h-16 bg-blue-500 rounded-2xl flex items-center justify-center text-white text-2xl mx-auto mb-4">
+                                🏢
+                            </div>
+                            <h3 class="text-2xl font-bold text-slate-900 dark:text-white">Express Buyer Package</h3>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div class="text-center">
+                                <div class="text-sm text-slate-500 line-through">Regular Price: $4,999</div>
+                                <div class="text-3xl font-black text-blue-600 mb-2">$999</div>
+                                <div class="text-sm text-blue-700 dark:text-blue-400">80% Pilot Discount</div>
+                            </div>
+
+                            <div class="space-y-3">
+                                <div class="flex items-center text-sm">
+                                    <span class="text-accent mr-2">✓</span>
+                                    <span>Financial qualification verification</span>
+                                </div>
+                                <div class="flex items-center text-sm">
+                                    <span class="text-accent mr-2">✓</span>
+                                    <span>Industry experience assessment</span>
+                                </div>
+                                <div class="flex items-center text-sm">
+                                    <span class="text-accent mr-2">✓</span>
+                                    <span>Express Buyer badge certification</span>
+                                </div>
+                                <div class="flex items-center text-sm">
+                                    <span class="text-accent mr-2">✓</span>
+                                    <span>Priority access to listings</span>
+                                </div>
+                                <div class="flex items-center text-sm">
+                                    <span class="text-accent mr-2">✓</span>
+                                    <span>Financing assistance coordination</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Transaction Success Fee -->
+                    <div class="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-2xl p-8 border border-green-100 dark:border-green-800/30 card-hover-lift">
+                        <div class="text-center mb-6">
+                            <div class="w-16 h-16 bg-green-500 rounded-2xl flex items-center justify-center text-white text-2xl mx-auto mb-4">
+                                🎯
+                            </div>
+                            <h3 class="text-2xl font-bold text-slate-900 dark:text-white">Success Fee</h3>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div class="text-center">
+                                <div class="text-sm text-slate-500 line-through">Regular Rate: 3-5%</div>
+                                <div class="text-3xl font-black text-green-600 mb-2">1%</div>
+                                <div class="text-sm text-green-700 dark:text-green-400">Pilot Rate Only</div>
+                            </div>
+
+                            <div class="space-y-3">
+                                <div class="flex items-center text-sm">
+                                    <span class="text-accent mr-2">✓</span>
+                                    <span>Only charged on successful closing</span>
+                                </div>
+                                <div class="flex items-center text-sm">
+                                    <span class="text-accent mr-2">✓</span>
+                                    <span>Covers all platform services</span>
+                                </div>
+                                <div class="flex items-center text-sm">
+                                    <span class="text-accent mr-2">✓</span>
+                                    <span>Legal document preparation</span>
+                                </div>
+                                <div class="flex items-center text-sm">
+                                    <span class="text-accent mr-2">✓</span>
+                                    <span>Deal room management</span>
+                                </div>
+                                <div class="flex items-center text-sm">
+                                    <span class="text-accent mr-2">✓</span>
+                                    <span>Closing coordination</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Total Savings -->
+                <div class="text-center mt-12">
+                    <div class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-full font-bold text-xl shadow-lg pulse-glow">
+                        <span class="text-3xl mr-3">💎</span>
+                        Save $6,000+ on Your First Transaction
+                    </div>
+                </div>
+            </div>
+
+            <!-- Program Timeline -->
+            <div class="bg-gradient-to-br from-primary/5 to-accent/5 dark:from-slate-800 dark:to-slate-900 rounded-3xl p-8 mb-20 shadow-xl border border-primary/10" data-aos="fade-up">
+                <h2 class="text-3xl font-black text-slate-900 dark:text-white text-center mb-12">
+                    <span class="text-primary-dark">⏱️</span> 60-Day Pilot Timeline
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <!-- Phase 1 -->
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center text-white text-xl font-bold mx-auto mb-4">
+                            1
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-3">Recruitment</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-400 mb-3">Days 1-14</p>
+                        <ul class="text-xs text-slate-500 dark:text-slate-500 space-y-1">
+                            <li>• Application review</li>
+                            <li>• Initial qualification</li>
+                            <li>• Program onboarding</li>
+                        </ul>
+                    </div>
+
+                    <!-- Phase 2 -->
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-accent rounded-2xl flex items-center justify-center text-white text-xl font-bold mx-auto mb-4">
+                            2
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-3">Vetting</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-400 mb-3">Days 15-28</p>
+                        <ul class="text-xs text-slate-500 dark:text-slate-500 space-y-1">
+                            <li>• Express badge process</li>
+                            <li>• Documentation review</li>
+                            <li>• Platform training</li>
+                        </ul>
+                    </div>
+
+                    <!-- Phase 3 -->
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-orange-500 rounded-2xl flex items-center justify-center text-white text-xl font-bold mx-auto mb-4">
+                            3
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-3">Matching</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-400 mb-3">Days 29-35</p>
+                        <ul class="text-xs text-slate-500 dark:text-slate-500 space-y-1">
+                            <li>• Buyer-seller pairing</li>
+                            <li>• Initial negotiations</li>
+                            <li>• LOI preparation</li>
+                        </ul>
+                    </div>
+
+                    <!-- Phase 4 -->
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-green-500 rounded-2xl flex items-center justify-center text-white text-xl font-bold mx-auto mb-4">
+                            4
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-3">Closing</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-400 mb-3">Days 36-60</p>
+                        <ul class="text-xs text-slate-500 dark:text-slate-500 space-y-1">
+                            <li>• Due diligence</li>
+                            <li>• Final negotiations</li>
+                            <li>• Transaction closing</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Application Process -->
+            <div class="bg-white dark:bg-slate-800 rounded-3xl p-8 mb-20 shadow-xl border border-slate-100 dark:border-slate-700" data-aos="fade-up">
+                <h2 class="text-3xl font-black text-slate-900 dark:text-white text-center mb-12">
+                    <span class="text-purple-500">📝</span> How to Apply
+                </h2>
+
+                <div class="max-w-4xl mx-auto">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <!-- Step 1 -->
+                        <div class="text-center p-6 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-2xl border border-blue-100 dark:border-blue-800/30">
+                            <div class="w-16 h-16 bg-blue-500 rounded-2xl flex items-center justify-center text-white text-2xl mx-auto mb-4">
+                                📋
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Submit Application</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm mb-4">
+                                Complete our comprehensive pilot program application with business details and qualification information.
+                            </p>
+                            <div class="text-xs text-blue-600 dark:text-blue-400 font-medium">
+                                Response within 48 hours
+                            </div>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div class="text-center p-6 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-2xl border border-green-100 dark:border-green-800/30">
+                            <div class="w-16 h-16 bg-green-500 rounded-2xl flex items-center justify-center text-white text-2xl mx-auto mb-4">
+                                🎯
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Qualification Review</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm mb-4">
+                                Our team reviews your application and conducts a brief qualification interview to ensure program fit.
+                            </p>
+                            <div class="text-xs text-green-600 dark:text-green-400 font-medium">
+                                30-minute phone interview
+                            </div>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div class="text-center p-6 bg-gradient-to-br from-purple-50 to-violet-50 dark:from-purple-900/20 dark:to-violet-900/20 rounded-2xl border border-purple-100 dark:border-purple-800/30">
+                            <div class="w-16 h-16 bg-purple-500 rounded-2xl flex items-center justify-center text-white text-2xl mx-auto mb-4">
+                                🚀
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Program Onboarding</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm mb-4">
+                                Upon acceptance, begin the Express vetting process and get matched with your dedicated Deal Navigator.
+                            </p>
+                            <div class="text-xs text-purple-600 dark:text-purple-400 font-medium">
+                                Start within 7 days
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CTA -->
+                    <div class="text-center mt-12">
+                        <a href="auth/register.html" class="inline-flex items-center px-8 py-4 border border-transparent text-lg font-medium rounded-md text-white bg-gradient-to-r from-primary-dark to-accent hover:from-primary hover:to-accent-dark shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
+                            <span class="text-2xl mr-3">🚀</span>
+                            Apply for Pilot Program
+                        </a>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 mt-4">
+                            Limited to 20 participants • Applications close when full
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+
+    <!-- JavaScript -->
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true,
+            offset: 100
+        });
+
+        // Load footer
+        fetch('components/footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer-placeholder').innerHTML = data;
+            });
+    </script>
+
+</body>
+</html>
