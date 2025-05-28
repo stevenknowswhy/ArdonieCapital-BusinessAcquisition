@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Business Valuation Tool - AutoRepairMart</title>
+    <title>Business Valuation Tool - Ardonie Capital</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script>
@@ -41,7 +41,7 @@
             <div class="flex justify-between items-center h-16">
                 <div class="flex items-center">
                     <a href="../index.html" class="flex items-center">
-                        <span class="text-xl font-bold text-primary-dark dark:text-primary-light">AutoRepairMart</span>
+                        <span class="text-xl font-bold text-primary-dark dark:text-primary-light">Ardonie Capital</span>
                     </a>
                 </div>
                 <div class="flex items-center space-x-4">
@@ -164,7 +164,7 @@
         <!-- Results Section -->
         <div id="resultsSection" class="hidden bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 p-6">
             <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-6">Valuation Results</h3>
-            
+
             <!-- Valuation Range -->
             <div class="bg-gradient-to-r from-accent/10 to-primary/10 dark:from-accent/20 dark:to-primary/20 rounded-lg p-6 mb-6">
                 <div class="text-center">
@@ -214,7 +214,7 @@
             <!-- Disclaimer -->
             <div class="mt-6 p-4 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg border border-yellow-200 dark:border-yellow-800">
                 <p class="text-sm text-yellow-800 dark:text-yellow-200">
-                    <strong>Disclaimer:</strong> This valuation is an estimate based on general industry standards and the information provided. 
+                    <strong>Disclaimer:</strong> This valuation is an estimate based on general industry standards and the information provided.
                     For a comprehensive business valuation, consult with a certified business appraiser or M&A professional.
                 </p>
             </div>
@@ -237,41 +237,41 @@
     <script>
         document.getElementById('valuationForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            
+
             // Get form data
             const formData = new FormData(this);
             const data = Object.fromEntries(formData);
-            
+
             // Calculate valuation
             const revenue = parseFloat(data.annualRevenue);
             const ebitda = parseFloat(data.ebitda);
             const assets = parseFloat(data.assets);
-            
+
             // Industry multipliers (simplified)
             const revenueMultiplier = getRevenueMultiplier(data.businessType);
             const ebitdaMultiplier = getEbitdaMultiplier(data.businessType);
-            
+
             // Calculate different valuations
             const revenueValuation = revenue * revenueMultiplier;
             const ebitdaValuation = ebitda * ebitdaMultiplier;
             const assetValuation = assets * 0.8; // Simplified asset-based valuation
-            
+
             // Apply adjustments based on qualitative factors
             const adjustmentFactor = getAdjustmentFactor(data);
-            
+
             const adjustedRevenueVal = revenueValuation * adjustmentFactor;
             const adjustedEbitdaVal = ebitdaValuation * adjustmentFactor;
             const adjustedAssetVal = assetValuation * adjustmentFactor;
-            
+
             // Calculate range
             const values = [adjustedRevenueVal, adjustedEbitdaVal, adjustedAssetVal];
             const minValue = Math.min(...values);
             const maxValue = Math.max(...values);
-            
+
             // Display results
             displayResults(adjustedRevenueVal, adjustedEbitdaVal, adjustedAssetVal, minValue, maxValue, data);
         });
-        
+
         function getRevenueMultiplier(businessType) {
             const multipliers = {
                 'full-service': 0.8,
@@ -283,7 +283,7 @@
             };
             return multipliers[businessType] || 0.8;
         }
-        
+
         function getEbitdaMultiplier(businessType) {
             const multipliers = {
                 'full-service': 3.2,
@@ -295,10 +295,10 @@
             };
             return multipliers[businessType] || 3.0;
         }
-        
+
         function getAdjustmentFactor(data) {
             let factor = 1.0;
-            
+
             // Location adjustment
             const locationFactors = {
                 'excellent': 1.15,
@@ -307,7 +307,7 @@
                 'poor': 0.85
             };
             factor *= locationFactors[data.location] || 1.0;
-            
+
             // Equipment adjustment
             const equipmentFactors = {
                 'excellent': 1.1,
@@ -316,7 +316,7 @@
                 'poor': 0.9
             };
             factor *= equipmentFactors[data.equipment] || 1.0;
-            
+
             // Customer base adjustment
             const customerFactors = {
                 'excellent': 1.1,
@@ -325,25 +325,37 @@
                 'poor': 0.9
             };
             factor *= customerFactors[data.customerBase] || 1.0;
-            
+
             return factor;
         }
-        
+
         function displayResults(revenueVal, ebitdaVal, assetVal, minVal, maxVal, data) {
             document.getElementById('resultsSection').classList.remove('hidden');
-            
+
             // Update valuation range
-            document.getElementById('valuationRange').textContent = 
+            document.getElementById('valuationRange').textContent =
                 `$${Math.round(minVal).toLocaleString()} - $${Math.round(maxVal).toLocaleString()}`;
-            
+
             // Update individual valuations
             document.getElementById('revenueMultiple').textContent = `$${Math.round(revenueVal).toLocaleString()}`;
             document.getElementById('ebitdaMultiple').textContent = `$${Math.round(ebitdaVal).toLocaleString()}`;
             document.getElementById('assetBased').textContent = `$${Math.round(assetVal).toLocaleString()}`;
-            
+
             // Scroll to results
             document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
         }
+    </script>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+
+    <script>
+        // Load footer
+        fetch('../components/footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer-placeholder').innerHTML = data;
+            });
     </script>
 </body>
 </html>

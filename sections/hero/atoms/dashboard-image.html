@@ -1,0 +1,110 @@
+<!-- Dashboard Image Atom -->
+<div class="relative max-w-4xl mx-auto mt-12 md:mt-16">
+    <!-- Dashboard Screenshot Container -->
+    <div class="relative">
+        <!-- Main Dashboard Image -->
+        <div class="relative bg-white rounded-xl shadow-2xl overflow-hidden border border-slate-200/50">
+            <!-- Browser Chrome (Optional) -->
+            <div class="bg-slate-100 px-4 py-3 border-b border-slate-200 flex items-center space-x-2">
+                <div class="flex space-x-2">
+                    <div class="w-3 h-3 bg-red-400 rounded-full"></div>
+                    <div class="w-3 h-3 bg-yellow-400 rounded-full"></div>
+                    <div class="w-3 h-3 bg-green-400 rounded-full"></div>
+                </div>
+                <div class="flex-1 text-center">
+                    <div class="bg-white rounded px-3 py-1 text-xs text-slate-600 inline-block">
+                        dashboard.ardoniecapital.com
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Content -->
+            <div class="aspect-[16/10] bg-gradient-to-br from-slate-50 to-slate-100 relative overflow-hidden">
+                <!-- Actual dashboard screenshot -->
+                <img
+                    src="assets/images/dashboard-mockup.svg"
+                    alt="Ardonie Capital Dashboard - Overview showing saved listings, active matches, messages, and deals"
+                    class="w-full h-full object-cover object-top"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+                >
+
+                <!-- Fallback Dashboard Mockup (when image not available) -->
+                <div class="absolute inset-0 p-6 hidden">
+                    <!-- Dashboard Header -->
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 bg-blue-600 rounded-lg"></div>
+                            <h1 class="text-lg font-bold text-slate-900">Dashboard</h1>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <div class="w-8 h-8 bg-slate-200 rounded-full"></div>
+                            <span class="text-sm text-slate-600">Welcome back!</span>
+                        </div>
+                    </div>
+
+                    <!-- Stats Cards -->
+                    <div class="grid grid-cols-4 gap-4 mb-6">
+                        <div class="bg-white rounded-lg p-4 shadow-sm border border-slate-200">
+                            <div class="text-2xl font-bold text-slate-900">12</div>
+                            <div class="text-xs text-slate-600">Saved Listings</div>
+                        </div>
+                        <div class="bg-white rounded-lg p-4 shadow-sm border border-slate-200">
+                            <div class="text-2xl font-bold text-green-600">5</div>
+                            <div class="text-xs text-slate-600">Active Matches</div>
+                        </div>
+                        <div class="bg-white rounded-lg p-4 shadow-sm border border-slate-200">
+                            <div class="text-2xl font-bold text-orange-600">3</div>
+                            <div class="text-xs text-slate-600">Unread Messages</div>
+                        </div>
+                        <div class="bg-white rounded-lg p-4 shadow-sm border border-slate-200">
+                            <div class="text-2xl font-bold text-blue-600">2</div>
+                            <div class="text-xs text-slate-600">Active Deals</div>
+                        </div>
+                    </div>
+
+                    <!-- Chart Area -->
+                    <div class="bg-white rounded-lg p-4 shadow-sm border border-slate-200 h-32">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-sm font-semibold text-slate-900">Market Activity</h3>
+                            <div class="text-xs text-slate-500">Last 30 days</div>
+                        </div>
+                        <!-- Simple chart representation -->
+                        <div class="flex items-end space-x-1 h-16">
+                            <div class="bg-blue-200 w-3 h-8"></div>
+                            <div class="bg-blue-300 w-3 h-12"></div>
+                            <div class="bg-blue-400 w-3 h-6"></div>
+                            <div class="bg-blue-500 w-3 h-16"></div>
+                            <div class="bg-blue-400 w-3 h-10"></div>
+                            <div class="bg-blue-300 w-3 h-14"></div>
+                            <div class="bg-blue-600 w-3 h-12"></div>
+                            <div class="bg-blue-500 w-3 h-8"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Floating Elements for Visual Interest -->
+        <div class="absolute -top-4 -right-4 w-8 h-8 bg-green-400 rounded-full opacity-80 animate-pulse"></div>
+        <div class="absolute -bottom-4 -left-4 w-6 h-6 bg-blue-400 rounded-full opacity-60 animate-pulse delay-1000"></div>
+    </div>
+
+    <!-- Dashboard Features Callouts -->
+    <div class="absolute -left-8 top-1/4 hidden lg:block">
+        <div class="bg-white rounded-lg shadow-lg p-3 border border-slate-200 max-w-xs">
+            <div class="flex items-center space-x-2">
+                <div class="w-2 h-2 bg-green-400 rounded-full"></div>
+                <span class="text-xs font-medium text-slate-700">Real-time Analytics</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="absolute -right-8 top-3/4 hidden lg:block">
+        <div class="bg-white rounded-lg shadow-lg p-3 border border-slate-200 max-w-xs">
+            <div class="flex items-center space-x-2">
+                <div class="w-2 h-2 bg-blue-400 rounded-full"></div>
+                <span class="text-xs font-medium text-slate-700">Smart Matching</span>
+            </div>
+        </div>
+    </div>
+</div>

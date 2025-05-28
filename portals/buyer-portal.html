@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buyer Portal - AutoRepairMart</title>
+    <title>Buyer Portal - Ardonie Capital</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="../assets/css/common.css" rel="stylesheet">
@@ -85,10 +85,12 @@
 
         // Load all portal components and sections
         document.addEventListener('DOMContentLoaded', function() {
-            // Load components
-            loadSection('portal-header', 'components/portal-header.html');
-            loadSection('portal-footer', 'components/portal-footer.html');
-            
+            // Load components with cache busting
+            const timestamp = new Date().getTime();
+            const randomId = Math.random().toString(36).substring(7);
+            loadSection('portal-header', `components/portal-header.html?v=${timestamp}&r=${randomId}`);
+            loadSection('portal-footer', `components/portal-footer.html?v=${timestamp}&r=${randomId}`);
+
             // Load sections
             loadSection('buyer-dashboard', 'sections/buyer/dashboard.html');
             loadSection('express-listings', 'sections/buyer/express-listings.html');
@@ -104,8 +106,8 @@
         // Configure buyer portal specific settings
         function configureBuyerPortal() {
             // Set portal title
-            document.title = 'Buyer Portal - AutoRepairMart';
-            
+            document.title = 'Buyer Portal - Ardonie Capital';
+
             // Configure header
             if (window.PortalHeader) {
                 window.PortalHeader.setBadge('🏢 Buyer Portal', 'bg-green-100 text-green-800');
@@ -134,8 +136,8 @@
             }
 
             // Load common utilities
-            if (window.AutoRepairMart) {
-                window.AutoRepairMart.showToast('Welcome to your Buyer Portal!', 'success');
+            if (window.ArdonieCapital) {
+                window.ArdonieCapital.showToast('Welcome to your Buyer Portal!', 'success');
             }
         }
 
@@ -146,7 +148,7 @@
                 const element = document.getElementById(sectionId);
                 if (element) {
                     element.scrollIntoView({ behavior: 'smooth' });
-                    
+
                     // Update active navigation
                     if (window.PortalHeader) {
                         const navItems = [
@@ -165,8 +167,8 @@
                 if (window.BuyerDashboard) window.BuyerDashboard.loadData();
                 if (window.ExpressListings) window.ExpressListings.init();
                 if (window.ActiveDeals) window.ActiveDeals.init();
-                if (window.AutoRepairMart) {
-                    window.AutoRepairMart.showToast('Portal data refreshed', 'success');
+                if (window.ArdonieCapital) {
+                    window.ArdonieCapital.showToast('Portal data refreshed', 'success');
                 }
             },
 

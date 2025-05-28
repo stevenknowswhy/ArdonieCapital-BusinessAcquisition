@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CPA Partner Network - Ardonie Capital</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="../assets/css/common.css" rel="stylesheet">
+    <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+    <script src="../assets/js/common.js" defer></script>
+    <script src="../assets/js/financial-charts.js" defer></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { DEFAULT: '#3b82f6', dark: '#2563eb', light: '#93c5fd' },
+                        secondary: { DEFAULT: '#64748b', light: '#f1f5f9' },
+                        accent: { DEFAULT: '#10b981', dark: '#059669' }
+                    },
+                    fontFamily: { sans: ['Inter', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-sans text-slate-800 bg-white dark:bg-slate-900 dark:text-slate-200">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white dark:bg-slate-900 shadow-sm">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex-shrink-0">
+                    <a href="../index.html" class="flex items-center">
+                        <span class="text-2xl font-bold text-primary-dark dark:text-primary-light">Ardonie Capital</span>
+                    </a>
+                </div>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="../index.html" class="text-slate-600 hover:text-primary-dark">Home</a>
+                    <a href="pitch-deck-fi.html" class="text-slate-600 hover:text-primary-dark">FI Pitch</a>
+                    <a href="financial-projections.html" class="text-slate-600 hover:text-primary-dark">Financials</a>
+                    <a href="../contact.html" class="text-slate-600 hover:text-primary-dark">Contact</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="min-h-screen">
+        <!-- Hero Section -->
+        <section class="bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 dark:from-green-900/20 dark:via-emerald-900/20 dark:to-teal-900/20 py-20">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <div class="mb-8">
+                    <div class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-full font-bold text-lg mb-6">
+                        <span class="text-2xl mr-3">📊</span>
+                        CPA PARTNER NETWORK
+                    </div>
+                </div>
+                <h1 class="text-6xl font-bold text-slate-900 dark:text-white mb-6">
+                    Join Our <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-emerald-500">CPA Partner Network</span>
+                </h1>
+                <h2 class="text-3xl font-semibold text-slate-700 dark:text-slate-300 mb-8">
+                    Express Seller Badge Vetting Services
+                </h2>
+                <p class="text-xl text-slate-600 dark:text-slate-400 max-w-4xl mx-auto mb-12">
+                    Partner with Ardonie Capital to provide professional financial vetting services for our Express Seller Badge program.
+                    Earn $650-$1,000 per badge while helping auto repair shops prepare for successful acquisitions.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-6 justify-center">
+                    <a href="#revenue-projections" class="inline-flex items-center px-8 py-4 border border-transparent text-lg font-medium rounded-md text-white bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 shadow-lg hover:shadow-xl transition-all">
+                        View Revenue Projections
+                    </a>
+                    <a href="#service-requirements" class="inline-flex items-center px-8 py-4 border border-slate-300 text-lg font-medium rounded-md text-slate-700 bg-white hover:bg-slate-50 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-600 dark:hover:bg-slate-700 shadow-lg hover:shadow-xl transition-all">
+                        Service Requirements
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Client LTV Highlight -->
+        <section class="py-16 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <div class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-full font-bold text-2xl mb-6">
+                        <span class="text-4xl mr-4">💎</span>
+                        CLIENT LIFETIME VALUE
+                    </div>
+                    <h2 class="text-4xl font-bold text-slate-900 dark:text-white mb-6">
+                        Each Express Seller Badge Client is Worth
+                    </h2>
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl p-12 max-w-4xl mx-auto border-4 border-blue-200 dark:border-blue-800">
+                        <div class="text-8xl font-bold text-blue-600 mb-4">$47,500</div>
+                        <div class="text-2xl text-slate-600 dark:text-slate-400 mb-8">Average Lifetime Value per Client</div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+                            <div class="bg-green-50 dark:bg-green-900/20 p-6 rounded-lg">
+                                <div class="text-2xl font-bold text-green-600 mb-2">$1,000</div>
+                                <div class="text-sm text-green-700 dark:text-green-300 font-semibold mb-2">Initial Badge Review</div>
+                                <div class="text-xs text-slate-600 dark:text-slate-400">Express Seller Badge vetting service</div>
+                            </div>
+                            <div class="bg-purple-50 dark:bg-purple-900/20 p-6 rounded-lg">
+                                <div class="text-2xl font-bold text-purple-600 mb-2">$35,000</div>
+                                <div class="text-sm text-purple-700 dark:text-purple-300 font-semibold mb-2">Ongoing Services</div>
+                                <div class="text-xs text-slate-600 dark:text-slate-400">$5,000-$20,000/year × 5-7 years</div>
+                            </div>
+                            <div class="bg-orange-50 dark:bg-orange-900/20 p-6 rounded-lg">
+                                <div class="text-2xl font-bold text-orange-600 mb-2">$11,500</div>
+                                <div class="text-sm text-orange-700 dark:text-orange-300 font-semibold mb-2">Advisory & CFO Services</div>
+                                <div class="text-xs text-slate-600 dark:text-slate-400">Strategic consulting, financial planning</div>
+                            </div>
+                        </div>
+
+                        <div class="mt-8 p-6 bg-gradient-to-r from-blue-100 to-indigo-100 dark:from-blue-900/30 dark:to-indigo-900/30 rounded-lg">
+                            <div class="text-lg font-bold text-blue-800 dark:text-blue-200 mb-2">
+                                📊 Industry-Standard Relationship Duration: 5-7 years
+                            </div>
+                            <div class="text-sm text-blue-700 dark:text-blue-300">
+                                Ardonie Capital clients maintain long-term relationships due to trust and consistency
+                            </div>
+                        </div>
+
+                        <div class="mt-6 p-6 bg-gradient-to-r from-purple-100 to-indigo-100 dark:from-purple-900/30 dark:to-indigo-900/30 rounded-lg">
+                            <div class="text-lg font-bold text-purple-800 dark:text-purple-200 mb-2">
+                                🎯 Comprehensive Service Portfolio per Client:
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-purple-700 dark:text-purple-300">
+                                <div>• Monthly bookkeeping</div>
+                                <div>• Annual tax preparation</div>
+                                <div>• Payroll services</div>
+                                <div>• Financial advisory</div>
+                                <div>• CFO services</div>
+                                <div>• Business planning</div>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 p-6 bg-gradient-to-r from-green-100 to-emerald-100 dark:from-green-900/30 dark:to-emerald-900/30 rounded-lg">
+                            <div class="text-lg font-bold text-green-800 dark:text-green-200 mb-2">
+                                📈 With 90 clients annually: $4,275,000 total LTV opportunity
+                            </div>
+                            <div class="text-sm text-green-700 dark:text-green-300">
+                                Each Express Badge client becomes a long-term accounting relationship with significant growth potential
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Metrics Summary -->
+        <section class="py-16 bg-white dark:bg-slate-900">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+                    <div class="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-lg shadow-lg p-6 text-center">
+                        <div class="text-3xl font-bold text-green-600 mb-2">30</div>
+                        <div class="text-slate-600 dark:text-slate-300">DFW Annual Badges</div>
+                    </div>
+                    <div class="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-lg shadow-lg p-6 text-center">
+                        <div class="text-3xl font-bold text-blue-600 mb-2">60</div>
+                        <div class="text-slate-600 dark:text-slate-300">LA/SF Annual Badges</div>
+                    </div>
+                    <div class="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-lg shadow-lg p-6 text-center">
+                        <div class="text-3xl font-bold text-purple-600 mb-2">$1,000</div>
+                        <div class="text-slate-600 dark:text-slate-300">Max Revenue per Badge</div>
+                    </div>
+                    <div class="bg-gradient-to-br from-orange-50 to-red-50 dark:from-orange-900/20 dark:to-red-900/20 rounded-lg shadow-lg p-6 text-center">
+                        <div class="text-3xl font-bold text-orange-600 mb-2">$79.5K</div>
+                        <div class="text-slate-600 dark:text-slate-300">Total Annual Revenue</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Revenue Projections Chart -->
+        <section id="revenue-projections" class="py-20 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-700">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold text-slate-900 dark:text-white mb-6">
+                        📈 CPA Partner Badge Volume Projections
+                    </h2>
+                    <p class="text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto">
+                        Monthly Express Seller Badge volume projections showing consistent revenue opportunities
+                        across our DFW pilot and LA/SF expansion markets.
+                    </p>
+                </div>
+
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow-xl p-8 mb-12">
+                    <div class="h-96">
+                        <div id="accountingPartnerChart" class="w-full h-full"></div>
+                    </div>
+                </div>
+
+                <!-- Revenue Breakdown -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-8">
+                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">Revenue Breakdown</h3>
+                        <div class="h-80">
+                            <div id="revenueShareChart" class="w-full h-full"></div>
+                        </div>
+                    </div>
+                    <div class="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-8">
+                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">Service Scope</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <span class="text-green-500 mr-3 mt-1">✓</span>
+                                <div>
+                                    <strong>3-Year Financial Review</strong><br>
+                                    <span class="text-slate-600 dark:text-slate-400">Comprehensive analysis of P&L, balance sheets, and cash flow statements</span>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <span class="text-green-500 mr-3 mt-1">✓</span>
+                                <div>
+                                    <strong>Tax Return Analysis</strong><br>
+                                    <span class="text-slate-600 dark:text-slate-400">Business and personal tax returns for ownership verification</span>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <span class="text-green-500 mr-3 mt-1">✓</span>
+                                <div>
+                                    <strong>EBITDA Normalization</strong><br>
+                                    <span class="text-slate-600 dark:text-slate-400">Adjust for one-time expenses, owner compensation, and non-business items</span>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <span class="text-green-500 mr-3 mt-1">✓</span>
+                                <div>
+                                    <strong>Financial Quality Assessment</strong><br>
+                                    <span class="text-slate-600 dark:text-slate-400">Evaluate financial health, trends, and acquisition readiness</span>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <span class="text-green-500 mr-3 mt-1">✓</span>
+                                <div>
+                                    <strong>Standardized Reporting</strong><br>
+                                    <span class="text-slate-600 dark:text-slate-400">Consistent format for buyer due diligence and platform integration</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Service Requirements -->
+        <section id="service-requirements" class="py-20 bg-white dark:bg-slate-900">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold text-slate-900 dark:text-white mb-6">
+                        📋 Service Requirements & Standards
+                    </h2>
+                    <p class="text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto">
+                        Our Express Seller Badge program maintains the highest professional standards
+                        to ensure buyer confidence and successful transactions.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+                    <div class="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-lg p-8">
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-4">Qualifications</h3>
+                        <ul class="space-y-3 text-slate-600 dark:text-slate-400">
+                            <li>• Active CPA license</li>
+                            <li>• 5+ years M&A experience</li>
+                            <li>• Small business expertise</li>
+                            <li>• Professional liability insurance</li>
+                            <li>• Ardonie Capital certification</li>
+                        </ul>
+                    </div>
+                    <div class="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-lg p-8">
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-4">Deliverables</h3>
+                        <ul class="space-y-3 text-slate-600 dark:text-slate-400">
+                            <li>• Financial analysis report</li>
+                            <li>• EBITDA normalization schedule</li>
+                            <li>• Quality of earnings summary</li>
+                            <li>• Risk assessment matrix</li>
+                            <li>• Buyer presentation package</li>
+                        </ul>
+                    </div>
+                    <div class="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-lg p-8">
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-4">SLA Requirements</h3>
+                        <ul class="space-y-3 text-slate-600 dark:text-slate-400">
+                            <li>• 7-day turnaround time</li>
+                            <li>• 99% accuracy standard</li>
+                            <li>• Standardized templates</li>
+                            <li>• Quality review process</li>
+                            <li>• Client communication protocols</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Compensation Structure -->
+                <div class="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-700 rounded-lg p-8">
+                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-6 text-center">
+                        Compensation Structure
+                    </h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left">
+                            <thead>
+                                <tr class="border-b border-slate-300 dark:border-slate-600">
+                                    <th class="py-3 px-4 font-semibold text-slate-900 dark:text-white">Market</th>
+                                    <th class="py-3 px-4 font-semibold text-slate-900 dark:text-white text-center">Badge Price</th>
+                                    <th class="py-3 px-4 font-semibold text-slate-900 dark:text-white text-center">CPA Fee</th>
+                                    <th class="py-3 px-4 font-semibold text-slate-900 dark:text-white text-center">Monthly Volume</th>
+                                    <th class="py-3 px-4 font-semibold text-slate-900 dark:text-white text-center">Monthly Revenue</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-slate-600 dark:text-slate-400">
+                                <tr class="border-b border-slate-200 dark:border-slate-700">
+                                    <td class="py-3 px-4 font-bold">DFW Pilot</td>
+                                    <td class="py-3 px-4 text-center">$997.50</td>
+                                    <td class="py-3 px-4 text-center font-bold text-green-600">$650</td>
+                                    <td class="py-3 px-4 text-center">2.5 badges</td>
+                                    <td class="py-3 px-4 text-center font-bold">$1,625</td>
+                                </tr>
+                                <tr class="border-b border-slate-200 dark:border-slate-700">
+                                    <td class="py-3 px-4 font-bold">LA/SF Expansion</td>
+                                    <td class="py-3 px-4 text-center">$1,995</td>
+                                    <td class="py-3 px-4 text-center font-bold text-green-600">$1,000</td>
+                                    <td class="py-3 px-4 text-center">5 badges</td>
+                                    <td class="py-3 px-4 text-center font-bold">$5,000</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-3 px-4 font-bold">Combined Annual</td>
+                                    <td class="py-3 px-4 text-center">-</td>
+                                    <td class="py-3 px-4 text-center">-</td>
+                                    <td class="py-3 px-4 text-center font-bold">90 badges</td>
+                                    <td class="py-3 px-4 text-center font-bold text-purple-600">$79,500</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mt-6 text-center">
+                        <div class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-full font-bold">
+                            <span class="text-2xl mr-3">💰</span>
+                            Payment within 5 business days of completed review
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Application Process -->
+        <section class="py-20 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-700">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold text-slate-900 dark:text-white mb-6">
+                        🚀 Application Process
+                    </h2>
+                    <p class="text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto">
+                        Join our exclusive CPA partner network in four simple steps
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <div class="text-center">
+                        <div class="bg-green-500 text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl font-bold mx-auto mb-4">1</div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Submit Application</h3>
+                        <p class="text-slate-600 dark:text-slate-400">Complete our partner application with credentials and experience</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-blue-500 text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl font-bold mx-auto mb-4">2</div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Qualification Review</h3>
+                        <p class="text-slate-600 dark:text-slate-400">Our team reviews your qualifications and conducts reference checks</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-purple-500 text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl font-bold mx-auto mb-4">3</div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Training & Certification</h3>
+                        <p class="text-slate-600 dark:text-slate-400">Complete Ardonie Capital certification program and platform training</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-orange-500 text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl font-bold mx-auto mb-4">4</div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Start Earning</h3>
+                        <p class="text-slate-600 dark:text-slate-400">Begin receiving Express Seller Badge assignments and earning revenue</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="py-20 bg-gradient-to-r from-green-500 to-emerald-500">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-4xl font-bold text-white mb-6">
+                    Ready to Join Our CPA Partner Network?
+                </h2>
+                <p class="text-xl text-green-100 mb-8 max-w-3xl mx-auto">
+                    Partner with Ardonie Capital and earn consistent revenue providing professional financial vetting
+                    services for our Express Seller Badge program.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="../contact.html" class="inline-flex items-center px-8 py-4 border border-white text-lg font-medium rounded-md text-green-600 bg-white hover:bg-green-50 shadow-lg hover:shadow-xl transition-all">
+                        Apply to Partner Network
+                    </a>
+                    <a href="financial-projections.html" class="inline-flex items-center px-8 py-4 border border-white text-lg font-medium rounded-md text-white bg-transparent hover:bg-white hover:text-green-600 shadow-lg hover:shadow-xl transition-all">
+                        View Financial Projections
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white py-8">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-slate-400">© 2024 Ardonie Capital. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize CPA partner charts
+            if (window.FinancialCharts) {
+                FinancialCharts.createAccountingPartnerChart('accountingPartnerChart');
+                FinancialCharts.createRevenueShareChart('revenueShareChart', 'accounting');
+            }
+        });
+    </script>
+</body>
+</html>

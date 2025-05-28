@@ -7,6 +7,94 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="assets/css/common.css" rel="stylesheet">
+    <!-- Swiper.js CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <!-- Custom Swiper Styles -->
+    <style>
+        /* Ensure Swiper container has proper dimensions */
+        .platform-showcase-swiper {
+            width: 100%;
+            height: auto;
+            padding-bottom: 50px; /* Space for pagination */
+        }
+
+        /* Fix navigation button positioning and styling */
+        .platform-showcase-swiper .swiper-button-next,
+        .platform-showcase-swiper .swiper-button-prev {
+            color: #2563eb !important; /* primary-dark */
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            width: 44px !important;
+            height: 44px !important;
+            margin-top: -22px !important;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .platform-showcase-swiper .swiper-button-next:hover,
+        .platform-showcase-swiper .swiper-button-prev:hover {
+            background: rgba(255, 255, 255, 1);
+            transform: scale(1.1);
+        }
+
+        .platform-showcase-swiper .swiper-button-next::after,
+        .platform-showcase-swiper .swiper-button-prev::after {
+            font-size: 18px !important;
+            font-weight: bold;
+        }
+
+        /* Style pagination dots */
+        .platform-showcase-swiper .swiper-pagination {
+            bottom: 10px !important;
+        }
+
+        .platform-showcase-swiper .swiper-pagination-bullet {
+            background: #64748b !important; /* secondary */
+            opacity: 0.5;
+            transition: all 0.3s ease;
+        }
+
+        .platform-showcase-swiper .swiper-pagination-bullet-active {
+            background: #2563eb !important; /* primary-dark */
+            opacity: 1;
+            transform: scale(1.2);
+        }
+
+        /* Ensure slides have proper height */
+        .platform-showcase-swiper .swiper-slide {
+            height: auto;
+            display: flex;
+            align-items: stretch;
+        }
+
+        .platform-showcase-swiper .swiper-slide > div {
+            width: 100%;
+        }
+
+        /* Dark mode adjustments */
+        .dark .platform-showcase-swiper .swiper-button-next,
+        .dark .platform-showcase-swiper .swiper-button-prev {
+            color: #93c5fd !important; /* primary-light */
+            background: rgba(30, 41, 59, 0.9); /* slate-800 with opacity */
+        }
+
+        .dark .platform-showcase-swiper .swiper-button-next:hover,
+        .dark .platform-showcase-swiper .swiper-button-prev:hover {
+            background: rgba(30, 41, 59, 1);
+        }
+
+        /* Smooth transitions */
+        .platform-showcase-swiper .swiper-wrapper {
+            transition-timing-function: ease-in-out;
+        }
+
+        /* Fix for aspect-video utility */
+        .aspect-video {
+            aspect-ratio: 16 / 9;
+        }
+    </style>
+
     <!-- Heroicons (for icons) -->
     <script src="https://unpkg.com/heroicons@2.0.18/dist/heroicons.js"></script>
     <script>
@@ -106,20 +194,49 @@
 
     <!-- Load Sections -->
     <script>
-        // Function to load HTML content into a div
+        // Function to load HTML content into a div with cache busting and execute scripts
         function loadSection(sectionId, filePath) {
-            fetch(filePath)
-                .then(response => response.text())
+            fetch(filePath, {
+                cache: 'no-cache',
+                headers: {
+                    'Cache-Control': 'no-cache',
+                    'Pragma': 'no-cache'
+                }
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.text();
+                })
                 .then(data => {
-                    document.getElementById(sectionId).innerHTML = data;
+                    const element = document.getElementById(sectionId);
+                    element.innerHTML = data;
+
+                    // Execute any scripts in the loaded content
+                    const scripts = element.querySelectorAll('script');
+                    scripts.forEach(script => {
+                        const newScript = document.createElement('script');
+                        if (script.src) {
+                            newScript.src = script.src;
+                        } else {
+                            newScript.textContent = script.textContent;
+                        }
+                        document.head.appendChild(newScript);
+                        document.head.removeChild(newScript);
+                    });
+
+                    console.log(`Loaded ${sectionId} from ${filePath}`);
                 })
                 .catch(error => {
                     console.error('Error loading section:', error);
                 });
         }
 
-        // Load all sections
-        loadSection('hero-section', 'sections/hero.html');
+        // Load all sections with cache busting
+        const timestamp = new Date().getTime();
+        const randomId = Math.random().toString(36).substring(7);
+        loadSection('hero-section', `sections/hero.html?v=${timestamp}&r=${randomId}&h1=updated`);
         loadSection('features-section', 'sections/features.html');
         loadSection('featured-listings-section', 'sections/featured-listings.html');
         loadSection('process-timeline-section', 'sections/process-timeline.html');
@@ -136,6 +253,140 @@
                     mobileMenu.classList.toggle('hidden');
                 });
             }
+        });
+    </script>
+
+    <!-- Swiper.js JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <!-- Swiper Initialization Script -->
+    <script>
+        // Function to initialize Swiper carousel
+        function initializeSwiper() {
+            console.log('Attempting to initialize Swiper...');
+
+            // Check if Swiper is available
+            if (typeof Swiper === 'undefined') {
+                console.error('Swiper.js not loaded yet, retrying...');
+                return false;
+            }
+
+            // Check if the swiper container exists
+            const swiperContainer = document.querySelector('.platform-showcase-swiper');
+            if (!swiperContainer) {
+                console.log('Swiper container not found yet, retrying...');
+                return false;
+            }
+
+            console.log('Initializing Swiper carousel...');
+
+            try {
+                const swiper = new Swiper('.platform-showcase-swiper', {
+                    // Basic settings
+                    slidesPerView: 1,
+                    spaceBetween: 30,
+                    loop: true,
+                    autoplay: {
+                        delay: 5000,
+                        disableOnInteraction: false,
+                        pauseOnMouseEnter: true,
+                    },
+
+                    // Navigation arrows
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                    },
+
+                    // Pagination dots
+                    pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true,
+                        dynamicBullets: true,
+                    },
+
+                    // Responsive breakpoints
+                    breakpoints: {
+                        640: {
+                            slidesPerView: 1,
+                            spaceBetween: 20,
+                        },
+                        768: {
+                            slidesPerView: 1,
+                            spaceBetween: 30,
+                        },
+                        1024: {
+                            slidesPerView: 1,
+                            spaceBetween: 40,
+                        },
+                    },
+
+                    // Effects
+                    effect: 'slide',
+                    speed: 600,
+
+                    // Accessibility
+                    a11y: {
+                        prevSlideMessage: 'Previous slide',
+                        nextSlideMessage: 'Next slide',
+                    },
+
+                    // Event callbacks
+                    on: {
+                        init: function () {
+                            console.log('Swiper initialized successfully!');
+                        },
+                        slideChange: function () {
+                            console.log('Slide changed to:', this.activeIndex);
+                        }
+                    }
+                });
+
+                console.log('Swiper instance created:', swiper);
+                return true;
+
+            } catch (error) {
+                console.error('Error initializing Swiper:', error);
+                return false;
+            }
+        }
+
+        // Retry mechanism for Swiper initialization
+        function attemptSwiperInit(maxAttempts = 10, currentAttempt = 1) {
+            console.log(`Swiper initialization attempt ${currentAttempt}/${maxAttempts}`);
+
+            if (initializeSwiper()) {
+                console.log('Swiper initialized successfully!');
+                return;
+            }
+
+            if (currentAttempt < maxAttempts) {
+                setTimeout(() => {
+                    attemptSwiperInit(maxAttempts, currentAttempt + 1);
+                }, 500);
+            } else {
+                console.error('Failed to initialize Swiper after', maxAttempts, 'attempts');
+            }
+        }
+
+        // Start initialization when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, starting Swiper initialization...');
+
+            // Wait a bit for all sections to load, then start attempting initialization
+            setTimeout(() => {
+                attemptSwiperInit();
+            }, 1000);
+        });
+
+        // Also try when window is fully loaded as a backup
+        window.addEventListener('load', function() {
+            console.log('Window fully loaded, attempting Swiper initialization as backup...');
+            setTimeout(() => {
+                if (!document.querySelector('.swiper-initialized')) {
+                    attemptSwiperInit();
+                }
+            }, 500);
         });
     </script>
 

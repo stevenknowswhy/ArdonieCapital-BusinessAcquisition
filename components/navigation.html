@@ -1,0 +1,49 @@
+<nav class="bg-white dark:bg-slate-900 shadow-md dark:shadow-slate-800/50 fixed w-full z-50 transition-colors duration-200">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+            <div class="flex items-center">
+                <a href="/" class="flex-shrink-0 flex items-center">
+                    <img class="block h-8 w-auto dark:hidden" src="/assets/images/logo.svg" alt="Ardonie Capital">
+                    <img class="hidden h-8 w-auto dark:block" src="/assets/images/logo-dark.svg" alt="Ardonie Capital">
+                </a>
+                <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+                    <a href="/" class="border-primary-dark text-slate-900 dark:text-white inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                        Home
+                    </a>
+                    <a href="/buyers.html" class="border-transparent text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700 hover:text-slate-800 dark:hover:text-white inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                        For Buyers
+                    </a>
+                    <a href="/sellers.html" class="border-transparent text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700 hover:text-slate-800 dark:hover:text-white inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                        For Sellers
+                    </a>
+                    <a href="/express-deal.html" class="border-transparent text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700 hover:text-slate-800 dark:hover:text-white inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                        Express Deal
+                    </a>
+                </div>
+            </div>
+            <div class="flex items-center">
+                <!-- Dark Mode Toggle -->
+                <button id="dark-mode-toggle" type="button" class="inline-flex items-center p-2 rounded-md text-slate-600 dark:text-slate-300 hover:text-slate-800 dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-dark" aria-label="Toggle dark mode">
+                    <!-- Sun icon for light mode -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 block dark:hidden" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd" />
+                    </svg>
+                    <!-- Moon icon for dark mode -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden dark:block" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+                    </svg>
+                    <span class="ml-2 text-sm font-medium toggle-text">Light Mode</span>
+                </button>
+
+                <div class="ml-4 flex items-center">
+                    <a href="/login.html" class="text-slate-600 dark:text-slate-300 hover:text-slate-800 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                        Log in
+                    </a>
+                    <a href="/signup.html" class="ml-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary-dark hover:bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-dark">
+                        Sign up
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>

@@ -1,23 +1,34 @@
-// AutoRepairMart Common JavaScript Utilities
+// Ardonie Capital Common JavaScript Utilities
 
 // Dark mode toggle functionality
 function initDarkMode() {
     const darkModeToggle = document.getElementById('dark-mode-toggle');
-    const html = document.documentElement;
-
-    // Check for saved theme preference or default to light mode
-    const savedTheme = localStorage.getItem('theme');
-    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-    if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
-        html.classList.add('dark');
-    }
 
     if (darkModeToggle) {
+        // Use the theme system for toggling
         darkModeToggle.addEventListener('click', () => {
-            html.classList.toggle('dark');
-            localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+            if (window.ArdonieTheme && window.ArdonieTheme.loader) {
+                window.ArdonieTheme.loader.toggleColorMode();
+            } else {
+                // Fallback to original implementation
+                const html = document.documentElement;
+                html.classList.toggle('dark');
+                localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+            }
         });
+
+        // Update toggle state based on current mode
+        const updateToggleState = () => {
+            const isDark = document.documentElement.classList.contains('dark');
+            darkModeToggle.setAttribute('aria-checked', isDark.toString());
+            darkModeToggle.querySelector('.toggle-text').textContent = isDark ? 'Dark Mode' : 'Light Mode';
+        };
+
+        // Listen for theme changes
+        window.addEventListener('themeChanged', updateToggleState);
+
+        // Initial state
+        updateToggleState();
     }
 }
 
@@ -186,35 +197,65 @@ async function copyToClipboard(text) {
 
 // Initialize all common functionality
 function initCommonFeatures() {
-    initDarkMode();
-    initMobileMenu();
+    // Load theme files in the correct order
+    loadThemeFiles(() => {
+        initDarkMode();
+        initMobileMenu();
 
-    // Add loading states to forms
-    const forms = document.querySelectorAll('form');
-    forms.forEach(form => {
-        form.addEventListener('submit', (event) => {
-            const submitButton = form.querySelector('button[type="submit"]');
-            if (submitButton) {
-                showLoading(submitButton);
+        // Add loading states to forms
+        const forms = document.querySelectorAll('form');
+        forms.forEach(form => {
+            form.addEventListener('submit', (event) => {
+                const submitButton = form.querySelector('button[type="submit"]');
+                if (submitButton) {
+                    showLoading(submitButton);
+                }
+            });
+        });
+
+        // Add smooth scrolling to anchor links
+        const anchorLinks = document.querySelectorAll('a[href^="#"]');
+        anchorLinks.forEach(link => {
+            link.addEventListener('click', (event) => {
+                event.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+                scrollToElement(targetId, 80); // 80px offset for fixed header
+            });
+        });
+
+        // Initialize tooltips (if any)
+        const tooltipElements = document.querySelectorAll('[data-tooltip]');
+        tooltipElements.forEach(element => {
+            element.addEventListener('mouseenter', showTooltip);
+            element.addEventListener('mouseleave', hideTooltip);
+        });
+    });
+}
+
+// Load theme files in the correct order
+function loadThemeFiles(callback) {
+    const themeFiles = [
+        'assets/js/themes/base-theme.js',
+        'assets/js/themes/navigation-theme.js',
+        'assets/js/themes/footer-theme.js',
+        'assets/js/themes/card-theme.js',
+        'assets/js/themes/button-theme.js',
+        'assets/js/themes/form-theme.js',
+        'assets/js/themes/theme-loader.js'
+    ];
+
+    let filesLoaded = 0;
+
+    themeFiles.forEach(file => {
+        const script = document.createElement('script');
+        script.src = file;
+        script.onload = () => {
+            filesLoaded++;
+            if (filesLoaded === themeFiles.length) {
+                callback();
             }
-        });
-    });
-
-    // Add smooth scrolling to anchor links
-    const anchorLinks = document.querySelectorAll('a[href^="#"]');
-    anchorLinks.forEach(link => {
-        link.addEventListener('click', (event) => {
-            event.preventDefault();
-            const targetId = link.getAttribute('href').substring(1);
-            scrollToElement(targetId, 80); // 80px offset for fixed header
-        });
-    });
-
-    // Initialize tooltips (if any)
-    const tooltipElements = document.querySelectorAll('[data-tooltip]');
-    tooltipElements.forEach(element => {
-        element.addEventListener('mouseenter', showTooltip);
-        element.addEventListener('mouseleave', hideTooltip);
+        };
+        document.head.appendChild(script);
     });
 }
 

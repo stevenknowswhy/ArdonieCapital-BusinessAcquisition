@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Sections Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold mb-8">Portal Sections Test</h1>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Buyer Sections -->
+            <div class="bg-white p-6 rounded-lg shadow">
+                <h2 class="text-xl font-bold mb-4">Buyer Portal Sections</h2>
+                <div class="space-y-2">
+                    <button onclick="testLoad('buyer', 'express-listings')" class="w-full bg-blue-500 text-white p-2 rounded">Test Express Listings</button>
+                    <button onclick="testLoad('buyer', 'active-deals')" class="w-full bg-blue-500 text-white p-2 rounded">Test Active Deals</button>
+                    <button onclick="testLoad('buyer', 'financing')" class="w-full bg-blue-500 text-white p-2 rounded">Test Financing</button>
+                </div>
+            </div>
+            
+            <!-- Seller Sections -->
+            <div class="bg-white p-6 rounded-lg shadow">
+                <h2 class="text-xl font-bold mb-4">Seller Portal Sections</h2>
+                <div class="space-y-2">
+                    <button onclick="testLoad('seller', 'listing-management')" class="w-full bg-green-500 text-white p-2 rounded">Test Listing Management</button>
+                    <button onclick="testLoad('seller', 'buyer-interest')" class="w-full bg-green-500 text-white p-2 rounded">Test Buyer Interest</button>
+                    <button onclick="testLoad('seller', 'express-status')" class="w-full bg-green-500 text-white p-2 rounded">Test Express Status</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Results -->
+        <div id="results" class="mt-8 bg-white p-6 rounded-lg shadow">
+            <h2 class="text-xl font-bold mb-4">Test Results</h2>
+            <div id="results-content" class="text-gray-600">
+                Click a button above to test loading portal sections...
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function testLoad(type, section) {
+            const resultsContent = document.getElementById('results-content');
+            resultsContent.innerHTML = `<div class="text-blue-600">Testing ${type}/${section}...</div>`;
+            
+            const possiblePaths = [
+                `portals/sections/${type}/${section}.html`,
+                `/portals/sections/${type}/${section}.html`,
+                `./portals/sections/${type}/${section}.html`
+            ];
+            
+            let success = false;
+            let results = [];
+            
+            for (const path of possiblePaths) {
+                try {
+                    console.log(`Testing path: ${path}`);
+                    const response = await fetch(path);
+                    const status = response.status;
+                    const statusText = response.statusText;
+                    
+                    if (response.ok) {
+                        const content = await response.text();
+                        results.push(`✅ ${path} - SUCCESS (${status}) - ${content.length} bytes`);
+                        success = true;
+                        break;
+                    } else {
+                        results.push(`❌ ${path} - FAILED (${status} ${statusText})`);
+                    }
+                } catch (error) {
+                    results.push(`❌ ${path} - ERROR: ${error.message}`);
+                }
+            }
+            
+            resultsContent.innerHTML = `
+                <div class="space-y-2">
+                    <div class="font-bold ${success ? 'text-green-600' : 'text-red-600'}">
+                        ${success ? 'SUCCESS' : 'FAILED'} - ${type}/${section}
+                    </div>
+                    ${results.map(result => `<div class="text-sm font-mono">${result}</div>`).join('')}
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>

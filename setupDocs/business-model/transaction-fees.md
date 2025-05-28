@@ -2,7 +2,7 @@
 
 ## 🎯 Core Revenue Model
 
-Success-based transaction fees are the primary long-term revenue driver for AutoRepairMart. This model aligns platform success with user success, building trust and encouraging high-quality deals.
+Success-based transaction fees are the primary long-term revenue driver for Ardonie Capital. This model aligns platform success with user success, building trust and encouraging high-quality deals.
 
 ---
 
@@ -57,7 +57,7 @@ Success-based transaction fees are the primary long-term revenue driver for Auto
 
 ### Monthly Deal Volume Targets
 - **Month 1-3**: 1-2 deals ($5K-$20K revenue)
-- **Month 4-6**: 3-5 deals ($15K-$50K revenue)  
+- **Month 4-6**: 3-5 deals ($15K-$50K revenue)
 - **Month 7-12**: 5-10 deals ($25K-$100K revenue)
 - **Year 2**: 10-20 deals ($50K-$200K revenue)
 

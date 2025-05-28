@@ -1,9 +1,10 @@
-# Hero Background Images
+# Images Directory
 
 ## Current Setup
-The hero section is configured to use `hero-bg.jpg` as the background image.
+- **Hero Background**: `hero-bg.jpg` - Background image for hero section
+- **Dashboard Mockup**: `dashboard-mockup.jpg` - Dashboard preview for hero section
 
-## Recommended Image Specifications
+## Hero Background Image Specifications
 
 ### Image Requirements:
 - **Format**: JPG or WebP for best performance
@@ -36,5 +37,38 @@ The hero section is configured to use `hero-bg.jpg` as the background image.
 3. Test on different devices and screen sizes
 4. Consider creating optimized versions for mobile (`hero-bg-mobile.jpg`)
 
-## Fallback:
+## Dashboard Mockup Image Specifications
+
+### Image Requirements
+- **Format**: PNG or JPG for best quality
+- **Dimensions**: Minimum 1200x800px (3:2 aspect ratio)
+- **File Size**: Under 300KB for optimal loading
+- **Quality**: High-resolution screenshot or mockup
+
+### Content Guidelines
+- **Subject**: Clean, professional dashboard interface
+- **Style**: Modern, minimalist design matching brand colors
+- **Elements**: Should show key dashboard features (stats, charts, navigation)
+- **Composition**: Centered layout with clear visual hierarchy
+
+### Recommended Features to Show
+1. **Navigation sidebar** - Clean menu structure
+2. **Key metrics cards** - Important statistics and KPIs
+3. **Data visualization** - Charts or graphs
+4. **Professional styling** - Consistent with brand theme
+5. **Responsive design** - Mobile-friendly appearance
+
+### Technical Notes
+- Image will be displayed with shadow and border radius
+- Should look professional and trustworthy
+- Will be shown at various screen sizes
+- Consider creating multiple versions for different contexts
+
+## Adding Dashboard Image
+1. Save your dashboard screenshot as `dashboard-mockup.jpg` in this directory
+2. Ensure it meets the specifications above
+3. Test display in hero section component
+4. Consider creating variations for different use cases
+
+## Fallback
 If no image is provided, the hero section will display a gradient background as fallback.

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hero Section Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            DEFAULT: '#3b82f6',
+                            dark: '#2563eb',
+                            light: '#93c5fd',
+                        },
+                        secondary: {
+                            DEFAULT: '#64748b',
+                            light: '#f1f5f9',
+                        },
+                        accent: {
+                            DEFAULT: '#10b981',
+                            dark: '#059669',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-sans text-slate-800 bg-white">
+    <div id="hero-section"></div>
+    
+    <script>
+        // Load hero section
+        fetch('sections/hero.html')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById('hero-section').innerHTML = data;
+                console.log('Hero section loaded successfully');
+            })
+            .catch(error => {
+                console.error('Error loading hero section:', error);
+                document.getElementById('hero-section').innerHTML = `
+                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+                        <strong>Error:</strong> Could not load hero section. ${error.message}
+                    </div>
+                `;
+            });
+    </script>
+</body>
+</html>

@@ -3,10 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pitch Deck for Financial Institutions - AutoRepairMart</title>
+    <title>Pitch Deck for Financial Institutions - Ardonie Capital</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="../assets/css/common.css" rel="stylesheet">
+    <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+    <script src="../assets/js/common.js" defer></script>
+    <script src="../assets/js/financial-charts.js" defer></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -31,7 +34,7 @@
             <div class="flex justify-between items-center py-4">
                 <div class="flex-shrink-0">
                     <a href="../index.html" class="flex items-center">
-                        <span class="text-2xl font-bold text-primary-dark dark:text-primary-light">AutoRepairMart</span>
+                        <span class="text-2xl font-bold text-primary-dark dark:text-primary-light">Ardonie Capital</span>
                     </a>
                 </div>
                 <nav class="hidden md:flex space-x-8">
@@ -48,7 +51,7 @@
             <!-- Title Slide -->
             <div class="text-center mb-16">
                 <h1 class="text-5xl font-bold text-slate-900 dark:text-white mb-4">
-                    AutoRepairMart
+                    Ardonie Capital
                 </h1>
                 <h2 class="text-3xl font-semibold text-primary-dark mb-6">
                     Financial Institution Partnership Deck
@@ -60,7 +63,7 @@
 
             <!-- Slide Deck -->
             <div class="max-w-6xl mx-auto space-y-16">
-                
+
                 <!-- Market Overview Slide -->
                 <div class="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-8">
                     <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-6 text-center">
@@ -130,11 +133,38 @@
                     </div>
                 </div>
 
+                <!-- Quick Navigation to Partner Pages -->
+                <div class="bg-gradient-to-r from-orange-500 to-red-500 rounded-lg p-6 mb-8 text-center">
+                    <h3 class="text-2xl font-bold text-white mb-4">🚀 Explore Partnership Opportunities</h3>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <a href="vendor-financial.html" class="inline-flex items-center px-6 py-3 bg-white text-orange-600 rounded-lg font-bold hover:bg-orange-50 transition-all shadow-lg">
+                            🏦 Financial Partners
+                        </a>
+                        <a href="vendor-accounting.html" class="inline-flex items-center px-6 py-3 bg-white text-orange-600 rounded-lg font-bold hover:bg-orange-50 transition-all shadow-lg">
+                            📊 CPA Partners
+                        </a>
+                        <a href="vendor-legal.html" class="inline-flex items-center px-6 py-3 bg-white text-orange-600 rounded-lg font-bold hover:bg-orange-50 transition-all shadow-lg">
+                            ⚖️ Legal Partners
+                        </a>
+                    </div>
+                </div>
+
                 <!-- Financial Projections Slide -->
                 <div class="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-8">
                     <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-6 text-center">
                         📊 Financial Projections & ROI
                     </h2>
+
+                    <!-- Loan Volume Chart -->
+                    <div class="mb-8">
+                        <h3 class="text-xl font-semibold mb-4 text-primary-dark text-center">Projected Loan Volume Growth</h3>
+                        <div class="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-700 dark:to-slate-800 rounded-2xl p-6">
+                            <div class="h-80">
+                                <div id="loanVolumeChart" class="w-full h-full"></div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                         <div>
                             <h3 class="text-xl font-semibold mb-4 text-primary-dark">Loan Volume Projections (Year 1-3)</h3>
@@ -163,6 +193,77 @@
                                 <li class="flex items-start"><span class="text-accent mr-2">💰</span>Cross-selling opportunities (business banking, etc.)</li>
                             </ul>
                         </div>
+                    </div>
+                </div>
+
+                <!-- Explore Partnership Opportunities Section -->
+                <div class="bg-gradient-to-br from-orange-50 to-red-50 dark:from-orange-900/20 dark:to-red-900/20 rounded-lg p-8 mb-8 border-4 border-orange-200 dark:border-orange-800">
+                    <div class="text-center mb-6">
+                        <div class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-full font-bold text-xl mb-4">
+                            <span class="text-3xl mr-3">🚀</span>
+                            PARTNERSHIP OPPORTUNITIES AVAILABLE NOW
+                        </div>
+                    </div>
+                    <h2 class="text-4xl font-bold text-slate-900 dark:text-white mb-6 text-center">
+                        🤝 Join Our Partner Ecosystem
+                    </h2>
+                    <p class="text-xl text-slate-600 dark:text-slate-400 text-center mb-8 max-w-4xl mx-auto">
+                        <strong>Click below to explore detailed partnership opportunities</strong> and unlock new revenue streams through our Express Badge program and M&A platform.
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <a href="vendor-financial.html" class="group bg-white dark:bg-slate-800 rounded-lg shadow-xl p-8 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-2 border-transparent hover:border-orange-300">
+                            <div class="text-center">
+                                <div class="text-6xl mb-4">🏦</div>
+                                <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Financial Institution Partners</h3>
+                                <div class="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg mb-4">
+                                    <div class="text-2xl font-bold text-blue-600">$60M</div>
+                                    <div class="text-sm text-blue-700 dark:text-blue-300">Year 3 Loan Volume</div>
+                                </div>
+                                <p class="text-slate-600 dark:text-slate-400 mb-6">
+                                    Loan origination pipeline with $15M-$60M volume projections and revenue sharing opportunities.
+                                </p>
+                                <div class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-full font-bold text-lg group-hover:from-orange-600 group-hover:to-red-600 transition-all shadow-lg">
+                                    View Financial Partner Details
+                                    <span class="ml-2 text-xl">→</span>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="vendor-accounting.html" class="group bg-white dark:bg-slate-800 rounded-lg shadow-xl p-8 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-2 border-transparent hover:border-orange-300">
+                            <div class="text-center">
+                                <div class="text-6xl mb-4">📊</div>
+                                <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">CPA Partner Network</h3>
+                                <div class="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg mb-4">
+                                    <div class="text-2xl font-bold text-green-600">$79.5K</div>
+                                    <div class="text-sm text-green-700 dark:text-green-300">Annual Revenue Potential</div>
+                                </div>
+                                <p class="text-slate-600 dark:text-slate-400 mb-6">
+                                    Express Seller Badge vetting services with $650-$1,000 revenue per badge and growing volume.
+                                </p>
+                                <div class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-full font-bold text-lg group-hover:from-orange-600 group-hover:to-red-600 transition-all shadow-lg">
+                                    View CPA Partner Details
+                                    <span class="ml-2 text-xl">→</span>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="vendor-legal.html" class="group bg-white dark:bg-slate-800 rounded-lg shadow-xl p-8 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-2 border-transparent hover:border-orange-300">
+                            <div class="text-center">
+                                <div class="text-6xl mb-4">⚖️</div>
+                                <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Legal Partners</h3>
+                                <div class="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg mb-4">
+                                    <div class="text-2xl font-bold text-purple-600">$90K</div>
+                                    <div class="text-sm text-purple-700 dark:text-purple-300">Annual Revenue Potential</div>
+                                </div>
+                                <p class="text-slate-600 dark:text-slate-400 mb-6">
+                                    Legal vetting services for Express Badges with $200-$500 per badge and comprehensive compliance.
+                                </p>
+                                <div class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-full font-bold text-lg group-hover:from-orange-600 group-hover:to-red-600 transition-all shadow-lg">
+                                    View Legal Partner Details
+                                    <span class="ml-2 text-xl">→</span>
+                                </div>
+                            </div>
+                        </a>
                     </div>
                 </div>
 
@@ -216,7 +317,7 @@
                 <!-- Call to Action Slide -->
                 <div class="bg-gradient-to-r from-primary/10 to-accent/10 rounded-lg p-8 text-center">
                     <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-4">
-                        Ready to Partner with AutoRepairMart?
+                        Ready to Partner with Ardonie Capital?
                     </h2>
                     <p class="text-xl text-slate-700 dark:text-slate-300 mb-8 max-w-3xl mx-auto">
                         Join us in revolutionizing auto repair shop financing in the DFW market. Let's discuss how we can create a mutually beneficial partnership that drives growth for both our organizations.
@@ -235,11 +336,23 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-slate-900 text-white py-8">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p class="text-slate-400">© 2024 AutoRepairMart. All rights reserved.</p>
-        </div>
-    </footer>
+    <div id="footer-placeholder"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create loan volume projection chart for financial institutions
+            if (window.FinancialCharts) {
+                FinancialCharts.createLoanVolumeLineChart('loanVolumeChart');
+            }
+        });
+
+        // Load footer
+        fetch('../components/footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer-placeholder').innerHTML = data;
+            });
+    </script>
 
 </body>
 </html>

@@ -2,7 +2,7 @@
 
 ## 🎯 Passive Income Model
 
-Partner with service providers who pay revenue share or referral fees for customers sent from the AutoRepairMart platform. This creates a passive income stream while adding value for users.
+Partner with service providers who pay revenue share or referral fees for customers sent from the Ardonie Capital platform. This creates a passive income stream while adding value for users.
 
 ---
 

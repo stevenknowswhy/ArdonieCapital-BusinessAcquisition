@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Partner With Us - AutoRepairMart Express Path Network</title>
-    <meta name="description" content="Join AutoRepairMart's Express Path network as a legal, financial, or M&A professional. Help facilitate 34-day auto shop transactions in DFW.">
+    <title>Partner With Us - Ardonie Capital Express Path Network</title>
+    <meta name="description" content="Join Ardonie Capital's Express Path network as a legal, financial, or M&A professional. Help facilitate 34-day auto shop transactions in DFW.">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -38,7 +38,7 @@
                 <!-- Logo -->
                 <div class="flex items-center">
                     <a href="index.html" class="flex items-center">
-                        <span class="text-2xl font-bold text-primary-dark dark:text-primary-light">AutoRepairMart</span>
+                        <span class="text-2xl font-bold text-primary-dark dark:text-primary-light">Ardonie Capital</span>
                     </a>
                 </div>
 
@@ -92,7 +92,7 @@
                         <span class="text-blue-100">Premier Professional Network</span>
                     </h1>
                     <p class="text-xl md:text-2xl text-blue-100 mb-8">
-                        Partner with AutoRepairMart to provide expert services for our Express Path 34-day auto shop transactions. Grow your practice while helping facilitate faster, smoother deals.
+                        Partner with Ardonie Capital to provide expert services for our Express Path 34-day auto shop transactions. Grow your practice while helping facilitate faster, smoother deals.
                     </p>
 
                     <div class="flex flex-col sm:flex-row justify-center gap-4">
@@ -527,27 +527,16 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-slate-900 dark:bg-slate-950 text-slate-300">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <div class="text-center">
-                <div class="flex items-center justify-center mb-4">
-                    <span class="text-2xl font-bold text-white">AutoRepairMart</span>
-                </div>
-                <p class="text-slate-400 mb-4">Connecting DFW auto repair shop owners with qualified buyers through our trusted marketplace.</p>
-                <div class="flex justify-center space-x-6">
-                    <a href="index.html" class="text-slate-400 hover:text-white transition-colors">Home</a>
-                    <a href="how-it-works.html" class="text-slate-400 hover:text-white transition-colors">How It Works</a>
-                    <a href="for-sellers.html" class="text-slate-400 hover:text-white transition-colors">For Sellers</a>
-                    <a href="for-buyers.html" class="text-slate-400 hover:text-white transition-colors">For Buyers</a>
-                    <a href="about.html" class="text-slate-400 hover:text-white transition-colors">About</a>
-                    <a href="contact.html" class="text-slate-400 hover:text-white transition-colors">Contact</a>
-                </div>
-                <div class="mt-4 text-slate-400 text-sm">
-                    © 2024 AutoRepairMart. All rights reserved.
-                </div>
-            </div>
-        </div>
-    </footer>
+    <div id="footer-placeholder"></div>
+
+    <script>
+        // Load footer
+        fetch('components/footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer-placeholder').innerHTML = data;
+            });
+    </script>
 
     <script>
         // Mobile menu toggle

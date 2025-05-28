@@ -527,11 +527,28 @@
             offset: 100
         });
 
-        // Load footer
+        // Load footer with error handling
         fetch('components/footer.html')
-            .then(response => response.text())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.text();
+            })
             .then(data => {
                 document.getElementById('footer-placeholder').innerHTML = data;
+                console.log('Footer loaded successfully');
+            })
+            .catch(error => {
+                console.error('Error loading footer:', error);
+                // Fallback footer if loading fails
+                document.getElementById('footer-placeholder').innerHTML = `
+                    <footer class="bg-slate-900 text-white py-8">
+                        <div class="container mx-auto px-4 text-center">
+                            <p class="text-slate-400">© 2024 Ardonie Capital. All rights reserved.</p>
+                        </div>
+                    </footer>
+                `;
             });
     </script>
 

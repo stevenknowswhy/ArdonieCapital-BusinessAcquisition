@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Projections Dashboard - Ardonie Capital</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="../assets/css/common.css" rel="stylesheet">
+    <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+    <script src="../assets/js/common.js" defer></script>
+    <script src="../assets/js/financial-charts.js" defer></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { DEFAULT: '#3b82f6', dark: '#2563eb', light: '#93c5fd' },
+                        secondary: { DEFAULT: '#64748b', light: '#f1f5f9' },
+                        accent: { DEFAULT: '#10b981', dark: '#059669' }
+                    },
+                    fontFamily: { sans: ['Inter', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-sans text-slate-800 bg-white dark:bg-slate-900 dark:text-slate-200">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white dark:bg-slate-900 shadow-sm">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex-shrink-0">
+                    <a href="../index.html" class="flex items-center">
+                        <span class="text-2xl font-bold text-primary-dark dark:text-primary-light">Ardonie Capital</span>
+                    </a>
+                </div>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="../index.html" class="text-slate-600 hover:text-primary-dark">Home</a>
+                    <a href="one-page-pitch.html" class="text-slate-600 hover:text-primary-dark">One Page Pitch</a>
+                    <a href="pitch-deck-fi.html" class="text-slate-600 hover:text-primary-dark">Financial Deck</a>
+                    <a href="../contact.html" class="text-slate-600 hover:text-primary-dark">Contact</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="min-h-screen py-12">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Title Section -->
+            <div class="text-center mb-16">
+                <h1 class="text-5xl font-bold text-slate-900 dark:text-white mb-4">
+                    Financial Projections Dashboard
+                </h1>
+                <h2 class="text-3xl font-semibold text-primary-dark mb-6">
+                    Ardonie Capital Growth Strategy
+                </h2>
+                <p class="text-xl text-slate-600 dark:text-slate-300 max-w-4xl mx-auto">
+                    Interactive financial projections for our DFW pilot program and LA/SF expansion strategy
+                </p>
+            </div>
+
+            <!-- Key Metrics Summary -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-6 text-center">
+                    <div class="text-3xl font-bold text-primary-dark mb-2">$405K</div>
+                    <div class="text-slate-600 dark:text-slate-300">DFW Year 1 Revenue</div>
+                    <div class="text-xs text-slate-500 mt-1">Founding Member Pricing</div>
+                </div>
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-6 text-center">
+                    <div class="text-3xl font-bold text-accent-dark mb-2">$1.21M</div>
+                    <div class="text-slate-600 dark:text-slate-300">LA/SF Year 1 Revenue</div>
+                    <div class="text-xs text-slate-500 mt-1">Full Pricing</div>
+                </div>
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-6 text-center">
+                    <div class="text-3xl font-bold text-orange-600 mb-2">85%</div>
+                    <div class="text-slate-600 dark:text-slate-300">Projected Profit Margin</div>
+                    <div class="text-xs text-slate-500 mt-1">After Vendor Costs</div>
+                </div>
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-6 text-center">
+                    <div class="text-3xl font-bold text-purple-600 mb-2">60</div>
+                    <div class="text-slate-600 dark:text-slate-300">Total Deals Year 1</div>
+                    <div class="text-xs text-slate-500 mt-1">Both Markets</div>
+                </div>
+            </div>
+
+            <!-- Revenue Growth Chart -->
+            <div class="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-8 mb-12">
+                <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-6 text-center">
+                    📈 Revenue Growth Comparison
+                </h2>
+                <div class="h-96">
+                    <div id="revenueGrowthChart" class="w-full h-full"></div>
+                </div>
+                <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
+                        <h3 class="font-semibold text-blue-700 dark:text-blue-300 mb-2">DFW Pilot Program</h3>
+                        <ul class="text-sm text-slate-600 dark:text-slate-400 space-y-1">
+                            <li>• 20 deals closed in Year 1</li>
+                            <li>• $300K average deal size</li>
+                            <li>• 5% transaction fee ($300K)</li>
+                            <li>• Founding Member pricing: $997.50/$747.50</li>
+                            <li>• Total revenue: $405K</li>
+                        </ul>
+                    </div>
+                    <div class="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg">
+                        <h3 class="font-semibold text-green-700 dark:text-green-300 mb-2">LA/SF Expansion</h3>
+                        <ul class="text-sm text-slate-600 dark:text-slate-400 space-y-1">
+                            <li>• 40 deals closed in Year 1</li>
+                            <li>• $500K average deal size</li>
+                            <li>• 5% transaction fee ($1M)</li>
+                            <li>• Full badge pricing: $1995/$1495</li>
+                            <li>• Total revenue: $1.21M</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cash Flow Analysis -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+                <!-- DFW Cash Flow -->
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-8">
+                    <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-6 text-center">
+                        💰 DFW Cash Flow Analysis
+                    </h2>
+                    <div class="h-80">
+                        <div id="dfwCashFlowChart" class="w-full h-full"></div>
+                    </div>
+                </div>
+
+                <!-- LA/SF Cash Flow -->
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-8">
+                    <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-6 text-center">
+                        💰 LA/SF Cash Flow Analysis
+                    </h2>
+                    <div class="h-80">
+                        <div id="lasfCashFlowChart" class="w-full h-full"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Deal Volume Comparison -->
+            <div class="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-8 mb-12">
+                <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-6 text-center">
+                    📊 Monthly Deal Volume Comparison
+                </h2>
+                <div class="h-96">
+                    <div id="dealVolumeChart" class="w-full h-full"></div>
+                </div>
+                <div class="mt-6 text-center">
+                    <div class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-accent to-accent-dark text-white rounded-full font-bold">
+                        <span class="text-2xl mr-3">🎯</span>
+                        Total Year 1: 60 Deals Closed
+                    </div>
+                </div>
+            </div>
+
+            <!-- Express Badge Pricing Strategy -->
+            <div class="bg-gradient-to-br from-purple-50 to-indigo-50 dark:from-purple-900/20 dark:to-indigo-900/20 rounded-lg p-8 mb-12">
+                <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-6 text-center">
+                    🏅 Founding Member Express Badge Pricing
+                </h2>
+                <div class="text-center mb-8">
+                    <div class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-full font-bold text-lg">
+                        <span class="text-2xl mr-3">🚀</span>
+                        Limited Time: 50% OFF for DFW Founding Members!
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="bg-white dark:bg-slate-800 p-6 rounded-lg border-2 border-orange-200 dark:border-orange-800">
+                        <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-4">Express Seller Badge</h3>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center">
+                                <span class="text-slate-600 dark:text-slate-400">Standard Value:</span>
+                                <span class="text-lg text-slate-500 line-through">$1,995</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-slate-600 dark:text-slate-400">Founding Member Price:</span>
+                                <span class="font-bold text-2xl text-orange-600">$997.50</span>
+                            </div>
+                            <div class="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg">
+                                <div class="text-green-700 dark:text-green-300 font-bold text-center">
+                                    You Save: $997.50 (50% OFF!)
+                                </div>
+                            </div>
+                            <div class="text-sm text-slate-500 dark:text-slate-400 mt-4">
+                                <strong>Includes:</strong> CPA financial review ($1,500+ value), legal document check ($1,000+ value),
+                                entity verification, document preparation, priority listing, Deal Navigator support
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white dark:bg-slate-800 p-6 rounded-lg border-2 border-orange-200 dark:border-orange-800">
+                        <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-4">Express Buyer Badge</h3>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center">
+                                <span class="text-slate-600 dark:text-slate-400">Standard Value:</span>
+                                <span class="text-lg text-slate-500 line-through">$1,495</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-slate-600 dark:text-slate-400">Founding Member Price:</span>
+                                <span class="font-bold text-2xl text-orange-600">$747.50</span>
+                            </div>
+                            <div class="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg">
+                                <div class="text-green-700 dark:text-green-300 font-bold text-center">
+                                    You Save: $747.50 (50% OFF!)
+                                </div>
+                            </div>
+                            <div class="text-sm text-slate-500 dark:text-slate-400 mt-4">
+                                <strong>Includes:</strong> Financial prequalification ($500+ value), legal identity verification,
+                                background check, buyer intent review, priority access, Deal Navigator support
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-8 text-center">
+                    <div class="bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-700 p-6 rounded-lg">
+                        <h4 class="text-lg font-bold text-slate-900 dark:text-white mb-4">Founding Member Benefits</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                            <div class="flex items-center justify-center">
+                                <span class="text-orange-500 mr-2">✓</span>
+                                <span>50% discount on premium service</span>
+                            </div>
+                            <div class="flex items-center justify-center">
+                                <span class="text-orange-500 mr-2">✓</span>
+                                <span>Priority platform access</span>
+                            </div>
+                            <div class="flex items-center justify-center">
+                                <span class="text-orange-500 mr-2">✓</span>
+                                <span>Shape the future of Ardonie Capital</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-6 text-center">
+                    <div class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-full font-bold">
+                        <span class="text-2xl mr-3">💎</span>
+                        Premium Service • Professional Vetting • Founding Member Exclusive
+                    </div>
+                </div>
+            </div>
+
+            <!-- Financial Assumptions -->
+            <div class="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-700 rounded-lg p-8 mb-12">
+                <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-6 text-center">
+                    📋 Key Financial Assumptions
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-white dark:bg-slate-800 p-6 rounded-lg">
+                        <h3 class="font-semibold text-slate-900 dark:text-white mb-4">Revenue Streams</h3>
+                        <ul class="space-y-2 text-slate-600 dark:text-slate-400">
+                            <li>• Transaction fees: 5% of deal value</li>
+                            <li>• Express Seller badges: $997.50-$1,995</li>
+                            <li>• Express Buyer badges: $747.50-$1,495</li>
+                            <li>• 50% badge opt-in rate</li>
+                            <li>• Founding Member 50% discount (DFW pilot)</li>
+                            <li>• Payment plans available</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white dark:bg-slate-800 p-6 rounded-lg">
+                        <h3 class="font-semibold text-slate-900 dark:text-white mb-4">Cost Structure</h3>
+                        <ul class="space-y-2 text-slate-600 dark:text-slate-400">
+                            <li>• Platform: $119/month</li>
+                            <li>• Marketing: $500-1000/month</li>
+                            <li>• Operations: $1000/month</li>
+                            <li>• Vendor fees: $650-$1000/seller badge</li>
+                            <li>• Vendor fees: $375-$500/buyer badge</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white dark:bg-slate-800 p-6 rounded-lg">
+                        <h3 class="font-semibold text-slate-900 dark:text-white mb-4">Growth Metrics</h3>
+                        <ul class="space-y-2 text-slate-600 dark:text-slate-400">
+                            <li>• DFW: 5 sellers, 10 buyers/month</li>
+                            <li>• LA/SF: 10 sellers, 20 buyers/month</li>
+                            <li>• Deal closure rate improving over time</li>
+                            <li>• Conservative market penetration</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Call to Action -->
+            <div class="bg-gradient-to-r from-primary/10 to-accent/10 rounded-lg p-8 text-center">
+                <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-4">
+                    Ready to Invest in the Future of Auto Repair M&A?
+                </h2>
+                <p class="text-xl text-slate-700 dark:text-slate-300 mb-8 max-w-3xl mx-auto">
+                    Our financial projections demonstrate strong growth potential and sustainable profitability.
+                    Join us in revolutionizing the auto repair industry.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="../contact.html" class="inline-flex items-center px-8 py-4 border border-transparent text-lg font-medium rounded-md text-white bg-primary-dark hover:bg-primary shadow-lg hover:shadow-xl transition-all">
+                        Schedule Investment Discussion
+                    </a>
+                    <a href="business-plan.html" class="inline-flex items-center px-8 py-4 border border-slate-300 text-lg font-medium rounded-md text-slate-700 bg-white hover:bg-slate-50 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-600 dark:hover:bg-slate-700 shadow-lg hover:shadow-xl transition-all">
+                        View Full Business Plan
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white py-8">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-slate-400">© 2024 Ardonie Capital. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize all charts
+            if (window.FinancialCharts) {
+                FinancialCharts.createRevenueGrowthChart('revenueGrowthChart');
+                FinancialCharts.createCashFlowChart('dfwCashFlowChart', 'dfw');
+                FinancialCharts.createCashFlowChart('lasfCashFlowChart', 'lasf');
+                FinancialCharts.createDealVolumeChart('dealVolumeChart');
+            }
+        });
+    </script>
+</body>
+</html>

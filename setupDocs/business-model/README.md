@@ -1,13 +1,13 @@
-# AutoRepairMart Business Model Documentation
+# Ardonie Capital Business Model Documentation
 
-This directory contains the complete business model documentation for the AutoRepairMart platform, broken down into logical components for better organization and maintainability.
+This directory contains the complete business model documentation for the Ardonie Capital platform, broken down into logical components for better organization and maintainability.
 
 ## 📁 Directory Structure
 
 ### 💸 Funding Strategy
 - [`funding-strategy.md`](./funding-strategy.md) - Complete funding approach from bootstrap to seed funding
 
-### 💰 Revenue Models  
+### 💰 Revenue Models
 - [`monetization-overview.md`](./monetization-overview.md) - Overview of all revenue streams
 - [`transaction-fees.md`](./transaction-fees.md) - Success-based transaction fee model
 - [`badging-fees.md`](./badging-fees.md) - Express badge vetting and certification fees
@@ -25,7 +25,7 @@ This directory contains the complete business model documentation for the AutoRe
 ## 🎯 Quick Start
 
 1. **Immediate Focus**: Start with [badging fees](./badging-fees.md) for quick revenue generation
-2. **Scale Strategy**: Layer in [transaction fees](./transaction-fees.md) as deal volume grows  
+2. **Scale Strategy**: Layer in [transaction fees](./transaction-fees.md) as deal volume grows
 3. **Long-term Growth**: Develop [vendor referrals](./vendor-referrals.md) and [premium memberships](./premium-memberships.md)
 
 ## 📊 Key Metrics to Track

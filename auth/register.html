@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register - AutoRepairMart</title>
+    <title>Register - Ardonie Capital</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script>
@@ -42,7 +42,7 @@
                 <!-- Logo -->
                 <div class="flex-shrink-0">
                     <a href="../index.html" class="flex items-center">
-                        <span class="text-2xl font-bold text-primary-dark dark:text-primary-light">AutoRepairMart</span>
+                        <span class="text-2xl font-bold text-primary-dark dark:text-primary-light">Ardonie Capital</span>
                     </a>
                 </div>
 
@@ -63,7 +63,7 @@
                 <div class="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-8">
                     <div class="text-center mb-8">
                         <h1 class="text-3xl font-bold text-slate-900 dark:text-white mb-2">Create Your Account</h1>
-                        <p class="text-slate-600 dark:text-slate-300">Join AutoRepairMart and start your business journey</p>
+                        <p class="text-slate-600 dark:text-slate-300">Join Ardonie Capital and start your business journey</p>
                     </div>
 
                     <!-- Role Selection -->
@@ -173,7 +173,7 @@
                     <!-- Login Link -->
                     <div class="mt-6 text-center">
                         <p class="text-sm text-slate-600 dark:text-slate-300">
-                            Already have an account? 
+                            Already have an account?
                             <a href="login.html" class="font-medium text-primary-dark hover:text-primary">Sign in</a>
                         </p>
                     </div>
@@ -190,7 +190,7 @@
                     indicator.classList.remove('bg-primary-dark', 'border-primary-dark');
                     indicator.classList.add('border-slate-300');
                 });
-                
+
                 if (this.checked) {
                     const indicator = this.parentElement.querySelector('.radio-indicator');
                     indicator.classList.remove('border-slate-300');
@@ -202,24 +202,36 @@
         // Form submission
         document.getElementById('registrationForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            
+
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirm_password').value;
-            
+
             if (password !== confirmPassword) {
                 alert('Passwords do not match!');
                 return;
             }
-            
+
             if (password.length < 8) {
                 alert('Password must be at least 8 characters long!');
                 return;
             }
-            
+
             // Here you would normally send the data to your backend
             alert('Registration successful! Redirecting to dashboard...');
             window.location.href = '../dashboard/dashboard.html';
         });
+    </script>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+
+    <script>
+        // Load footer
+        fetch('../components/footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer-placeholder').innerHTML = data;
+            });
     </script>
 </body>
 </html>

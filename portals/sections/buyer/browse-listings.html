@@ -1,0 +1,264 @@
+<!-- Browse Listings Section -->
+<section class="py-8 bg-white dark:bg-slate-800">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto">
+            <!-- Page Header -->
+            <div class="flex justify-between items-center mb-8">
+                <div>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white">Browse Listings</h2>
+                    <p class="text-slate-600 dark:text-slate-300 mt-2">Discover auto repair businesses available for acquisition</p>
+                </div>
+                <div class="flex gap-4">
+                    <div>
+                        <label for="location-filter" class="sr-only">Filter by location</label>
+                        <select id="location-filter" class="px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-800 text-slate-900 dark:text-white" aria-label="Filter listings by location">
+                            <option value="all">All Locations</option>
+                            <option value="dallas">Dallas, TX</option>
+                            <option value="fort-worth">Fort Worth, TX</option>
+                            <option value="plano">Plano, TX</option>
+                            <option value="arlington">Arlington, TX</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="price-filter" class="sr-only">Filter by price range</label>
+                        <select id="price-filter" class="px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-800 text-slate-900 dark:text-white" aria-label="Filter listings by price range">
+                            <option value="all">All Prices</option>
+                            <option value="0-250k">$0 - $250K</option>
+                            <option value="250k-500k">$250K - $500K</option>
+                            <option value="500k-1m">$500K - $1M</option>
+                            <option value="1m+">$1M+</option>
+                        </select>
+                    </div>
+                    <button type="button" class="bg-accent hover:bg-accent-dark text-white px-6 py-2 rounded-md">
+                        🔍 Search
+                    </button>
+                </div>
+            </div>
+
+            <!-- Express Listings Priority Section -->
+            <div class="mb-8 p-6 bg-gradient-to-r from-accent/10 to-primary/10 dark:from-accent/20 dark:to-primary/20 rounded-lg border border-accent/20">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center">
+                        <span class="text-2xl mr-3">🚖</span>
+                        <div>
+                            <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Express Priority Listings</h3>
+                            <p class="text-sm text-slate-600 dark:text-slate-400">Exclusive access to premium listings as an Express Buyer</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-sm font-medium text-accent">3 New This Week</div>
+                        <div class="text-xs text-slate-600">First access guaranteed</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Listings Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Listing 1: Premier Auto Service -->
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden">
+                    <div class="relative">
+                        <div class="h-48 bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-900/20 dark:to-blue-800/20"></div>
+                        <div class="absolute top-3 left-3">
+                            <span class="bg-accent text-white text-xs px-2 py-1 rounded-full">🚖 Express</span>
+                        </div>
+                        <div class="absolute top-3 right-3">
+                            <button type="button" class="bg-white/80 hover:bg-white text-slate-600 p-2 rounded-full" aria-label="Save Premier Auto Service to favorites">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Premier Auto Service</h3>
+                            <span class="text-lg font-bold text-accent">$525,000</span>
+                        </div>
+                        <p class="text-sm text-slate-600 dark:text-slate-400 mb-3">Dallas, TX • Established 2015</p>
+                        <div class="grid grid-cols-2 gap-4 mb-4 text-sm">
+                            <div>
+                                <span class="text-slate-500">Annual Revenue:</span>
+                                <div class="font-medium text-slate-900 dark:text-white">$850K</div>
+                            </div>
+                            <div>
+                                <span class="text-slate-500">Employees:</span>
+                                <div class="font-medium text-slate-900 dark:text-white">12</div>
+                            </div>
+                            <div>
+                                <span class="text-slate-500">Bays:</span>
+                                <div class="font-medium text-slate-900 dark:text-white">8</div>
+                            </div>
+                            <div>
+                                <span class="text-slate-500">Match Score:</span>
+                                <div class="font-medium text-green-600">95%</div>
+                            </div>
+                        </div>
+                        <div class="flex gap-2">
+                            <button class="flex-1 bg-accent hover:bg-accent-dark text-white py-2 px-4 rounded-md text-sm">
+                                View Details
+                            </button>
+                            <button class="bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 py-2 px-4 rounded-md text-sm">
+                                Contact Seller
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Listing 2: Elite Transmission -->
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden">
+                    <div class="relative">
+                        <div class="h-48 bg-gradient-to-br from-green-100 to-green-200 dark:from-green-900/20 dark:to-green-800/20"></div>
+                        <div class="absolute top-3 left-3">
+                            <span class="bg-blue-500 text-white text-xs px-2 py-1 rounded-full">Standard</span>
+                        </div>
+                        <div class="absolute top-3 right-3">
+                            <button type="button" class="bg-white/80 hover:bg-white text-slate-600 p-2 rounded-full" aria-label="Save Elite Transmission to favorites">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Elite Transmission</h3>
+                            <span class="text-lg font-bold text-accent">$385,000</span>
+                        </div>
+                        <p class="text-sm text-slate-600 dark:text-slate-400 mb-3">Fort Worth, TX • Established 2018</p>
+                        <div class="grid grid-cols-2 gap-4 mb-4 text-sm">
+                            <div>
+                                <span class="text-slate-500">Annual Revenue:</span>
+                                <div class="font-medium text-slate-900 dark:text-white">$620K</div>
+                            </div>
+                            <div>
+                                <span class="text-slate-500">Employees:</span>
+                                <div class="font-medium text-slate-900 dark:text-white">8</div>
+                            </div>
+                            <div>
+                                <span class="text-slate-500">Bays:</span>
+                                <div class="font-medium text-slate-900 dark:text-white">6</div>
+                            </div>
+                            <div>
+                                <span class="text-slate-500">Match Score:</span>
+                                <div class="font-medium text-blue-600">88%</div>
+                            </div>
+                        </div>
+                        <div class="flex gap-2">
+                            <button class="flex-1 bg-accent hover:bg-accent-dark text-white py-2 px-4 rounded-md text-sm">
+                                View Details
+                            </button>
+                            <button class="bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 py-2 px-4 rounded-md text-sm">
+                                Contact Seller
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Listing 3: Quick Lube Plus -->
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden">
+                    <div class="relative">
+                        <div class="h-48 bg-gradient-to-br from-orange-100 to-orange-200 dark:from-orange-900/20 dark:to-orange-800/20"></div>
+                        <div class="absolute top-3 left-3">
+                            <span class="bg-accent text-white text-xs px-2 py-1 rounded-full">🚖 Express</span>
+                        </div>
+                        <div class="absolute top-3 right-3">
+                            <button type="button" class="bg-white/80 hover:bg-white text-slate-600 p-2 rounded-full" aria-label="Save Quick Lube Plus to favorites">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Quick Lube Plus</h3>
+                            <span class="text-lg font-bold text-accent">$295,000</span>
+                        </div>
+                        <p class="text-sm text-slate-600 dark:text-slate-400 mb-3">Plano, TX • Established 2020</p>
+                        <div class="grid grid-cols-2 gap-4 mb-4 text-sm">
+                            <div>
+                                <span class="text-slate-500">Annual Revenue:</span>
+                                <div class="font-medium text-slate-900 dark:text-white">$485K</div>
+                            </div>
+                            <div>
+                                <span class="text-slate-500">Employees:</span>
+                                <div class="font-medium text-slate-900 dark:text-white">6</div>
+                            </div>
+                            <div>
+                                <span class="text-slate-500">Bays:</span>
+                                <div class="font-medium text-slate-900 dark:text-white">4</div>
+                            </div>
+                            <div>
+                                <span class="text-slate-500">Match Score:</span>
+                                <div class="font-medium text-green-600">92%</div>
+                            </div>
+                        </div>
+                        <div class="flex gap-2">
+                            <button class="flex-1 bg-accent hover:bg-accent-dark text-white py-2 px-4 rounded-md text-sm">
+                                View Details
+                            </button>
+                            <button class="bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 py-2 px-4 rounded-md text-sm">
+                                Contact Seller
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Load More Button -->
+            <div class="text-center mt-8">
+                <button class="bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 px-8 py-3 rounded-md">
+                    Load More Listings
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Browse Listings JavaScript -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Browse listings utilities
+    window.BrowseListings = {
+        // Filter listings
+        filterListings: function(location, price) {
+            console.log('Filtering listings:', location, price);
+            // Simulate filtering logic
+            window.PortalUtils?.showNotification('Listings filtered', 'success');
+        },
+
+        // Save listing
+        saveListing: function(listingId) {
+            console.log('Saving listing:', listingId);
+            window.PortalUtils?.showNotification('Listing saved to favorites', 'success');
+        },
+
+        // Initialize browse listings
+        init: function() {
+            // Set up filter handlers
+            const locationFilter = document.getElementById('location-filter');
+            const priceFilter = document.getElementById('price-filter');
+
+            if (locationFilter && priceFilter) {
+                const handleFilter = () => {
+                    this.filterListings(locationFilter.value, priceFilter.value);
+                };
+
+                locationFilter.addEventListener('change', handleFilter);
+                priceFilter.addEventListener('change', handleFilter);
+            }
+
+            // Set up save buttons
+            const saveButtons = document.querySelectorAll('button[class*="bg-white/80"]');
+            saveButtons.forEach((button, index) => {
+                button.addEventListener('click', () => {
+                    this.saveListing(`listing-${index + 1}`);
+                });
+            });
+        }
+    };
+
+    // Initialize when loaded
+    window.BrowseListings.init();
+});
+</script>

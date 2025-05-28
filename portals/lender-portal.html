@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lender Portal - AutoRepairMart</title>
+    <title>Lender Portal - Ardonie Capital</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="../assets/css/common.css" rel="stylesheet">
@@ -76,7 +76,7 @@
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="max-w-6xl mx-auto">
                     <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-8">Pending Financing Applications</h2>
-                    
+
                     <div class="space-y-6">
                         <!-- Application 1 -->
                         <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 p-6">
@@ -149,7 +149,7 @@
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="max-w-4xl mx-auto">
                     <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-8">Performance Dashboard</h2>
-                    
+
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                         <div class="bg-slate-50 dark:bg-slate-700 rounded-lg p-6 text-center">
                             <div class="text-3xl font-bold text-green-600 mb-2">24</div>
@@ -204,9 +204,11 @@
 
         // Load portal components
         document.addEventListener('DOMContentLoaded', function() {
-            // Load components
-            loadSection('portal-header', 'components/portal-header.html');
-            loadSection('portal-footer', 'components/portal-footer.html');
+            // Load components with cache busting
+            const timestamp = new Date().getTime();
+            const randomId = Math.random().toString(36).substring(7);
+            loadSection('portal-header', `components/portal-header.html?v=${timestamp}&r=${randomId}`);
+            loadSection('portal-footer', `components/portal-footer.html?v=${timestamp}&r=${randomId}`);
 
             // Configure portal after components load
             setTimeout(() => {
@@ -217,8 +219,8 @@
         // Configure lender portal specific settings
         function configureLenderPortal() {
             // Set portal title
-            document.title = 'Lender Portal - AutoRepairMart';
-            
+            document.title = 'Lender Portal - Ardonie Capital';
+
             // Configure header
             if (window.PortalHeader) {
                 window.PortalHeader.setBadge('🏦 Lender Portal', 'bg-red-100 text-red-800');
@@ -246,8 +248,8 @@
             }
 
             // Load common utilities
-            if (window.AutoRepairMart) {
-                window.AutoRepairMart.showToast('Welcome to your Lender Portal!', 'success');
+            if (window.ArdonieCapital) {
+                window.ArdonieCapital.showToast('Welcome to your Lender Portal!', 'success');
             }
         }
 

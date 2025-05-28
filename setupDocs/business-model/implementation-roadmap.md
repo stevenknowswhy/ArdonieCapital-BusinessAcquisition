@@ -2,7 +2,7 @@
 
 ## 🎯 Overview
 
-This roadmap outlines the strategic sequencing of revenue streams and business model implementation for AutoRepairMart, designed to maximize early cash flow while building toward sustainable long-term growth.
+This roadmap outlines the strategic sequencing of revenue streams and business model implementation for Ardonie Capital, designed to maximize early cash flow while building toward sustainable long-term growth.
 
 ---
 

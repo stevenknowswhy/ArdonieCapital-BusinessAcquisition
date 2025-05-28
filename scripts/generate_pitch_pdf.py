@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-AutoRepairMart One Page Pitch PDF Generator
+Ardonie Capital One Page Pitch PDF Generator
 Generates a professional PDF version of the one-page business pitch
 """
 
@@ -12,6 +12,7 @@ from docx.enum.section import WD_ORIENT
 import matplotlib.pyplot as plt
 import io
 import os
+import plotly.graph_objects as go
 
 def create_ardonie_capital_pitch_pdf():
     """Generate Ardonie Capital one-page pitch PDF"""
@@ -84,7 +85,7 @@ def create_ardonie_capital_pitch_pdf():
     # Section: Call to Action
     p = doc.add_paragraph()
     add_highlighted(p, 'Call to Action: ', RGBColor(255, 102, 0))
-    p.add_run('Ready to transform DFW auto repair shop transactions? Contact AutoRepairMart to discuss partnership opportunities, investment, or to list your shop today.')
+    p.add_run('Ready to transform DFW auto repair shop transactions? Contact Ardonie Capital to discuss partnership opportunities, investment, or to list your shop today.')
 
     # Tagline
     p = doc.add_paragraph()
@@ -109,12 +110,12 @@ def create_ardonie_capital_pitch_pdf():
 
     # Add a bar chart for Deal Timeline Comparison
     try:
-        labels = ['Industry Avg', 'AutoRepairMart\nExpress Deal']
+        labels = ['Industry Avg', 'Ardonie Capital\nExpress Deal']
         values = [270, 34]  # 6-12 months avg vs 34 days
         fig, ax = plt.subplots(figsize=(3, 2))
         bars = ax.bar(labels, values, color=['#C00000', '#0070C0'])
         ax.set_ylabel('Days to Close')
-        ax.set_title('Deal Timeline: Industry vs. AutoRepairMart')
+        ax.set_title('Deal Timeline: Industry vs. Ardonie Capital')
 
         # Add value labels on bars
         for i, (bar, v) in enumerate(zip(bars, values)):

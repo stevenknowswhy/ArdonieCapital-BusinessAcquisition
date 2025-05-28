@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Institution Partners - Ardonie Capital</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="../assets/css/common.css" rel="stylesheet">
+    <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+    <script src="../assets/js/common.js" defer></script>
+    <script src="../assets/js/financial-charts.js" defer></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { DEFAULT: '#3b82f6', dark: '#2563eb', light: '#93c5fd' },
+                        secondary: { DEFAULT: '#64748b', light: '#f1f5f9' },
+                        accent: { DEFAULT: '#10b981', dark: '#059669' }
+                    },
+                    fontFamily: { sans: ['Inter', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-sans text-slate-800 bg-white dark:bg-slate-900 dark:text-slate-200">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white dark:bg-slate-900 shadow-sm">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex-shrink-0">
+                    <a href="../index.html" class="flex items-center">
+                        <span class="text-2xl font-bold text-primary-dark dark:text-primary-light">Ardonie Capital</span>
+                    </a>
+                </div>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="../index.html" class="text-slate-600 hover:text-primary-dark">Home</a>
+                    <a href="pitch-deck-fi.html" class="text-slate-600 hover:text-primary-dark">FI Pitch</a>
+                    <a href="financial-projections.html" class="text-slate-600 hover:text-primary-dark">Financials</a>
+                    <a href="../contact.html" class="text-slate-600 hover:text-primary-dark">Contact</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="min-h-screen">
+        <!-- Hero Section -->
+        <section class="bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-blue-900/20 dark:via-indigo-900/20 dark:to-purple-900/20 py-20">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <div class="mb-8">
+                    <div class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-full font-bold text-lg mb-6">
+                        <span class="text-2xl mr-3">🏦</span>
+                        FINANCIAL INSTITUTION PARTNERSHIP
+                    </div>
+                </div>
+                <h1 class="text-6xl font-bold text-slate-900 dark:text-white mb-6">
+                    Partner with <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-indigo-500">Ardonie Capital</span>
+                </h1>
+                <h2 class="text-3xl font-semibold text-slate-700 dark:text-slate-300 mb-8">
+                    Unlock $15M-$60M Loan Pipeline Opportunities
+                </h2>
+                <p class="text-xl text-slate-600 dark:text-slate-400 max-w-4xl mx-auto mb-12">
+                    Join our exclusive financial partner network and access a vetted pipeline of auto repair shop acquisitions
+                    with comprehensive due diligence, SBA loan opportunities, and cross-selling potential.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-6 justify-center">
+                    <a href="#revenue-projections" class="inline-flex items-center px-8 py-4 border border-transparent text-lg font-medium rounded-md text-white bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 shadow-lg hover:shadow-xl transition-all">
+                        View Revenue Projections
+                    </a>
+                    <a href="#partnership-details" class="inline-flex items-center px-8 py-4 border border-slate-300 text-lg font-medium rounded-md text-slate-700 bg-white hover:bg-slate-50 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-600 dark:hover:bg-slate-700 shadow-lg hover:shadow-xl transition-all">
+                        Partnership Details
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Client LTV Highlight -->
+        <section class="py-16 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <div class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-full font-bold text-2xl mb-6">
+                        <span class="text-4xl mr-4">💰</span>
+                        CLIENT LIFETIME VALUE
+                    </div>
+                    <h2 class="text-4xl font-bold text-slate-900 dark:text-white mb-6">
+                        Each Ardonie Capital Client is Worth
+                    </h2>
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl p-12 max-w-4xl mx-auto border-4 border-green-200 dark:border-green-800">
+                        <div class="text-8xl font-bold text-green-600 mb-4">$37,500</div>
+                        <div class="text-2xl text-slate-600 dark:text-slate-400 mb-8">Average Lifetime Value per Client</div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+                            <div class="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-lg">
+                                <div class="text-2xl font-bold text-blue-600 mb-2">$22,500</div>
+                                <div class="text-sm text-blue-700 dark:text-blue-300 font-semibold mb-2">Lending Revenue</div>
+                                <div class="text-xs text-slate-600 dark:text-slate-400">$3,000-$7,500/year × 5-7 years</div>
+                            </div>
+                            <div class="bg-purple-50 dark:bg-purple-900/20 p-6 rounded-lg">
+                                <div class="text-2xl font-bold text-purple-600 mb-2">$12,500</div>
+                                <div class="text-sm text-purple-700 dark:text-purple-300 font-semibold mb-2">Business Banking Services</div>
+                                <div class="text-xs text-slate-600 dark:text-slate-400">$1,000-$2,500/year × 5-7 years</div>
+                            </div>
+                            <div class="bg-orange-50 dark:bg-orange-900/20 p-6 rounded-lg">
+                                <div class="text-2xl font-bold text-orange-600 mb-2">$2,500</div>
+                                <div class="text-sm text-orange-700 dark:text-orange-300 font-semibold mb-2">Additional Services</div>
+                                <div class="text-xs text-slate-600 dark:text-slate-400">Merchant processing, equipment financing</div>
+                            </div>
+                        </div>
+
+                        <div class="mt-8 p-6 bg-gradient-to-r from-blue-100 to-indigo-100 dark:from-blue-900/30 dark:to-indigo-900/30 rounded-lg">
+                            <div class="text-lg font-bold text-blue-800 dark:text-blue-200 mb-2">
+                                📊 Industry-Standard Relationship Duration: 5-10 years
+                            </div>
+                            <div class="text-sm text-blue-700 dark:text-blue-300">
+                                Ardonie Capital clients typically maintain longer banking relationships due to business stability
+                            </div>
+                        </div>
+
+                        <div class="mt-6 p-6 bg-gradient-to-r from-green-100 to-emerald-100 dark:from-green-900/30 dark:to-emerald-900/30 rounded-lg">
+                            <div class="text-lg font-bold text-green-800 dark:text-green-200 mb-2">
+                                🎯 With 200 clients by Year 3: $7,500,000 total LTV opportunity
+                            </div>
+                            <div class="text-sm text-green-700 dark:text-green-300">
+                                Each client relationship generates 15x more value than traditional small business loans
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Metrics Summary -->
+        <section class="py-16 bg-white dark:bg-slate-900">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+                    <div class="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-lg shadow-lg p-6 text-center">
+                        <div class="text-3xl font-bold text-blue-600 mb-2">$60M</div>
+                        <div class="text-slate-600 dark:text-slate-300">Year 3 Loan Volume</div>
+                    </div>
+                    <div class="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-lg shadow-lg p-6 text-center">
+                        <div class="text-3xl font-bold text-green-600 mb-2">$1.8M</div>
+                        <div class="text-slate-600 dark:text-slate-300">Year 3 Origination Fees</div>
+                    </div>
+                    <div class="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-lg shadow-lg p-6 text-center">
+                        <div class="text-3xl font-bold text-purple-600 mb-2">$4.2M</div>
+                        <div class="text-slate-600 dark:text-slate-300">5-Year Interest Income</div>
+                    </div>
+                    <div class="bg-gradient-to-br from-orange-50 to-red-50 dark:from-orange-900/20 dark:to-red-900/20 rounded-lg shadow-lg p-6 text-center">
+                        <div class="text-3xl font-bold text-orange-600 mb-2">200</div>
+                        <div class="text-slate-600 dark:text-slate-300">Year 3 Deal Count</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Revenue Projections Chart -->
+        <section id="revenue-projections" class="py-20 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-700">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold text-slate-900 dark:text-white mb-6">
+                        📈 Financial Partner Revenue Projections
+                    </h2>
+                    <p class="text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto">
+                        Interactive projections showing loan volume growth and origination fee opportunities
+                        through our vetted auto repair shop acquisition pipeline.
+                    </p>
+                </div>
+
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow-xl p-8 mb-12">
+                    <div class="h-96">
+                        <div id="financialPartnerChart" class="w-full h-full"></div>
+                    </div>
+                </div>
+
+                <!-- Revenue Breakdown -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-8">
+                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">Revenue Breakdown</h3>
+                        <div class="h-80">
+                            <div id="revenueShareChart" class="w-full h-full"></div>
+                        </div>
+                    </div>
+                    <div class="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-8">
+                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">Partnership Benefits</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <span class="text-blue-500 mr-3 mt-1">✓</span>
+                                <div>
+                                    <strong>Vetted Deal Pipeline</strong><br>
+                                    <span class="text-slate-600 dark:text-slate-400">Express Badge holders with CPA-verified financials and legal clearance</span>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <span class="text-blue-500 mr-3 mt-1">✓</span>
+                                <div>
+                                    <strong>SBA Loan Opportunities</strong><br>
+                                    <span class="text-slate-600 dark:text-slate-400">Pre-qualified borrowers for SBA 7(a) and 504 programs</span>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <span class="text-blue-500 mr-3 mt-1">✓</span>
+                                <div>
+                                    <strong>Equipment Financing</strong><br>
+                                    <span class="text-slate-600 dark:text-slate-400">Additional lending opportunities for shop equipment and upgrades</span>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <span class="text-blue-500 mr-3 mt-1">✓</span>
+                                <div>
+                                    <strong>Cross-Selling Potential</strong><br>
+                                    <span class="text-slate-600 dark:text-slate-400">Business banking, merchant services, and working capital lines</span>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <span class="text-blue-500 mr-3 mt-1">✓</span>
+                                <div>
+                                    <strong>Reduced Risk</strong><br>
+                                    <span class="text-slate-600 dark:text-slate-400">Comprehensive due diligence and professional vetting process</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Partnership Details -->
+        <section id="partnership-details" class="py-20 bg-white dark:bg-slate-900">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold text-slate-900 dark:text-white mb-6">
+                        🤝 Partnership Structure & Terms
+                    </h2>
+                    <p class="text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto">
+                        Flexible partnership models designed to maximize your lending opportunities
+                        while maintaining competitive rates and terms.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+                    <div class="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-lg p-8">
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-4">Preferred Partner</h3>
+                        <div class="text-3xl font-bold text-blue-600 mb-4">Exclusive</div>
+                        <ul class="space-y-3 text-slate-600 dark:text-slate-400">
+                            <li>• First access to all deals</li>
+                            <li>• Co-branded marketing materials</li>
+                            <li>• Dedicated relationship manager</li>
+                            <li>• Custom loan products</li>
+                            <li>• Revenue sharing opportunities</li>
+                        </ul>
+                    </div>
+                    <div class="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-lg p-8">
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-4">Network Partner</h3>
+                        <div class="text-3xl font-bold text-green-600 mb-4">Standard</div>
+                        <ul class="space-y-3 text-slate-600 dark:text-slate-400">
+                            <li>• Access to qualified deals</li>
+                            <li>• Standard referral process</li>
+                            <li>• Quarterly business reviews</li>
+                            <li>• Competitive loan terms</li>
+                            <li>• Performance reporting</li>
+                        </ul>
+                    </div>
+                    <div class="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-lg p-8">
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-4">Referral Partner</h3>
+                        <div class="text-3xl font-bold text-purple-600 mb-4">Flexible</div>
+                        <ul class="space-y-3 text-slate-600 dark:text-slate-400">
+                            <li>• Deal-by-deal basis</li>
+                            <li>• No minimum commitments</li>
+                            <li>• Standard documentation</li>
+                            <li>• Market rate terms</li>
+                            <li>• Basic reporting</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Financial Projections Table -->
+                <div class="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-700 rounded-lg p-8">
+                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-6 text-center">
+                        Financial Partnership Projections
+                    </h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left">
+                            <thead>
+                                <tr class="border-b border-slate-300 dark:border-slate-600">
+                                    <th class="py-3 px-4 font-semibold text-slate-900 dark:text-white">Metric</th>
+                                    <th class="py-3 px-4 font-semibold text-slate-900 dark:text-white text-center">Year 1</th>
+                                    <th class="py-3 px-4 font-semibold text-slate-900 dark:text-white text-center">Year 2</th>
+                                    <th class="py-3 px-4 font-semibold text-slate-900 dark:text-white text-center">Year 3</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-slate-600 dark:text-slate-400">
+                                <tr class="border-b border-slate-200 dark:border-slate-700">
+                                    <td class="py-3 px-4">Loan Volume</td>
+                                    <td class="py-3 px-4 text-center font-bold">$15M</td>
+                                    <td class="py-3 px-4 text-center font-bold">$35M</td>
+                                    <td class="py-3 px-4 text-center font-bold">$60M</td>
+                                </tr>
+                                <tr class="border-b border-slate-200 dark:border-slate-700">
+                                    <td class="py-3 px-4">Deal Count</td>
+                                    <td class="py-3 px-4 text-center">50</td>
+                                    <td class="py-3 px-4 text-center">117</td>
+                                    <td class="py-3 px-4 text-center">200</td>
+                                </tr>
+                                <tr class="border-b border-slate-200 dark:border-slate-700">
+                                    <td class="py-3 px-4">Origination Fees (3%)</td>
+                                    <td class="py-3 px-4 text-center font-bold text-green-600">$450K</td>
+                                    <td class="py-3 px-4 text-center font-bold text-green-600">$1.05M</td>
+                                    <td class="py-3 px-4 text-center font-bold text-green-600">$1.8M</td>
+                                </tr>
+                                <tr class="border-b border-slate-200 dark:border-slate-700">
+                                    <td class="py-3 px-4">5-Year Interest Income (7% APR)</td>
+                                    <td class="py-3 px-4 text-center font-bold text-blue-600">$1.05M</td>
+                                    <td class="py-3 px-4 text-center font-bold text-blue-600">$2.45M</td>
+                                    <td class="py-3 px-4 text-center font-bold text-blue-600">$4.2M</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-3 px-4 font-bold">Total Revenue Opportunity</td>
+                                    <td class="py-3 px-4 text-center font-bold text-purple-600">$1.5M</td>
+                                    <td class="py-3 px-4 text-center font-bold text-purple-600">$3.5M</td>
+                                    <td class="py-3 px-4 text-center font-bold text-purple-600">$6M</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="py-20 bg-gradient-to-r from-blue-500 to-indigo-500">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-4xl font-bold text-white mb-6">
+                    Ready to Partner with Ardonie Capital?
+                </h2>
+                <p class="text-xl text-blue-100 mb-8 max-w-3xl mx-auto">
+                    Join our exclusive financial partner network and unlock access to a vetted pipeline
+                    of auto repair shop acquisitions with comprehensive due diligence and growth potential.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="../contact.html" class="inline-flex items-center px-8 py-4 border border-white text-lg font-medium rounded-md text-blue-600 bg-white hover:bg-blue-50 shadow-lg hover:shadow-xl transition-all">
+                        Schedule Partnership Discussion
+                    </a>
+                    <a href="pitch-deck-fi.html" class="inline-flex items-center px-8 py-4 border border-white text-lg font-medium rounded-md text-white bg-transparent hover:bg-white hover:text-blue-600 shadow-lg hover:shadow-xl transition-all">
+                        View Full FI Pitch Deck
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white py-8">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-slate-400">© 2024 Ardonie Capital. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize financial partner charts
+            if (window.FinancialCharts) {
+                FinancialCharts.createFinancialPartnerChart('financialPartnerChart');
+                FinancialCharts.createRevenueShareChart('revenueShareChart', 'financial');
+            }
+        });
+    </script>
+</body>
+</html>

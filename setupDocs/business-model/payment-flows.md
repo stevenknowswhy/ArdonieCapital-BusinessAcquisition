@@ -2,7 +2,7 @@
 
 ## 🎯 Overview
 
-This document outlines the complete payment processing workflows for all revenue streams in the AutoRepairMart platform, ensuring secure, transparent, and efficient money movement.
+This document outlines the complete payment processing workflows for all revenue streams in the Ardonie Capital platform, ensuring secure, transparent, and efficient money movement.
 
 ---
 
@@ -50,7 +50,7 @@ Conditions Met → Fee Deduction → Fund Release → Confirmation
 | Step | Amount | Recipient | Timeline |
 |---|---|---|---|
 | Initial Deposit | $200,000 | Escrow Account | Day 1 |
-| Platform Fee (5%) | $10,000 | AutoRepairMart | Day 49 |
+| Platform Fee (5%) | $10,000 | Ardonie Capital | Day 49 |
 | Seller Payment | $190,000 | Business Seller | Day 49 |
 
 ---
@@ -92,7 +92,7 @@ Verification Complete → Badge Activation → Profile Enhancement
 | Total Fee | $799 | Platform | Stripe/PayPal |
 | CPA Verification | $200 | Accounting Firm | Stripe Connect |
 | Legal Review | $150 | Law Firm | Stripe Connect |
-| Platform Revenue | $449 | AutoRepairMart | Net Revenue |
+| Platform Revenue | $449 | Ardonie Capital | Net Revenue |
 
 ---
 

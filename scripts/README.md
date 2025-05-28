@@ -11,7 +11,7 @@ This directory contains scripts for generating professional business documents f
 Install the required Python packages:
 
 ```bash
-pip install python-docx matplotlib docx2pdf
+pip install python-docx matplotlib docx2pdf plotly
 ```
 
 ## Usage
@@ -33,7 +33,7 @@ The generated one-page pitch includes:
 - **Professional Layout**: Landscape orientation optimized for presentations
 - **Comprehensive Content**: Problem, solution, market analysis, competitive advantages
 - **Visual Elements**: Market breakdown pie chart and timeline comparison bar chart
-- **AutoRepairMart Branding**: Consistent with company messaging and values
+- **Ardonie Capital Branding**: Consistent with company messaging and values
 - **Business Metrics**: Financial projections, market size, and growth targets
 
 ## Content Sections

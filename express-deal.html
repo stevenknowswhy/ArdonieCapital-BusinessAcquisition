@@ -6,6 +6,8 @@
     <title>Express Deal Package - Ardonie Capital</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Add Plotly.js -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -75,22 +77,7 @@
                     <!-- Speed Comparison Chart -->
                     <div class="bg-white dark:bg-slate-800 rounded-lg p-8 mb-8 border border-slate-200 dark:border-slate-700">
                         <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-6">Deal Timeline Comparison</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            <div class="text-center">
-                                <div class="text-4xl font-bold text-slate-400 dark:text-slate-500 mb-2">198 Days</div>
-                                <div class="text-sm text-slate-600 dark:text-slate-400 mb-4">Traditional Market Average</div>
-                                <div class="bg-slate-200 dark:bg-slate-600 h-4 rounded-full">
-                                    <div class="bg-slate-400 h-4 rounded-full" style="width: 100%"></div>
-                                </div>
-                            </div>
-                            <div class="text-center">
-                                <div class="text-4xl font-bold text-accent-dark mb-2">34 Days</div>
-                                <div class="text-sm text-accent-dark font-medium mb-4">🚖 Express Deal Package</div>
-                                <div class="bg-slate-200 dark:bg-slate-600 h-4 rounded-full">
-                                    <div class="bg-accent h-4 rounded-full" style="width: 17%"></div>
-                                </div>
-                            </div>
-                        </div>
+                        <div id="timelineComparisonChart" class="h-64 w-full"></div>
                     </div>
                 </div>
             </div>
@@ -371,5 +358,124 @@
             </div>
         </div>
     </footer>
+</body>
+</html>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Create interactive timeline comparison chart
+        const data = [
+            {
+                type: 'bar',
+                x: ['Traditional Process', 'Express Deal Package'],
+                y: [198, 34],
+                marker: {
+                    color: ['#94a3b8', '#10b981']
+                },
+                text: ['198 Days', '34 Days'],
+                textposition: 'auto',
+                hoverinfo: 'y+text',
+                hovertemplate: '<b>%{x}</b><br>%{y} days<extra></extra>'
+            }
+        ];
+
+        const layout = {
+            autosize: true,
+            height: 300,
+            margin: {t: 30, b: 80, l: 50, r: 30},
+            paper_bgcolor: 'rgba(0,0,0,0)',
+            plot_bgcolor: 'rgba(0,0,0,0)',
+            font: {
+                family: 'Inter, sans-serif',
+                color: document.documentElement.classList.contains('dark') ? '#e2e8f0' : '#1e293b'
+            },
+            xaxis: {
+                title: {
+                    text: 'Process Type',
+                    font: {
+                        family: 'Inter, sans-serif',
+                        size: 14
+                    }
+                }
+            },
+            yaxis: {
+                title: {
+                    text: 'Days to Close',
+                    font: {
+                        family: 'Inter, sans-serif',
+                        size: 14
+                    }
+                }
+            },
+            annotations: [
+                {
+                    x: 'Traditional Process',
+                    y: 198,
+                    text: '198 Days',
+                    showarrow: false,
+                    yshift: 15
+                },
+                {
+                    x: 'Express Deal Package',
+                    y: 34,
+                    text: '34 Days',
+                    showarrow: false,
+                    yshift: 15
+                }
+            ]
+        };
+
+        const config = {
+            responsive: true,
+            displayModeBar: false
+        };
+
+        Plotly.newPlot('timelineComparisonChart', data, layout, config);
+
+        // Update chart colors when dark mode changes
+        const darkModeObserver = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.attributeName === 'class') {
+                    const isDark = document.documentElement.classList.contains('dark');
+                    Plotly.relayout('timelineComparisonChart', {
+                        'font.color': isDark ? '#e2e8f0' : '#1e293b',
+                        'paper_bgcolor': 'rgba(0,0,0,0)',
+                        'plot_bgcolor': 'rgba(0,0,0,0)'
+                    });
+                }
+            });
+        });
+
+        darkModeObserver.observe(document.documentElement, { attributes: true });
+    });
+</script>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+
+    <script>
+        // Load footer with error handling
+        fetch('components/footer.html')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById('footer-placeholder').innerHTML = data;
+                console.log('Footer loaded successfully');
+            })
+            .catch(error => {
+                console.error('Error loading footer:', error);
+                // Fallback footer if loading fails
+                document.getElementById('footer-placeholder').innerHTML = `
+                    <footer class="bg-slate-900 text-white py-8">
+                        <div class="container mx-auto px-4 text-center">
+                            <p class="text-slate-400">© 2024 Ardonie Capital. All rights reserved.</p>
+                        </div>
+                    </footer>
+                `;
+            });
+    </script>
 </body>
 </html>

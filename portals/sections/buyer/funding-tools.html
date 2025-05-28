@@ -1,0 +1,383 @@
+<!-- Funding Tools Section -->
+<section class="py-8 bg-white dark:bg-slate-800">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto">
+            <!-- Page Header -->
+            <div class="flex justify-between items-center mb-8">
+                <div>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white">Funding Tools</h2>
+                    <p class="text-slate-600 dark:text-slate-300 mt-2">Calculate financing options and explore funding opportunities</p>
+                </div>
+                <div class="flex gap-4">
+                    <button class="bg-accent hover:bg-accent-dark text-white px-6 py-2 rounded-md">
+                        💼 Connect with Lenders
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                    <div class="flex items-center justify-between">
+                        <div class="p-2 bg-green-100 dark:bg-green-900/20 rounded-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
+                            </svg>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-2xl font-bold text-slate-900 dark:text-white">$1.2M</p>
+                            <p class="text-xs font-medium text-slate-600 dark:text-slate-400">Pre-approved Amount</p>
+                            <p class="text-xs text-green-600">Ready to use</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                    <div class="flex items-center justify-between">
+                        <div class="p-2 bg-blue-100 dark:bg-blue-900/20 rounded-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                            </svg>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-2xl font-bold text-slate-900 dark:text-white">4.5%</p>
+                            <p class="text-xs font-medium text-slate-600 dark:text-slate-400">Best Rate Available</p>
+                            <p class="text-xs text-blue-600">SBA qualified</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                    <div class="flex items-center justify-between">
+                        <div class="p-2 bg-purple-100 dark:bg-purple-900/20 rounded-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-2xl font-bold text-slate-900 dark:text-white">7-14</p>
+                            <p class="text-xs font-medium text-slate-600 dark:text-slate-400">Days to Approval</p>
+                            <p class="text-xs text-purple-600">Express process</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Loan Calculator -->
+            <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 p-6 mb-8">
+                <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-6">Loan Calculator</h3>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Calculator Inputs -->
+                    <div class="space-y-6">
+                        <div>
+                            <label for="purchase-price" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                                Purchase Price
+                            </label>
+                            <input type="number" id="purchase-price" value="500000"
+                                   class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-800 text-slate-900 dark:text-white">
+                        </div>
+
+                        <div>
+                            <label for="down-payment" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                                Down Payment (%)
+                            </label>
+                            <input type="range" id="down-payment" min="10" max="50" value="20"
+                                   class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer" aria-label="Down payment percentage">
+                            <div class="flex justify-between text-sm text-slate-600 dark:text-slate-400 mt-1">
+                                <span>10%</span>
+                                <span id="down-payment-value">20%</span>
+                                <span>50%</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="interest-rate" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                                Interest Rate (%)
+                            </label>
+                            <input type="number" id="interest-rate" value="4.5" step="0.1"
+                                   class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-800 text-slate-900 dark:text-white">
+                        </div>
+
+                        <div>
+                            <label for="loan-term" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                                Loan Term (Years)
+                            </label>
+                            <select id="loan-term" class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-800 text-slate-900 dark:text-white" aria-label="Select loan term in years">
+                                <option value="10">10 Years</option>
+                                <option value="15">15 Years</option>
+                                <option value="20" selected>20 Years</option>
+                                <option value="25">25 Years</option>
+                            </select>
+                        </div>
+
+                        <button onclick="calculateLoan()" class="w-full bg-accent hover:bg-accent-dark text-white py-3 rounded-md">
+                            Calculate Payment
+                        </button>
+                    </div>
+
+                    <!-- Calculator Results -->
+                    <div class="bg-slate-50 dark:bg-slate-700/50 rounded-lg p-6">
+                        <h4 class="text-lg font-semibold text-slate-900 dark:text-white mb-4">Payment Breakdown</h4>
+
+                        <div class="space-y-4">
+                            <div class="flex justify-between">
+                                <span class="text-slate-600 dark:text-slate-400">Loan Amount:</span>
+                                <span id="loan-amount" class="font-medium text-slate-900 dark:text-white">$400,000</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-slate-600 dark:text-slate-400">Down Payment:</span>
+                                <span id="down-payment-amount" class="font-medium text-slate-900 dark:text-white">$100,000</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-slate-600 dark:text-slate-400">Monthly Payment:</span>
+                                <span id="monthly-payment" class="font-medium text-accent text-xl">$2,530</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-slate-600 dark:text-slate-400">Total Interest:</span>
+                                <span id="total-interest" class="font-medium text-slate-900 dark:text-white">$207,200</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-slate-600 dark:text-slate-400">Total Cost:</span>
+                                <span id="total-cost" class="font-medium text-slate-900 dark:text-white">$607,200</span>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 pt-4 border-t border-slate-200 dark:border-slate-600">
+                            <div class="text-sm text-slate-600 dark:text-slate-400 mb-2">Cash Flow Impact</div>
+                            <div class="flex justify-between">
+                                <span>Monthly Revenue Needed:</span>
+                                <span id="revenue-needed" class="font-medium text-green-600">$7,590</span>
+                            </div>
+                            <div class="text-xs text-slate-500 mt-1">
+                                Based on 33% debt-to-income ratio
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Funding Options -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                <!-- SBA Loans -->
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/20 rounded-lg flex items-center justify-center mr-4">
+                            <span class="text-2xl">🏛️</span>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-slate-900 dark:text-white">SBA Loans</h3>
+                            <p class="text-sm text-slate-600 dark:text-slate-400">Government-backed financing</p>
+                        </div>
+                    </div>
+                    <div class="space-y-3 mb-4">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-slate-600 dark:text-slate-400">Interest Rate:</span>
+                            <span class="font-medium text-slate-900 dark:text-white">4.5% - 6.5%</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-slate-600 dark:text-slate-400">Down Payment:</span>
+                            <span class="font-medium text-slate-900 dark:text-white">10% - 15%</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-slate-600 dark:text-slate-400">Max Amount:</span>
+                            <span class="font-medium text-slate-900 dark:text-white">$5M</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-slate-600 dark:text-slate-400">Term:</span>
+                            <span class="font-medium text-slate-900 dark:text-white">Up to 25 years</span>
+                        </div>
+                    </div>
+                    <button class="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-md text-sm">
+                        Learn More
+                    </button>
+                </div>
+
+                <!-- Conventional Loans -->
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-green-100 dark:bg-green-900/20 rounded-lg flex items-center justify-center mr-4">
+                            <span class="text-2xl">🏦</span>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Conventional Loans</h3>
+                            <p class="text-sm text-slate-600 dark:text-slate-400">Traditional bank financing</p>
+                        </div>
+                    </div>
+                    <div class="space-y-3 mb-4">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-slate-600 dark:text-slate-400">Interest Rate:</span>
+                            <span class="font-medium text-slate-900 dark:text-white">5.5% - 8.0%</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-slate-600 dark:text-slate-400">Down Payment:</span>
+                            <span class="font-medium text-slate-900 dark:text-white">20% - 30%</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-slate-600 dark:text-slate-400">Max Amount:</span>
+                            <span class="font-medium text-slate-900 dark:text-white">$2M</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-slate-600 dark:text-slate-400">Term:</span>
+                            <span class="font-medium text-slate-900 dark:text-white">Up to 20 years</span>
+                        </div>
+                    </div>
+                    <button class="w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded-md text-sm">
+                        Learn More
+                    </button>
+                </div>
+
+                <!-- Alternative Financing -->
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900/20 rounded-lg flex items-center justify-center mr-4">
+                            <span class="text-2xl">💰</span>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Alternative Financing</h3>
+                            <p class="text-sm text-slate-600 dark:text-slate-400">Private lenders & investors</p>
+                        </div>
+                    </div>
+                    <div class="space-y-3 mb-4">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-slate-600 dark:text-slate-400">Interest Rate:</span>
+                            <span class="font-medium text-slate-900 dark:text-white">6.0% - 12.0%</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-slate-600 dark:text-slate-400">Down Payment:</span>
+                            <span class="font-medium text-slate-900 dark:text-white">15% - 25%</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-slate-600 dark:text-slate-400">Max Amount:</span>
+                            <span class="font-medium text-slate-900 dark:text-white">$10M+</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-slate-600 dark:text-slate-400">Term:</span>
+                            <span class="font-medium text-slate-900 dark:text-white">Flexible</span>
+                        </div>
+                    </div>
+                    <button class="w-full bg-purple-500 hover:bg-purple-600 text-white py-2 rounded-md text-sm">
+                        Learn More
+                    </button>
+                </div>
+            </div>
+
+            <!-- Pre-qualification Section -->
+            <div class="bg-gradient-to-r from-accent/10 to-primary/10 dark:from-accent/20 dark:to-primary/20 rounded-lg p-6 border border-accent/20">
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Get Pre-qualified</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-400">Strengthen your offers with pre-approved financing</p>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-sm font-medium text-accent">Express Buyer Benefit</div>
+                        <div class="text-xs text-slate-600">Priority processing</div>
+                    </div>
+                </div>
+                <div class="flex gap-4">
+                    <button class="bg-accent hover:bg-accent-dark text-white px-6 py-2 rounded-md">
+                        Start Pre-qualification
+                    </button>
+                    <button class="bg-white hover:bg-slate-50 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 px-6 py-2 rounded-md border border-slate-300 dark:border-slate-600">
+                        Schedule Consultation
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Funding Tools JavaScript -->
+<script>
+// Loan calculator functionality
+function calculateLoan() {
+    const purchasePrice = parseFloat(document.getElementById('purchase-price').value) || 0;
+    const downPaymentPercent = parseFloat(document.getElementById('down-payment').value) || 0;
+    const interestRate = parseFloat(document.getElementById('interest-rate').value) || 0;
+    const loanTermYears = parseFloat(document.getElementById('loan-term').value) || 0;
+
+    const downPaymentAmount = purchasePrice * (downPaymentPercent / 100);
+    const loanAmount = purchasePrice - downPaymentAmount;
+    const monthlyRate = interestRate / 100 / 12;
+    const numPayments = loanTermYears * 12;
+
+    let monthlyPayment = 0;
+    if (monthlyRate > 0) {
+        monthlyPayment = loanAmount * (monthlyRate * Math.pow(1 + monthlyRate, numPayments)) /
+                        (Math.pow(1 + monthlyRate, numPayments) - 1);
+    } else {
+        monthlyPayment = loanAmount / numPayments;
+    }
+
+    const totalInterest = (monthlyPayment * numPayments) - loanAmount;
+    const totalCost = purchasePrice + totalInterest;
+    const revenueNeeded = monthlyPayment * 3; // 33% debt-to-income ratio
+
+    // Update display
+    document.getElementById('loan-amount').textContent = formatCurrency(loanAmount);
+    document.getElementById('down-payment-amount').textContent = formatCurrency(downPaymentAmount);
+    document.getElementById('monthly-payment').textContent = formatCurrency(monthlyPayment);
+    document.getElementById('total-interest').textContent = formatCurrency(totalInterest);
+    document.getElementById('total-cost').textContent = formatCurrency(totalCost);
+    document.getElementById('revenue-needed').textContent = formatCurrency(revenueNeeded);
+}
+
+function formatCurrency(amount) {
+    return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+    }).format(amount);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Update down payment display
+    const downPaymentSlider = document.getElementById('down-payment');
+    const downPaymentValue = document.getElementById('down-payment-value');
+
+    downPaymentSlider.addEventListener('input', function() {
+        downPaymentValue.textContent = this.value + '%';
+        calculateLoan();
+    });
+
+    // Auto-calculate on input changes
+    ['purchase-price', 'interest-rate', 'loan-term'].forEach(id => {
+        document.getElementById(id).addEventListener('input', calculateLoan);
+    });
+
+    // Initial calculation
+    calculateLoan();
+
+    // Funding tools utilities
+    window.FundingTools = {
+        // Start pre-qualification
+        startPrequalification: function() {
+            console.log('Starting pre-qualification process');
+            window.PortalUtils?.showNotification('Pre-qualification process started', 'success');
+        },
+
+        // Schedule consultation
+        scheduleConsultation: function() {
+            console.log('Scheduling consultation');
+            window.PortalUtils?.showNotification('Consultation scheduled', 'success');
+        },
+
+        // Initialize funding tools
+        init: function() {
+            // Set up action buttons
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach(button => {
+                if (button.textContent.includes('Start Pre-qualification')) {
+                    button.addEventListener('click', this.startPrequalification);
+                } else if (button.textContent.includes('Schedule Consultation')) {
+                    button.addEventListener('click', this.scheduleConsultation);
+                }
+            });
+        }
+    };
+
+    // Initialize when loaded
+    window.FundingTools.init();
+});
+</script>

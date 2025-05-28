@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accountant Portal - AutoRepairMart</title>
+    <title>Accountant Portal - Ardonie Capital</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="../assets/css/common.css" rel="stylesheet">
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -41,7 +42,7 @@
             <div class="flex justify-between items-center py-4">
                 <div class="flex-shrink-0">
                     <a href="../index.html" class="flex items-center">
-                        <span class="text-2xl font-bold text-primary-dark dark:text-primary-light">AutoRepairMart</span>
+                        <span class="text-2xl font-bold text-primary-dark dark:text-primary-light">Ardonie Capital</span>
                         <span class="ml-2 text-sm bg-blue-100 text-blue-800 px-2 py-1 rounded">📊 Accountant Portal</span>
                     </a>
                 </div>
@@ -91,7 +92,7 @@
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="max-w-6xl mx-auto">
                     <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-8">Dashboard</h2>
-                    
+
                     <!-- Quick Actions -->
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
                         <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
@@ -207,7 +208,7 @@
                     <div class="bg-white dark:bg-slate-800 rounded-lg shadow-lg border border-slate-200 dark:border-slate-700 p-8">
                         <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">📊 Financial Review Checklist Template</h3>
                         <p class="text-slate-600 dark:text-slate-300 mb-6">Use this standardized checklist for all Express Seller financial reviews. Complete within 3 days of assignment.</p>
-                        
+
                         <div class="space-y-6">
                             <div class="border border-slate-200 dark:border-slate-700 rounded-lg p-4">
                                 <h4 class="font-semibold text-slate-900 dark:text-white mb-4">Required Documents Review</h4>
@@ -295,19 +296,76 @@
         </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-slate-900 text-white py-8">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center">
-                <div class="text-2xl font-bold text-primary-light mb-4">AutoRepairMart</div>
-                <p class="text-slate-400 mb-4">📊 Accountant Portal - Supporting Express Deals in DFW</p>
-                <div class="flex justify-center space-x-6">
-                    <a href="../privacy.html" class="text-slate-400 hover:text-white">Privacy Policy</a>
-                    <a href="../terms.html" class="text-slate-400 hover:text-white">Terms of Service</a>
-                    <a href="../contact.html" class="text-slate-400 hover:text-white">Contact Support</a>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <!-- Portal Footer -->
+    <div id="portal-footer"></div>
+
+    <!-- Load Portal Components -->
+    <script>
+        // Portal configuration
+        window.PortalConfig = {
+            portalType: 'accountant',
+            userRole: 'Accountant Partner',
+            apiEndpoint: '/api/portals/accountant/',
+            features: {
+                notifications: true,
+                darkMode: true,
+                realTimeUpdates: true
+            }
+        };
+
+        // Function to load HTML content into a div
+        function loadSection(sectionId, filePath) {
+            fetch(filePath)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById(sectionId).innerHTML = data;
+                })
+                .catch(error => {
+                    console.error('Error loading section:', error);
+                });
+        }
+
+        // Load portal components
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load components with cache busting
+            const timestamp = new Date().getTime();
+            const randomId = Math.random().toString(36).substring(7);
+            loadSection('portal-footer', `components/portal-footer.html?v=${timestamp}&r=${randomId}`);
+
+            // Configure portal after components load
+            setTimeout(() => {
+                configureAccountantPortal();
+            }, 500);
+        });
+
+        // Configure accountant portal specific settings
+        function configureAccountantPortal() {
+            // Set portal title
+            document.title = 'Accountant Portal - Ardonie Capital';
+
+            // Configure footer
+            if (window.PortalFooter) {
+                window.PortalFooter.setDescription('📊 Accountant Portal - Supporting Express Deals in DFW');
+                window.PortalFooter.setTagline('Accountant partner portal for financial due diligence.');
+                window.PortalFooter.setStatus('📊 Express Accountant Partner');
+                window.PortalFooter.setQuickLinks([
+                    { href: '#reviews', text: '📋 Pending Reviews' },
+                    { href: '#completed', text: '✅ Completed Reviews' },
+                    { href: '#resources', text: '📚 Accounting Resources' },
+                    { href: '../education/guides.html', text: '📖 Training Materials' }
+                ]);
+            }
+
+            // Load common utilities
+            if (window.ArdonieCapital) {
+                window.ArdonieCapital.showToast('Welcome to your Accountant Portal!', 'success');
+            }
+        }
+
+        // Load common JavaScript utilities
+        const script = document.createElement('script');
+        script.src = '../assets/js/common.js';
+        document.head.appendChild(script);
+    </script>
 </body>
 </html>

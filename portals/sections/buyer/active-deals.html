@@ -5,19 +5,20 @@
             <div class="flex justify-between items-center mb-8">
                 <h2 class="text-3xl font-bold text-slate-900 dark:text-white">My Active Deals</h2>
                 <div class="flex gap-4">
-                    <select id="deal-filter" class="px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-800 text-slate-900 dark:text-white">
+                    <label for="deal-filter" class="sr-only">Filter deals by phase</label>
+                    <select id="deal-filter" class="px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-800 text-slate-900 dark:text-white" aria-label="Filter deals by phase">
                         <option value="all">All Deals</option>
                         <option value="phase1">Phase 1: Discovery</option>
                         <option value="phase2">Phase 2: Evaluation</option>
                         <option value="phase3">Phase 3: Due Diligence</option>
                         <option value="phase4">Phase 4: Closing</option>
                     </select>
-                    <button class="bg-accent hover:bg-accent-dark text-white font-medium py-2 px-4 rounded-md transition-colors">
+                    <button type="button" class="bg-accent hover:bg-accent-dark text-white font-medium py-2 px-4 rounded-md transition-colors">
                         Start New Deal
                     </button>
                 </div>
             </div>
-            
+
             <!-- Active Deals List -->
             <div id="active-deals-list" class="space-y-6">
                 <!-- Deals will be populated by JavaScript -->
@@ -150,7 +151,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Progress Bar -->
                     <div class="mt-4">
                         <div class="flex justify-between text-sm text-slate-600 dark:text-slate-400 mb-2">
@@ -158,7 +159,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <span>${deal.progress}% Complete</span>
                         </div>
                         <div class="bg-slate-200 dark:bg-slate-600 h-2 rounded-full">
-                            <div class="h-2 rounded-full ${this.getStatusColor(deal.status)}" style="width: ${deal.progress}%"></div>
+                            <div class="h-2 rounded-full ${this.getStatusColor(deal.status)}" data-progress="${deal.progress}"></div>
                         </div>
                     </div>
 
@@ -167,8 +168,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         ${[1, 2, 3, 4].map(phase => `
                             <div class="text-center">
                                 <div class="w-8 h-8 mx-auto rounded-full flex items-center justify-center text-sm font-bold mb-1 ${
-                                    phase <= deal.phase 
-                                        ? 'bg-accent text-white' 
+                                    phase <= deal.phase
+                                        ? 'bg-accent text-white'
                                         : 'bg-slate-200 dark:bg-slate-600 text-slate-500'
                                 }">
                                     ${phase}
@@ -188,7 +189,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const container = document.getElementById('active-deals-list');
             const emptyState = document.getElementById('empty-state');
             const dealsToShow = deals || this.currentDeals;
-            
+
             if (dealsToShow.length === 0) {
                 container.innerHTML = '';
                 emptyState.classList.remove('hidden');
@@ -201,7 +202,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Filter deals
         filterDeals: function(filterType) {
             let filtered = [...this.currentDeals];
-            
+
             if (filterType !== 'all') {
                 const phaseMap = {
                     'phase1': 1,
@@ -214,7 +215,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     filtered = filtered.filter(deal => deal.phase === targetPhase);
                 }
             }
-            
+
             this.renderDeals(filtered);
         },
 
@@ -245,7 +246,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Initialize
         init: function() {
             this.renderDeals();
-            
+
             // Set up filter
             const filterSelect = document.getElementById('deal-filter');
             filterSelect.addEventListener('change', (e) => {

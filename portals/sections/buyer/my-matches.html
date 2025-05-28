@@ -1,0 +1,351 @@
+<!-- My Matches Section -->
+<section class="py-8 bg-white dark:bg-slate-800">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto">
+            <!-- Page Header -->
+            <div class="flex justify-between items-center mb-8">
+                <div>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white">My Matches</h2>
+                    <p class="text-slate-600 dark:text-slate-300 mt-2">AI-powered matches based on your acquisition criteria</p>
+                </div>
+                <div class="flex gap-4">
+                    <label for="match-filter" class="sr-only">Filter matches by match percentage</label>
+                    <select id="match-filter" class="px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-800 text-slate-900 dark:text-white" aria-label="Filter matches by match percentage">
+                        <option value="all">All Matches</option>
+                        <option value="high">High Match (90%+)</option>
+                        <option value="medium">Medium Match (70-89%)</option>
+                        <option value="low">Low Match (50-69%)</option>
+                    </select>
+                    <button type="button" class="bg-accent hover:bg-accent-dark text-white px-6 py-2 rounded-md">
+                        ⚙️ Update Criteria
+                    </button>
+                </div>
+            </div>
+
+            <!-- Match Statistics -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                    <div class="flex items-center justify-between">
+                        <div class="p-2 bg-green-100 dark:bg-green-900/20 rounded-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                            </svg>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-2xl font-bold text-slate-900 dark:text-white">5</p>
+                            <p class="text-xs font-medium text-slate-600 dark:text-slate-400">Total Matches</p>
+                            <p class="text-xs text-green-600">+2 this week</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                    <div class="flex items-center justify-between">
+                        <div class="p-2 bg-blue-100 dark:bg-blue-900/20 rounded-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                            </svg>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-2xl font-bold text-slate-900 dark:text-white">92%</p>
+                            <p class="text-xs font-medium text-slate-600 dark:text-slate-400">Avg Match Score</p>
+                            <p class="text-xs text-blue-600">Above average</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                    <div class="flex items-center justify-between">
+                        <div class="p-2 bg-purple-100 dark:bg-purple-900/20 rounded-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-2xl font-bold text-slate-900 dark:text-white">2</p>
+                            <p class="text-xs font-medium text-slate-600 dark:text-slate-400">Active Conversations</p>
+                            <p class="text-xs text-purple-600">In progress</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                    <div class="flex items-center justify-between">
+                        <div class="p-2 bg-orange-100 dark:bg-orange-900/20 rounded-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-2xl font-bold text-slate-900 dark:text-white">1</p>
+                            <p class="text-xs font-medium text-slate-600 dark:text-slate-400">Offers Made</p>
+                            <p class="text-xs text-orange-600">Pending response</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Matches List -->
+            <div class="space-y-6">
+                <!-- Match 1: Premier Auto Service -->
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 p-6">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-16 h-16 bg-gradient-to-br from-green-100 to-green-200 dark:from-green-900/20 dark:to-green-800/20 rounded-lg flex items-center justify-center">
+                                <span class="text-2xl">🔧</span>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold text-slate-900 dark:text-white">Premier Auto Service</h3>
+                                <p class="text-slate-600 dark:text-slate-400">Dallas, TX • Established 2015</p>
+                                <div class="flex items-center mt-2">
+                                    <span class="bg-green-100 text-green-600 text-xs px-2 py-1 rounded-full mr-2">95% Match</span>
+                                    <span class="bg-accent text-white text-xs px-2 py-1 rounded-full">🚖 Express</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-2xl font-bold text-slate-900 dark:text-white">$525,000</div>
+                            <div class="text-sm text-slate-600 dark:text-slate-400">Asking Price</div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
+                        <div>
+                            <span class="text-sm text-slate-500">Annual Revenue:</span>
+                            <div class="font-medium text-slate-900 dark:text-white">$850K</div>
+                        </div>
+                        <div>
+                            <span class="text-sm text-slate-500">Employees:</span>
+                            <div class="font-medium text-slate-900 dark:text-white">12</div>
+                        </div>
+                        <div>
+                            <span class="text-sm text-slate-500">Service Bays:</span>
+                            <div class="font-medium text-slate-900 dark:text-white">8</div>
+                        </div>
+                        <div>
+                            <span class="text-sm text-slate-500">Match Reason:</span>
+                            <div class="font-medium text-green-600">Location + Size</div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <h4 class="text-sm font-medium text-slate-900 dark:text-white mb-2">Why This Matches Your Criteria:</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-blue-100 text-blue-600 text-xs px-2 py-1 rounded-full">✓ DFW Location</span>
+                            <span class="bg-blue-100 text-blue-600 text-xs px-2 py-1 rounded-full">✓ $500K-$1M Range</span>
+                            <span class="bg-blue-100 text-blue-600 text-xs px-2 py-1 rounded-full">✓ 8+ Service Bays</span>
+                            <span class="bg-blue-100 text-blue-600 text-xs px-2 py-1 rounded-full">✓ Established Business</span>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3">
+                        <button class="bg-accent hover:bg-accent-dark text-white px-4 py-2 rounded-md text-sm">
+                            View Full Details
+                        </button>
+                        <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md text-sm">
+                            Start Conversation
+                        </button>
+                        <button class="bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 px-4 py-2 rounded-md text-sm">
+                            Save for Later
+                        </button>
+                        <button class="bg-red-100 hover:bg-red-200 text-red-600 px-4 py-2 rounded-md text-sm">
+                            Not Interested
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Match 2: Elite Transmission -->
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 p-6">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-16 h-16 bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-900/20 dark:to-blue-800/20 rounded-lg flex items-center justify-center">
+                                <span class="text-2xl">⚙️</span>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold text-slate-900 dark:text-white">Elite Transmission</h3>
+                                <p class="text-slate-600 dark:text-slate-400">Fort Worth, TX • Established 2018</p>
+                                <div class="flex items-center mt-2">
+                                    <span class="bg-blue-100 text-blue-600 text-xs px-2 py-1 rounded-full mr-2">88% Match</span>
+                                    <span class="bg-orange-100 text-orange-600 text-xs px-2 py-1 rounded-full">💬 In Discussion</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-2xl font-bold text-slate-900 dark:text-white">$385,000</div>
+                            <div class="text-sm text-slate-600 dark:text-slate-400">Asking Price</div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
+                        <div>
+                            <span class="text-sm text-slate-500">Annual Revenue:</span>
+                            <div class="font-medium text-slate-900 dark:text-white">$620K</div>
+                        </div>
+                        <div>
+                            <span class="text-sm text-slate-500">Employees:</span>
+                            <div class="font-medium text-slate-900 dark:text-white">8</div>
+                        </div>
+                        <div>
+                            <span class="text-sm text-slate-500">Service Bays:</span>
+                            <div class="font-medium text-slate-900 dark:text-white">6</div>
+                        </div>
+                        <div>
+                            <span class="text-sm text-slate-500">Match Reason:</span>
+                            <div class="font-medium text-blue-600">Specialty Focus</div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <h4 class="text-sm font-medium text-slate-900 dark:text-white mb-2">Why This Matches Your Criteria:</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-blue-100 text-blue-600 text-xs px-2 py-1 rounded-full">✓ DFW Location</span>
+                            <span class="bg-blue-100 text-blue-600 text-xs px-2 py-1 rounded-full">✓ Under $500K</span>
+                            <span class="bg-blue-100 text-blue-600 text-xs px-2 py-1 rounded-full">✓ Transmission Specialty</span>
+                            <span class="bg-blue-100 text-blue-600 text-xs px-2 py-1 rounded-full">✓ Growth Potential</span>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3">
+                        <button class="bg-accent hover:bg-accent-dark text-white px-4 py-2 rounded-md text-sm">
+                            View Full Details
+                        </button>
+                        <button class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md text-sm">
+                            Continue Conversation
+                        </button>
+                        <button class="bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 px-4 py-2 rounded-md text-sm">
+                            Save for Later
+                        </button>
+                        <button class="bg-red-100 hover:bg-red-200 text-red-600 px-4 py-2 rounded-md text-sm">
+                            Not Interested
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Match 3: Quick Lube Plus -->
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 p-6">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-16 h-16 bg-gradient-to-br from-orange-100 to-orange-200 dark:from-orange-900/20 dark:to-orange-800/20 rounded-lg flex items-center justify-center">
+                                <span class="text-2xl">🛢️</span>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold text-slate-900 dark:text-white">Quick Lube Plus</h3>
+                                <p class="text-slate-600 dark:text-slate-400">Plano, TX • Established 2020</p>
+                                <div class="flex items-center mt-2">
+                                    <span class="bg-green-100 text-green-600 text-xs px-2 py-1 rounded-full mr-2">92% Match</span>
+                                    <span class="bg-accent text-white text-xs px-2 py-1 rounded-full">🚖 Express</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-2xl font-bold text-slate-900 dark:text-white">$295,000</div>
+                            <div class="text-sm text-slate-600 dark:text-slate-400">Asking Price</div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
+                        <div>
+                            <span class="text-sm text-slate-500">Annual Revenue:</span>
+                            <div class="font-medium text-slate-900 dark:text-white">$485K</div>
+                        </div>
+                        <div>
+                            <span class="text-sm text-slate-500">Employees:</span>
+                            <div class="font-medium text-slate-900 dark:text-white">6</div>
+                        </div>
+                        <div>
+                            <span class="text-sm text-slate-500">Service Bays:</span>
+                            <div class="font-medium text-slate-900 dark:text-white">4</div>
+                        </div>
+                        <div>
+                            <span class="text-sm text-slate-500">Match Reason:</span>
+                            <div class="font-medium text-green-600">Price + Location</div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <h4 class="text-sm font-medium text-slate-900 dark:text-white mb-2">Why This Matches Your Criteria:</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-blue-100 text-blue-600 text-xs px-2 py-1 rounded-full">✓ DFW Location</span>
+                            <span class="bg-blue-100 text-blue-600 text-xs px-2 py-1 rounded-full">✓ Under $300K</span>
+                            <span class="bg-blue-100 text-blue-600 text-xs px-2 py-1 rounded-full">✓ Quick Service Model</span>
+                            <span class="bg-blue-100 text-blue-600 text-xs px-2 py-1 rounded-full">✓ Newer Business</span>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3">
+                        <button class="bg-accent hover:bg-accent-dark text-white px-4 py-2 rounded-md text-sm">
+                            View Full Details
+                        </button>
+                        <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md text-sm">
+                            Start Conversation
+                        </button>
+                        <button class="bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 px-4 py-2 rounded-md text-sm">
+                            Save for Later
+                        </button>
+                        <button class="bg-red-100 hover:bg-red-200 text-red-600 px-4 py-2 rounded-md text-sm">
+                            Not Interested
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- My Matches JavaScript -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // My matches utilities
+    window.MyMatches = {
+        // Filter matches
+        filterMatches: function(matchLevel) {
+            console.log('Filtering matches:', matchLevel);
+            window.PortalUtils?.showNotification('Matches filtered', 'success');
+        },
+
+        // Start conversation
+        startConversation: function(businessName) {
+            console.log('Starting conversation with:', businessName);
+            window.PortalUtils?.showNotification(`Conversation started with ${businessName}`, 'success');
+        },
+
+        // Save match
+        saveMatch: function(businessName) {
+            console.log('Saving match:', businessName);
+            window.PortalUtils?.showNotification(`${businessName} saved for later`, 'success');
+        },
+
+        // Initialize my matches
+        init: function() {
+            // Set up filter handler
+            const matchFilter = document.getElementById('match-filter');
+            if (matchFilter) {
+                matchFilter.addEventListener('change', () => {
+                    this.filterMatches(matchFilter.value);
+                });
+            }
+
+            // Set up action buttons
+            const actionButtons = document.querySelectorAll('button');
+            actionButtons.forEach(button => {
+                if (button.textContent.includes('Start Conversation')) {
+                    button.addEventListener('click', () => {
+                        const businessName = button.closest('.bg-white, .dark\\:bg-slate-800')
+                            ?.querySelector('h3')?.textContent || 'Business';
+                        this.startConversation(businessName);
+                    });
+                } else if (button.textContent.includes('Save for Later')) {
+                    button.addEventListener('click', () => {
+                        const businessName = button.closest('.bg-white, .dark\\:bg-slate-800')
+                            ?.querySelector('h3')?.textContent || 'Business';
+                        this.saveMatch(businessName);
+                    });
+                }
+            });
+        }
+    };
+
+    // Initialize when loaded
+    window.MyMatches.init();
+});
+</script>

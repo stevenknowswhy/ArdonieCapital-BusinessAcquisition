@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Business Listings - AutoRepairMart</title>
+    <title>Business Listings - Ardonie Capital</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script>
@@ -41,7 +41,7 @@
             <div class="flex justify-between items-center h-16">
                 <div class="flex items-center">
                     <a href="../index.html" class="flex items-center">
-                        <span class="text-xl font-bold text-primary-dark dark:text-primary-light">AutoRepairMart</span>
+                        <span class="text-xl font-bold text-primary-dark dark:text-primary-light">Ardonie Capital</span>
                     </a>
                 </div>
                 <div class="flex items-center space-x-4">
@@ -307,5 +307,34 @@
             </div>
         </div>
     </div>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+
+    <script>
+        // Load footer with error handling
+        fetch('../components/footer.html')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById('footer-placeholder').innerHTML = data;
+                console.log('Footer loaded successfully');
+            })
+            .catch(error => {
+                console.error('Error loading footer:', error);
+                // Fallback footer if loading fails
+                document.getElementById('footer-placeholder').innerHTML = `
+                    <footer class="bg-slate-900 text-white py-8">
+                        <div class="container mx-auto px-4 text-center">
+                            <p class="text-slate-400">© 2024 Ardonie Capital. All rights reserved.</p>
+                        </div>
+                    </footer>
+                `;
+            });
+    </script>
 </body>
 </html>
