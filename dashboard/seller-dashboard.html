@@ -34,6 +34,9 @@
         }
     </script>
     <style>
+        /* CACHE BUSTER - Force browser to reload styles - Version 2024-01-15-v3.0 */
+        /* ICON SIZE FIX - All icons should be 32px (2rem) expanded, 36px (2.25rem) collapsed */
+
         /* Dashboard section transitions */
         .dashboard-section {
             transition: opacity 0.3s ease-in-out;
@@ -72,10 +75,757 @@
             transform: translateY(-2px);
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
         }
+
+        /* Responsive Sidebar Styles with Independent Scrolling */
+        .sidebar-container {
+            transition: width 0.3s ease-in-out, transform 0.3s ease-in-out;
+            height: calc(100vh - 4rem); /* Account for header height (64px) */
+            position: fixed;
+            top: 4rem; /* Start below header */
+            left: 0;
+            z-index: 40;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .sidebar-collapsed {
+            width: 4rem; /* 64px for icon-only view */
+        }
+
+        .sidebar-expanded {
+            width: 16rem; /* 256px for full view */
+        }
+
+        .sidebar-mobile-hidden {
+            transform: translateX(-100%);
+        }
+
+        .sidebar-mobile-visible {
+            transform: translateX(0);
+        }
+
+        /* Sidebar scrollbar styling */
+        .sidebar-container::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .sidebar-container::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .sidebar-container::-webkit-scrollbar-thumb {
+            background: rgba(148, 163, 184, 0.3);
+            border-radius: 3px;
+        }
+
+        .sidebar-container::-webkit-scrollbar-thumb:hover {
+            background: rgba(148, 163, 184, 0.5);
+        }
+
+        /* Dark theme scrollbar */
+        .dark .sidebar-container::-webkit-scrollbar-thumb {
+            background: rgba(71, 85, 105, 0.3);
+        }
+
+        .dark .sidebar-container::-webkit-scrollbar-thumb:hover {
+            background: rgba(71, 85, 105, 0.5);
+        }
+
+        /* Sidebar overlay for mobile */
+        .sidebar-overlay {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 40;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+
+        .sidebar-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Sidebar item animations */
+        .sidebar-nav-item {
+            transition: all 0.2s ease-in-out;
+        }
+
+        .sidebar-nav-item .nav-text {
+            transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+        }
+
+        /* Collapsed sidebar - clean icon-only mode */
+        .sidebar-collapsed {
+            width: 4rem !important;
+        }
+
+        /* Hide ALL text content when collapsed */
+        .sidebar-collapsed .nav-text,
+        .sidebar-collapsed .text-xs,
+        .sidebar-collapsed .font-semibold,
+        .sidebar-collapsed .uppercase,
+        .sidebar-collapsed .tracking-wider,
+        .sidebar-collapsed .ml-auto,
+        .sidebar-collapsed .bg-orange-500,
+        .sidebar-collapsed .bg-yellow-100,
+        .sidebar-collapsed .bg-accent,
+        .sidebar-collapsed .rounded-full {
+            display: none !important;
+        }
+
+        /* Hide Express Seller status card */
+        .sidebar-collapsed .mt-6.p-4.bg-gradient-to-r {
+            display: none !important;
+        }
+
+        /* Center all navigation items */
+        .sidebar-collapsed .sidebar-nav-item {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            padding: 0.75rem !important;
+            margin: 0.125rem 0 !important;
+        }
+
+        /* Clean sidebar icon sizing - proper approach */
+        .sidebar-nav-item {
+            min-height: 44px; /* Ensure 44px touch target for accessibility */
+            padding: 0.75rem;
+            display: flex;
+            align-items: center;
+            transition: all 0.2s ease-in-out;
+        }
+
+        /* Icons in expanded sidebar state */
+        .sidebar-container:not(.sidebar-collapsed) .sidebar-nav-item svg {
+            width: 1.5rem; /* 24px - proper size for expanded state */
+            height: 1.5rem;
+            margin-right: 0.75rem;
+            flex-shrink: 0;
+        }
+
+        /* Icons in collapsed sidebar state */
+        .sidebar-collapsed .sidebar-nav-item svg {
+            width: 1.75rem; /* 28px - larger for collapsed state */
+            height: 1.75rem;
+            margin-right: 0;
+            flex-shrink: 0;
+        }
+
+        /* Hamburger menu icon - keep smaller */
+        #sidebar-toggle svg {
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+
+        /* Center hamburger menu in collapsed state */
+        .sidebar-collapsed .flex.items-center.justify-between {
+            justify-content: center;
+        }
+
+        /* Ensure proper spacing in collapsed state */
+        .sidebar-collapsed .sidebar-nav-item {
+            justify-content: center;
+            padding: 0.75rem;
+            margin: 0.125rem 0;
+        }
+
+        /* Tooltip styles for collapsed sidebar */
+        .nav-tooltip {
+            position: absolute;
+            left: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+            margin-left: 0.5rem;
+            background-color: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+            z-index: 50;
+            pointer-events: none;
+        }
+
+        .nav-tooltip::before {
+            content: '';
+            position: absolute;
+            right: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+            border: 4px solid transparent;
+            border-right-color: rgba(0, 0, 0, 0.9);
+        }
+
+        .sidebar-collapsed .sidebar-nav-item:hover .nav-tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Main content area adjustments with independent scrolling */
+        .main-content {
+            transition: margin-left 0.3s ease-in-out;
+            height: calc(100vh - 4rem); /* Account for header height (64px) */
+            margin-top: 4rem; /* Start below header */
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .main-content-expanded {
+            margin-left: calc(16rem + 0.75rem); /* 256px + 12px consistent gap */
+        }
+
+        .main-content-collapsed {
+            margin-left: calc(4rem + 0.75rem); /* 64px + 12px consistent gap */
+        }
+
+        /* Main content scrollbar styling */
+        .main-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .main-content::-webkit-scrollbar-track {
+            background: rgba(241, 245, 249, 0.5);
+        }
+
+        .main-content::-webkit-scrollbar-thumb {
+            background: rgba(148, 163, 184, 0.4);
+            border-radius: 4px;
+        }
+
+        .main-content::-webkit-scrollbar-thumb:hover {
+            background: rgba(148, 163, 184, 0.6);
+        }
+
+        /* Dark theme main content scrollbar */
+        .dark .main-content::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.5);
+        }
+
+        .dark .main-content::-webkit-scrollbar-thumb {
+            background: rgba(71, 85, 105, 0.4);
+        }
+
+        .dark .main-content::-webkit-scrollbar-thumb:hover {
+            background: rgba(71, 85, 105, 0.6);
+        }
+
+        /* Compact main content padding for efficient screen usage */
+        #main-content-wrapper {
+            padding-left: 0.75rem; /* Reduced padding to work with consistent gap */
+            padding-right: 1rem;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+
+        /* Responsive padding adjustments - more conservative */
+        @media (min-width: 768px) {
+            #main-content-wrapper {
+                padding-left: 1rem; /* Reduced left padding for tablet */
+                padding-right: 1.5rem;
+                padding-top: 1.25rem;
+                padding-bottom: 1.25rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            #main-content-wrapper {
+                padding-left: 1.25rem; /* Reduced left padding for desktop */
+                padding-right: 1.75rem;
+                padding-top: 1.5rem;
+                padding-bottom: 1.5rem;
+            }
+        }
+
+        @media (min-width: 1280px) {
+            #main-content-wrapper {
+                padding-left: 1.5rem; /* Reduced left padding for large screens */
+                padding-right: 2rem;
+                padding-top: 1.75rem;
+                padding-bottom: 1.75rem;
+            }
+        }
+
+        /* Ensure smooth transitions for content positioning */
+        #main-content-wrapper {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Additional spacing optimizations for better content density */
+        .space-y-6 > * + * {
+            margin-top: 1.25rem; /* Reduced from default 1.5rem */
+        }
+
+        .space-y-4 > * + * {
+            margin-top: 0.875rem; /* Reduced from default 1rem */
+        }
+
+        /* Optimize chart container spacing */
+        .chart-container {
+            padding: 0.75rem; /* Compact chart padding */
+        }
+
+        @media (min-width: 768px) {
+            .chart-container {
+                padding: 1rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .chart-container {
+                padding: 1.25rem;
+            }
+        }
+
+        /* Fine-tune spacing for dashboard sections */
+        .dashboard-section {
+            max-width: 100%;
+            overflow-x: auto;
+        }
+
+        /* Improve visual hierarchy with consistent spacing */
+        .dashboard-header {
+            margin-bottom: 2rem;
+        }
+
+        /* Ensure proper spacing in both light and dark themes */
+        .bg-white.dark\\:bg-slate-800,
+        .bg-slate-50.dark\\:bg-slate-700 {
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        /* Optimize grid layouts for the reduced spacing - but preserve card-specific spacing */
+        .grid:not(.dashboard-kpi-grid):not(.dashboard-chart-grid):not(.dashboard-card-grid) {
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .grid:not(.dashboard-kpi-grid):not(.dashboard-chart-grid):not(.dashboard-card-grid) {
+                gap: 2rem;
+            }
+        }
+
+        /* Compact card grid layouts for efficient screen usage */
+        .dashboard-kpi-grid {
+            gap: 0.75rem; /* Tight spacing for KPI cards */
+            width: 100%;
+        }
+
+        @media (min-width: 640px) {
+            .dashboard-kpi-grid {
+                gap: 1rem; /* Moderate spacing for small screens */
+            }
+        }
+
+        @media (min-width: 768px) {
+            .dashboard-kpi-grid {
+                gap: 1.125rem; /* Balanced spacing for medium screens */
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .dashboard-kpi-grid {
+                gap: 1.25rem; /* Efficient spacing for large screens */
+            }
+        }
+
+        /* Extra large screens - compact spacing for 6 columns */
+        @media (min-width: 1280px) {
+            .dashboard-kpi-grid {
+                gap: 1rem; /* Tight gap for 6 columns efficiency */
+            }
+        }
+
+        /* Chart and content card grids with compact spacing */
+        .dashboard-chart-grid,
+        .dashboard-card-grid {
+            gap: 1.25rem; /* Compact default spacing */
+        }
+
+        @media (min-width: 768px) {
+            .dashboard-chart-grid,
+            .dashboard-card-grid {
+                gap: 1.5rem; /* Moderate spacing for larger screens */
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .dashboard-chart-grid,
+            .dashboard-card-grid {
+                gap: 1.75rem; /* Efficient spacing for desktop */
+            }
+        }
+
+        /* Compact card internal spacing for efficient content display */
+        .dashboard-card {
+            padding: 1rem; /* Compact base padding */
+        }
+
+        @media (min-width: 640px) {
+            .dashboard-card {
+                padding: 1.125rem; /* Moderate padding for small screens */
+            }
+        }
+
+        @media (min-width: 768px) {
+            .dashboard-card {
+                padding: 1.25rem; /* Efficient padding for medium screens */
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .dashboard-card {
+                padding: 1.375rem; /* Balanced padding for large screens */
+            }
+        }
+
+        /* KPI card specific styling with compact spacing */
+        .dashboard-kpi-card {
+            min-height: 110px; /* Compact height for better density */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-width: 0;
+            width: 100%;
+        }
+
+        .dashboard-kpi-card .kpi-content {
+            padding: 0.875rem; /* Compact base padding */
+        }
+
+        @media (min-width: 640px) {
+            .dashboard-kpi-card .kpi-content {
+                padding: 1rem; /* Moderate padding for small screens */
+            }
+        }
+
+        @media (min-width: 768px) {
+            .dashboard-kpi-card .kpi-content {
+                padding: 1.125rem; /* Efficient padding for medium screens */
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .dashboard-kpi-card .kpi-content {
+                padding: 1.25rem; /* Balanced padding for large screens */
+            }
+        }
+
+        /* Mobile responsive adjustments with independent scrolling */
+        @media (max-width: 768px) {
+            .sidebar-container {
+                position: fixed;
+                top: 4rem; /* Start below header on mobile too */
+                left: 0;
+                height: calc(100vh - 4rem); /* Account for header height */
+                z-index: 50;
+                width: 16rem !important;
+                transform: translateX(-100%);
+                overflow-y: auto;
+                overflow-x: hidden;
+            }
+
+            .sidebar-container.sidebar-mobile-visible {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0 !important;
+                height: calc(100vh - 4rem); /* Account for header height */
+                margin-top: 4rem; /* Start below header */
+                overflow-y: auto;
+                overflow-x: hidden;
+            }
+
+            /* Ensure proper mobile padding - not too restrictive */
+            #main-content-wrapper {
+                padding-left: 1rem !important;
+                padding-right: 1rem !important;
+                padding-top: 1rem !important;
+                padding-bottom: 1rem !important;
+            }
+
+            /* Adjust card padding for mobile */
+            .dashboard-card {
+                padding: 1rem !important;
+            }
+
+            .dashboard-kpi-card .kpi-content {
+                padding: 0.875rem !important;
+            }
+
+            .sidebar-mobile-hidden {
+                transform: translateX(-100%);
+            }
+
+            /* Always show full sidebar on mobile when visible */
+            .sidebar-container.sidebar-collapsed {
+                width: 16rem !important;
+            }
+
+            .sidebar-container.sidebar-collapsed .nav-text {
+                opacity: 1;
+                transform: none;
+                width: auto;
+                overflow: visible;
+            }
+
+            .sidebar-container.sidebar-collapsed .sidebar-nav-item {
+                justify-content: flex-start;
+                padding-left: 0.75rem;
+                padding-right: 0.75rem;
+            }
+
+            .sidebar-container.sidebar-collapsed .sidebar-nav-item svg {
+                margin-right: 0.75rem;
+            }
+
+            /* Adjust header for mobile */
+            .dashboard-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            /* Responsive text sizes */
+            .text-2xl {
+                font-size: 1.5rem;
+            }
+
+            .text-lg {
+                font-size: 1rem;
+            }
+
+            /* Compact mobile spacing */
+            .mb-8 {
+                margin-bottom: 1rem;
+            }
+
+            .mb-6 {
+                margin-bottom: 0.75rem;
+            }
+
+            /* Mobile-specific grid adjustments */
+            .xl\\:grid-cols-6 {
+                grid-template-columns: repeat(1, minmax(0, 1fr));
+            }
+
+            .lg\\:grid-cols-3 {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .sm\\:grid-cols-2 {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        /* Tablet responsive adjustments with optimized spacing */
+        @media (min-width: 768px) and (max-width: 1024px) {
+            .sidebar-collapsed .nav-text {
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+
+            /* Adjust grid layouts for tablet with compact spacing */
+            .xl\\:grid-cols-6 {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+
+            .lg\\:grid-cols-3 {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+
+            /* Optimize tablet spacing */
+            .dashboard-kpi-grid {
+                gap: 1rem !important;
+            }
+
+            .dashboard-chart-grid,
+            .dashboard-card-grid {
+                gap: 1.25rem !important;
+            }
+        }
+
+        /* Improved focus states for accessibility */
+        .sidebar-nav-item:focus {
+            outline: 2px solid #3b82f6;
+            outline-offset: 2px;
+        }
+
+        /* Compact section spacing for all screen sizes */
+        .mb-8 {
+            margin-bottom: 1.5rem; /* Reduced from default 2rem */
+        }
+
+        .mb-6 {
+            margin-bottom: 1rem; /* Reduced from default 1.5rem */
+        }
+
+        @media (min-width: 768px) {
+            .mb-8 {
+                margin-bottom: 1.75rem; /* Moderate spacing for tablet */
+            }
+
+            .mb-6 {
+                margin-bottom: 1.25rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .mb-8 {
+                margin-bottom: 2rem; /* Efficient spacing for desktop */
+            }
+
+            .mb-6 {
+                margin-bottom: 1.5rem;
+            }
+        }
+
+        /* Smooth transitions for all interactive elements */
+        .sidebar-nav-item,
+        .sidebar-container,
+        .main-content,
+        .nav-text,
+        .nav-tooltip {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Overlay for mobile sidebar */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 40;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+
+        .sidebar-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Ensure overlay only shows on mobile */
+        @media (min-width: 768px) {
+            .sidebar-overlay {
+                display: none !important;
+            }
+        }
+
+        /* Specific optimizations for common breakpoints */
+
+        /* 320px - Small mobile */
+        @media (max-width: 320px) {
+            #main-content-wrapper {
+                padding: 0.75rem !important;
+            }
+
+            .dashboard-kpi-grid {
+                gap: 0.5rem !important;
+            }
+
+            .dashboard-kpi-card {
+                min-height: 100px !important;
+            }
+        }
+
+        /* 768px - Tablet portrait */
+        @media (min-width: 768px) and (max-width: 768px) {
+            .dashboard-kpi-grid {
+                gap: 1rem;
+            }
+
+            .dashboard-chart-grid,
+            .dashboard-card-grid {
+                gap: 1.25rem;
+            }
+        }
+
+        /* 1024px - Tablet landscape / Small desktop */
+        @media (min-width: 1024px) and (max-width: 1024px) {
+            .dashboard-kpi-grid {
+                gap: 1.125rem;
+            }
+
+            .dashboard-chart-grid,
+            .dashboard-card-grid {
+                gap: 1.5rem;
+            }
+        }
+
+        /* 1440px - Large desktop */
+        @media (min-width: 1440px) {
+            #main-content-wrapper {
+                padding-left: 1.75rem; /* Reduced left padding for large screens */
+                padding-right: 2.25rem;
+                padding-top: 2rem;
+                padding-bottom: 2rem;
+            }
+
+            .dashboard-kpi-grid {
+                gap: 1.125rem;
+            }
+
+            .dashboard-chart-grid,
+            .dashboard-card-grid {
+                gap: 1.875rem;
+            }
+        }
+        /* Prevent body scrolling - use container scrolling instead */
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        /* Layout container adjustments */
+        .layout-container {
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Footer styling within main content */
+        footer {
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+            width: 100%;
+        }
+
+        /* Ensure footer links work with navigation system */
+        footer a[data-section] {
+            cursor: pointer;
+        }
+
+        /* Footer responsive adjustments */
+        @media (max-width: 768px) {
+            footer .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            footer .grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            footer .flex {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+        }
     </style>
 </head>
 <body class="bg-slate-50 dark:bg-slate-900 font-sans">
-    <div class="min-h-screen">
+    <div class="layout-container">
         <!-- Header -->
         <div class="bg-white dark:bg-slate-800 shadow-sm border-b border-slate-200 dark:border-slate-700">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -132,65 +882,92 @@
             </div>
         </div>
 
+        <!-- Sidebar Overlay for Mobile -->
+        <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
         <!-- Main Layout -->
         <div class="flex">
             <!-- Enhanced Sidebar -->
-            <div class="w-64 bg-white dark:bg-slate-800 shadow-sm border-r border-slate-200 dark:border-slate-700">
+            <div
+                id="sidebar"
+                class="sidebar-container sidebar-expanded bg-white dark:bg-slate-800 shadow-sm border-r border-slate-200 dark:border-slate-700 md:relative md:translate-x-0"
+            >
                 <nav class="mt-6 px-4">
+                    <!-- Sidebar Header with Hamburger Menu -->
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider nav-text">Main</div>
+                        <button
+                            id="sidebar-toggle"
+                            type="button"
+                            class="p-2 rounded-md text-slate-400 hover:text-slate-600 hover:bg-slate-100 dark:hover:text-slate-300 dark:hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-primary-light transition-colors"
+                            aria-label="Toggle sidebar"
+                            aria-expanded="true"
+                        >
+                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                            </svg>
+                        </button>
+                    </div>
+
                     <!-- Main Navigation -->
                     <div class="space-y-1">
-                        <div class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3">Main</div>
 
-                        <a href="#" class="bg-orange-100 text-orange-700 dark:bg-orange-900/20 dark:text-orange-300 group flex items-center px-3 py-2 text-sm font-medium rounded-md">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-3 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <a href="#" data-section="dashboard-overview" class="sidebar-nav-item bg-orange-100 text-orange-700 dark:bg-orange-900/20 dark:text-orange-300 group flex items-center px-3 py-2 text-sm font-medium rounded-md relative">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-3 h-6 w-6 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z" />
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5a2 2 0 012-2h4a2 2 0 012 2v2H8V5z" />
                             </svg>
-                            Overview
+                            <span class="nav-text">Overview</span>
+                            <div class="nav-tooltip">Overview</div>
                         </a>
 
-                        <a href="#" data-section="seller-analytics" class="sidebar-nav-item text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 group flex items-center px-3 py-2 text-sm font-medium rounded-md">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-3 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <a href="#" data-section="seller-analytics" class="sidebar-nav-item text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 group flex items-center px-3 py-2 text-sm font-medium rounded-md relative">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-3 h-6 w-6 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                             </svg>
-                            Seller Analytics
-                            <span class="ml-auto bg-blue-100 text-blue-600 text-xs rounded-full px-2 py-1">NEW</span>
+                            <span class="nav-text">Seller Analytics</span>
+                            <span class="nav-text ml-auto bg-blue-100 text-blue-600 text-xs rounded-full px-2 py-1">NEW</span>
+                            <div class="nav-tooltip">Seller Analytics</div>
                         </a>
 
-                        <a href="#" data-section="notifications" class="sidebar-nav-item text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 group flex items-center px-3 py-2 text-sm font-medium rounded-md">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-3 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <a href="#" data-section="notifications" class="sidebar-nav-item text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 group flex items-center px-3 py-2 text-sm font-medium rounded-md relative">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-3 h-6 w-6 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-5 5v-5zM11 19H6a2 2 0 01-2-2V7a2 2 0 012-2h5m5 0v5" />
                             </svg>
-                            Notifications
-                            <span class="ml-auto bg-red-500 text-white text-xs rounded-full px-2 py-1">7</span>
+                            <span class="nav-text">Notifications</span>
+                            <span class="nav-text ml-auto bg-red-500 text-white text-xs rounded-full px-2 py-1">7</span>
+                            <div class="nav-tooltip">Notifications</div>
                         </a>
                     </div>
 
                     <!-- Listings Section -->
                     <div class="mt-6 space-y-1">
-                        <div class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3">Listings</div>
+                        <div class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3 nav-text">Listings</div>
 
-                        <a href="#" data-section="my-listings" class="sidebar-nav-item text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 group flex items-center px-3 py-2 text-sm font-medium rounded-md">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-3 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <a href="#" data-section="my-listings" class="sidebar-nav-item text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 group flex items-center px-3 py-2 text-sm font-medium rounded-md relative">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-3 h-6 w-6 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 9a2 2 0 00-2 2v2a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2" />
                             </svg>
-                            My Listings
-                            <span class="ml-auto text-xs text-slate-400">3</span>
+                            <span class="nav-text">My Listings</span>
+                            <span class="nav-text ml-auto text-xs text-slate-400">3</span>
+                            <div class="nav-tooltip">My Listings</div>
                         </a>
 
-                        <a href="#" data-section="create-listing" class="sidebar-nav-item text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 group flex items-center px-3 py-2 text-sm font-medium rounded-md">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-3 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <a href="#" data-section="create-listing" class="sidebar-nav-item text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 group flex items-center px-3 py-2 text-sm font-medium rounded-md relative">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-3 h-6 w-6 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                             </svg>
-                            Create Listing
+                            <span class="nav-text">Create Listing</span>
+                            <div class="nav-tooltip">Create Listing</div>
                         </a>
 
-                        <a href="#" data-section="listing-performance" class="sidebar-nav-item text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 group flex items-center px-3 py-2 text-sm font-medium rounded-md">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-3 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <a href="#" data-section="listing-performance" class="sidebar-nav-item text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 group flex items-center px-3 py-2 text-sm font-medium rounded-md relative">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-3 h-6 w-6 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                             </svg>
-                            Listing Performance
-                            <span class="ml-auto bg-green-100 text-green-600 text-xs rounded-full px-2 py-1">↗</span>
+                            <span class="nav-text">Listing Performance</span>
+                            <span class="nav-text ml-auto bg-green-100 text-green-600 text-xs rounded-full px-2 py-1">↗</span>
+                            <div class="nav-tooltip">Listing Performance</div>
                         </a>
                     </div>
 
@@ -198,28 +975,31 @@
                     <div class="mt-6 space-y-1">
                         <div class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3">Express Portal</div>
 
-                        <a href="#" data-section="listing-management" class="sidebar-nav-item text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 group flex items-center px-3 py-2 text-sm font-medium rounded-md">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-3 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <a href="#" data-section="listing-management" class="sidebar-nav-item text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 group flex items-center px-3 py-2 text-sm font-medium rounded-md relative">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-3 h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 9a2 2 0 00-2 2v2a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2" />
                             </svg>
-                            Listing Management
+                            <span class="nav-text">Listing Management</span>
                             <span class="ml-auto text-xs text-slate-400">3</span>
+                            <div class="nav-tooltip">Listing Management</div>
                         </a>
 
-                        <a href="#" data-section="buyer-interest" class="sidebar-nav-item text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 group flex items-center px-3 py-2 text-sm font-medium rounded-md">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-3 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                        <a href="#" data-section="buyer-interest" class="sidebar-nav-item text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 group flex items-center px-3 py-2 text-sm font-medium rounded-md relative">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-3 h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 01 5.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 01 9.288 0M15 7a3 3 0 11-6 0 3 3 0 01 6 0zm6 3a2 2 0 11-4 0 2 2 0 01 4 0zM7 10a2 2 0 11-4 0 2 2 0 01 4 0z" />
                             </svg>
-                            Buyer Interest
+                            <span class="nav-text">Buyer Interest</span>
                             <span class="ml-auto bg-orange-500 text-white text-xs rounded-full px-2 py-1">8</span>
+                            <div class="nav-tooltip">Buyer Interest</div>
                         </a>
 
-                        <a href="#" data-section="express-status" class="sidebar-nav-item text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 group flex items-center px-3 py-2 text-sm font-medium rounded-md">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-3 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <a href="#" data-section="express-status" class="sidebar-nav-item text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 group flex items-center px-3 py-2 text-sm font-medium rounded-md relative">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-3 h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                             </svg>
-                            Express Status
+                            <span class="nav-text">Express Status</span>
                             <span class="ml-auto bg-accent text-white text-xs rounded-full px-2 py-1">🏪</span>
+                            <div class="nav-tooltip">Express Status</div>
                         </a>
                     </div>
 
@@ -227,20 +1007,22 @@
                     <div class="mt-6 space-y-1">
                         <div class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3">Buyers</div>
 
-                        <a href="#" data-section="buyer-pipeline" class="sidebar-nav-item text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 group flex items-center px-3 py-2 text-sm font-medium rounded-md">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-3 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <a href="#" data-section="buyer-pipeline" class="sidebar-nav-item text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 group flex items-center px-3 py-2 text-sm font-medium rounded-md relative">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-3 h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                             </svg>
-                            Buyer Pipeline
+                            <span class="nav-text">Buyer Pipeline</span>
                             <span class="ml-auto text-xs text-slate-400">5</span>
+                            <div class="nav-tooltip">Buyer Pipeline</div>
                         </a>
 
-                        <a href="#" data-section="buyer-messages" class="sidebar-nav-item text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 group flex items-center px-3 py-2 text-sm font-medium rounded-md">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-3 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <a href="#" data-section="buyer-messages" class="sidebar-nav-item text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 group flex items-center px-3 py-2 text-sm font-medium rounded-md relative">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-3 h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                             </svg>
-                            Buyer Messages
+                            <span class="nav-text">Buyer Messages</span>
                             <span class="ml-auto bg-orange-500 text-white text-xs rounded-full px-2 py-1">4</span>
+                            <div class="nav-tooltip">Buyer Messages</div>
                         </a>
                     </div>
 
@@ -248,26 +1030,29 @@
                     <div class="mt-6 space-y-1">
                         <div class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3">Tools</div>
 
-                        <a href="#" data-section="valuation-tools" class="sidebar-nav-item text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 group flex items-center px-3 py-2 text-sm font-medium rounded-md">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-3 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <a href="#" data-section="valuation-tools" class="sidebar-nav-item text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 group flex items-center px-3 py-2 text-sm font-medium rounded-md relative">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-3 h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
                             </svg>
-                            Valuation Tools
+                            <span class="nav-text">Valuation Tools</span>
+                            <div class="nav-tooltip">Valuation Tools</div>
                         </a>
 
-                        <a href="#" data-section="market-research" class="sidebar-nav-item text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 group flex items-center px-3 py-2 text-sm font-medium rounded-md">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-3 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <a href="#" data-section="market-research" class="sidebar-nav-item text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 group flex items-center px-3 py-2 text-sm font-medium rounded-md relative">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-3 h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                             </svg>
-                            Market Research
+                            <span class="nav-text">Market Research</span>
+                            <div class="nav-tooltip">Market Research</div>
                         </a>
 
-                        <a href="#" data-section="listing-optimizer" class="sidebar-nav-item text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 group flex items-center px-3 py-2 text-sm font-medium rounded-md">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-3 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <a href="#" data-section="listing-optimizer" class="sidebar-nav-item text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 group flex items-center px-3 py-2 text-sm font-medium rounded-md relative">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-3 h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                             </svg>
-                            Listing Optimizer
+                            <span class="nav-text">Listing Optimizer</span>
                             <span class="ml-auto bg-yellow-100 text-yellow-600 text-xs rounded-full px-2 py-1">AI</span>
+                            <div class="nav-tooltip">Listing Optimizer</div>
                         </a>
                     </div>
 
@@ -289,13 +1074,13 @@
             </div>
 
             <!-- Main Content -->
-            <div class="flex-1 p-8">
+            <div id="main-content-wrapper" class="flex-1 main-content main-content-expanded">
                 <div id="main-content">
                     <!-- Default Dashboard Content -->
                     <div id="dashboard-overview" class="dashboard-section active">
                         <!-- Page Header -->
                         <div class="mb-8">
-                            <div class="flex items-center justify-between">
+                            <div class="dashboard-header flex items-center justify-between">
                                 <div>
                                     <h1 class="text-2xl font-bold text-slate-900 dark:text-white">Seller Dashboard</h1>
                                     <p class="text-slate-600 dark:text-slate-300">Welcome back, Mike! Here's your Express Seller performance.</p>
@@ -313,17 +1098,17 @@
                         </div>
 
                 <!-- Enhanced KPI Widgets -->
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6 mb-8">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-6 dashboard-kpi-grid mb-6 md:mb-8">
                     <!-- Active Listings -->
-                    <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
-                        <div class="flex items-center justify-between">
-                            <div class="p-2 bg-orange-100 dark:bg-orange-900/20 rounded-lg">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <div class="dashboard-kpi-card bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700">
+                        <div class="kpi-content flex items-center justify-between">
+                            <div class="p-2 bg-orange-100 dark:bg-orange-900/20 rounded-lg flex-shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 9a2 2 0 00-2 2v2a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2" />
                                 </svg>
                             </div>
-                            <div class="text-right">
-                                <p class="text-2xl font-bold text-slate-900 dark:text-white">3</p>
+                            <div class="text-right ml-2">
+                                <p class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">3</p>
                                 <p class="text-xs font-medium text-slate-600 dark:text-slate-400">Active Listings</p>
                                 <p class="text-xs text-green-600">247 total views</p>
                             </div>
@@ -331,15 +1116,15 @@
                     </div>
 
                     <!-- Interested Buyers -->
-                    <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
-                        <div class="flex items-center justify-between">
-                            <div class="p-2 bg-blue-100 dark:bg-blue-900/20 rounded-lg">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <div class="dashboard-kpi-card bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700">
+                        <div class="kpi-content flex items-center justify-between">
+                            <div class="p-2 bg-blue-100 dark:bg-blue-900/20 rounded-lg flex-shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                                 </svg>
                             </div>
-                            <div class="text-right">
-                                <p class="text-2xl font-bold text-slate-900 dark:text-white">8</p>
+                            <div class="text-right ml-2">
+                                <p class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">8</p>
                                 <p class="text-xs font-medium text-slate-600 dark:text-slate-400">Interested Buyers</p>
                                 <p class="text-xs text-blue-600">5 qualified</p>
                             </div>
@@ -347,15 +1132,15 @@
                     </div>
 
                     <!-- Unread Buyer Messages -->
-                    <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
-                        <div class="flex items-center justify-between">
-                            <div class="p-2 bg-orange-100 dark:bg-orange-900/20 rounded-lg">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-orange-600 dark:text-orange-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <div class="dashboard-kpi-card bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700">
+                        <div class="kpi-content flex items-center justify-between">
+                            <div class="p-2 bg-orange-100 dark:bg-orange-900/20 rounded-lg flex-shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6 text-orange-600 dark:text-orange-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                                 </svg>
                             </div>
-                            <div class="text-right">
-                                <p class="text-2xl font-bold text-slate-900 dark:text-white">4</p>
+                            <div class="text-right ml-2">
+                                <p class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">4</p>
                                 <p class="text-xs font-medium text-slate-600 dark:text-slate-400">Unread Messages</p>
                                 <p class="text-xs text-red-600">2 urgent</p>
                             </div>
@@ -363,15 +1148,15 @@
                     </div>
 
                     <!-- Active Negotiations -->
-                    <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
-                        <div class="flex items-center justify-between">
-                            <div class="p-2 bg-green-100 dark:bg-green-900/20 rounded-lg">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <div class="dashboard-kpi-card bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700">
+                        <div class="kpi-content flex items-center justify-between">
+                            <div class="p-2 bg-green-100 dark:bg-green-900/20 rounded-lg flex-shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6 text-green-600 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                 </svg>
                             </div>
-                            <div class="text-right">
-                                <p class="text-2xl font-bold text-slate-900 dark:text-white">2</p>
+                            <div class="text-right ml-2">
+                                <p class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">2</p>
                                 <p class="text-xs font-medium text-slate-600 dark:text-slate-400">Active Negotiations</p>
                                 <p class="text-xs text-green-600">1 near close</p>
                             </div>
@@ -379,16 +1164,16 @@
                     </div>
 
                     <!-- Average Listing Views -->
-                    <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
-                        <div class="flex items-center justify-between">
-                            <div class="p-2 bg-purple-100 dark:bg-purple-900/20 rounded-lg">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-600 dark:text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <div class="dashboard-kpi-card bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700">
+                        <div class="kpi-content flex items-center justify-between">
+                            <div class="p-2 bg-purple-100 dark:bg-purple-900/20 rounded-lg flex-shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6 text-purple-600 dark:text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                 </svg>
                             </div>
-                            <div class="text-right">
-                                <p class="text-2xl font-bold text-slate-900 dark:text-white">82</p>
+                            <div class="text-right ml-2">
+                                <p class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">82</p>
                                 <p class="text-xs font-medium text-slate-600 dark:text-slate-400">Avg Views/Listing</p>
                                 <p class="text-xs text-purple-600">+15% this week</p>
                             </div>
@@ -396,15 +1181,15 @@
                     </div>
 
                     <!-- Days on Market Average -->
-                    <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
-                        <div class="flex items-center justify-between">
-                            <div class="p-2 bg-indigo-100 dark:bg-indigo-900/20 rounded-lg">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-600 dark:text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <div class="dashboard-kpi-card bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700">
+                        <div class="kpi-content flex items-center justify-between">
+                            <div class="p-2 bg-indigo-100 dark:bg-indigo-900/20 rounded-lg flex-shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6 text-indigo-600 dark:text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
                             </div>
-                            <div class="text-right">
-                                <p class="text-2xl font-bold text-slate-900 dark:text-white">21</p>
+                            <div class="text-right ml-2">
+                                <p class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">21</p>
                                 <p class="text-xs font-medium text-slate-600 dark:text-slate-400">Days on Market</p>
                                 <p class="text-xs text-indigo-600">Express avg</p>
                             </div>
@@ -413,32 +1198,34 @@
                 </div>
 
                 <!-- Seller-Focused Analytics Charts -->
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 dashboard-chart-grid mb-6 md:mb-8">
                     <!-- Listing Performance Chart -->
-                    <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
-                        <div class="flex items-center justify-between mb-4">
-                            <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Listing Performance</h3>
-                            <label for="performance-timeframe" class="sr-only">Select time period for listing performance</label>
-                            <select id="performance-timeframe" class="text-sm border border-slate-300 rounded-md px-3 py-1" aria-label="Select time period for listing performance">
-                                <option>Last 30 days</option>
-                                <option>Last 90 days</option>
-                                <option>Last 6 months</option>
-                            </select>
+                    <div class="dashboard-card bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-2">
+                            <h3 class="text-base sm:text-lg font-semibold text-slate-900 dark:text-white">Listing Performance</h3>
+                            <div class="flex flex-col sm:flex-row gap-2">
+                                <label for="performance-timeframe" class="sr-only">Select time period for listing performance</label>
+                                <select id="performance-timeframe" class="text-sm border border-slate-300 rounded-md px-3 py-1" aria-label="Select time period for listing performance">
+                                    <option>Last 30 days</option>
+                                    <option>Last 90 days</option>
+                                    <option>Last 6 months</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="h-64">
+                        <div class="h-48 sm:h-56 lg:h-64">
                             <canvas id="listingPerformanceChart"></canvas>
                         </div>
                     </div>
 
                     <!-- Buyer Interest Analytics Chart -->
-                    <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
-                        <div class="flex items-center justify-between mb-4">
-                            <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Buyer Interest Analytics</h3>
+                    <div class="dashboard-card bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-2">
+                            <h3 class="text-base sm:text-lg font-semibold text-slate-900 dark:text-white">Buyer Interest Analytics</h3>
                             <div class="flex items-center space-x-2">
                                 <span class="text-xs text-slate-600">Geographic Distribution</span>
                             </div>
                         </div>
-                        <div class="h-64">
+                        <div class="h-48 sm:h-56 lg:h-64">
                             <canvas id="buyerInterestChart"></canvas>
                         </div>
                     </div>
@@ -446,7 +1233,7 @@
 
                 <!-- Market Positioning Chart -->
                 <div class="mb-8">
-                    <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                    <div class="dashboard-card bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700">
                         <div class="flex items-center justify-between mb-6">
                             <h2 class="text-lg font-semibold text-slate-900 dark:text-white">Market Positioning Analysis</h2>
                             <div class="flex items-center space-x-2">
@@ -519,9 +1306,9 @@
                 </div>
 
                 <!-- Buyer Pipeline Tracking & Recent Activity -->
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 dashboard-card-grid">
                     <!-- Buyer Pipeline Tracking -->
-                    <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                    <div class="dashboard-card bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700">
                         <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-4">Buyer Pipeline</h3>
 
                         <!-- Buyer 1: John Doe -->
@@ -652,11 +1439,11 @@
                     </div>
 
                     <!-- Recent Activity -->
-                    <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700">
-                        <div class="p-6 border-b border-slate-200 dark:border-slate-700">
+                    <div class="dashboard-card bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700">
+                        <div class="border-b border-slate-200 dark:border-slate-700 pb-4 mb-4">
                             <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Recent Activity</h3>
                         </div>
-                        <div class="p-6">
+                        <div>
                             <div class="space-y-4">
                                 <!-- Activity Item 1 -->
                                 <div class="flex items-start space-x-3">
@@ -762,6 +1549,11 @@
                         </div>
                     </div>
                 </div>
+                    </div> <!-- End dashboard-overview -->
+
+                    <!-- Dashboard Overview Content (for consistency with other sections) -->
+                    <div id="dashboard-overview-content" class="dashboard-section hidden">
+                        <!-- This will redirect to the main dashboard-overview section -->
                     </div>
 
                     <!-- Portal Section Content Areas -->
@@ -820,6 +1612,62 @@
                     <div id="buyer-messages-content" class="dashboard-section hidden">
                         <!-- Content will be loaded dynamically -->
                     </div>
+
+                    <!-- Express Seller Footer - Positioned within main content for proper scrolling -->
+                    <footer class="bg-slate-900 text-white py-10 mt-16">
+                        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                            <!-- Express Seller Footer -->
+                            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+                                <!-- Company Info -->
+                                <div>
+                                    <div class="text-xl font-bold text-orange-400 mb-3">Ardonie Capital</div>
+                                    <p class="text-slate-400 text-sm mb-4 leading-relaxed">
+                                        Express Seller Dashboard - Premium marketplace for DFW auto repair shop transactions.
+                                        Your Express membership includes priority placement and 21-day average sale time.
+                                    </p>
+                                    <div class="flex items-center space-x-2 mb-4">
+                                        <span class="bg-gradient-to-r from-orange-500 to-red-600 text-white px-3 py-1 rounded-full text-xs font-semibold">🏪 EXPRESS SELLER</span>
+                                        <span class="text-green-400 text-xs">ACTIVE</span>
+                                    </div>
+                                </div>
+
+                                <!-- Express Seller Links -->
+                                <div>
+                                    <h3 class="text-sm font-semibold mb-3 text-white">Express Seller Tools</h3>
+                                    <ul class="space-y-2">
+                                        <li><a href="#" data-section="my-listings" class="text-slate-400 hover:text-orange-400 transition-colors text-sm">My Listings</a></li>
+                                        <li><a href="#" data-section="buyer-interest" class="text-slate-400 hover:text-orange-400 transition-colors text-sm">Buyer Interest</a></li>
+                                        <li><a href="#" data-section="express-status" class="text-slate-400 hover:text-orange-400 transition-colors text-sm">Express Status</a></li>
+                                        <li><a href="#" data-section="valuation-tools" class="text-slate-400 hover:text-orange-400 transition-colors text-sm">Valuation Tools</a></li>
+                                        <li><a href="/contact.html" class="text-slate-400 hover:text-orange-400 transition-colors text-sm">Express Support</a></li>
+                                    </ul>
+                                </div>
+
+                                <!-- Contact & Support -->
+                                <div>
+                                    <h3 class="text-sm font-semibold mb-3 text-white">Express Support</h3>
+                                    <div class="text-slate-400 text-sm space-y-2">
+                                        <div>📞 424-253-4019</div>
+                                        <div>📧 express@ardoniecapital.com</div>
+                                        <div>🕒 Priority Support: 24/7</div>
+                                        <div class="text-orange-400 font-medium">Average Response: 2 hours</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Bottom Bar -->
+                            <div class="border-t border-slate-800 pt-6 flex flex-col md:flex-row justify-between items-center">
+                                <p class="text-slate-400 text-sm">
+                                    © 2024 Ardonie Capital. Express Seller Dashboard - Closing DFW auto repair deals in 21 days.
+                                </p>
+                                <div class="flex space-x-6 mt-4 md:mt-0">
+                                    <a href="/terms-of-service.html" class="text-slate-400 hover:text-orange-400 transition-colors text-sm">Terms</a>
+                                    <a href="/privacy-policy.html" class="text-slate-400 hover:text-orange-400 transition-colors text-sm">Privacy</a>
+                                    <a href="/contact.html" class="text-slate-400 hover:text-orange-400 transition-colors text-sm">Support</a>
+                                </div>
+                            </div>
+                        </div>
+                    </footer>
                 </div>
             </div>
         </div>
@@ -827,6 +1675,165 @@
 
     <!-- Dynamic Navigation JavaScript -->
     <script>
+        // Responsive Sidebar Management
+        class ResponsiveSidebar {
+            constructor() {
+                this.sidebar = document.getElementById('sidebar');
+                this.sidebarToggle = document.getElementById('sidebar-toggle');
+                this.sidebarOverlay = document.getElementById('sidebar-overlay');
+                this.mainContent = document.getElementById('main-content-wrapper');
+                this.isCollapsed = false;
+                this.isMobile = window.innerWidth < 768;
+                this.isVisible = true;
+
+                this.init();
+            }
+
+            init() {
+                this.setupEventListeners();
+                this.handleResize();
+
+                // Initial setup based on screen size
+                if (this.isMobile) {
+                    this.hideSidebarOnMobile();
+                } else {
+                    this.loadSidebarState();
+                }
+            }
+
+            setupEventListeners() {
+                // Toggle button click
+                this.sidebarToggle.addEventListener('click', () => {
+                    if (this.isMobile) {
+                        this.toggleMobileSidebar();
+                    } else {
+                        this.toggleDesktopSidebar();
+                    }
+                });
+
+                // Overlay click (mobile)
+                this.sidebarOverlay.addEventListener('click', () => {
+                    if (this.isMobile) {
+                        this.hideSidebarOnMobile();
+                    }
+                });
+
+                // Window resize
+                window.addEventListener('resize', () => {
+                    this.handleResize();
+                });
+
+                // Escape key to close mobile sidebar
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && this.isMobile && this.isVisible) {
+                        this.hideSidebarOnMobile();
+                    }
+                });
+            }
+
+            handleResize() {
+                const wasMobile = this.isMobile;
+                this.isMobile = window.innerWidth < 768;
+
+                if (wasMobile !== this.isMobile) {
+                    if (this.isMobile) {
+                        // Switched to mobile
+                        this.hideSidebarOnMobile();
+                    } else {
+                        // Switched to desktop
+                        this.showSidebarOnDesktop();
+                    }
+                }
+            }
+
+            toggleMobileSidebar() {
+                if (this.isVisible) {
+                    this.hideSidebarOnMobile();
+                } else {
+                    this.showSidebarOnMobile();
+                }
+            }
+
+            toggleDesktopSidebar() {
+                if (this.isCollapsed) {
+                    this.expandSidebar();
+                } else {
+                    this.collapseSidebar();
+                }
+                this.saveSidebarState();
+            }
+
+            showSidebarOnMobile() {
+                this.sidebar.classList.remove('sidebar-mobile-hidden');
+                this.sidebar.classList.add('sidebar-mobile-visible');
+                this.sidebarOverlay.classList.add('active');
+                this.isVisible = true;
+                this.sidebarToggle.setAttribute('aria-expanded', 'true');
+                // Don't prevent body scroll since we have independent scrolling containers
+
+                // Ensure sidebar shows full content on mobile
+                this.sidebar.classList.remove('sidebar-collapsed');
+                this.sidebar.classList.add('sidebar-expanded');
+            }
+
+            hideSidebarOnMobile() {
+                this.sidebar.classList.add('sidebar-mobile-hidden');
+                this.sidebar.classList.remove('sidebar-mobile-visible');
+                this.sidebarOverlay.classList.remove('active');
+                this.isVisible = false;
+                this.sidebarToggle.setAttribute('aria-expanded', 'false');
+                // No need to restore body scroll since we use independent containers
+            }
+
+            showSidebarOnDesktop() {
+                this.sidebar.classList.remove('sidebar-mobile-hidden');
+                this.sidebarOverlay.classList.remove('active');
+                this.isVisible = true;
+                // No need to manage body overflow since we use independent containers
+
+                // Restore previous collapsed state
+                if (this.isCollapsed) {
+                    this.collapseSidebar();
+                } else {
+                    this.expandSidebar();
+                }
+            }
+
+            collapseSidebar() {
+                this.sidebar.classList.remove('sidebar-expanded');
+                this.sidebar.classList.add('sidebar-collapsed');
+                this.mainContent.classList.remove('main-content-expanded');
+                this.mainContent.classList.add('main-content-collapsed');
+                this.isCollapsed = true;
+                this.sidebarToggle.setAttribute('aria-expanded', 'false');
+            }
+
+            expandSidebar() {
+                this.sidebar.classList.remove('sidebar-collapsed');
+                this.sidebar.classList.add('sidebar-expanded');
+                this.mainContent.classList.remove('main-content-collapsed');
+                this.mainContent.classList.add('main-content-expanded');
+                this.isCollapsed = false;
+                this.sidebarToggle.setAttribute('aria-expanded', 'true');
+            }
+
+            saveSidebarState() {
+                localStorage.setItem('sidebarCollapsed', this.isCollapsed.toString());
+            }
+
+            loadSidebarState() {
+                const saved = localStorage.getItem('sidebarCollapsed');
+                if (saved !== null && !this.isMobile) {
+                    this.isCollapsed = saved === 'true';
+                    if (this.isCollapsed) {
+                        this.collapseSidebar();
+                    } else {
+                        this.expandSidebar();
+                    }
+                }
+            }
+        }
+
         // Dashboard Navigation System
         class DashboardNavigation {
             constructor() {
@@ -864,6 +1871,18 @@
                         this.showOverview();
                     });
                 }
+
+                // Handle footer navigation links
+                const footerNavItems = document.querySelectorAll('footer a[data-section]');
+                console.log('Found footer nav items:', footerNavItems.length);
+                footerNavItems.forEach(item => {
+                    item.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const section = item.getAttribute('data-section');
+                        console.log('Loading section from footer:', section);
+                        this.loadSection(section);
+                    });
+                });
             }
 
             showOverview() {
@@ -873,6 +1892,12 @@
             }
 
             async loadSection(sectionName) {
+                // Special case: if someone tries to load dashboard-overview-content, redirect to main overview
+                if (sectionName === 'dashboard-overview') {
+                    this.showOverview();
+                    return;
+                }
+
                 const contentId = `${sectionName}-content`;
                 const contentDiv = document.getElementById(contentId);
 
@@ -904,7 +1929,7 @@
 
                     // Handle different section types
                     if (this.isToolsSection(sectionName)) {
-                        await this.loadToolsSection(sectionName, contentDiv);
+                        this.loadToolsSection(sectionName, contentDiv);
                     } else if (this.isFallbackSection(sectionName)) {
                         this.loadFallbackSection(sectionName, contentDiv);
                     } else {
@@ -983,13 +2008,13 @@
             }
 
             isFallbackSection(sectionName) {
-                return ['seller-analytics', 'notifications', 'my-listings', 'create-listing', 'listing-performance', 'buyer-pipeline', 'buyer-messages'].includes(sectionName);
+                return ['seller-analytics', 'notifications', 'my-listings', 'create-listing', 'listing-performance', 'buyer-pipeline', 'buyer-messages', 'listing-management', 'buyer-interest', 'express-status'].includes(sectionName);
             }
 
-            async loadToolsSection(sectionName, contentDiv) {
+            loadToolsSection(sectionName, contentDiv) {
                 switch (sectionName) {
                     case 'valuation-tools':
-                        await this.loadValuationTools(contentDiv);
+                        this.loadValuationTools(contentDiv);
                         break;
                     case 'market-research':
                         this.loadMarketResearch(contentDiv);
@@ -1025,47 +2050,275 @@
                     case 'buyer-messages':
                         this.loadBuyerMessages(contentDiv);
                         break;
+                    case 'listing-management':
+                        this.loadListingManagement(contentDiv);
+                        break;
+                    case 'buyer-interest':
+                        this.loadBuyerInterest(contentDiv);
+                        break;
+                    case 'express-status':
+                        this.loadExpressStatus(contentDiv);
+                        break;
                     default:
                         throw new Error(`Unknown fallback section: ${sectionName}`);
                 }
             }
 
-            async loadValuationTools(contentDiv) {
-                // Load the valuation tool content inline
+            loadValuationTools(contentDiv) {
+                // Load the valuation tool content inline (no fetch required for local development)
                 try {
-                    const response = await fetch('../tools/valuation.html');
-                    if (!response.ok) {
-                        throw new Error(`HTTP ${response.status}`);
-                    }
-
-                    let html = await response.text();
-
-                    // Extract just the main content (remove header, footer, etc.)
-                    const parser = new DOMParser();
-                    const doc = parser.parseFromString(html, 'text/html');
-                    const mainContent = doc.querySelector('.max-w-4xl');
-
-                    if (mainContent) {
-                        // Remove the page header and update styling for dashboard
-                        const pageHeader = mainContent.querySelector('.mb-8');
-                        if (pageHeader) {
-                            pageHeader.innerHTML = `
+                    // Embed the valuation tool content directly to avoid CORS issues
+                    contentDiv.innerHTML = `
+                        <div class="space-y-6">
+                            <!-- Page Header -->
+                            <div class="mb-8">
                                 <h1 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">Business Valuation Tool</h1>
                                 <p class="text-slate-600 dark:text-slate-300">Get an estimated valuation for your auto repair business based on industry standards and financial metrics.</p>
-                            `;
-                        }
+                            </div>
 
-                        contentDiv.innerHTML = mainContent.innerHTML;
+                            <!-- Valuation Form -->
+                            <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 p-6 mb-8">
+                                <form id="valuationForm" class="space-y-6">
+                                    <!-- Business Information -->
+                                    <div>
+                                        <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-4">Business Information</h3>
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            <div>
+                                                <label for="businessType" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Business Type</label>
+                                                <select id="businessType" name="businessType" required class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary">
+                                                    <option value="">Select business type</option>
+                                                    <option value="general-repair">General Auto Repair</option>
+                                                    <option value="specialty-repair">Specialty Repair (Transmission, Engine, etc.)</option>
+                                                    <option value="quick-service">Quick Service (Oil Change, Tires)</option>
+                                                    <option value="body-shop">Auto Body Shop</option>
+                                                    <option value="dealership-service">Dealership Service Center</option>
+                                                </select>
+                                            </div>
+                                            <div>
+                                                <label for="yearsInBusiness" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Years in Business</label>
+                                                <input type="number" id="yearsInBusiness" name="yearsInBusiness" min="1" max="100" required class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary">
+                                            </div>
+                                        </div>
+                                    </div>
 
-                        // Execute any scripts in the loaded content
-                        this.executeScripts(contentDiv);
-                    } else {
-                        throw new Error('Could not find main content in valuation tool');
-                    }
+                                    <!-- Financial Information -->
+                                    <div>
+                                        <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-4">Financial Information</h3>
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            <div>
+                                                <label for="annualRevenue" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Annual Revenue ($)</label>
+                                                <input type="number" id="annualRevenue" name="annualRevenue" min="0" step="1000" required class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary">
+                                            </div>
+                                            <div>
+                                                <label for="ebitda" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">EBITDA ($)</label>
+                                                <input type="number" id="ebitda" name="ebitda" min="0" step="1000" required class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary">
+                                            </div>
+                                            <div>
+                                                <label for="assets" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Total Assets ($)</label>
+                                                <input type="number" id="assets" name="assets" min="0" step="1000" required class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary">
+                                            </div>
+                                            <div>
+                                                <label for="employees" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Number of Employees</label>
+                                                <input type="number" id="employees" name="employees" min="1" max="1000" required class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Location Information -->
+                                    <div>
+                                        <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-4">Location Information</h3>
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            <div>
+                                                <label for="location" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Location</label>
+                                                <select id="location" name="location" required class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary">
+                                                    <option value="">Select location</option>
+                                                    <option value="dallas">Dallas</option>
+                                                    <option value="fort-worth">Fort Worth</option>
+                                                    <option value="plano">Plano</option>
+                                                    <option value="arlington">Arlington</option>
+                                                    <option value="garland">Garland</option>
+                                                    <option value="irving">Irving</option>
+                                                    <option value="other-dfw">Other DFW Area</option>
+                                                </select>
+                                            </div>
+                                            <div>
+                                                <label for="propertyOwnership" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Property Ownership</label>
+                                                <select id="propertyOwnership" name="propertyOwnership" required class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary">
+                                                    <option value="">Select ownership type</option>
+                                                    <option value="owned">Owned</option>
+                                                    <option value="leased">Leased</option>
+                                                    <option value="mixed">Mixed (Owned & Leased)</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Submit Button -->
+                                    <div class="flex justify-center">
+                                        <button type="submit" class="bg-orange-500 hover:bg-orange-600 text-white font-medium py-3 px-8 rounded-lg transition-colors">
+                                            Calculate Valuation
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <!-- Results Section -->
+                            <div id="valuationResults" class="hidden bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 p-6">
+                                <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-4">Valuation Results</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                    <div class="text-center p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                                        <div class="text-2xl font-bold text-blue-600" id="revenueValuation">-</div>
+                                        <div class="text-sm text-slate-600 dark:text-slate-400">Revenue-Based Valuation</div>
+                                    </div>
+                                    <div class="text-center p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
+                                        <div class="text-2xl font-bold text-green-600" id="ebitdaValuation">-</div>
+                                        <div class="text-sm text-slate-600 dark:text-slate-400">EBITDA-Based Valuation</div>
+                                    </div>
+                                    <div class="text-center p-4 bg-orange-50 dark:bg-orange-900/20 rounded-lg">
+                                        <div class="text-2xl font-bold text-orange-600" id="averageValuation">-</div>
+                                        <div class="text-sm text-slate-600 dark:text-slate-400">Average Valuation</div>
+                                    </div>
+                                </div>
+                                <div class="mt-6 p-4 bg-slate-50 dark:bg-slate-700 rounded-lg">
+                                    <h4 class="font-medium text-slate-900 dark:text-white mb-2">Valuation Notes</h4>
+                                    <div id="valuationNotes" class="text-sm text-slate-600 dark:text-slate-300">
+                                        <!-- Notes will be populated by JavaScript -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+
+                    // Initialize the valuation form functionality
+                    this.initializeValuationForm();
+
+                    console.log('Valuation tools loaded successfully (inline content)');
                 } catch (error) {
                     console.error('Error loading valuation tools:', error);
                     throw error;
                 }
+            }
+
+            initializeValuationForm() {
+                // Wait for the form to be in the DOM
+                setTimeout(() => {
+                    const form = document.getElementById('valuationForm');
+                    if (form) {
+                        form.addEventListener('submit', (e) => {
+                            e.preventDefault();
+                            this.calculateValuation();
+                        });
+                    }
+                }, 100);
+            }
+
+            calculateValuation() {
+                // Get form data
+                const form = document.getElementById('valuationForm');
+                const formData = new FormData(form);
+                const data = Object.fromEntries(formData);
+
+                // Calculate valuation
+                const revenue = parseFloat(data.annualRevenue) || 0;
+                const ebitda = parseFloat(data.ebitda) || 0;
+                const assets = parseFloat(data.assets) || 0;
+
+                // Industry multipliers (simplified)
+                const revenueMultiplier = this.getRevenueMultiplier(data.businessType);
+                const ebitdaMultiplier = this.getEbitdaMultiplier(data.businessType);
+
+                // Calculate different valuations
+                const revenueValuation = revenue * revenueMultiplier;
+                const ebitdaValuation = ebitda * ebitdaMultiplier;
+                const assetValuation = assets * 0.8; // Simplified asset-based valuation
+
+                // Calculate average (weighted towards EBITDA if available)
+                let averageValuation;
+                if (ebitda > 0) {
+                    averageValuation = (revenueValuation + ebitdaValuation * 2) / 3;
+                } else {
+                    averageValuation = (revenueValuation + assetValuation) / 2;
+                }
+
+                // Display results
+                this.displayValuationResults(revenueValuation, ebitdaValuation, averageValuation, data);
+            }
+
+            getRevenueMultiplier(businessType) {
+                const multipliers = {
+                    'general-repair': 0.8,
+                    'specialty-repair': 1.2,
+                    'quick-service': 0.6,
+                    'body-shop': 0.9,
+                    'dealership-service': 1.1
+                };
+                return multipliers[businessType] || 0.8;
+            }
+
+            getEbitdaMultiplier(businessType) {
+                const multipliers = {
+                    'general-repair': 3.5,
+                    'specialty-repair': 4.2,
+                    'quick-service': 2.8,
+                    'body-shop': 3.8,
+                    'dealership-service': 4.0
+                };
+                return multipliers[businessType] || 3.5;
+            }
+
+            displayValuationResults(revenueVal, ebitdaVal, avgVal, data) {
+                // Format currency
+                const formatCurrency = (amount) => {
+                    return new Intl.NumberFormat('en-US', {
+                        style: 'currency',
+                        currency: 'USD',
+                        minimumFractionDigits: 0,
+                        maximumFractionDigits: 0
+                    }).format(amount);
+                };
+
+                // Update result displays
+                document.getElementById('revenueValuation').textContent = formatCurrency(revenueVal);
+                document.getElementById('ebitdaValuation').textContent = formatCurrency(ebitdaVal);
+                document.getElementById('averageValuation').textContent = formatCurrency(avgVal);
+
+                // Generate notes
+                const notes = this.generateValuationNotes(data, avgVal);
+                document.getElementById('valuationNotes').innerHTML = notes;
+
+                // Show results section
+                document.getElementById('valuationResults').classList.remove('hidden');
+
+                // Scroll to results
+                document.getElementById('valuationResults').scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+
+            generateValuationNotes(data, avgValuation) {
+                const notes = [];
+
+                if (data.businessType === 'specialty-repair') {
+                    notes.push('• Specialty repair shops typically command higher multiples due to specialized expertise.');
+                }
+
+                if (data.yearsInBusiness >= 10) {
+                    notes.push('• Established business with 10+ years of operation adds stability premium.');
+                }
+
+                if (data.propertyOwnership === 'owned') {
+                    notes.push('• Property ownership adds significant value and reduces operational risk.');
+                }
+
+                if (data.location === 'dallas' || data.location === 'plano') {
+                    notes.push('• Prime DFW location commands premium pricing in current market.');
+                }
+
+                notes.push('• Valuation is based on industry standards and current DFW market conditions.');
+                notes.push('• Final valuation may vary based on detailed due diligence and market timing.');
+
+                return notes.join('<br>');
             }
 
             loadMarketResearch(contentDiv) {
@@ -1557,6 +2810,295 @@
                 `;
             }
 
+            loadListingManagement(contentDiv) {
+                contentDiv.innerHTML = `
+                    <div class="space-y-6">
+                        <div class="mb-8">
+                            <h1 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">Listing Management</h1>
+                            <p class="text-slate-600 dark:text-slate-300">Manage your Express Seller listings with advanced tools and priority support.</p>
+                        </div>
+
+                        <!-- Express Listing Overview -->
+                        <div class="bg-gradient-to-r from-orange-500/10 to-red-600/10 dark:from-orange-500/20 dark:to-red-600/20 rounded-lg p-6 border border-orange-500/20 mb-6">
+                            <div class="flex items-center mb-4">
+                                <span class="text-2xl mr-3">🏪</span>
+                                <div>
+                                    <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Express Seller Advantage</h3>
+                                    <p class="text-sm text-slate-600 dark:text-slate-400">Priority placement and enhanced marketing for your listings</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Active Listings Management -->
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Premier Auto Service</h3>
+                                    <div class="flex items-center space-x-2">
+                                        <span class="bg-orange-100 text-orange-600 text-xs rounded-full px-2 py-1">Express</span>
+                                        <span class="bg-green-100 text-green-600 text-xs rounded-full px-2 py-1">Active</span>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-2 gap-4 mb-4">
+                                    <div>
+                                        <div class="text-lg font-bold text-slate-900 dark:text-white">127</div>
+                                        <div class="text-xs text-slate-600">Total Views</div>
+                                    </div>
+                                    <div>
+                                        <div class="text-lg font-bold text-blue-600">8</div>
+                                        <div class="text-xs text-slate-600">Inquiries</div>
+                                    </div>
+                                </div>
+                                <div class="space-y-2">
+                                    <button class="w-full bg-orange-500 hover:bg-orange-600 text-white py-2 rounded-md text-sm">Edit Listing</button>
+                                    <button class="w-full bg-slate-500 hover:bg-slate-600 text-white py-2 rounded-md text-sm">View Analytics</button>
+                                </div>
+                            </div>
+
+                            <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Elite Transmission</h3>
+                                    <div class="flex items-center space-x-2">
+                                        <span class="bg-orange-100 text-orange-600 text-xs rounded-full px-2 py-1">Express</span>
+                                        <span class="bg-green-100 text-green-600 text-xs rounded-full px-2 py-1">Active</span>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-2 gap-4 mb-4">
+                                    <div>
+                                        <div class="text-lg font-bold text-slate-900 dark:text-white">89</div>
+                                        <div class="text-xs text-slate-600">Total Views</div>
+                                    </div>
+                                    <div>
+                                        <div class="text-lg font-bold text-blue-600">5</div>
+                                        <div class="text-xs text-slate-600">Inquiries</div>
+                                    </div>
+                                </div>
+                                <div class="space-y-2">
+                                    <button class="w-full bg-orange-500 hover:bg-orange-600 text-white py-2 rounded-md text-sm">Edit Listing</button>
+                                    <button class="w-full bg-slate-500 hover:bg-slate-600 text-white py-2 rounded-md text-sm">View Analytics</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Express Tools -->
+                        <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                            <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-4">Express Seller Tools</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div class="p-4 bg-slate-50 dark:bg-slate-700 rounded-lg text-center">
+                                    <div class="text-2xl font-bold text-orange-600">Priority</div>
+                                    <div class="text-sm text-slate-600 dark:text-slate-400">Search Placement</div>
+                                    <div class="text-xs text-green-600">Top 3 results</div>
+                                </div>
+                                <div class="p-4 bg-slate-50 dark:bg-slate-700 rounded-lg text-center">
+                                    <div class="text-2xl font-bold text-blue-600">Enhanced</div>
+                                    <div class="text-sm text-slate-600 dark:text-slate-400">Marketing</div>
+                                    <div class="text-xs text-blue-600">Featured badges</div>
+                                </div>
+                                <div class="p-4 bg-slate-50 dark:bg-slate-700 rounded-lg text-center">
+                                    <div class="text-2xl font-bold text-purple-600">Dedicated</div>
+                                    <div class="text-sm text-slate-600 dark:text-slate-400">Support</div>
+                                    <div class="text-xs text-purple-600">Priority assistance</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            loadBuyerInterest(contentDiv) {
+                contentDiv.innerHTML = `
+                    <div class="space-y-6">
+                        <div class="mb-8">
+                            <h1 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">Buyer Interest</h1>
+                            <p class="text-slate-600 dark:text-slate-300">Track and manage buyer interest in your Express Seller listings.</p>
+                        </div>
+
+                        <!-- Interest Overview -->
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                            <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                                <div class="text-2xl font-bold text-blue-600">8</div>
+                                <div class="text-sm text-slate-600 dark:text-slate-400">Total Interested</div>
+                                <div class="text-xs text-green-600">+2 this week</div>
+                            </div>
+                            <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                                <div class="text-2xl font-bold text-orange-600">5</div>
+                                <div class="text-sm text-slate-600 dark:text-slate-400">Qualified Buyers</div>
+                                <div class="text-xs text-orange-600">Pre-approved</div>
+                            </div>
+                            <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                                <div class="text-2xl font-bold text-green-600">3</div>
+                                <div class="text-sm text-slate-600 dark:text-slate-400">Express Buyers</div>
+                                <div class="text-xs text-green-600">Premium tier</div>
+                            </div>
+                            <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                                <div class="text-2xl font-bold text-purple-600">62%</div>
+                                <div class="text-sm text-slate-600 dark:text-slate-400">Response Rate</div>
+                                <div class="text-xs text-purple-600">Above average</div>
+                            </div>
+                        </div>
+
+                        <!-- Interested Buyers List -->
+                        <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                            <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-4">Recent Interest</h3>
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between p-4 bg-orange-50 dark:bg-orange-900/20 rounded-lg border border-orange-200 dark:border-orange-800">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold">JD</div>
+                                        <div>
+                                            <h4 class="font-medium text-slate-900 dark:text-white">John Doe</h4>
+                                            <p class="text-sm text-slate-600 dark:text-slate-300">Interested in Premier Auto Service</p>
+                                            <div class="flex items-center space-x-2 mt-1">
+                                                <span class="bg-blue-100 text-blue-600 text-xs rounded-full px-2 py-1">Express Buyer</span>
+                                                <span class="bg-green-100 text-green-600 text-xs rounded-full px-2 py-1">Qualified</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="text-sm font-medium text-orange-600">Serious Interest</div>
+                                        <div class="text-xs text-slate-600">2 hours ago</div>
+                                        <button class="mt-2 bg-orange-500 hover:bg-orange-600 text-white px-3 py-1 rounded text-xs">Contact</button>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-700 rounded-lg">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white font-bold">SW</div>
+                                        <div>
+                                            <h4 class="font-medium text-slate-900 dark:text-white">Sarah Wilson</h4>
+                                            <p class="text-sm text-slate-600 dark:text-slate-300">Interested in Elite Transmission</p>
+                                            <div class="flex items-center space-x-2 mt-1">
+                                                <span class="bg-slate-100 text-slate-600 text-xs rounded-full px-2 py-1">Standard Buyer</span>
+                                                <span class="bg-yellow-100 text-yellow-600 text-xs rounded-full px-2 py-1">Reviewing</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="text-sm font-medium text-green-600">Initial Interest</div>
+                                        <div class="text-xs text-slate-600">1 day ago</div>
+                                        <button class="mt-2 bg-slate-500 hover:bg-slate-600 text-white px-3 py-1 rounded text-xs">Contact</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            loadExpressStatus(contentDiv) {
+                contentDiv.innerHTML = `
+                    <div class="space-y-6">
+                        <div class="mb-8">
+                            <h1 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">Express Status</h1>
+                            <p class="text-slate-600 dark:text-slate-300">Monitor your Express Seller membership status and benefits.</p>
+                        </div>
+
+                        <!-- Express Status Card -->
+                        <div class="bg-gradient-to-r from-orange-500 to-red-600 rounded-lg p-6 text-white mb-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="flex items-center">
+                                    <span class="text-3xl mr-4">🏪</span>
+                                    <div>
+                                        <h3 class="text-xl font-semibold">Express Seller</h3>
+                                        <p class="text-orange-100">Premium Membership Active</p>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="bg-white/20 px-3 py-1 rounded-full text-sm font-medium">ACTIVE</div>
+                                    <div class="text-xs text-orange-100 mt-1">Member #847</div>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold">21</div>
+                                    <div class="text-sm text-orange-100">Days Avg Sale Time</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold">95%</div>
+                                    <div class="text-sm text-orange-100">Higher Offer Rate</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold">Priority</div>
+                                    <div class="text-sm text-orange-100">Search Placement</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Membership Details -->
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                                <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-4">Membership Information</h3>
+                                <div class="space-y-3">
+                                    <div class="flex justify-between">
+                                        <span class="text-slate-600 dark:text-slate-400">Status:</span>
+                                        <span class="font-medium text-green-600">Active</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-slate-600 dark:text-slate-400">Member Since:</span>
+                                        <span class="font-medium text-slate-900 dark:text-white">December 2023</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-slate-600 dark:text-slate-400">Renewal Date:</span>
+                                        <span class="font-medium text-slate-900 dark:text-white">December 2024</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-slate-600 dark:text-slate-400">Member ID:</span>
+                                        <span class="font-medium text-slate-900 dark:text-white">#847</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                                <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-4">Benefits & Features</h3>
+                                <div class="space-y-3">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                                        <span class="text-sm text-slate-600 dark:text-slate-300">Priority search placement</span>
+                                    </div>
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                                        <span class="text-sm text-slate-600 dark:text-slate-300">Enhanced marketing features</span>
+                                    </div>
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                                        <span class="text-sm text-slate-600 dark:text-slate-300">Dedicated support team</span>
+                                    </div>
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                                        <span class="text-sm text-slate-600 dark:text-slate-300">Advanced analytics dashboard</span>
+                                    </div>
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                                        <span class="text-sm text-slate-600 dark:text-slate-300">Faster average sale times</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Performance Comparison -->
+                        <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                            <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-4">Express vs Standard Performance</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="text-center p-4 bg-orange-50 dark:bg-orange-900/20 rounded-lg">
+                                    <div class="text-2xl font-bold text-orange-600">21 days</div>
+                                    <div class="text-sm text-slate-600 dark:text-slate-400">Your Avg Sale Time</div>
+                                    <div class="text-xs text-green-600">vs 45 days standard</div>
+                                </div>
+                                <div class="text-center p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                                    <div class="text-2xl font-bold text-blue-600">95%</div>
+                                    <div class="text-sm text-slate-600 dark:text-slate-400">Your Offer Rate</div>
+                                    <div class="text-xs text-green-600">vs 68% standard</div>
+                                </div>
+                                <div class="text-center p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
+                                    <div class="text-2xl font-bold text-purple-600">3.2x</div>
+                                    <div class="text-sm text-slate-600 dark:text-slate-400">More Views</div>
+                                    <div class="text-xs text-green-600">vs standard listings</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
             showSection(sectionId) {
                 console.log(`Showing section: ${sectionId}`);
 
@@ -1685,9 +3227,11 @@
             }
         }
 
-        // Initialize dashboard navigation
+        // Initialize dashboard navigation and responsive sidebar
         let dashboardNav;
+        let responsiveSidebar;
         document.addEventListener('DOMContentLoaded', function() {
+            responsiveSidebar = new ResponsiveSidebar();
             dashboardNav = new DashboardNavigation();
         });
     </script>
@@ -1910,40 +3454,6 @@
 
         // Simulate notifications every 2 minutes
         setInterval(simulateNewBuyerNotification, 120000);
-    </script>
-
-    <!-- Footer -->
-    <div id="footer-placeholder"></div>
-
-    <script>
-        // Load footer with error handling
-        fetch('../components/footer.html')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return response.text();
-            })
-            .then(data => {
-                document.getElementById('footer-placeholder').innerHTML = data;
-                console.log('Footer loaded successfully');
-            })
-            .catch(error => {
-                console.error('Error loading footer:', error);
-                // Fallback footer if loading fails
-                document.getElementById('footer-placeholder').innerHTML = `
-                    <footer class="bg-slate-900 text-white py-8">
-                        <div class="container mx-auto px-4 text-center">
-                            <p class="text-slate-400">© 2024 Ardonie Capital. All rights reserved.</p>
-                            <div class="mt-4">
-                                <a href="/terms-of-service.html" class="text-slate-400 hover:text-white mx-2">Terms</a>
-                                <a href="/privacy-policy.html" class="text-slate-400 hover:text-white mx-2">Privacy</a>
-                                <a href="/contact.html" class="text-slate-400 hover:text-white mx-2">Contact</a>
-                            </div>
-                        </div>
-                    </footer>
-                `;
-            });
     </script>
 </body>
 </html>

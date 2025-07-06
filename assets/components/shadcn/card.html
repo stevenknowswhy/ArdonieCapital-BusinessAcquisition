@@ -1,0 +1,167 @@
+<!-- Shadcn Card Component Templates -->
+
+<!-- Basic Card -->
+<div class="shadcn-card">
+  <div class="shadcn-card-header">
+    <h3 class="shadcn-card-title">Card Title</h3>
+    <p class="shadcn-card-description">Card description goes here</p>
+  </div>
+  <div class="shadcn-card-content">
+    <p>Card content goes here</p>
+  </div>
+  <div class="shadcn-card-footer">
+    <button class="shadcn-btn shadcn-btn--primary shadcn-btn--sm">Action</button>
+  </div>
+</div>
+
+<!-- KPI Widget Card -->
+<div class="shadcn-card">
+  <div class="shadcn-card-content pt-6">
+    <div class="flex items-center justify-between">
+      <div class="p-2 bg-blue-100 dark:bg-blue-900/20 rounded-lg">
+        <svg class="h-6 w-6 text-blue-600 dark:text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+        </svg>
+      </div>
+      <div class="text-right">
+        <p class="text-2xl font-bold">$485K</p>
+        <p class="text-xs font-medium text-muted-foreground">Avg Listing Price</p>
+        <p class="text-xs text-green-600">+5.2% vs market</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Deal Progress Card -->
+<div class="shadcn-card">
+  <div class="shadcn-card-header">
+    <div class="flex items-center justify-between">
+      <div>
+        <h4 class="shadcn-card-title text-base">Premier Auto Service</h4>
+        <p class="shadcn-card-description">Dallas, TX • $525,000</p>
+      </div>
+      <div class="text-right">
+        <div class="text-sm font-medium text-green-600">Due Diligence</div>
+        <div class="text-xs text-muted-foreground">Est. close: Feb 15</div>
+      </div>
+    </div>
+  </div>
+  <div class="shadcn-card-content">
+    <!-- Progress Bar -->
+    <div class="mb-3">
+      <div class="flex justify-between text-xs text-muted-foreground mb-1">
+        <span>Progress</span>
+        <span>75%</span>
+      </div>
+      <div class="shadcn-progress" data-value="75">
+        <div class="shadcn-progress-indicator"></div>
+      </div>
+    </div>
+    
+    <!-- Progress Steps -->
+    <div class="flex items-center justify-between text-xs">
+      <div class="flex items-center text-green-600">
+        <div class="w-2 h-2 bg-green-500 rounded-full mr-1"></div>
+        <span>Initial Contact</span>
+      </div>
+      <div class="flex items-center text-green-600">
+        <div class="w-2 h-2 bg-green-500 rounded-full mr-1"></div>
+        <span>Documentation</span>
+      </div>
+      <div class="flex items-center text-green-600">
+        <div class="w-2 h-2 bg-green-500 rounded-full mr-1"></div>
+        <span>Due Diligence</span>
+      </div>
+      <div class="flex items-center text-muted-foreground">
+        <div class="w-2 h-2 bg-gray-300 rounded-full mr-1"></div>
+        <span>Negotiation</span>
+      </div>
+      <div class="flex items-center text-muted-foreground">
+        <div class="w-2 h-2 bg-gray-300 rounded-full mr-1"></div>
+        <span>Closing</span>
+      </div>
+    </div>
+  </div>
+  <div class="shadcn-card-footer">
+    <div class="flex items-center justify-between w-full">
+      <div class="flex items-center">
+        <div class="shadcn-avatar shadcn-avatar--sm mr-2">
+          <div class="shadcn-avatar-fallback bg-green-100 text-green-600">MS</div>
+        </div>
+        <div>
+          <div class="text-sm font-medium">Mike Stevens</div>
+          <div class="text-xs text-muted-foreground">Response rate: 95% • Last active: 2h ago</div>
+        </div>
+      </div>
+      <button class="shadcn-btn shadcn-btn--ghost shadcn-btn--sm">View Details</button>
+    </div>
+  </div>
+</div>
+
+<!-- Activity Card -->
+<div class="shadcn-card">
+  <div class="shadcn-card-header">
+    <h3 class="shadcn-card-title">Recent Activity</h3>
+  </div>
+  <div class="shadcn-card-content">
+    <div class="space-y-4">
+      <!-- Activity Item -->
+      <div class="flex items-start space-x-3">
+        <div class="flex-shrink-0">
+          <div class="shadcn-avatar shadcn-avatar--sm bg-green-100 dark:bg-green-900/20">
+            <div class="shadcn-avatar-fallback text-green-600">
+              <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm font-medium">New match found: Premier Auto Service</p>
+          <p class="text-sm text-muted-foreground">Dallas, TX • $525,000 • 95% match score</p>
+          <p class="text-xs text-muted-foreground">2 hours ago</p>
+        </div>
+        <div class="flex-shrink-0">
+          <button class="shadcn-btn shadcn-btn--ghost shadcn-btn--sm">View</button>
+        </div>
+      </div>
+      
+      <!-- Activity Item with Badge -->
+      <div class="flex items-start space-x-3">
+        <div class="flex-shrink-0">
+          <div class="shadcn-avatar shadcn-avatar--sm bg-blue-100 dark:bg-blue-900/20">
+            <div class="shadcn-avatar-fallback text-blue-600">
+              <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm font-medium">Message received from Mike Stevens</p>
+          <p class="text-sm text-muted-foreground">"Financial documents are ready for review..."</p>
+          <p class="text-xs text-muted-foreground">5 hours ago</p>
+        </div>
+        <div class="flex-shrink-0">
+          <span class="shadcn-badge shadcn-badge--destructive">Urgent</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Clickable Card -->
+<div class="shadcn-card cursor-pointer transition-all hover:shadow-md" data-clickable="true" data-href="/deal/123">
+  <div class="shadcn-card-content">
+    <div class="flex items-center justify-between">
+      <div>
+        <h4 class="font-semibold">Elite Transmission</h4>
+        <p class="text-sm text-muted-foreground">Fort Worth, TX</p>
+      </div>
+      <div class="text-right">
+        <p class="text-lg font-bold">$385K</p>
+        <span class="shadcn-badge shadcn-badge--secondary">Active</span>
+      </div>
+    </div>
+  </div>
+</div>

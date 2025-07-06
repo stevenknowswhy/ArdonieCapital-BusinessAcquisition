@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Ardonie Capital</title>
+    <title>Buyer Dashboard - Ardonie Capital</title>
+
+    <!-- Security Scripts -->
+    <script src="../assets/js/protected-page.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Chart.js for interactive charts -->
@@ -77,8 +80,10 @@
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
         }
     </style>
+    <!-- Shadcn Components CSS -->
+    <link rel="stylesheet" href="../assets/css/shadcn-components.css">
 </head>
-<body class="font-sans text-slate-800 bg-slate-50 dark:bg-slate-900 dark:text-slate-200">
+<body class="font-sans text-slate-800 bg-slate-50 dark:bg-slate-900 dark:text-slate-200" data-required-role="buyer,admin">
     <!-- Header -->
     <header class="bg-white dark:bg-slate-800 shadow-sm border-b border-slate-200 dark:border-slate-700">
         <div class="px-4 sm:px-6 lg:px-8">
@@ -119,16 +124,31 @@
 
                     <!-- User Profile -->
                     <div class="flex items-center space-x-3">
-                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=32&h=32&q=80" alt="Profile" class="w-8 h-8 rounded-full">
-                        <div class="hidden md:block">
-                            <div class="text-sm font-medium text-slate-700 dark:text-slate-300">John Doe</div>
-                            <div class="text-xs text-slate-500 dark:text-slate-400">Express Buyer</div>
+                        <div class="w-8 h-8 bg-primary-dark text-white rounded-full flex items-center justify-center text-sm font-semibold" data-user-avatar>
+                            JD
                         </div>
-                        <button type="button" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300" title="User menu">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                            </svg>
-                        </button>
+                        <div class="hidden md:block">
+                            <div class="text-sm font-medium text-slate-700 dark:text-slate-300" data-user-name>John Doe</div>
+                            <div class="text-xs text-slate-500 dark:text-slate-400" data-user-role>Express Buyer</div>
+                        </div>
+                        <div class="relative">
+                            <button type="button" id="user-menu-button" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300" title="User menu">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+                            <!-- User Menu Dropdown -->
+                            <div id="user-menu-dropdown" class="hidden absolute right-0 mt-2 w-48 bg-white dark:bg-slate-800 rounded-md shadow-lg border border-slate-200 dark:border-slate-700 z-50">
+                                <div class="py-1">
+                                    <a href="#" class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700">Profile Settings</a>
+                                    <a href="#" class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700">Account Preferences</a>
+                                    <div class="border-t border-slate-200 dark:border-slate-600"></div>
+                                    <button type="button" data-logout class="w-full text-left block px-4 py-2 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20">
+                                        Sign Out
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -156,7 +176,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                         </svg>
                         Market Analytics
-                        <span class="ml-auto bg-blue-100 text-blue-600 text-xs rounded-full px-2 py-1">NEW</span>
+                        <span class="shadcn-badge shadcn-badge--default bg-blue-500">NEW</span>
                     </a>
 
                     <a href="#" data-section="notifications" class="sidebar-nav-item text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 group flex items-center px-3 py-2 text-sm font-medium rounded-md">
@@ -164,7 +184,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-5 5v-5zM11 19H6a2 2 0 01-2-2V7a2 2 0 012-2h5m5 0v5" />
                         </svg>
                         Notifications
-                        <span class="ml-auto bg-red-500 text-white text-xs rounded-full px-2 py-1">5</span>
+                        <span class="shadcn-badge shadcn-badge--destructive">5</span>
                     </a>
                 </div>
 
@@ -192,7 +212,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                         </svg>
                         My Matches
-                        <span class="ml-auto bg-accent text-white text-xs rounded-full px-2 py-1">5</span>
+                        <span class="shadcn-badge shadcn-badge--default bg-green-500">5</span>
                     </a>
                 </div>
 
@@ -306,108 +326,137 @@
                         </div>
                     </div>
 
-                <!-- Enhanced KPI Widgets -->
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6 mb-8">
+                                <!-- Enhanced KPI Widgets with Shadcn Cards -->
+                <div class="dashboard-section-spacing">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 shadcn-grid-spacing-lg">
                     <!-- Saved Listings -->
-                    <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
-                        <div class="flex items-center justify-between">
-                            <div class="p-2 bg-primary/10 rounded-lg">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-dark" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
-                                </svg>
+                    <div class="shadcn-card shadcn-card--kpi">
+                        <div class="shadcn-card-content">
+                            <div class="flex items-center justify-between">
+                                <div class="p-2 bg-blue-100 dark:bg-blue-900/20 rounded-lg">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600 dark:text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                                    </svg>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-2xl font-bold">12</p>
+                                    <p class="text-xs font-medium shadcn-text-muted">Saved Listings</p>
+                                    <span class="shadcn-badge shadcn-badge--default bg-green-500 text-xs">+2 this week</span>
+                                </div>
                             </div>
-                            <div class="text-right">
-                                <p class="text-2xl font-bold text-slate-900 dark:text-white">12</p>
-                                <p class="text-xs font-medium text-slate-600 dark:text-slate-400">Saved Listings</p>
-                                <p class="text-xs text-green-600">+2 this week</p>
-                            </div>
+                        </div>
+                        <div class="shadcn-card-footer shadcn-card-footer--center">
+                            <span class="text-xs text-slate-500">Last updated: 2 hours ago</span>
                         </div>
                     </div>
 
                     <!-- Active Matches -->
-                    <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
-                        <div class="flex items-center justify-between">
-                            <div class="p-2 bg-accent/10 rounded-lg">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-accent-dark" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                                </svg>
-                            </div>
-                            <div class="text-right">
-                                <p class="text-2xl font-bold text-slate-900 dark:text-white">5</p>
-                                <p class="text-xs font-medium text-slate-600 dark:text-slate-400">Active Matches</p>
-                                <p class="text-xs text-green-600">+1 today</p>
+                    <div class="shadcn-card shadcn-card--kpi">
+                        <div class="shadcn-card-content">
+                            <div class="flex items-center justify-between">
+                                <div class="p-2 bg-green-100 dark:bg-green-900/20 rounded-lg">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                                    </svg>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-2xl font-bold">5</p>
+                                    <p class="text-xs font-medium shadcn-text-muted">Active Matches</p>
+                                    <span class="shadcn-badge shadcn-badge--default bg-green-500 text-xs">+1 today</span>
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Unread Messages -->
-                    <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
-                        <div class="flex items-center justify-between">
-                            <div class="p-2 bg-orange-100 dark:bg-orange-900/20 rounded-lg">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-orange-600 dark:text-orange-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                                </svg>
+                    <div class="shadcn-card shadcn-card--kpi">
+                        <div class="shadcn-card-content">
+                            <div class="flex items-center justify-between">
+                                <div class="p-2 bg-orange-100 dark:bg-orange-900/20 rounded-lg">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-orange-600 dark:text-orange-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                                    </svg>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-2xl font-bold">3</p>
+                                    <p class="text-xs font-medium shadcn-text-muted">Unread Messages</p>
+                                    <span class="shadcn-badge shadcn-badge--destructive text-xs">2 urgent</span>
+                                </div>
                             </div>
-                            <div class="text-right">
-                                <p class="text-2xl font-bold text-slate-900 dark:text-white">3</p>
-                                <p class="text-xs font-medium text-slate-600 dark:text-slate-400">Unread Messages</p>
-                                <p class="text-xs text-orange-600">2 urgent</p>
-                            </div>
+                        </div>
+                        <div class="shadcn-card-footer shadcn-card-footer--end">
+                            <span class="text-xs text-orange-600 font-medium">Action required</span>
                         </div>
                     </div>
 
                     <!-- Active Deals -->
-                    <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
-                        <div class="flex items-center justify-between">
-                            <div class="p-2 bg-blue-100 dark:bg-blue-900/20 rounded-lg">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600 dark:text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                </svg>
+                    <div class="shadcn-card shadcn-card--kpi">
+                        <div class="shadcn-card-content">
+                            <div class="flex items-center justify-between">
+                                <div class="p-2 bg-purple-100 dark:bg-purple-900/20 rounded-lg">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-600 dark:text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                    </svg>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-2xl font-bold">2</p>
+                                    <p class="text-xs font-medium shadcn-text-muted">Active Deals</p>
+                                    <span class="shadcn-badge shadcn-badge--default bg-blue-500 text-xs">1 closing soon</span>
+                                </div>
                             </div>
-                            <div class="text-right">
-                                <p class="text-2xl font-bold text-slate-900 dark:text-white">2</p>
-                                <p class="text-xs font-medium text-slate-600 dark:text-slate-400">Active Deals</p>
-                                <p class="text-xs text-blue-600">1 closing soon</p>
-                            </div>
+                        </div>
+                        <div class="shadcn-card-footer shadcn-card-footer--between">
+                            <span class="text-xs text-slate-500">Due diligence</span>
+                            <span class="text-xs text-green-600 font-medium">75% complete</span>
                         </div>
                     </div>
 
                     <!-- Average Listing Price -->
-                    <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
-                        <div class="flex items-center justify-between">
-                            <div class="p-2 bg-green-100 dark:bg-green-900/20 rounded-lg">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
-                                </svg>
+                    <div class="shadcn-card shadcn-card--kpi">
+                        <div class="shadcn-card-content">
+                            <div class="flex items-center justify-between">
+                                <div class="p-2 bg-green-100 dark:bg-green-900/20 rounded-lg">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
+                                    </svg>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-2xl font-bold">$485K</p>
+                                    <p class="text-xs font-medium shadcn-text-muted">Avg Listing Price</p>
+                                    <span class="shadcn-badge shadcn-badge--default bg-green-500 text-xs">+5.2% vs market</span>
+                                </div>
                             </div>
-                            <div class="text-right">
-                                <p class="text-2xl font-bold text-slate-900 dark:text-white">$485K</p>
-                                <p class="text-xs font-medium text-slate-600 dark:text-slate-400">Avg Listing Price</p>
-                                <p class="text-xs text-green-600">+5.2% vs market</p>
-                            </div>
+                        </div>
+                        <div class="shadcn-card-footer shadcn-card-footer--start">
+                            <span class="text-xs text-slate-500">Market trend: ↗️ Rising</span>
                         </div>
                     </div>
 
                     <!-- Time to Close -->
-                    <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
-                        <div class="flex items-center justify-between">
-                            <div class="p-2 bg-purple-100 dark:bg-purple-900/20 rounded-lg">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-600 dark:text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                            </div>
-                            <div class="text-right">
-                                <p class="text-2xl font-bold text-slate-900 dark:text-white">34</p>
-                                <p class="text-xs font-medium text-slate-600 dark:text-slate-400">Days to Close</p>
-                                <p class="text-xs text-purple-600">Express avg</p>
+                    <div class="shadcn-card shadcn-card--kpi">
+                        <div class="shadcn-card-content">
+                            <div class="flex items-center justify-between">
+                                <div class="p-2 bg-purple-100 dark:bg-purple-900/20 rounded-lg">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-600 dark:text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-2xl font-bold">34</p>
+                                    <p class="text-xs font-medium shadcn-text-muted">Days to Close</p>
+                                    <span class="shadcn-badge shadcn-badge--default bg-gradient-to-r from-green-500 to-green-600 text-xs">
+                                        <span class="mr-1">🚖</span>Express avg
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                </div>
 
                 <!-- Market Overview Section -->
-                <div class="mb-8">
-                    <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                <div class="dashboard-section-spacing">
+                    <div class="shadcn-card">
                         <div class="flex items-center justify-between mb-6">
                             <h2 class="text-lg font-semibold text-slate-900 dark:text-white">DFW Auto Repair Market Overview</h2>
                             <div class="flex items-center space-x-2">
@@ -448,9 +497,10 @@
                 </div>
 
                 <!-- Charts and Analytics Row -->
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                <div class="dashboard-section-spacing">
+                <div class="grid grid-cols-1 lg:grid-cols-2 shadcn-grid-spacing-lg">
                     <!-- Listing Activity Chart -->
-                    <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                    <div class="shadcn-card">
                         <div class="flex items-center justify-between mb-4">
                             <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Listing Activity</h3>
                             <label for="listing-activity-timeframe" class="sr-only">Select time period for listing activity</label>
@@ -466,7 +516,7 @@
                     </div>
 
                     <!-- Price Analytics Chart -->
-                    <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                    <div class="shadcn-card">
                         <div class="flex items-center justify-between mb-4">
                             <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Price Analytics</h3>
                             <div class="flex items-center space-x-2">
@@ -478,9 +528,10 @@
                         </div>
                     </div>
                 </div>
+                </div>
 
                 <!-- Express Benefits Section -->
-                <div class="mb-8">
+                <div class="dashboard-section-spacing">
                     <div class="bg-gradient-to-r from-accent/10 to-primary/10 dark:from-accent/20 dark:to-primary/20 rounded-lg p-6 border border-accent/20">
                         <div class="flex items-center justify-between mb-4">
                             <div class="flex items-center">
@@ -517,9 +568,10 @@
                 </div>
 
                 <!-- Seller Progress Tracking & Recent Activity -->
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="dashboard-section-spacing">
+                <div class="grid grid-cols-1 lg:grid-cols-2 shadcn-grid-spacing-lg">
                     <!-- Seller Progress Tracking -->
-                    <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                    <div class="shadcn-card">
                         <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-4">Active Deal Progress</h3>
 
                         <!-- Deal 1: Premier Auto Service -->
@@ -541,8 +593,8 @@
                                     <span>Progress</span>
                                     <span>75%</span>
                                 </div>
-                                <div class="w-full bg-slate-200 dark:bg-slate-600 rounded-full h-2">
-                                    <div class="bg-green-500 h-2 rounded-full w-3/4"></div>
+                                <div class="shadcn-progress" data-value="75">
+                                    <div class="shadcn-progress-indicator"></div>
                                 </div>
                             </div>
 
@@ -573,15 +625,15 @@
                             <!-- Seller Info -->
                             <div class="mt-3 flex items-center justify-between">
                                 <div class="flex items-center">
-                                    <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-2">
-                                        <span class="text-xs font-medium text-green-600">MS</span>
+                                    <div class="shadcn-avatar shadcn-avatar--sm mr-2">
+                                        <div class="shadcn-avatar-fallback bg-green-100 text-green-600">MS</div>
                                     </div>
                                     <div>
                                         <div class="text-sm font-medium text-slate-900 dark:text-white">Mike Stevens</div>
                                         <div class="text-xs text-slate-600">Response rate: 95% • Last active: 2h ago</div>
                                     </div>
                                 </div>
-                                <button type="button" class="text-sm text-accent hover:text-accent-dark">View Details</button>
+                                <button type="button" class="shadcn-btn shadcn-btn--ghost shadcn-btn--sm">View Details</button>
                             </div>
                         </div>
 
@@ -636,25 +688,25 @@
                             <!-- Seller Info -->
                             <div class="mt-3 flex items-center justify-between">
                                 <div class="flex items-center">
-                                    <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-2">
-                                        <span class="text-xs font-medium text-blue-600">RJ</span>
+                                    <div class="shadcn-avatar shadcn-avatar--sm mr-2">
+                                        <div class="shadcn-avatar-fallback bg-blue-100 text-blue-600">RJ</div>
                                     </div>
                                     <div>
                                         <div class="text-sm font-medium text-slate-900 dark:text-white">Robert Johnson</div>
                                         <div class="text-xs text-slate-600">Response rate: 88% • Last active: 1d ago</div>
                                     </div>
                                 </div>
-                                <button type="button" class="text-sm text-accent hover:text-accent-dark">View Details</button>
+                                <button type="button" class="shadcn-btn shadcn-btn--ghost shadcn-btn--sm">View Details</button>
                             </div>
                         </div>
                     </div>
 
                     <!-- Recent Activity -->
-                    <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700">
-                        <div class="p-6 border-b border-slate-200 dark:border-slate-700">
-                            <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Recent Activity</h3>
+                    <div class="shadcn-card">
+                        <div class="shadcn-card-header">
+                            <h3 class="shadcn-card-title">Recent Activity</h3>
                         </div>
-                        <div class="p-6">
+                        <div class="shadcn-card-content">
                             <div class="space-y-4">
                                 <!-- Activity Item 1 -->
                                 <div class="flex items-start space-x-3">
@@ -671,7 +723,7 @@
                                         <p class="text-xs text-slate-500 dark:text-slate-500">2 hours ago</p>
                                     </div>
                                     <div class="flex-shrink-0">
-                                        <button type="button" class="text-sm text-accent hover:text-accent-dark">View</button>
+                                        <button type="button" class="shadcn-btn shadcn-btn--ghost shadcn-btn--sm">View</button>
                                     </div>
                                 </div>
 
@@ -709,7 +761,7 @@
                                         <p class="text-xs text-slate-500 dark:text-slate-500">1 day ago</p>
                                     </div>
                                     <div class="flex-shrink-0">
-                                        <button type="button" class="text-sm text-accent hover:text-accent-dark">Review</button>
+                                        <button type="button" class="shadcn-btn shadcn-btn--ghost shadcn-btn--sm">Review</button>
                                     </div>
                                 </div>
 
@@ -728,7 +780,7 @@
                                         <p class="text-xs text-slate-500 dark:text-slate-500">2 days ago</p>
                                     </div>
                                     <div class="flex-shrink-0">
-                                        <button type="button" class="text-sm text-accent hover:text-accent-dark">View</button>
+                                        <button type="button" class="shadcn-btn shadcn-btn--ghost shadcn-btn--sm">View</button>
                                     </div>
                                 </div>
 
@@ -752,10 +804,11 @@
                                 </div>
                             </div>
 
-                            <!-- View All Activity Button -->
-                            <div class="mt-6 text-center">
-                                <button type="button" class="text-sm text-accent hover:text-accent-dark font-medium">View All Activity</button>
-                            </div>
+                        </div>
+
+                        <!-- Card Footer with proper alignment -->
+                        <div class="shadcn-card-footer shadcn-card-footer--center shadcn-card-footer--no-border">
+                            <button type="button" class="shadcn-btn shadcn-btn--ghost shadcn-btn--sm">View All Activity</button>
                         </div>
                     </div>
                 </div>
@@ -1145,7 +1198,7 @@
                         </div>
 
                         <!-- Funding Calculator -->
-                        <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                        <div class="shadcn-card">
                             <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-4">Loan Calculator</h3>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
@@ -1171,7 +1224,7 @@
                         </div>
 
                         <!-- Funding Options -->
-                        <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                        <div class="shadcn-card">
                             <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-4">Funding Options</h3>
                             <div class="space-y-4">
                                 <div class="p-4 bg-accent/10 rounded-lg border border-accent/20">
@@ -1205,7 +1258,7 @@
 
                         <!-- Course Categories -->
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                            <div class="shadcn-card">
                                 <div class="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -1216,7 +1269,7 @@
                                 <div class="text-xs text-slate-500">5 modules • 2 hours</div>
                             </div>
 
-                            <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                            <div class="shadcn-card">
                                 <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/20 rounded-lg flex items-center justify-center mb-4">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
@@ -1227,7 +1280,7 @@
                                 <div class="text-xs text-slate-500">4 modules • 1.5 hours</div>
                             </div>
 
-                            <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                            <div class="shadcn-card">
                                 <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900/20 rounded-lg flex items-center justify-center mb-4">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
@@ -1240,7 +1293,7 @@
                         </div>
 
                         <!-- Recent Articles -->
-                        <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                        <div class="shadcn-card">
                             <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-4">Recent Articles</h3>
                             <div class="space-y-4">
                                 <div class="flex items-start space-x-4">
@@ -1276,22 +1329,22 @@
 
                         <!-- Market Overview -->
                         <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-                            <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                            <div class="shadcn-card">
                                 <div class="text-2xl font-bold text-blue-600">47</div>
                                 <div class="text-sm text-slate-600 dark:text-slate-400">Active Listings</div>
                                 <div class="text-xs text-green-600">+12% vs last month</div>
                             </div>
-                            <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                            <div class="shadcn-card">
                                 <div class="text-2xl font-bold text-accent">$485K</div>
                                 <div class="text-sm text-slate-600 dark:text-slate-400">Avg Transaction</div>
                                 <div class="text-xs text-blue-600">+5.2% vs market</div>
                             </div>
-                            <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                            <div class="shadcn-card">
                                 <div class="text-2xl font-bold text-orange-600">28</div>
                                 <div class="text-sm text-slate-600 dark:text-slate-400">Days on Market</div>
                                 <div class="text-xs text-red-600">+5 days vs last year</div>
                             </div>
-                            <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                            <div class="shadcn-card">
                                 <div class="text-2xl font-bold text-purple-600">92%</div>
                                 <div class="text-sm text-slate-600 dark:text-slate-400">Success Rate</div>
                                 <div class="text-xs text-green-600">Express buyers</div>
@@ -1299,7 +1352,7 @@
                         </div>
 
                         <!-- Market Trends -->
-                        <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                        <div class="shadcn-card">
                             <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-4">Market Trends</h3>
                             <div class="h-64 flex items-center justify-center bg-slate-50 dark:bg-slate-700 rounded-lg">
                                 <p class="text-slate-600 dark:text-slate-400">Market trend charts will be displayed here</p>
@@ -1366,7 +1419,7 @@
 
                         <!-- Saved Searches List -->
                         <div class="space-y-4">
-                            <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                            <div class="shadcn-card">
                                 <div class="flex items-center justify-between mb-4">
                                     <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Auto Repair Shops - DFW</h3>
                                     <span class="bg-accent text-white text-xs rounded-full px-2 py-1">Active</span>
@@ -1387,7 +1440,7 @@
                                 </div>
                             </div>
 
-                            <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                            <div class="shadcn-card">
                                 <div class="flex items-center justify-between mb-4">
                                     <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Transmission Specialists</h3>
                                     <span class="bg-slate-100 text-slate-600 text-xs rounded-full px-2 py-1">Paused</span>
@@ -1421,7 +1474,7 @@
                         </div>
 
                         <!-- Message List -->
-                        <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                        <div class="shadcn-card">
                             <div class="space-y-4">
                                 <div class="flex items-start space-x-4 p-4 bg-orange-50 dark:bg-orange-900/20 rounded-lg">
                                     <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold">PS</div>
@@ -1431,7 +1484,7 @@
                                             <span class="text-xs text-slate-600">2 hours ago</span>
                                         </div>
                                         <p class="text-sm text-slate-600 dark:text-slate-300">Thank you for your interest. I've attached the requested financial statements for your review.</p>
-                                        <button class="mt-2 text-sm text-accent hover:text-accent-dark">Reply</button>
+                                        <button class="shadcn-btn shadcn-btn--ghost shadcn-btn--sm">Reply</button>
                                     </div>
                                 </div>
 
@@ -1443,7 +1496,7 @@
                                             <span class="text-xs text-slate-600">1 day ago</span>
                                         </div>
                                         <p class="text-sm text-slate-600 dark:text-slate-300">We'd be happy to schedule a site visit. Are you available next week?</p>
-                                        <button class="mt-2 text-sm text-accent hover:text-accent-dark">Reply</button>
+                                        <button class="shadcn-btn shadcn-btn--ghost shadcn-btn--sm">Reply</button>
                                     </div>
                                 </div>
 
@@ -1455,7 +1508,7 @@
                                             <span class="text-xs text-slate-600">3 days ago</span>
                                         </div>
                                         <p class="text-sm text-slate-600 dark:text-slate-300">The asking price is firm, but we're open to discussing terms and transition support.</p>
-                                        <button class="mt-2 text-sm text-accent hover:text-accent-dark">Reply</button>
+                                        <button class="shadcn-btn shadcn-btn--ghost shadcn-btn--sm">Reply</button>
                                     </div>
                                 </div>
                             </div>
@@ -1474,7 +1527,7 @@
 
                         <!-- Deal Rooms List -->
                         <div class="space-y-4">
-                            <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                            <div class="shadcn-card">
                                 <div class="flex items-center justify-between mb-4">
                                     <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Premier Auto Service - Deal Room</h3>
                                     <span class="bg-green-100 text-green-600 text-xs rounded-full px-2 py-1">Active</span>
@@ -1495,7 +1548,7 @@
                                 </div>
                             </div>
 
-                            <div class="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                            <div class="shadcn-card">
                                 <div class="flex items-center justify-between mb-4">
                                     <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Elite Transmission - Deal Room</h3>
                                     <span class="bg-blue-100 text-blue-600 text-xs rounded-full px-2 py-1">Pending</span>
@@ -1729,6 +1782,31 @@
                     </footer>
                 `;
             });
+
+        // User menu toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const userMenuButton = document.getElementById('user-menu-button');
+            const userMenuDropdown = document.getElementById('user-menu-dropdown');
+
+            if (userMenuButton && userMenuDropdown) {
+                userMenuButton.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    userMenuDropdown.classList.toggle('hidden');
+                });
+
+                // Close dropdown when clicking outside
+                document.addEventListener('click', function() {
+                    userMenuDropdown.classList.add('hidden');
+                });
+
+                // Prevent dropdown from closing when clicking inside it
+                userMenuDropdown.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+            }
+        });
     </script>
+    <!-- Shadcn Components JavaScript -->
+    <script src="../assets/js/shadcn-components.js"></script>
 </body>
 </html>

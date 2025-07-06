@@ -1,0 +1,51 @@
+{
+  "mcpServers": {
+    "shadcn-ui-server": {
+      "command": "npx",
+      "args": ["@heilgar/shadcn-ui-mcp-server"],
+      "description": "Shadcn UI MCP Server for component management and AI integration",
+      "capabilities": [
+        "list-components",
+        "get-component-docs", 
+        "install-component",
+        "list-blocks",
+        "get-block-docs",
+        "install-blocks"
+      ]
+    }
+  },
+  "server": {
+    "name": "BuyMart Shadcn MCP Server",
+    "version": "1.0.0",
+    "port": 3001,
+    "host": "localhost",
+    "endpoints": {
+      "sse": "http://localhost:3001/sse",
+      "websocket": "ws://localhost:3001/ws",
+      "http": "http://localhost:3001"
+    }
+  },
+  "integration": {
+    "claude_desktop": {
+      "config_path": "~/Library/Application Support/Claude/claude_desktop_config.json",
+      "config_path_windows": "%APPDATA%/Claude/claude_desktop_config.json"
+    },
+    "cursor": {
+      "config_path": ".cursor/mcp.json"
+    },
+    "windsurf": {
+      "config_path": "./codeium/windsurf/model_config.json"
+    },
+    "vscode": {
+      "settings_path": ".vscode/settings.json"
+    }
+  },
+  "features": {
+    "component_management": true,
+    "block_management": true,
+    "package_manager_support": ["npm", "pnpm", "yarn", "bun"],
+    "auto_detection": true,
+    "documentation_access": true,
+    "installation_scripts": true
+  }
+}

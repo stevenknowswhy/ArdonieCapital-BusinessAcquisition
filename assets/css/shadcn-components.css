@@ -1,0 +1,590 @@
+/**
+ * Shadcn-Inspired Components for Static HTML
+ * Based on shadcn/ui design system adapted for vanilla HTML/CSS
+ */
+
+/* ===== CSS CUSTOM PROPERTIES (Design Tokens) ===== */
+:root {
+  /* Colors */
+  --background: 0 0% 100%;
+  --foreground: 222.2 84% 4.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 222.2 84% 4.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 222.2 84% 4.9%;
+  --primary: 221.2 83.2% 53.3%;
+  --primary-foreground: 210 40% 98%;
+  --secondary: 210 40% 96%;
+  --secondary-foreground: 222.2 84% 4.9%;
+  --muted: 210 40% 96%;
+  --muted-foreground: 215.4 16.3% 46.9%;
+  --accent: 210 40% 96%;
+  --accent-foreground: 222.2 84% 4.9%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 214.3 31.8% 91.4%;
+  --input: 214.3 31.8% 91.4%;
+  --ring: 221.2 83.2% 53.3%;
+  --radius: 0.5rem;
+}
+
+.dark {
+  --background: 222.2 84% 4.9%;
+  --foreground: 210 40% 98%;
+  --card: 222.2 84% 4.9%;
+  --card-foreground: 210 40% 98%;
+  --popover: 222.2 84% 4.9%;
+  --popover-foreground: 210 40% 98%;
+  --primary: 217.2 91.2% 59.8%;
+  --primary-foreground: 222.2 84% 4.9%;
+  --secondary: 217.2 32.6% 17.5%;
+  --secondary-foreground: 210 40% 98%;
+  --muted: 217.2 32.6% 17.5%;
+  --muted-foreground: 215 20.2% 65.1%;
+  --accent: 217.2 32.6% 17.5%;
+  --accent-foreground: 210 40% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 217.2 32.6% 17.5%;
+  --input: 217.2 32.6% 17.5%;
+  --ring: 224.3 76.3% 94.1%;
+}
+
+/* ===== BASE STYLES ===== */
+* {
+  border-color: hsl(var(--border));
+}
+
+body {
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+}
+
+/* ===== CARD COMPONENT ===== */
+.shadcn-card {
+  border-radius: calc(var(--radius) + 2px);
+  border: 1px solid hsl(var(--border));
+  background-color: hsl(var(--card));
+  color: hsl(var(--card-foreground));
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.shadcn-card:hover {
+  box-shadow: 0 4px 12px 0 rgb(0 0 0 / 0.15), 0 2px 4px -1px rgb(0 0 0 / 0.1);
+}
+
+.shadcn-card-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  padding: 2rem;
+  padding-bottom: 1rem;
+}
+
+.shadcn-card-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  margin-bottom: 0.25rem;
+}
+
+.shadcn-card-description {
+  font-size: 0.875rem;
+  color: hsl(var(--muted-foreground));
+  line-height: 1.4;
+}
+
+.shadcn-card-content {
+  padding: 2rem;
+  padding-top: 1rem;
+}
+
+.shadcn-card-footer {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 2rem !important;
+  padding-top: 1rem !important;
+  border-top: 1px solid hsl(var(--border) / 0.1) !important;
+  margin-top: auto !important;
+  background-color: transparent;
+  font-size: 0.875rem;
+}
+
+/* Footer Alignment Variants */
+.shadcn-card-footer--center {
+  justify-content: center !important;
+}
+
+.shadcn-card-footer--start {
+  justify-content: flex-start !important;
+}
+
+.shadcn-card-footer--end {
+  justify-content: flex-end !important;
+}
+
+.shadcn-card-footer--between {
+  justify-content: space-between !important;
+}
+
+.shadcn-card-footer--around {
+  justify-content: space-around !important;
+}
+
+/* Footer without border */
+.shadcn-card-footer--no-border {
+  border-top: none !important;
+}
+
+/* Card Variants */
+.shadcn-card--outline {
+  border: 2px solid hsl(var(--border));
+  background-color: transparent;
+}
+
+.shadcn-card--filled {
+  background-color: hsl(var(--muted));
+  border: none;
+}
+
+/* Enhanced Card Spacing Variants for Better Visual Hierarchy */
+.shadcn-card--compact {
+  padding: 0.75rem;
+}
+
+.shadcn-card--compact .shadcn-card-header {
+  padding: 1.25rem;
+  padding-bottom: 0.75rem;
+}
+
+.shadcn-card--compact .shadcn-card-content {
+  padding: 1.25rem;
+  padding-top: 0.5rem;
+}
+
+.shadcn-card--compact .shadcn-card-footer {
+  padding: 1.25rem;
+  padding-top: 0.75rem;
+}
+
+.shadcn-card--spacious {
+  padding: 0.75rem;
+}
+
+.shadcn-card--spacious .shadcn-card-header {
+  padding: 2.75rem;
+  padding-bottom: 1.5rem;
+}
+
+.shadcn-card--spacious .shadcn-card-content {
+  padding: 2.75rem;
+  padding-top: 1rem;
+}
+
+.shadcn-card--spacious .shadcn-card-footer {
+  padding: 2.75rem;
+  padding-top: 1.5rem;
+}
+
+/* Default card spacing improvements */
+.shadcn-card-header {
+  padding: 2rem;
+  padding-bottom: 1.25rem;
+}
+
+.shadcn-card-content {
+  padding: 2rem;
+  padding-top: 0.75rem;
+}
+
+.shadcn-card-footer {
+  padding: 2rem;
+  padding-top: 1.25rem;
+}
+
+/* Enhanced KPI Card Styling for Better Visual Hierarchy */
+.shadcn-card--kpi {
+  min-height: 150px; /* Increased height for better proportions */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.shadcn-card--kpi .shadcn-card-content {
+  padding: 2rem; /* Increased padding for better spacing */
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.shadcn-card--kpi .shadcn-card-footer {
+  padding: 1.25rem 2rem !important; /* Increased padding */
+  border-top: 1px solid hsl(var(--border) / 0.08) !important;
+  background-color: hsl(var(--muted) / 0.4) !important;
+  margin-top: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* Responsive KPI card adjustments */
+@media (max-width: 640px) {
+  .shadcn-card--kpi {
+    min-height: 130px;
+  }
+
+  .shadcn-card--kpi .shadcn-card-content {
+    padding: 1.25rem;
+  }
+
+  .shadcn-card--kpi .shadcn-card-footer {
+    padding: 1rem 1.25rem !important;
+  }
+}
+
+/* Remove duplicate rules - already defined above */
+
+/* Dashboard Section Spacing */
+.dashboard-section-spacing {
+  margin-bottom: 3rem;
+}
+
+.dashboard-section-spacing:last-child {
+  margin-bottom: 0;
+}
+
+/* Enhanced Grid Spacing for Better Visual Hierarchy */
+.shadcn-grid-spacing {
+  gap: 1.75rem; /* Improved base spacing */
+}
+
+.shadcn-grid-spacing-lg {
+  gap: 2.25rem; /* Better large spacing */
+}
+
+.shadcn-grid-spacing-xl {
+  gap: 2.75rem; /* Enhanced extra large spacing */
+}
+
+/* Responsive Spacing Improvements */
+@media (min-width: 640px) {
+  .shadcn-grid-spacing {
+    gap: 2.25rem; /* More generous spacing for small screens */
+  }
+
+  .shadcn-grid-spacing-lg {
+    gap: 2.75rem;
+  }
+
+  .shadcn-grid-spacing-xl {
+    gap: 3.25rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .shadcn-grid-spacing {
+    gap: 2.5rem; /* Optimal spacing for medium screens */
+  }
+
+  .shadcn-grid-spacing-lg {
+    gap: 3rem;
+  }
+
+  .shadcn-grid-spacing-xl {
+    gap: 3.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .shadcn-grid-spacing {
+    gap: 2.75rem; /* Spacious layout for large screens */
+  }
+
+  .shadcn-grid-spacing-lg {
+    gap: 3.5rem;
+  }
+
+  .shadcn-grid-spacing-xl {
+    gap: 4rem;
+  }
+
+  .dashboard-section-spacing {
+    margin-bottom: 4.5rem; /* Increased section spacing */
+  }
+}
+
+@media (min-width: 1280px) {
+  .shadcn-grid-spacing {
+    gap: 3rem; /* Maximum spacing for extra large screens */
+  }
+
+  .shadcn-grid-spacing-lg {
+    gap: 3.75rem;
+  }
+
+  .shadcn-grid-spacing-xl {
+    gap: 4.5rem;
+  }
+}
+
+/* ===== BUTTON COMPONENT ===== */
+.shadcn-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  border-radius: calc(var(--radius));
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  border: 1px solid transparent;
+  text-decoration: none;
+  outline: none;
+  position: relative;
+}
+
+.shadcn-btn:focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+}
+
+.shadcn-btn:disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* Button Sizes */
+.shadcn-btn--default {
+  height: 2.5rem;
+  padding: 0 1rem;
+}
+
+.shadcn-btn--sm {
+  height: 2.25rem;
+  border-radius: calc(var(--radius) - 2px);
+  padding: 0 0.75rem;
+}
+
+.shadcn-btn--lg {
+  height: 2.75rem;
+  border-radius: calc(var(--radius));
+  padding: 0 2rem;
+}
+
+.shadcn-btn--icon {
+  height: 2.5rem;
+  width: 2.5rem;
+  padding: 0;
+}
+
+/* Button Variants */
+.shadcn-btn--primary {
+  background-color: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+}
+
+.shadcn-btn--primary:hover {
+  background-color: hsl(var(--primary) / 0.9);
+}
+
+.shadcn-btn--destructive {
+  background-color: hsl(var(--destructive));
+  color: hsl(var(--destructive-foreground));
+}
+
+.shadcn-btn--destructive:hover {
+  background-color: hsl(var(--destructive) / 0.9);
+}
+
+.shadcn-btn--outline {
+  border: 1px solid hsl(var(--border));
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+}
+
+.shadcn-btn--outline:hover {
+  background-color: hsl(var(--accent));
+  color: hsl(var(--accent-foreground));
+}
+
+.shadcn-btn--secondary {
+  background-color: hsl(var(--secondary));
+  color: hsl(var(--secondary-foreground));
+}
+
+.shadcn-btn--secondary:hover {
+  background-color: hsl(var(--secondary) / 0.8);
+}
+
+.shadcn-btn--ghost {
+  background-color: transparent;
+  color: hsl(var(--foreground));
+}
+
+.shadcn-btn--ghost:hover {
+  background-color: hsl(var(--accent));
+  color: hsl(var(--accent-foreground));
+}
+
+.shadcn-btn--link {
+  color: hsl(var(--primary));
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  background-color: transparent;
+}
+
+.shadcn-btn--link:hover {
+  text-decoration: none;
+}
+
+/* ===== BADGE COMPONENT ===== */
+.shadcn-badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 9999px;
+  padding: 0.125rem 0.625rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1;
+  transition: all 0.2s ease-in-out;
+  border: 1px solid transparent;
+}
+
+/* Badge Variants */
+.shadcn-badge--default {
+  border-color: transparent;
+  background-color: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+}
+
+.shadcn-badge--secondary {
+  border-color: transparent;
+  background-color: hsl(var(--secondary));
+  color: hsl(var(--secondary-foreground));
+}
+
+.shadcn-badge--destructive {
+  border-color: transparent;
+  background-color: hsl(var(--destructive));
+  color: hsl(var(--destructive-foreground));
+}
+
+.shadcn-badge--outline {
+  color: hsl(var(--foreground));
+  border-color: hsl(var(--border));
+  background-color: transparent;
+}
+
+/* ===== PROGRESS COMPONENT ===== */
+.shadcn-progress {
+  position: relative;
+  height: 1rem;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 9999px;
+  background-color: hsl(var(--secondary));
+}
+
+.shadcn-progress-indicator {
+  height: 100%;
+  width: 100%;
+  flex: 1;
+  background-color: hsl(var(--primary));
+  transition: all 0.3s ease-in-out;
+  transform-origin: left;
+}
+
+/* ===== AVATAR COMPONENT ===== */
+.shadcn-avatar {
+  position: relative;
+  display: flex;
+  height: 2.5rem;
+  width: 2.5rem;
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: 9999px;
+}
+
+.shadcn-avatar-image {
+  aspect-ratio: 1 / 1;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.shadcn-avatar-fallback {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background-color: hsl(var(--muted));
+  color: hsl(var(--muted-foreground));
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* Avatar Sizes */
+.shadcn-avatar--sm {
+  height: 2rem;
+  width: 2rem;
+}
+
+.shadcn-avatar--lg {
+  height: 3rem;
+  width: 3rem;
+}
+
+.shadcn-avatar--xl {
+  height: 4rem;
+  width: 4rem;
+}
+
+/* ===== SEPARATOR COMPONENT ===== */
+.shadcn-separator {
+  flex-shrink: 0;
+  background-color: hsl(var(--border));
+}
+
+.shadcn-separator--horizontal {
+  height: 1px;
+  width: 100%;
+}
+
+.shadcn-separator--vertical {
+  height: 100%;
+  width: 1px;
+}
+
+/* ===== UTILITY CLASSES ===== */
+.shadcn-text-muted {
+  color: hsl(var(--muted-foreground));
+}
+
+.shadcn-bg-muted {
+  background-color: hsl(var(--muted));
+}
+
+.shadcn-border {
+  border: 1px solid hsl(var(--border));
+}
+
+.shadcn-rounded {
+  border-radius: calc(var(--radius));
+}
+
+.shadcn-shadow {
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+}
+
+.shadcn-shadow-md {
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+.shadcn-shadow-lg {
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}

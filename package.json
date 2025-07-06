@@ -1,0 +1,51 @@
+{
+  "name": "buymart-v1",
+  "version": "1.0.0",
+  "description": "Ardonie Capital - Business Acquisition Platform with Shadcn MCP Server Integration",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "python3 -m http.server 8000",
+    "mcp:install": "npm install @heilgar/shadcn-ui-mcp-server",
+    "mcp:start": "shadcn-ui-mcp-server",
+    "mcp:inspector": "npx @modelcontextprotocol/inspector",
+    "mcp:test": "node scripts/test-mcp.js",
+    "mcp:setup": "node scripts/setup-mcp.js",
+    "start:all": "concurrently \"npm run dev\" \"npm run mcp:start\"",
+    "build": "echo 'Static site - no build required'",
+    "test": "echo 'No tests specified'"
+  },
+  "keywords": [
+    "business-acquisition",
+    "marketplace",
+    "shadcn-ui",
+    "mcp-server",
+    "ai-assistant"
+  ],
+  "author": "Ardonie Capital",
+  "license": "MIT",
+  "dependencies": {
+    "@heilgar/shadcn-ui-mcp-server": "^1.0.6",
+    "@modelcontextprotocol/inspector": "^0.13.0",
+    "concurrently": "^8.2.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.18",
+    "typescript": "^5.8.3"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stevenknowswhy/ArdonieCapital-BusinessAcquisition.git"
+  },
+  "mcp": {
+    "server": {
+      "name": "shadcn-ui-server",
+      "port": 3001,
+      "endpoint": "http://localhost:3001/sse",
+      "description": "Shadcn UI MCP Server for AI-assisted component integration"
+    }
+  }
+}
