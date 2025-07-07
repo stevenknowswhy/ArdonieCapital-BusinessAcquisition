@@ -1,0 +1,93 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - echo "Starting pre-build phase for Ardonie Capital platform"
+        - echo "Node version:" && node --version
+        - echo "NPM version:" && npm --version
+        - echo "Current directory:" && pwd
+        - echo "Listing project files:" && ls -la
+        - echo "Checking for package.json..." && ls -la package.json
+        - echo "Installing dependencies..."
+        - npm ci
+    build:
+      commands:
+        - echo "Starting build phase"
+        - echo "This is a static HTML/CSS/JS site with Tailwind CSS via CDN"
+        - echo "No build compilation required - files are ready for deployment"
+        - echo "Verifying critical files exist:"
+        - ls -la index.html
+        - ls -la assets/
+        - echo "Checking recent CSS fixes are present:"
+        - ls -la about.html tools/due-diligence-checklist.html tools/valuation.html
+        - echo "Verifying footer standardization:"
+        - grep -l "bg-slate-900 text-white py-10" *.html | head -5
+        - echo "Build phase completed successfully"
+    postBuild:
+      commands:
+        - echo "Starting post-build phase"
+        - echo "Performing final validations..."
+        - echo "Checking HTML file count:" && find . -name "*.html" -not -path "./node_modules/*" | wc -l
+        - echo "Checking CSS assets:" && ls -la assets/css/ || echo "CSS directory not found"
+        - echo "Checking JS assets:" && ls -la assets/js/ || echo "JS directory not found"
+        - echo "Checking image assets:" && ls -la assets/images/ || echo "Images directory not found"
+        - echo "Verifying Tailwind CSS integration in key files:"
+        - grep -l "cdn.tailwindcss.com" index.html about.html tools/due-diligence-checklist.html || echo "Tailwind CDN check completed"
+        - echo "Post-build validation completed"
+  artifacts:
+    baseDirectory: /
+    files:
+      - '**/*'
+    exclude:
+      - node_modules/**/*
+      - .git/**/*
+      - .gitignore
+      - README.md
+      - package.json
+      - package-lock.json
+      - amplify.yml
+      - deploy.sh
+      - '*.md'
+      - '*.log'
+      - '.DS_Store'
+      - 'Thumbs.db'
+      - '*.tmp'
+      - '*.bak'
+      - '.aws-config-template.txt'
+      - 'aws-config.json'
+      - 'cloudformation-template.yaml'
+      - 'validate-deployment.sh'
+      - 'optimize-images.sh'
+      - 'scripts/**/*'
+      - 'tests/**/*'
+      - 'coverage/**/*'
+      - 'docs/**/*'
+      - 'src/**/*'
+      - '.mcp/**/*'
+      - 'babel.config.js'
+      - 'jest.config.js'
+      - 'test-report.xml'
+      - 'sw.js'
+      - '*.img-backup'
+      - '*-footer-standardized.html'
+      - '*-enhancement-guide.md'
+      - '*-standardization-guide.md'
+      - 'portal-footer-cleanup-verification.json'
+      - 'vendor-portal-css-test-results.json'
+      - '*-report.md'
+      - '*-COMPLETE.md'
+      - '*-SUMMARY.md'
+      - 'TESTING-*.md'
+      - 'MIGRATION-GUIDE.md'
+      - 'PLATFORM-TESTING-GUIDE.md'
+      - 'enhanced-*.html'
+      - 'test-*.html'
+      - 'performance-dashboard.html'
+      - 'simple-swiper-js-example/**/*'
+      - 'portals/appraiser-portal.html'
+      - 'portals/insurance-portal.html'
+      - 'portals/ma-consultant-portal.html'
+  cache:
+    paths:
+      - node_modules/**/*
