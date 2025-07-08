@@ -1,0 +1,206 @@
+/* Ardonie Capital - Navigation Component Styles */
+/* Additional styles to complement Tailwind CSS */
+
+/* Smooth transitions for all interactive elements */
+.main-navigation * {
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 200ms;
+}
+
+/* Enhanced dropdown animations */
+.group:hover .group-hover\:opacity-100 {
+    animation: fadeInUp 0.2s ease-out forwards;
+}
+
+.group:hover .group-hover\:visible {
+    animation: slideDown 0.2s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+}
+
+/* Mobile menu slide animation */
+.mobile-menu {
+    transition: all 0.3s ease-in-out;
+    max-height: 0;
+    overflow: hidden;
+}
+
+.mobile-menu:not(.hidden) {
+    max-height: 100vh;
+    animation: slideDownMobile 0.3s ease-out forwards;
+}
+
+@keyframes slideDownMobile {
+    from {
+        max-height: 0;
+        opacity: 0;
+    }
+    to {
+        max-height: 100vh;
+        opacity: 1;
+    }
+}
+
+/* Mobile dropdown content animation */
+.mobile-dropdown-content {
+    transition: all 0.2s ease-in-out;
+    max-height: 0;
+    overflow: hidden;
+}
+
+.mobile-dropdown-content:not(.hidden) {
+    max-height: 500px;
+    animation: expandMobile 0.2s ease-out forwards;
+}
+
+@keyframes expandMobile {
+    from {
+        max-height: 0;
+        opacity: 0;
+    }
+    to {
+        max-height: 500px;
+        opacity: 1;
+    }
+}
+
+/* Icon rotation animation */
+.mobile-dropdown-icon {
+    transition: transform 0.2s ease-in-out;
+}
+
+.mobile-dropdown-icon.rotate-180 {
+    transform: rotate(180deg);
+}
+
+/* Focus styles for accessibility */
+.main-navigation a:focus,
+.main-navigation button:focus {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* Active link styles */
+.main-navigation a.active {
+    color: #3b82f6;
+    font-weight: 600;
+}
+
+/* Hover effects for desktop dropdowns */
+.group:hover .absolute {
+    animation: dropdownFadeIn 0.2s ease-out forwards;
+}
+
+@keyframes dropdownFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Enhanced shadow for dropdowns */
+.group:hover .shadow-lg {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1023px) {
+    .mobile-menu {
+        backdrop-filter: blur(8px);
+        background-color: rgba(255, 255, 255, 0.95);
+    }
+}
+
+/* Brand logo hover effect */
+.main-navigation .text-blue-600:hover {
+    transform: scale(1.02);
+    transition: transform 0.2s ease-in-out;
+}
+
+/* CTA button enhanced styles */
+.main-navigation .bg-blue-600 {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.3);
+}
+
+.main-navigation .bg-blue-600:hover {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    box-shadow: 0 6px 8px -1px rgba(59, 130, 246, 0.4);
+    transform: translateY(-1px);
+}
+
+/* Sticky navigation enhancement */
+.sticky {
+    backdrop-filter: blur(8px);
+    background-color: rgba(255, 255, 255, 0.95);
+}
+
+/* Loading state for navigation */
+.nav-loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .main-navigation {
+        border-bottom: 2px solid #000;
+    }
+    
+    .main-navigation a,
+    .main-navigation button {
+        border: 1px solid transparent;
+    }
+    
+    .main-navigation a:hover,
+    .main-navigation button:hover {
+        border-color: #000;
+        background-color: #fff;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .main-navigation *,
+    .main-navigation *::before,
+    .main-navigation *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Print styles */
+@media print {
+    .main-navigation {
+        display: none;
+    }
+}
