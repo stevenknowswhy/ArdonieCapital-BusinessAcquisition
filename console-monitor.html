@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Console Monitor - Authentication Flow Tracer</title>
+    <style>
+        body { font-family: monospace; margin: 20px; background: #1a1a1a; color: #00ff00; }
+        .log-container { background: #000; padding: 20px; border-radius: 5px; max-height: 80vh; overflow-y: auto; }
+        .timestamp { color: #888; }
+        .error { color: #ff4444; }
+        .success { color: #44ff44; }
+        .warning { color: #ffaa44; }
+        .info { color: #4488ff; }
+        .debug { color: #aa88ff; }
+        .controls { margin-bottom: 20px; }
+        button { margin: 5px; padding: 10px; background: #333; color: #fff; border: none; border-radius: 3px; cursor: pointer; }
+        button:hover { background: #555; }
+        .clear-btn { background: #ff4444; }
+        .export-btn { background: #44aa44; }
+    </style>
+</head>
+<body>
+    <h1>🔍 Authentication Flow Console Monitor</h1>
+    
+    <div class="controls">
+        <button onclick="clearLogs()">🗑️ Clear Logs</button>
+        <button onclick="exportLogs()" class="export-btn">📄 Export Logs</button>
+        <button onclick="testLogin()">🔑 Test Login First</button>
+        <button onclick="openDashboard()">🏠 Open Dashboard</button>
+        <button onclick="startMonitoring()">▶️ Start Monitoring</button>
+        <button onclick="stopMonitoring()">⏸️ Stop Monitoring</button>
+    </div>
+
+    <div class="log-container" id="logContainer">
+        <div class="info">Console monitor initialized. Click "Start Monitoring" to begin...</div>
+    </div>
+
+    <script>
+        let originalConsole = {};
+        let isMonitoring = false;
+        let logBuffer = [];
+
+        function addLog(message, type = 'info', source = 'monitor') {
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = {
+                timestamp,
+                message,
+                type,
+                source
+            };
+            
+            logBuffer.push(logEntry);
+            
+            const container = document.getElementById('logContainer');
+            const logDiv = document.createElement('div');
+            logDiv.className = type;
+            logDiv.innerHTML = `<span class="timestamp">[${timestamp}]</span> <strong>[${source.toUpperCase()}]</strong> ${message}`;
+            container.appendChild(logDiv);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function startMonitoring() {
+            if (isMonitoring) return;
+            
+            isMonitoring = true;
+            addLog('🔍 Starting console monitoring...', 'success');
+            
+            // Store original console methods
+            originalConsole.log = console.log;
+            originalConsole.error = console.error;
+            originalConsole.warn = console.warn;
+            originalConsole.info = console.info;
+            originalConsole.debug = console.debug;
+
+            // Override console methods to capture logs
+            console.log = function(...args) {
+                originalConsole.log.apply(console, args);
+                addLog(args.join(' '), 'info', 'console');
+            };
+
+            console.error = function(...args) {
+                originalConsole.error.apply(console, args);
+                addLog(args.join(' '), 'error', 'console');
+            };
+
+            console.warn = function(...args) {
+                originalConsole.warn.apply(console, args);
+                addLog(args.join(' '), 'warning', 'console');
+            };
+
+            console.info = function(...args) {
+                originalConsole.info.apply(console, args);
+                addLog(args.join(' '), 'info', 'console');
+            };
+
+            console.debug = function(...args) {
+                originalConsole.debug.apply(console, args);
+                addLog(args.join(' '), 'debug', 'console');
+            };
+
+            // Monitor window errors
+            window.addEventListener('error', function(event) {
+                addLog(`JavaScript Error: ${event.message} at ${event.filename}:${event.lineno}`, 'error', 'window');
+            });
+
+            // Monitor unhandled promise rejections
+            window.addEventListener('unhandledrejection', function(event) {
+                addLog(`Unhandled Promise Rejection: ${event.reason}`, 'error', 'promise');
+            });
+
+            addLog('✅ Console monitoring active', 'success');
+        }
+
+        function stopMonitoring() {
+            if (!isMonitoring) return;
+            
+            isMonitoring = false;
+            
+            // Restore original console methods
+            console.log = originalConsole.log;
+            console.error = originalConsole.error;
+            console.warn = originalConsole.warn;
+            console.info = originalConsole.info;
+            console.debug = originalConsole.debug;
+            
+            addLog('⏸️ Console monitoring stopped', 'warning');
+        }
+
+        function clearLogs() {
+            document.getElementById('logContainer').innerHTML = '';
+            logBuffer = [];
+            addLog('🗑️ Logs cleared', 'info');
+        }
+
+        function exportLogs() {
+            const logText = logBuffer.map(log => 
+                `[${log.timestamp}] [${log.source.toUpperCase()}] [${log.type.toUpperCase()}] ${log.message}`
+            ).join('\n');
+            
+            const blob = new Blob([logText], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `auth-flow-logs-${new Date().toISOString().slice(0,19).replace(/:/g,'-')}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            addLog('📄 Logs exported', 'success');
+        }
+
+        async function testLogin() {
+            addLog('🔑 Testing login first...', 'info');
+            
+            try {
+                // Load auth service if not available
+                if (!window.authService) {
+                    addLog('Loading auth service...', 'info');
+                    await loadAuthService();
+                }
+
+                addLog('Attempting login with test credentials...', 'info');
+                const result = await window.authService.login('reforiy538@iamtile.com', 'gK9.t1|ROnQ52U[', false);
+                
+                if (result.success) {
+                    addLog('✅ Login successful!', 'success');
+                    addLog(`User: ${result.user.firstName} ${result.user.lastName}`, 'success');
+                    addLog(`Roles: ${result.user.userTypes.join(', ')}`, 'success');
+                    
+                    // Check session storage
+                    const authStatus = localStorage.getItem('ardonie_auth_status');
+                    const sessionData = localStorage.getItem('ardonie_user_session');
+                    addLog(`Auth status stored: ${authStatus}`, 'info');
+                    addLog(`Session data stored: ${!!sessionData}`, 'info');
+                } else {
+                    addLog('❌ Login failed: ' + result.error, 'error');
+                }
+            } catch (error) {
+                addLog('❌ Login error: ' + error.message, 'error');
+            }
+        }
+
+        function openDashboard() {
+            addLog('🏠 Opening buyer dashboard in new tab...', 'info');
+            addLog('📋 Monitor the console in the new tab for authentication flow', 'warning');
+            window.open('http://localhost:8000/dashboard/buyer-dashboard.html', '_blank');
+        }
+
+        async function loadAuthService() {
+            return new Promise((resolve, reject) => {
+                if (window.authService) {
+                    resolve();
+                    return;
+                }
+
+                const script = document.createElement('script');
+                script.src = './assets/js/auth-service.js?v=' + Date.now();
+                script.onload = () => {
+                    let attempts = 0;
+                    const checkService = () => {
+                        if (window.authService) {
+                            addLog('✅ Auth service loaded', 'success');
+                            resolve();
+                        } else if (attempts < 50) {
+                            attempts++;
+                            setTimeout(checkService, 100);
+                        } else {
+                            addLog('❌ Auth service failed to load', 'error');
+                            reject(new Error('Auth service not available'));
+                        }
+                    };
+                    checkService();
+                };
+                script.onerror = () => {
+                    addLog('❌ Failed to load auth service script', 'error');
+                    reject(new Error('Script load failed'));
+                };
+                document.head.appendChild(script);
+            });
+        }
+
+        // Auto-start monitoring
+        window.addEventListener('load', function() {
+            addLog('🚀 Console monitor ready', 'success');
+            addLog('📋 Instructions:', 'info');
+            addLog('1. Click "Test Login First" to authenticate', 'info');
+            addLog('2. Click "Start Monitoring" to capture console output', 'info');
+            addLog('3. Click "Open Dashboard" to test authentication flow', 'info');
+            addLog('4. Monitor logs for authentication sequence', 'info');
+        });
+    </script>
+</body>
+</html>

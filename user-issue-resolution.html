@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Issue Resolution - reforiy538@iamtile.com</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-6xl mx-auto">
+        <h1 class="text-3xl font-bold mb-6">User Issue Resolution: reforiy538@iamtile.com</h1>
+        
+        <!-- Issue Summary -->
+        <div class="bg-red-50 border-l-4 border-red-400 p-4 mb-6">
+            <h2 class="text-lg font-semibold text-red-800">Issue Summary</h2>
+            <p class="text-red-700">User registered successfully but cannot sign in with their credentials.</p>
+        </div>
+
+        <!-- Diagnostic Results -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+            <h2 class="text-xl font-semibold mb-4">Diagnostic Results</h2>
+            <button onclick="runFullDiagnostic()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mb-4">
+                Run Full Diagnostic
+            </button>
+            <div id="diagnostic-results" class="space-y-4"></div>
+        </div>
+
+        <!-- Resolution Steps -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+            <h2 class="text-xl font-semibold mb-4">Resolution Steps</h2>
+            <div class="space-y-4">
+                <div class="border-l-4 border-yellow-400 bg-yellow-50 p-4">
+                    <h3 class="font-semibold text-yellow-800">Step 1: Email Verification</h3>
+                    <p class="text-yellow-700 mb-2">Check if the user needs to verify their email address.</p>
+                    <button onclick="sendVerificationEmail()" class="bg-yellow-500 text-white px-3 py-2 rounded hover:bg-yellow-600 text-sm">
+                        Send Verification Email
+                    </button>
+                    <div id="verification-result" class="mt-2"></div>
+                </div>
+
+                <div class="border-l-4 border-blue-400 bg-blue-50 p-4">
+                    <h3 class="font-semibold text-blue-800">Step 2: Password Reset</h3>
+                    <p class="text-blue-700 mb-2">Send a password reset email to allow the user to set a new password.</p>
+                    <button onclick="sendPasswordReset()" class="bg-blue-500 text-white px-3 py-2 rounded hover:bg-blue-600 text-sm">
+                        Send Password Reset
+                    </button>
+                    <div id="password-reset-result" class="mt-2"></div>
+                </div>
+
+                <div class="border-l-4 border-green-400 bg-green-50 p-4">
+                    <h3 class="font-semibold text-green-800">Step 3: Manual Account Creation</h3>
+                    <p class="text-green-700 mb-2">If the user doesn't exist, create a new account with their email.</p>
+                    <button onclick="createUserAccount()" class="bg-green-500 text-white px-3 py-2 rounded hover:bg-green-600 text-sm">
+                        Create Account
+                    </button>
+                    <div id="account-creation-result" class="mt-2"></div>
+                </div>
+
+                <div class="border-l-4 border-purple-400 bg-purple-50 p-4">
+                    <h3 class="font-semibold text-purple-800">Step 4: Profile Verification</h3>
+                    <p class="text-purple-700 mb-2">Ensure the user has a proper profile record.</p>
+                    <button onclick="createUserProfile()" class="bg-purple-500 text-white px-3 py-2 rounded hover:bg-purple-600 text-sm">
+                        Create Profile
+                    </button>
+                    <div id="profile-creation-result" class="mt-2"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- User Instructions -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+            <h2 class="text-xl font-semibold mb-4">Instructions for User</h2>
+            <div id="user-instructions" class="bg-gray-100 p-4 rounded">
+                <p class="text-gray-600">Run diagnostics to generate specific instructions for the user...</p>
+            </div>
+        </div>
+
+        <!-- Debug Log -->
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-xl font-semibold mb-4">Debug Log</h2>
+            <div id="debug-log" class="bg-gray-100 p-4 rounded text-sm font-mono max-h-64 overflow-y-auto"></div>
+            <button onclick="clearLog()" class="mt-2 bg-gray-500 text-white px-3 py-1 rounded text-sm">Clear Log</button>
+        </div>
+    </div>
+
+    <!-- Supabase CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <script>
+        const TARGET_EMAIL = 'reforiy538@iamtile.com';
+        let supabase;
+        let diagnosticData = {
+            userExists: null,
+            profileExists: null,
+            emailVerified: null,
+            canLogin: null
+        };
+
+        function log(message, type = 'info') {
+            const debugLog = document.getElementById('debug-log');
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = document.createElement('div');
+            logEntry.className = type === 'error' ? 'text-red-600' : type === 'success' ? 'text-green-600' : 'text-gray-800';
+            logEntry.textContent = `[${timestamp}] ${message}`;
+            debugLog.appendChild(logEntry);
+            debugLog.scrollTop = debugLog.scrollHeight;
+        }
+
+        function clearLog() {
+            document.getElementById('debug-log').innerHTML = '';
+        }
+
+        function addResult(containerId, content, type = 'info') {
+            const container = document.getElementById(containerId);
+            const resultDiv = document.createElement('div');
+            resultDiv.className = `p-3 rounded mt-2 ${
+                type === 'error' ? 'bg-red-100 text-red-800' : 
+                type === 'success' ? 'bg-green-100 text-green-800' : 
+                type === 'warning' ? 'bg-yellow-100 text-yellow-800' : 
+                'bg-blue-100 text-blue-800'
+            }`;
+            resultDiv.innerHTML = content;
+            container.appendChild(resultDiv);
+        }
+
+        async function initSupabase() {
+            try {
+                const SUPABASE_URL = 'https://pbydepsqcypwqbicnsco.supabase.co';
+                const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBieWRlcHNxY3lwd3FiaWNuc2NvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE5MjAxOTQsImV4cCI6MjA2NzQ5NjE5NH0.5aF46QcNOFN_vwXcHxCsVx_8a4EsqE1bL4fy4K7UXI0';
+                
+                supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                log('Supabase client initialized', 'success');
+                return true;
+            } catch (error) {
+                log(`Failed to initialize Supabase: ${error.message}`, 'error');
+                return false;
+            }
+        }
+
+        async function checkUserExists() {
+            try {
+                log('Checking if user exists in auth.users...');
+                
+                // Try to sign in with dummy password to check existence
+                const { data, error } = await supabase.auth.signInWithPassword({
+                    email: TARGET_EMAIL,
+                    password: 'dummy_check_password_123'
+                });
+
+                if (error) {
+                    if (error.message.includes('Invalid login credentials')) {
+                        diagnosticData.userExists = true;
+                        diagnosticData.emailVerified = true; // If we get invalid credentials, email is verified
+                        log('User exists in auth.users (password incorrect)', 'success');
+                        return true;
+                    } else if (error.message.includes('Email not confirmed')) {
+                        diagnosticData.userExists = true;
+                        diagnosticData.emailVerified = false;
+                        log('User exists but email not confirmed', 'warning');
+                        return true;
+                    } else {
+                        diagnosticData.userExists = false;
+                        log('User does not exist in auth.users', 'error');
+                        return false;
+                    }
+                } else {
+                    // Shouldn't happen with dummy password
+                    diagnosticData.userExists = true;
+                    diagnosticData.emailVerified = true;
+                    await supabase.auth.signOut();
+                    return true;
+                }
+            } catch (error) {
+                log(`Error checking user existence: ${error.message}`, 'error');
+                return false;
+            }
+        }
+
+        async function checkProfileExists() {
+            try {
+                log('Checking if user profile exists...');
+                
+                const { data, error } = await supabase
+                    .from('profiles')
+                    .select('*')
+                    .eq('email', TARGET_EMAIL)
+                    .single();
+
+                if (error) {
+                    if (error.code === 'PGRST116') {
+                        diagnosticData.profileExists = false;
+                        log('No profile found', 'error');
+                        return false;
+                    } else {
+                        log(`Error checking profile: ${error.message}`, 'error');
+                        return false;
+                    }
+                } else {
+                    diagnosticData.profileExists = true;
+                    log('Profile found', 'success');
+                    return true;
+                }
+            } catch (error) {
+                log(`Exception checking profile: ${error.message}`, 'error');
+                return false;
+            }
+        }
+
+        async function runFullDiagnostic() {
+            document.getElementById('diagnostic-results').innerHTML = '';
+            log('Starting full diagnostic...');
+
+            const userExists = await checkUserExists();
+            const profileExists = await checkProfileExists();
+
+            // Display results
+            const resultsContainer = document.getElementById('diagnostic-results');
+            
+            resultsContainer.innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="p-4 rounded ${userExists ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
+                        <h3 class="font-semibold">Auth User</h3>
+                        <p>${userExists ? '✅ Exists' : '❌ Not Found'}</p>
+                    </div>
+                    <div class="p-4 rounded ${profileExists ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
+                        <h3 class="font-semibold">User Profile</h3>
+                        <p>${profileExists ? '✅ Exists' : '❌ Not Found'}</p>
+                    </div>
+                    <div class="p-4 rounded ${diagnosticData.emailVerified ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}">
+                        <h3 class="font-semibold">Email Verified</h3>
+                        <p>${diagnosticData.emailVerified ? '✅ Verified' : '⚠️ Not Verified'}</p>
+                    </div>
+                </div>
+            `;
+
+            generateUserInstructions();
+        }
+
+        function generateUserInstructions() {
+            const instructionsContainer = document.getElementById('user-instructions');
+            let instructions = '<h3 class="font-semibold mb-2">Instructions for reforiy538@iamtile.com:</h3>';
+
+            if (!diagnosticData.userExists) {
+                instructions += `
+                    <div class="bg-red-100 text-red-800 p-3 rounded mb-2">
+                        <strong>Issue:</strong> Your account was not found in our system.
+                        <br><strong>Solution:</strong> Please register again using the registration form.
+                    </div>
+                `;
+            } else if (!diagnosticData.emailVerified) {
+                instructions += `
+                    <div class="bg-yellow-100 text-yellow-800 p-3 rounded mb-2">
+                        <strong>Issue:</strong> Your email address has not been verified.
+                        <br><strong>Solution:</strong> Check your email for a verification link, or click the button above to resend it.
+                    </div>
+                `;
+            } else {
+                instructions += `
+                    <div class="bg-blue-100 text-blue-800 p-3 rounded mb-2">
+                        <strong>Issue:</strong> Your account exists but you may have forgotten your password.
+                        <br><strong>Solution:</strong> Use the "Forgot Password" link on the login page, or click the password reset button above.
+                    </div>
+                `;
+            }
+
+            instructionsContainer.innerHTML = instructions;
+        }
+
+        async function sendVerificationEmail() {
+            try {
+                log('Attempting to resend verification email...');
+                
+                // Note: Supabase doesn't have a direct resend verification method
+                // We'll try to trigger it through registration
+                const { data, error } = await supabase.auth.signUp({
+                    email: TARGET_EMAIL,
+                    password: 'temporary_password_123'
+                });
+
+                if (error) {
+                    if (error.message.includes('already registered')) {
+                        addResult('verification-result', '✅ User already exists. Verification email may have been sent.', 'success');
+                        log('User already registered', 'info');
+                    } else {
+                        addResult('verification-result', `❌ Error: ${error.message}`, 'error');
+                        log(`Verification email error: ${error.message}`, 'error');
+                    }
+                } else {
+                    addResult('verification-result', '✅ Verification email sent (if user exists)', 'success');
+                    log('Verification email sent', 'success');
+                }
+            } catch (error) {
+                addResult('verification-result', `❌ Exception: ${error.message}`, 'error');
+                log(`Verification email exception: ${error.message}`, 'error');
+            }
+        }
+
+        async function sendPasswordReset() {
+            try {
+                log('Sending password reset email...');
+                
+                const { data, error } = await supabase.auth.resetPasswordForEmail(TARGET_EMAIL);
+                
+                if (error) {
+                    addResult('password-reset-result', `❌ Error: ${error.message}`, 'error');
+                    log(`Password reset error: ${error.message}`, 'error');
+                } else {
+                    addResult('password-reset-result', '✅ Password reset email sent successfully', 'success');
+                    log('Password reset email sent', 'success');
+                }
+            } catch (error) {
+                addResult('password-reset-result', `❌ Exception: ${error.message}`, 'error');
+                log(`Password reset exception: ${error.message}`, 'error');
+            }
+        }
+
+        async function createUserAccount() {
+            try {
+                log('Attempting to create user account...');
+                
+                const { data, error } = await supabase.auth.signUp({
+                    email: TARGET_EMAIL,
+                    password: 'TempPassword123!',
+                    options: {
+                        data: {
+                            first_name: 'User',
+                            last_name: 'Account'
+                        }
+                    }
+                });
+
+                if (error) {
+                    if (error.message.includes('already registered')) {
+                        addResult('account-creation-result', '✅ User account already exists', 'success');
+                        log('User account already exists', 'info');
+                    } else {
+                        addResult('account-creation-result', `❌ Error: ${error.message}`, 'error');
+                        log(`Account creation error: ${error.message}`, 'error');
+                    }
+                } else {
+                    addResult('account-creation-result', '✅ User account created successfully', 'success');
+                    log('User account created', 'success');
+                }
+            } catch (error) {
+                addResult('account-creation-result', `❌ Exception: ${error.message}`, 'error');
+                log(`Account creation exception: ${error.message}`, 'error');
+            }
+        }
+
+        async function createUserProfile() {
+            try {
+                log('Attempting to create user profile...');
+                
+                const profileData = {
+                    email: TARGET_EMAIL,
+                    first_name: 'User',
+                    last_name: 'Account',
+                    role: 'buyer',
+                    created_at: new Date().toISOString(),
+                    updated_at: new Date().toISOString()
+                };
+
+                const { data, error } = await supabase
+                    .from('profiles')
+                    .insert(profileData)
+                    .select();
+
+                if (error) {
+                    addResult('profile-creation-result', `❌ Error: ${error.message}`, 'error');
+                    log(`Profile creation error: ${error.message}`, 'error');
+                } else {
+                    addResult('profile-creation-result', '✅ User profile created successfully', 'success');
+                    log('User profile created', 'success');
+                }
+            } catch (error) {
+                addResult('profile-creation-result', `❌ Exception: ${error.message}`, 'error');
+                log(`Profile creation exception: ${error.message}`, 'error');
+            }
+        }
+
+        // Initialize
+        window.addEventListener('load', async () => {
+            log('User issue resolution tool loaded');
+            const initialized = await initSupabase();
+            if (initialized) {
+                log(`Ready to resolve issues for: ${TARGET_EMAIL}`, 'success');
+                // Auto-run diagnostic
+                await runFullDiagnostic();
+            }
+        });
+    </script>
+</body>
+</html>

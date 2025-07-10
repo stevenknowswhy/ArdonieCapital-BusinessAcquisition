@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Your Role - Ardonie Capital</title>
+    
+    <!-- Tailwind CSS -->
+    <link href="../assets/css/tailwind.css" rel="stylesheet">
+    
+    <!-- Navigation Styles -->
+    <link href="../components/navigation-styles.css" rel="stylesheet">
+    
+    <!-- Theme System -->
+    <script>
+        // Apply saved theme preference immediately to prevent flash
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 min-h-screen">
+    <!-- Navigation -->
+    <div id="main-navigation"></div>
+
+    <main class="pt-20">
+        <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-md w-full space-y-8">
+                <!-- Header -->
+                <div class="text-center">
+                    <h2 class="mt-6 text-3xl font-extrabold text-slate-900 dark:text-white">
+                        Select Your Role
+                    </h2>
+                    <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">
+                        You have multiple roles. Please choose how you'd like to continue.
+                    </p>
+                </div>
+
+                <!-- User Info -->
+                <div id="userInfo" class="bg-white dark:bg-slate-800 rounded-lg shadow p-6">
+                    <div class="flex items-center space-x-4">
+                        <div class="flex-shrink-0">
+                            <div class="h-12 w-12 rounded-full bg-primary-dark flex items-center justify-center">
+                                <span id="userInitials" class="text-white font-medium text-lg"></span>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 id="userName" class="text-lg font-medium text-slate-900 dark:text-white"></h3>
+                            <p id="userEmail" class="text-sm text-slate-600 dark:text-slate-400"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Role Selection -->
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow">
+                    <div class="px-6 py-4 border-b border-slate-200 dark:border-slate-700">
+                        <h3 class="text-lg font-medium text-slate-900 dark:text-white">Available Roles</h3>
+                    </div>
+                    <div id="roleButtons" class="p-6 space-y-3">
+                        <!-- Role buttons will be dynamically generated -->
+                    </div>
+                </div>
+
+                <!-- Logout Option -->
+                <div class="text-center">
+                    <button id="logoutBtn" class="text-sm text-slate-600 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 underline">
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Load Navigation -->
+    <script src="../components/main-navigation.js"></script>
+    
+    <!-- Load Auth Service -->
+    <script src="../assets/js/auth-service.js?v=role-selection"></script>
+    
+    <script>
+        let authService;
+        let currentUser;
+
+        // Role definitions with descriptions and colors
+        const roleDefinitions = {
+            'buyer': {
+                title: 'Buyer',
+                description: 'Browse and purchase businesses',
+                icon: '🛒',
+                color: 'bg-blue-500 hover:bg-blue-600'
+            },
+            'seller': {
+                title: 'Seller',
+                description: 'List and sell your business',
+                icon: '💼',
+                color: 'bg-green-500 hover:bg-green-600'
+            },
+            'accountant': {
+                title: 'Accountant',
+                description: 'Provide accounting services',
+                icon: '📊',
+                color: 'bg-purple-500 hover:bg-purple-600'
+            },
+            'accounting_firm_admin': {
+                title: 'Accounting Firm Admin',
+                description: 'Manage accounting firm operations',
+                icon: '🏢',
+                color: 'bg-indigo-500 hover:bg-indigo-600'
+            },
+            'super_admin': {
+                title: 'Super Admin',
+                description: 'Full system administration',
+                icon: '⚡',
+                color: 'bg-red-500 hover:bg-red-600'
+            },
+            'admin': {
+                title: 'Administrator',
+                description: 'System administration',
+                icon: '🔧',
+                color: 'bg-red-500 hover:bg-red-600'
+            }
+        };
+
+        // Initialize when page loads
+        window.addEventListener('load', async function() {
+            console.log('🔄 Initializing role selection page...');
+            
+            // Wait for auth service
+            let attempts = 0;
+            while (!window.authService && attempts < 30) {
+                await new Promise(resolve => setTimeout(resolve, 100));
+                attempts++;
+            }
+
+            if (window.authService) {
+                authService = window.authService;
+                console.log('✅ Auth service available');
+                
+                // Get current user
+                currentUser = authService.getCurrentUser();
+                
+                if (!currentUser) {
+                    console.log('❌ No user session found, redirecting to login');
+                    window.location.href = '../auth/login.html';
+                    return;
+                }
+
+                // Check if user actually has multiple roles
+                if (currentUser.userTypes.length === 1) {
+                    console.log('ℹ️ User has single role, redirecting directly');
+                    const dashboardUrl = authService.getDashboardUrl(currentUser.userTypes[0]);
+                    window.location.href = dashboardUrl;
+                    return;
+                }
+
+                // Display user info and roles
+                displayUserInfo();
+                displayRoleOptions();
+                
+            } else {
+                console.error('❌ Auth service not available');
+                window.location.href = '../auth/login.html';
+            }
+        });
+
+        function displayUserInfo() {
+            document.getElementById('userName').textContent = `${currentUser.firstName} ${currentUser.lastName}`;
+            document.getElementById('userEmail').textContent = currentUser.email;
+            
+            // Generate initials
+            const initials = `${currentUser.firstName.charAt(0)}${currentUser.lastName.charAt(0)}`.toUpperCase();
+            document.getElementById('userInitials').textContent = initials;
+        }
+
+        function displayRoleOptions() {
+            const roleButtonsContainer = document.getElementById('roleButtons');
+            roleButtonsContainer.innerHTML = '';
+
+            currentUser.userTypes.forEach(role => {
+                const roleInfo = roleDefinitions[role];
+                if (!roleInfo) return;
+
+                const button = document.createElement('button');
+                button.className = `w-full ${roleInfo.color} text-white rounded-lg p-4 text-left transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-50 focus:ring-blue-500`;
+                button.innerHTML = `
+                    <div class="flex items-center space-x-3">
+                        <span class="text-2xl">${roleInfo.icon}</span>
+                        <div>
+                            <div class="font-medium">${roleInfo.title}</div>
+                            <div class="text-sm opacity-90">${roleInfo.description}</div>
+                        </div>
+                    </div>
+                `;
+                
+                button.addEventListener('click', () => selectRole(role));
+                roleButtonsContainer.appendChild(button);
+            });
+        }
+
+        async function selectRole(role) {
+            console.log('🎯 Role selected:', role);
+            
+            // Set selected role in auth service
+            const success = authService.setSelectedRole(role);
+            
+            if (success) {
+                // Get dashboard URL for selected role
+                const dashboardUrl = authService.getDashboardUrl(role);
+                console.log('🔀 Redirecting to:', dashboardUrl);
+                
+                // Show loading state
+                const button = event.target.closest('button');
+                const originalContent = button.innerHTML;
+                button.innerHTML = `
+                    <div class="flex items-center justify-center">
+                        <div class="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                        Loading...
+                    </div>
+                `;
+                button.disabled = true;
+                
+                // Redirect after brief delay
+                setTimeout(() => {
+                    window.location.href = dashboardUrl;
+                }, 1000);
+            } else {
+                console.error('❌ Failed to set selected role');
+                alert('Failed to select role. Please try again.');
+            }
+        }
+
+        // Logout functionality
+        document.getElementById('logoutBtn').addEventListener('click', function() {
+            if (confirm('Are you sure you want to logout?')) {
+                authService.logout();
+                window.location.href = '../auth/login.html';
+            }
+        });
+    </script>
+</body>
+</html>

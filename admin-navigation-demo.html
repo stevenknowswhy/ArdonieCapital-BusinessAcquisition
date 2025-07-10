@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Navigation Demo - Ardonie Capital</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="assets/css/admin-navigation.css">
+    <style>
+        /* Demo-specific styles */
+        .demo-section {
+            min-height: 200px;
+        }
+        .role-button {
+            transition: all 0.2s ease-in-out;
+        }
+        .role-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Main Navigation Container -->
+    <div id="main-navigation-container"></div>
+    
+    <!-- Admin Navigation Container (will be created automatically) -->
+    
+    <!-- Main Content -->
+    <main class="pt-20">
+        <div class="container mx-auto px-4 py-8">
+            <!-- Header -->
+            <div class="text-center mb-12">
+                <h1 class="text-4xl font-bold text-gray-900 mb-4">🔧 Admin Navigation Demo</h1>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Test the secondary admin navigation bar that appears for privileged users. 
+                    Switch between different user roles to see how the admin navigation responds.
+                </p>
+            </div>
+
+            <!-- Role Simulation Section -->
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+                <h2 class="text-2xl font-semibold text-gray-900 mb-6">👤 User Role Simulation</h2>
+                <p class="text-gray-600 mb-6">
+                    Click the buttons below to simulate different user roles and see how the admin navigation responds:
+                </p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                    <!-- Regular User -->
+                    <button onclick="simulateRole('buyer')" 
+                            class="role-button bg-blue-500 hover:bg-blue-600 text-white px-6 py-4 rounded-lg font-semibold">
+                        👤 Regular User<br>
+                        <span class="text-sm opacity-90">(Buyer)</span>
+                    </button>
+
+                    <!-- Admin User -->
+                    <button onclick="simulateRole('admin')" 
+                            class="role-button bg-green-500 hover:bg-green-600 text-white px-6 py-4 rounded-lg font-semibold">
+                        👑 Admin<br>
+                        <span class="text-sm opacity-90">(Standard Admin)</span>
+                    </button>
+
+                    <!-- Seller User -->
+                    <button onclick="simulateRole('seller')"
+                            class="role-button bg-purple-500 hover:bg-purple-600 text-white px-6 py-4 rounded-lg font-semibold">
+                        🏪 Seller<br>
+                        <span class="text-sm opacity-90">(Seller Role)</span>
+                    </button>
+
+                    <!-- Note: Only admin role has admin navigation access -->
+                    <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                        <p class="text-yellow-800 text-sm">
+                            <strong>Note:</strong> Only the 'admin' role has access to admin navigation.
+                            Other roles (buyer, seller) are regular users.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Logout Button -->
+                <div class="text-center">
+                    <button onclick="simulateLogout()" 
+                            class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-3 rounded-lg font-semibold">
+                        🚪 Logout (Hide Admin Nav)
+                    </button>
+                </div>
+            </div>
+
+            <!-- Current Status -->
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+                <h2 class="text-2xl font-semibold text-gray-900 mb-6">📊 Current Status</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                        <h3 class="font-semibold text-blue-800 mb-2">Authentication Status</h3>
+                        <p id="auth-status" class="text-blue-700">Not Authenticated</p>
+                    </div>
+                    
+                    <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                        <h3 class="font-semibold text-green-800 mb-2">Current Role</h3>
+                        <p id="current-role" class="text-green-700">None</p>
+                    </div>
+                    
+                    <div class="bg-purple-50 border border-purple-200 rounded-lg p-4">
+                        <h3 class="font-semibold text-purple-800 mb-2">Admin Navigation</h3>
+                        <p id="admin-nav-status" class="text-purple-700">Hidden</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features Overview -->
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+                <h2 class="text-2xl font-semibold text-gray-900 mb-6">✨ Admin Navigation Features</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">🎯 Key Features</h3>
+                        <ul class="space-y-2 text-gray-600">
+                            <li class="flex items-center">
+                                <span class="text-green-500 mr-2">✅</span>
+                                Role-based visibility (Admin, Company Admin, Super Admin)
+                            </li>
+                            <li class="flex items-center">
+                                <span class="text-green-500 mr-2">✅</span>
+                                Automatic positioning below main navigation
+                            </li>
+                            <li class="flex items-center">
+                                <span class="text-green-500 mr-2">✅</span>
+                                Responsive design with mobile menu
+                            </li>
+                            <li class="flex items-center">
+                                <span class="text-green-500 mr-2">✅</span>
+                                Real-time authentication state monitoring
+                            </li>
+                            <li class="flex items-center">
+                                <span class="text-green-500 mr-2">✅</span>
+                                Consistent styling across all pages
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">🔗 Admin Links</h3>
+                        <ul class="space-y-2 text-gray-600">
+                            <li class="flex items-center">
+                                <span class="text-blue-500 mr-2">👥</span>
+                                User Management Dashboard
+                            </li>
+                            <li class="flex items-center">
+                                <span class="text-blue-500 mr-2">📝</span>
+                                Content Management System (CMS)
+                            </li>
+                            <li class="flex items-center">
+                                <span class="text-blue-500 mr-2">📊</span>
+                                Analytics & Reports
+                            </li>
+                            <li class="flex items-center">
+                                <span class="text-blue-500 mr-2">⚙️</span>
+                                System Settings
+                            </li>
+                            <li class="flex items-center">
+                                <span class="text-blue-500 mr-2">📈</span>
+                                Reports Dashboard
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Implementation Guide -->
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <h2 class="text-2xl font-semibold text-gray-900 mb-6">📚 Implementation Guide</h2>
+                
+                <div class="prose max-w-none">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-3">🚀 Quick Setup</h3>
+                    <p class="text-gray-600 mb-4">
+                        The admin navigation automatically integrates with any page that includes the main navigation. 
+                        Simply include the integration script:
+                    </p>
+                    
+                    <div class="bg-gray-100 rounded-lg p-4 mb-6">
+                        <code class="text-sm text-gray-800">
+                            &lt;script src="/assets/js/admin-navigation-integration.js"&gt;&lt;/script&gt;
+                        </code>
+                    </div>
+
+                    <h3 class="text-lg font-semibold text-gray-800 mb-3">🔧 Manual Control</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <button onclick="window.refreshAdminNavigation()" 
+                                class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm">
+                            🔄 Refresh Admin Navigation
+                        </button>
+                        <button onclick="window.AdminNavIntegration.enableDebug()" 
+                                class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg text-sm">
+                            🐛 Enable Debug Mode
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="components/main-navigation.js"></script>
+    <script src="assets/js/admin-navigation-integration.js"></script>
+    
+    <script>
+        // Demo functions for role simulation
+        function simulateRole(role) {
+            console.log(`🎭 Simulating role: ${role}`);
+            
+            // Create mock user data
+            const mockUser = {
+                id: 'demo-user-123',
+                email: 'admin@ardonie.com',
+                firstName: 'Demo',
+                lastName: 'Admin',
+                role: role,
+                selectedRole: role,
+                userTypes: [role]
+            };
+
+            // Store in both localStorage and sessionStorage for compatibility
+            localStorage.setItem('ardonie_user_session', JSON.stringify(mockUser));
+            localStorage.setItem('ardonie_auth_status', 'authenticated');
+            sessionStorage.setItem('ardonie_current_user', JSON.stringify(mockUser));
+            sessionStorage.setItem('ardonie_auth_status', 'authenticated');
+
+            // Update status display
+            updateStatusDisplay();
+
+            // Trigger authentication events
+            document.dispatchEvent(new CustomEvent('authenticationComplete', {
+                detail: { user: mockUser }
+            }));
+
+            document.dispatchEvent(new CustomEvent('authStateChanged'));
+
+            // Refresh admin navigation
+            setTimeout(() => {
+                if (window.refreshAdminNavigation) {
+                    window.refreshAdminNavigation();
+                }
+            }, 100);
+        }
+
+        function simulateLogout() {
+            console.log('🚪 Simulating logout');
+            
+            // Clear all auth data
+            localStorage.removeItem('ardonie_user_session');
+            localStorage.removeItem('ardonie_auth_status');
+            sessionStorage.removeItem('ardonie_current_user');
+            sessionStorage.removeItem('ardonie_auth_status');
+
+            // Update status display
+            updateStatusDisplay();
+
+            // Trigger logout events
+            document.dispatchEvent(new CustomEvent('userLoggedOut'));
+            document.dispatchEvent(new CustomEvent('authStateChanged'));
+
+            // Update navigation
+            if (window.ArdonieNavigation) {
+                window.ArdonieNavigation.updateAuthState();
+            }
+        }
+
+        function updateStatusDisplay() {
+            const user = getCurrentUser();
+            const isAuthenticated = !!user;
+            const role = user ? user.role : 'None';
+            const adminNavVisible = isAuthenticated && role === 'admin';
+
+            document.getElementById('auth-status').textContent = isAuthenticated ? 'Authenticated' : 'Not Authenticated';
+            document.getElementById('current-role').textContent = role;
+            document.getElementById('admin-nav-status').textContent = adminNavVisible ? 'Visible' : 'Hidden';
+        }
+
+        function getCurrentUser() {
+            try {
+                const userSession = localStorage.getItem('ardonie_user_session') || sessionStorage.getItem('ardonie_current_user');
+                const authStatus = localStorage.getItem('ardonie_auth_status') || sessionStorage.getItem('ardonie_auth_status');
+                
+                if (userSession && authStatus === 'authenticated') {
+                    return JSON.parse(userSession);
+                }
+                return null;
+            } catch (error) {
+                return null;
+            }
+        }
+
+        // Initialize status display
+        document.addEventListener('DOMContentLoaded', function() {
+            updateStatusDisplay();
+            
+            // Update status when admin navigation changes
+            setInterval(updateStatusDisplay, 1000);
+        });
+    </script>
+</body>
+</html>

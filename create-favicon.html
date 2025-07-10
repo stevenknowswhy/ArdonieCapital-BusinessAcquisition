@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favicon Generator - Ardonie Capital</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: #f3f4f6;
+        }
+        .favicon-generator {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .favicon-preview {
+            width: 64px;
+            height: 64px;
+            margin: 1rem auto;
+            border: 2px solid #e5e7eb;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 24px;
+            color: white;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+        }
+        canvas {
+            border: 1px solid #ccc;
+            margin: 1rem;
+        }
+        button {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 0.5rem;
+        }
+        button:hover {
+            background: #2563eb;
+        }
+    </style>
+</head>
+<body>
+    <div class="favicon-generator">
+        <h1>Ardonie Capital Favicon Generator</h1>
+        <div class="favicon-preview">AC</div>
+        
+        <canvas id="favicon16" width="16" height="16"></canvas>
+        <canvas id="favicon32" width="32" height="32"></canvas>
+        <canvas id="favicon48" width="48" height="48"></canvas>
+        
+        <div>
+            <button onclick="generateFavicons()">Generate Favicons</button>
+            <button onclick="downloadFavicon()">Download favicon.ico</button>
+        </div>
+        
+        <p>This will generate a simple "AC" favicon for Ardonie Capital</p>
+    </div>
+
+    <script>
+        function generateFavicons() {
+            const sizes = [16, 32, 48];
+            
+            sizes.forEach(size => {
+                const canvas = document.getElementById(`favicon${size}`);
+                const ctx = canvas.getContext('2d');
+                
+                // Clear canvas
+                ctx.clearRect(0, 0, size, size);
+                
+                // Create gradient background
+                const gradient = ctx.createLinearGradient(0, 0, size, size);
+                gradient.addColorStop(0, '#3b82f6');
+                gradient.addColorStop(1, '#2563eb');
+                
+                // Draw background
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, size, size);
+                
+                // Draw text
+                ctx.fillStyle = 'white';
+                ctx.font = `bold ${Math.floor(size * 0.6)}px Arial`;
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText('AC', size / 2, size / 2);
+            });
+        }
+        
+        function downloadFavicon() {
+            // For this demo, we'll create a simple data URL
+            // In a real implementation, you'd combine multiple sizes into an ICO file
+            const canvas = document.getElementById('favicon32');
+            const link = document.createElement('a');
+            link.download = 'favicon.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+        
+        // Generate favicons on load
+        generateFavicons();
+    </script>
+</body>
+</html>

@@ -1,21 +1,64 @@
 # 🏢 Ardonie Capital - Business Acquisition Platform
 
-A comprehensive business acquisition marketplace specializing in DFW auto repair shops, featuring enterprise-grade security, role-based access control, and professional financial tools.
+A comprehensive business acquisition marketplace specializing in DFW auto repair shops, featuring enterprise-grade security, role-based access control, professional financial tools, and powered by **Supabase** for scalable database operations and real-time capabilities.
 
 ## 🚀 Quick Start
 
 ### Prerequisites
-- Python 3.x (for local development server)
-- Modern web browser (Chrome, Firefox, Safari, Edge)
 
-### Running the Application
+#### System Requirements
+- **Node.js** 16+ (for package management and testing)
+- **Python 3.x** (for local development server)
+- **Modern web browser** (Chrome, Firefox, Safari, Edge)
+
+#### Database Requirements
+- **Supabase Account** - [Sign up at supabase.com](https://supabase.com)
+- **Supabase Project** - Create a new project or use existing
+- **Database Access** - Admin access to run SQL scripts
+
+#### Environment Setup
+- **Git** for version control
+- **Code Editor** (VS Code recommended)
+- **Terminal/Command Line** access
+
+### Installation & Setup
+
+#### 1. Clone and Install Dependencies
 ```bash
 # Clone the repository
 git clone https://github.com/stevenknowswhy/ArdonieCapital-BusinessAcquisition.git
 cd ArdonieCapital-BusinessAcquisition
 
+# Install Node.js dependencies
+npm install
+```
+
+#### 2. Environment Configuration
+```bash
+# Copy environment template
+cp .env.example .env.local
+
+# Edit with your Supabase credentials
+# Update SUPABASE_URL, SUPABASE_ANON_KEY, etc.
+```
+
+#### 3. Database Setup
+```bash
+# Run database schema in Supabase SQL Editor
+# 1. Copy contents of database/schema.sql
+# 2. Copy contents of database/rls-policies.sql
+# 3. Optionally: database/sample-data.sql
+
+# Verify database setup
+npm run supabase:test-all
+```
+
+#### 4. Start Development Server
+```bash
 # Start local development server
 python3 -m http.server 8000
+# or
+npm run dev
 
 # Open in browser
 open http://localhost:8000
@@ -134,21 +177,117 @@ Access: All Areas, User Management, System Administration
 ## 🛠️ Development
 
 ### Project Structure
+
+#### Modular Feature-Based Architecture
 ```
-├── assets/
-│   ├── css/           # Stylesheets and themes
-│   ├── js/            # JavaScript modules
-│   │   ├── auth-service.js      # Authentication system
-│   │   ├── route-guard.js       # Route protection
-│   │   ├── protected-page.js    # Protected page template
-│   │   └── security-headers.js  # Security implementation
-│   └── images/        # Image assets
-├── auth/              # Authentication pages
-├── dashboard/         # Protected dashboard pages
-├── documents/         # Business documents and templates
-├── components/        # Reusable UI components
-└── scripts/          # Utility scripts
+├── src/
+│   ├── features/                    # Feature modules (self-contained)
+│   │   ├── authentication/          # Authentication feature
+│   │   │   ├── components/          # Auth-specific components
+│   │   │   ├── services/            # Auth services (Supabase integration)
+│   │   │   ├── hooks/               # Authentication hooks
+│   │   │   └── index.js             # Public API
+│   │   ├── marketplace/             # Business marketplace feature
+│   │   │   ├── components/          # Marketplace components
+│   │   │   ├── services/            # Marketplace services (Supabase)
+│   │   │   └── index.js             # Public API
+│   │   └── matchmaking/             # Buyer-seller matching feature
+│   │       ├── components/          # Matching components
+│   │       ├── services/            # Matching services (Supabase)
+│   │       └── index.js             # Public API
+│   └── shared/                      # Shared utilities and services
+│       ├── components/              # Reusable UI components
+│       ├── services/                # Shared services
+│       │   ├── supabase/            # Supabase integration layer
+│       │   │   ├── supabase.service.js    # Core Supabase client
+│       │   │   ├── supabase.config.js     # Configuration
+│       │   │   └── index.js               # Public API
+│       │   └── theme/               # Theme management
+│       ├── hooks/                   # Shared React hooks
+│       └── utils/                   # Pure utility functions
+├── database/                        # Database schema and setup
+│   ├── schema.sql                   # Complete database schema
+│   ├── rls-policies.sql             # Row Level Security policies
+│   ├── sample-data.sql              # Test data
+│   └── README.md                    # Database setup guide
+├── scripts/                         # Development and testing scripts
+│   ├── test-supabase-connection.js  # Database connection tests
+│   ├── test-rls-policies.js         # Security policy tests
+│   └── run-all-supabase-tests.js    # Comprehensive test runner
+├── assets/                          # Static assets
+│   ├── css/                         # Stylesheets and themes
+│   ├── js/                          # Legacy JavaScript modules
+│   └── images/                      # Image assets
+├── auth/                            # Authentication pages
+├── dashboard/                       # Protected dashboard pages
+├── documents/                       # Business documents and templates
+├── components/                      # Legacy UI components
+└── .env.example                     # Environment configuration template
 ```
+
+#### Architecture Principles
+
+- **Feature Colocation:** All files for a feature live together
+- **Explicit Dependencies:** Clear imports and exports
+- **Separation of Concerns:** Services, components, and utilities separated
+- **Database Integration:** Supabase services provide data layer abstraction
+- **Security First:** RLS policies and authentication built-in
+
+## 🗄️ Database Configuration
+
+### Supabase Integration
+
+The platform uses **Supabase** as the primary database backend, providing:
+
+- **PostgreSQL Database** - Scalable relational database
+- **Real-time Subscriptions** - Live updates for matches and messages
+- **Row Level Security (RLS)** - User-based data access control
+- **Built-in Authentication** - Secure user management
+- **File Storage** - Document and image uploads
+
+### Database Schema
+
+#### Core Tables
+- **`profiles`** - User profile information (extends auth.users)
+- **`listings`** - Business listings for sale
+- **`matches`** - Buyer-seller compatibility matches
+- **`messages`** - Communication between users
+- **`notifications`** - System notifications
+- **`saved_listings`** - User's saved/favorited listings
+- **`search_history`** - User search activity
+- **`analytics_events`** - Application analytics data
+
+#### Environment Variables
+```env
+# Supabase Configuration
+SUPABASE_URL=https://pbydepsqcypwqbicnsco.supabase.co
+SUPABASE_ANON_KEY=your-anon-key-here
+SUPABASE_SERVICE_ROLE_KEY=your-service-role-key-here
+SUPABASE_JWT_SECRET=your-jwt-secret-here
+```
+
+#### Database Setup Commands
+```bash
+# Test database connection
+npm run supabase:test
+
+# Test RLS policies
+npm run supabase:test-rls
+
+# Run comprehensive tests
+npm run supabase:test-all
+
+# Setup verification
+npm run supabase:setup-rls
+```
+
+### Data Security
+
+- **Row Level Security (RLS)** enabled on all tables
+- **User-based access control** - users only see their own data
+- **Admin override capabilities** for platform management
+- **Encrypted sensitive data** using Supabase's built-in encryption
+- **Audit trails** for all data modifications
 
 ### Security Architecture
 - **Client-Side Authentication:** Secure token-based authentication
@@ -254,6 +393,113 @@ The security system is tested and compatible with:
 - **v1.2.0** - Enhanced session management
 - **v1.1.0** - Added security headers and CSP
 
+## 🛠️ Available NPM Scripts
+
+### Development Scripts
+```bash
+# Start development server
+npm run dev
+
+# Install dependencies
+npm install
+
+# Build for production
+npm run build
+```
+
+### Testing Scripts
+```bash
+# Run all tests
+npm test
+
+# Run component tests
+npm run test:components
+
+# Debug tests
+npm run test:debug
+```
+
+### Supabase Database Scripts
+```bash
+# Test database connection and CRUD operations
+npm run supabase:test
+
+# Test Row Level Security policies
+npm run supabase:test-rls
+
+# Verify RLS setup and configuration
+npm run supabase:setup-rls
+
+# Run comprehensive Supabase test suite
+npm run supabase:test-all
+```
+
+### Code Quality Scripts
+```bash
+# Lint code
+npm run lint
+
+# Format code
+npm run format
+
+# Type checking
+npm run type-check
+```
+
+## 🧪 Testing Instructions
+
+### Database Integration Testing
+
+1. **Basic Connection Test:**
+   ```bash
+   npm run supabase:test
+   ```
+   - Tests database connectivity
+   - Verifies CRUD operations
+   - Checks authentication flow
+
+2. **Security Policy Testing:**
+   ```bash
+   npm run supabase:test-rls
+   ```
+   - Tests Row Level Security policies
+   - Verifies user access controls
+   - Checks data isolation
+
+3. **Comprehensive Testing:**
+   ```bash
+   npm run supabase:test-all
+   ```
+   - Runs all database tests
+   - Generates detailed reports
+   - Provides setup recommendations
+
+### Manual Testing Checklist
+
+- [ ] Database connection successful
+- [ ] User registration and login working
+- [ ] RLS policies enforcing security
+- [ ] Real-time updates functioning
+- [ ] File uploads working (if applicable)
+- [ ] Data persistence across sessions
+
+## 📚 Documentation Links
+
+### Database & Backend
+- [Database Setup Guide](./database/README.md) - Complete database setup instructions
+- [RLS Setup Guide](./database/RLS-SETUP-GUIDE.md) - Row Level Security configuration
+- [Supabase Integration Complete](./SUPABASE-INTEGRATION-COMPLETE.md) - Full integration overview
+
+### Architecture & Development
+- [Modular Development Guide](./docs/MODULAR-DEVELOPMENT.md) - Feature-based architecture
+- [Security Architecture](./docs/SECURITY.md) - Security implementation details
+- [API Documentation](./docs/API.md) - Service layer documentation
+
+### Testing & Quality
+- [Testing Guide](./docs/TESTING.md) - Comprehensive testing instructions
+- [Code Quality Standards](./docs/CODE-QUALITY.md) - Development standards
+- [Deployment Guide](./docs/DEPLOYMENT.md) - Production deployment
+
 ## 📞 Support
 
 ### For Authentication Issues:
@@ -283,6 +529,15 @@ The security system is tested and compatible with:
 
 ---
 
-**🔐 Security Note:** This implementation includes comprehensive client-side security measures designed for demonstration and development. For production deployment, ensure proper server-side authentication, HTTPS encryption, API security, and database protection are implemented.
+**🔐 Security Note:** This implementation includes comprehensive security measures with Supabase backend integration, Row Level Security policies, and enterprise-grade authentication. The platform is designed for production use with proper database security, real-time capabilities, and scalable architecture.
 
-**🚀 Ready to Test:** Start the local server with `python3 -m http.server 8000` and visit `http://localhost:8000` to begin exploring the secure platform!
+**🗄️ Database Integration:** The platform now uses Supabase as the primary database backend, providing PostgreSQL with real-time subscriptions, built-in authentication, and comprehensive security policies. Run `npm run supabase:test-all` to verify your database setup.
+
+**🚀 Ready to Deploy:**
+1. Set up your Supabase database using the provided schema files
+2. Configure environment variables in `.env.local`
+3. Run the test suite to verify integration: `npm run supabase:test-all`
+4. Start the development server: `python3 -m http.server 8000`
+5. Visit `http://localhost:8000` to explore the platform!
+
+**📈 Production Ready:** With Supabase integration, the platform includes enterprise features like real-time updates, scalable database operations, comprehensive security policies, and professional-grade authentication suitable for production deployment.

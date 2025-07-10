@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CMS Data Population Verification</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .success { color: #22c55e; font-weight: bold; }
+        .error { color: #ef4444; font-weight: bold; }
+        .loading { color: #3b82f6; }
+        .result {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 10px 0;
+            font-family: monospace;
+            white-space: pre-wrap;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        button {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #2563eb;
+        }
+        .summary {
+            background: #e7f3ff;
+            border: 2px solid #3b82f6;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .success-summary {
+            background: #f0fdf4;
+            border: 2px solid #22c55e;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎯 CMS Data Population Verification</h1>
+    <p>This test verifies that the CMS data population was successful and all functionality works correctly.</p>
+
+    <div class="test-container">
+        <h2>📊 Verification Tests</h2>
+        <button onclick="runAllTests()">Run All Verification Tests</button>
+        <button onclick="clearResults()">Clear Results</button>
+        
+        <div id="test-results"></div>
+        <div id="summary"></div>
+    </div>
+
+    <script type="module">
+        let testResults = [];
+        let blogCMSService = null;
+        let contentAPIService = null;
+
+        window.runAllTests = async function() {
+            clearResults();
+            addResult('🚀 Starting CMS data population verification...', 'loading');
+            
+            try {
+                // Initialize services
+                await initializeServices();
+                
+                // Test 1: Verify categories exist
+                await testCategoriesExist();
+                
+                // Test 2: Verify posts exist
+                await testPostsExist();
+                
+                // Test 3: Test category filtering (the bug we fixed)
+                await testCategoryFiltering();
+                
+                // Test 4: Test search functionality
+                await testSearchFunctionality();
+                
+                // Test 5: Test content creation permissions
+                await testContentCreation();
+                
+                // Generate summary
+                generateSummary();
+                
+            } catch (error) {
+                addResult(`❌ Verification failed: ${error.message}`, 'error');
+                generateSummary();
+            }
+        };
+
+        async function initializeServices() {
+            addResult('⚙️ Initializing services...', 'loading');
+            
+            try {
+                const { blogCMSService: blog } = await import(`./src/features/blog/services/blog-cms.service.js?v=${Date.now()}`);
+                const { contentAPIService: api } = await import(`./src/features/blog/services/content-api.service.js?v=${Date.now()}`);
+                
+                blogCMSService = blog;
+                contentAPIService = api;
+                
+                await blogCMSService.initializeService();
+                await contentAPIService.init();
+                
+                addResult('✅ Services initialized successfully', 'success');
+                testResults.push({ test: 'Service Initialization', success: true });
+            } catch (error) {
+                addResult(`❌ Service initialization failed: ${error.message}`, 'error');
+                testResults.push({ test: 'Service Initialization', success: false, error: error.message });
+                throw error;
+            }
+        }
+
+        async function testCategoriesExist() {
+            addResult('🏷️ Testing categories exist...', 'loading');
+            
+            try {
+                const result = await blogCMSService.getCategories();
+                
+                if (result.success && result.data && result.data.length >= 6) {
+                    addResult(`✅ Categories loaded: ${result.data.length} categories found`, 'success');
+                    addResult(`   Categories: ${result.data.map(c => c.name).join(', ')}`);
+                    testResults.push({ test: 'Categories Exist', success: true });
+                } else {
+                    throw new Error(`Expected at least 6 categories, got ${result.data?.length || 0}`);
+                }
+            } catch (error) {
+                addResult(`❌ Categories test failed: ${error.message}`, 'error');
+                testResults.push({ test: 'Categories Exist', success: false, error: error.message });
+            }
+        }
+
+        async function testPostsExist() {
+            addResult('📝 Testing posts exist...', 'loading');
+            
+            try {
+                const result = await blogCMSService.getPosts({ limit: 20 });
+                
+                if (result.success && result.data && result.data.length >= 6) {
+                    addResult(`✅ Posts loaded: ${result.data.length} posts found`, 'success');
+                    addResult(`   Sample titles: ${result.data.slice(0, 3).map(p => p.title).join(', ')}`);
+                    testResults.push({ test: 'Posts Exist', success: true });
+                } else {
+                    throw new Error(`Expected at least 6 posts, got ${result.data?.length || 0}`);
+                }
+            } catch (error) {
+                addResult(`❌ Posts test failed: ${error.message}`, 'error');
+                testResults.push({ test: 'Posts Exist', success: false, error: error.message });
+            }
+        }
+
+        async function testCategoryFiltering() {
+            addResult('🔍 Testing category filtering (bug fix)...', 'loading');
+            
+            try {
+                // Test filtering by slug (this was the bug)
+                const result = await blogCMSService.getPosts({ 
+                    category: 'business-acquisition',
+                    limit: 10 
+                });
+                
+                if (result.success) {
+                    addResult(`✅ Category filtering by slug works: ${result.data?.length || 0} posts in 'business-acquisition'`, 'success');
+                    testResults.push({ test: 'Category Filtering', success: true });
+                } else {
+                    throw new Error(`Category filtering failed: ${result.error}`);
+                }
+            } catch (error) {
+                addResult(`❌ Category filtering test failed: ${error.message}`, 'error');
+                testResults.push({ test: 'Category Filtering', success: false, error: error.message });
+            }
+        }
+
+        async function testSearchFunctionality() {
+            addResult('🔍 Testing search functionality...', 'loading');
+            
+            try {
+                const result = await blogCMSService.searchPosts('auto shop', { limit: 5 });
+                
+                if (result.success && result.data && result.data.length > 0) {
+                    addResult(`✅ Search works: Found ${result.data.length} posts for 'auto shop'`, 'success');
+                    testResults.push({ test: 'Search Functionality', success: true });
+                } else {
+                    throw new Error(`Search returned no results for 'auto shop'`);
+                }
+            } catch (error) {
+                addResult(`❌ Search test failed: ${error.message}`, 'error');
+                testResults.push({ test: 'Search Functionality', success: false, error: error.message });
+            }
+        }
+
+        async function testContentCreation() {
+            addResult('✏️ Testing content creation permissions...', 'loading');
+            
+            try {
+                const testPost = {
+                    title: 'Test Post - Verification',
+                    content: 'This is a test post to verify content creation permissions.',
+                    status: 'draft',
+                    excerpt: 'Test post for verification purposes.'
+                };
+                
+                const result = await contentAPIService.createPost(testPost);
+                
+                if (result.success) {
+                    addResult(`✅ Content creation works: Created test post with ID ${result.data?.id}`, 'success');
+                    testResults.push({ test: 'Content Creation', success: true });
+                    
+                    // Clean up - delete the test post
+                    if (result.data?.id) {
+                        await contentAPIService.deletePost(result.data.id);
+                        addResult('   Test post cleaned up');
+                    }
+                } else {
+                    throw new Error(`Content creation failed: ${result.error}`);
+                }
+            } catch (error) {
+                addResult(`❌ Content creation test failed: ${error.message}`, 'error');
+                testResults.push({ test: 'Content Creation', success: false, error: error.message });
+            }
+        }
+
+        function generateSummary() {
+            const successCount = testResults.filter(r => r.success).length;
+            const totalTests = testResults.length;
+            const successRate = Math.round((successCount / totalTests) * 100);
+            
+            const summaryDiv = document.getElementById('summary');
+            const isAllSuccess = successCount === totalTests;
+            
+            summaryDiv.className = `summary ${isAllSuccess ? 'success-summary' : ''}`;
+            summaryDiv.innerHTML = `
+                <h3>${isAllSuccess ? '🎉' : '⚠️'} Verification Summary</h3>
+                <p><strong>Success Rate: ${successRate}% (${successCount}/${totalTests})</strong></p>
+                
+                ${isAllSuccess ? 
+                    '<p><strong>🎯 RESULT: CMS DATA POPULATION SUCCESSFUL!</strong></p><p>All blog content has been imported and all functionality is working correctly.</p>' :
+                    '<p><strong>⚠️ RESULT: Some issues detected.</strong></p><p>Review the failed tests above for details.</p>'
+                }
+                
+                <h4>Test Results:</h4>
+                <ul>
+                    ${testResults.map(test => 
+                        `<li>${test.success ? '✅' : '❌'} ${test.test}${test.error ? `: ${test.error}` : ''}</li>`
+                    ).join('')}
+                </ul>
+                
+                ${isAllSuccess ? 
+                    '<p><strong>Next Steps:</strong></p><ul><li>✅ Test the blog frontend at <a href="blog/index.html">blog/index.html</a></li><li>✅ Test the content management dashboard</li><li>✅ Verify search and filtering on the blog pages</li></ul>' :
+                    ''
+                }
+            `;
+        }
+
+        function addResult(message, type = 'info') {
+            const resultsDiv = document.getElementById('test-results');
+            const timestamp = new Date().toLocaleTimeString();
+            const resultLine = `[${timestamp}] ${message}\n`;
+            resultsDiv.textContent += resultLine;
+            resultsDiv.scrollTop = resultsDiv.scrollHeight;
+        }
+
+        window.clearResults = function() {
+            document.getElementById('test-results').textContent = 'Results cleared...';
+            document.getElementById('summary').innerHTML = '';
+            testResults = [];
+        };
+
+        // Auto-run tests on page load
+        window.addEventListener('load', () => {
+            setTimeout(runAllTests, 1000);
+        });
+    </script>
+</body>
+</html>

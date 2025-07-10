@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify RLS Fix - reforiy538@iamtile.com</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold mb-6">Verify RLS Policy Fix</h1>
+        
+        <!-- Instructions -->
+        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6">
+            <h2 class="text-lg font-semibold text-yellow-800">URGENT: Apply Database Fixes</h2>
+            <p class="text-yellow-700 mt-2">
+                <strong>Step 1:</strong> Copy the SQL from <code>apply-rls-fixes-now.sql</code><br>
+                <strong>Step 2:</strong> Go to your Supabase Dashboard → SQL Editor<br>
+                <strong>Step 3:</strong> Paste and run the SQL script<br>
+                <strong>Step 4:</strong> Come back here and test the fix
+            </p>
+        </div>
+
+        <!-- Test Controls -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+            <h2 class="text-xl font-semibold mb-4">Test RLS Policy Fix</h2>
+            <div class="space-y-4">
+                <button onclick="testProfileAccess()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                    Test Profile Table Access
+                </button>
+                <button onclick="createUserProfile()" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+                    Create User Profile
+                </button>
+                <button onclick="testCompleteFlow()" class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600">
+                    Test Complete Flow
+                </button>
+            </div>
+        </div>
+
+        <!-- User Info -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+            <h2 class="text-xl font-semibold mb-4">User Information</h2>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Email</label>
+                    <input type="text" value="reforiy538@iamtile.com" readonly
+                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Auth User ID</label>
+                    <input type="text" value="feb2bf0a-e82c-422c-b987-8e2754077f7c" readonly
+                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50">
+                </div>
+            </div>
+        </div>
+
+        <!-- Test Results -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+            <h2 class="text-xl font-semibold mb-4">Test Results</h2>
+            <div id="test-results" class="space-y-2">
+                <p class="text-gray-600">Click the test buttons above to verify the RLS fix...</p>
+            </div>
+        </div>
+
+        <!-- Debug Log -->
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-xl font-semibold mb-4">Debug Log</h2>
+            <div id="debug-log" class="bg-gray-100 p-4 rounded text-sm font-mono max-h-64 overflow-y-auto"></div>
+            <button onclick="clearLog()" class="mt-2 bg-gray-500 text-white px-3 py-1 rounded text-sm">Clear Log</button>
+        </div>
+    </div>
+
+    <!-- Supabase CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <script>
+        const USER_EMAIL = 'reforiy538@iamtile.com';
+        const USER_AUTH_ID = 'feb2bf0a-e82c-422c-b987-8e2754077f7c';
+        let supabase;
+
+        function log(message, type = 'info') {
+            const debugLog = document.getElementById('debug-log');
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = document.createElement('div');
+            logEntry.className = type === 'error' ? 'text-red-600' : type === 'success' ? 'text-green-600' : 'text-gray-800';
+            logEntry.textContent = `[${timestamp}] ${message}`;
+            debugLog.appendChild(logEntry);
+            debugLog.scrollTop = debugLog.scrollHeight;
+        }
+
+        function clearLog() {
+            document.getElementById('debug-log').innerHTML = '';
+        }
+
+        function addResult(content, type = 'info') {
+            const container = document.getElementById('test-results');
+            const resultDiv = document.createElement('div');
+            resultDiv.className = `p-3 rounded ${
+                type === 'error' ? 'bg-red-100 text-red-800' : 
+                type === 'success' ? 'bg-green-100 text-green-800' : 
+                type === 'warning' ? 'bg-yellow-100 text-yellow-800' : 
+                'bg-blue-100 text-blue-800'
+            }`;
+            resultDiv.innerHTML = content;
+            container.appendChild(resultDiv);
+        }
+
+        async function initSupabase() {
+            try {
+                const SUPABASE_URL = 'https://pbydepsqcypwqbicnsco.supabase.co';
+                const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBieWRlcHNxY3lwd3FiaWNuc2NvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE5MjAxOTQsImV4cCI6MjA2NzQ5NjE5NH0.5aF46QcNOFN_vwXcHxCsVx_8a4EsqE1bL4fy4K7UXI0';
+                
+                supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                log('Supabase client initialized', 'success');
+                return true;
+            } catch (error) {
+                log(`Failed to initialize Supabase: ${error.message}`, 'error');
+                return false;
+            }
+        }
+
+        async function testProfileAccess() {
+            try {
+                log('Testing profile table access...');
+                
+                // Test 1: Basic profile table access
+                const { data: profiles, error: profileError } = await supabase
+                    .from('profiles')
+                    .select('count')
+                    .limit(1);
+
+                if (profileError) {
+                    if (profileError.message.includes('infinite recursion')) {
+                        log('❌ RLS infinite recursion still exists!', 'error');
+                        addResult('<strong>❌ RLS Fix NOT Applied</strong><br>Still getting infinite recursion error. Please apply the SQL fix first.', 'error');
+                        return false;
+                    } else {
+                        log(`Profile access error: ${profileError.message}`, 'error');
+                        addResult(`<strong>❌ Profile Access Error</strong><br>${profileError.message}`, 'error');
+                        return false;
+                    }
+                } else {
+                    log('✅ Profile table accessible!', 'success');
+                    addResult('<strong>✅ RLS Fix Applied Successfully!</strong><br>Profile table is now accessible without infinite recursion.', 'success');
+                    return true;
+                }
+            } catch (error) {
+                log(`Exception testing profile access: ${error.message}`, 'error');
+                addResult(`<strong>❌ Exception</strong><br>${error.message}`, 'error');
+                return false;
+            }
+        }
+
+        async function createUserProfile() {
+            try {
+                log(`Creating profile for user ${USER_AUTH_ID}...`);
+                
+                // First check if profile exists
+                const { data: existingProfile, error: checkError } = await supabase
+                    .from('profiles')
+                    .select('*')
+                    .eq('user_id', USER_AUTH_ID)
+                    .single();
+
+                if (checkError && checkError.code !== 'PGRST116') {
+                    if (checkError.message.includes('infinite recursion')) {
+                        log('❌ RLS infinite recursion still exists!', 'error');
+                        addResult('<strong>❌ RLS Fix NOT Applied</strong><br>Please apply the SQL fix first.', 'error');
+                        return false;
+                    } else {
+                        log(`Error checking existing profile: ${checkError.message}`, 'error');
+                        addResult(`<strong>❌ Profile Check Error</strong><br>${checkError.message}`, 'error');
+                        return false;
+                    }
+                }
+
+                if (existingProfile) {
+                    log('✅ Profile already exists', 'success');
+                    addResult(`<strong>✅ Profile Already Exists</strong><br>Name: ${existingProfile.first_name} ${existingProfile.last_name}<br>Role: ${existingProfile.role}`, 'success');
+                    return true;
+                }
+
+                // Create new profile
+                const profileData = {
+                    user_id: USER_AUTH_ID,
+                    first_name: 'User',
+                    last_name: 'Account',
+                    role: 'buyer',
+                    created_at: new Date().toISOString(),
+                    updated_at: new Date().toISOString()
+                };
+
+                const { data: newProfile, error: createError } = await supabase
+                    .from('profiles')
+                    .insert(profileData)
+                    .select()
+                    .single();
+
+                if (createError) {
+                    log(`Profile creation error: ${createError.message}`, 'error');
+                    addResult(`<strong>❌ Profile Creation Failed</strong><br>${createError.message}`, 'error');
+                    return false;
+                } else {
+                    log('✅ Profile created successfully!', 'success');
+                    addResult(`<strong>✅ Profile Created Successfully!</strong><br>Name: ${newProfile.first_name} ${newProfile.last_name}<br>Role: ${newProfile.role}`, 'success');
+                    return true;
+                }
+            } catch (error) {
+                log(`Exception creating profile: ${error.message}`, 'error');
+                addResult(`<strong>❌ Exception</strong><br>${error.message}`, 'error');
+                return false;
+            }
+        }
+
+        async function testCompleteFlow() {
+            log('Testing complete authentication flow...');
+            document.getElementById('test-results').innerHTML = '';
+            
+            // Test 1: Profile access
+            const accessTest = await testProfileAccess();
+            if (!accessTest) {
+                addResult('<strong>⚠️ Complete Flow Test Stopped</strong><br>Fix RLS policies first.', 'warning');
+                return;
+            }
+
+            // Wait a moment
+            await new Promise(resolve => setTimeout(resolve, 1000));
+
+            // Test 2: Profile creation
+            const profileTest = await createUserProfile();
+            if (profileTest) {
+                addResult('<strong>🎉 Complete Flow Test PASSED!</strong><br>User reforiy538@iamtile.com should now be able to use the application normally.', 'success');
+                
+                // Test 3: Verify user can now login and access profile
+                addResult('<strong>📋 Next Steps for User:</strong><br>1. Try logging in to the application<br>2. Profile should be automatically accessible<br>3. All features should work normally', 'info');
+            }
+        }
+
+        // Initialize
+        window.addEventListener('load', async () => {
+            log('RLS Fix Verification tool loaded');
+            const initialized = await initSupabase();
+            if (initialized) {
+                log('Ready to test RLS policy fixes', 'success');
+                
+                // Auto-test profile access
+                setTimeout(async () => {
+                    await testProfileAccess();
+                }, 1000);
+            }
+        });
+    </script>
+</body>
+</html>

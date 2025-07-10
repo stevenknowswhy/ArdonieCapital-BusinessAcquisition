@@ -1,17 +1,59 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-    <link rel="dns-prefetch" href="//cdn.tailwindcss.com">
+    
     <link rel="dns-prefetch" href="//fonts.googleapis.com">
     <link rel="dns-prefetch" href="//images.unsplash.com">
-    <link rel="preload" href="https://cdn.tailwindcss.com" as="script">
+    
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style">
     <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accounting Firms Portal - Ardonie Capital</title>
 
     <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com" defer></script>
+    <link rel="stylesheet" href="../assets/css/tailwind.css">
+
+    <!-- Theme System -->
+    <script>
+        // Initialize tailwind config with theme support
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            light: '#3B82F6',
+                            DEFAULT: '#2563EB',
+                            dark: '#1D4ED8'
+                        },
+                        secondary: {
+                            light: '#F8FAFC',
+                            DEFAULT: '#E2E8F0',
+                            dark: '#64748B'
+                        },
+                        accent: {
+                            light: '#10B981',
+                            DEFAULT: '#059669',
+                            dark: '#047857'
+                        }
+                    }
+                }
+            }
+        };
+
+        // Apply saved theme preference immediately to prevent flash
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+
 
     <!-- Custom CSS -->
     <link rel="stylesheet" media="print" onload="this.media='all'" href="../assets/css/common.css">
@@ -37,33 +79,7 @@
     </script>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        primary: {
-                            DEFAULT: '#3b82f6',
-                            dark: '#2563eb',
-                            light: '#93c5fd',
-                        },
-                        secondary: {
-                            DEFAULT: '#64748b',
-                            light: '#f1f5f9',
-                        },
-                        accent: {
-                            DEFAULT: '#10b981',
-                            dark: '#059669',
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
+    
     <style>
         body { font-family: 'Inter', sans-serif; }
         .card-hover-lift { transition: transform 0.3s ease, box-shadow 0.3s ease; }
@@ -71,29 +87,14 @@
         .pulse-glow { animation: pulse-glow 2s infinite; }
         @keyframes pulse-glow { 0%, 100% { box-shadow: 0 0 20px rgba(16, 185, 129, 0.5); } 50% { box-shadow: 0 0 30px rgba(16, 185, 129, 0.8); } }
     </style>
+    
+    <!-- Navigation Styles -->
+    <link rel="stylesheet" href="../components/navigation-styles.css">
 </head>
 <body class="bg-gradient-to-br from-slate-50 to-green-50 dark:from-slate-900 dark:to-slate-800 text-slate-900 dark:text-white min-h-screen">
     <!-- Header -->
-    <header class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border-b border-slate-200 dark:border-slate-700 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center py-4">
-                <div class="flex items-center">
-                    <div class="w-10 h-10 bg-gradient-to-br from-primary to-primary-dark rounded-xl flex items-center justify-center text-white font-bold text-lg mr-3">
-                        A
-                    </div>
-                    <div>
-                        <h1 class="text-xl font-bold text-slate-900 dark:text-white">Ardonie Capital</h1>
-                        <p class="text-sm text-green-600 dark:text-green-400">Accounting Firms Portal</p>
-                    </div>
-                </div>
-                <nav class="hidden md:flex space-x-6">
-                    <a href="../index.html" class="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors">Home</a>
-                    <a href="../documents/one-page-pitch.html" class="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors">Pitch Deck</a>
-                    <a href="../prelaunch-express.html" class="text-slate-600 dark:text-slate-300 hover:text-primary transition-colors">Pilot Program</a>
-                </nav>
-            </div>
-        </div>
-    </header>
+        <!-- Navigation Component -->
+    <div id="main-navigation-container"></div>
 
     <!-- Main Content -->
     <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -414,5 +415,8 @@
             </div>
         </div>
     </footer>
+    
+    <!-- Load Navigation Component -->
+    <script src="../components/main-navigation.js"></script>
 </body>
 </html>

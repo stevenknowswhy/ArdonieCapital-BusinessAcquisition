@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Navigation Debug - Ardonie Capital</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="assets/css/admin-navigation.css">
+</head>
+<body class="bg-gray-50">
+    <!-- Main Navigation Container -->
+    <div id="main-navigation-container"></div>
+    
+    <!-- Main Content -->
+    <main class="pt-20">
+        <div class="container mx-auto px-4 py-8">
+            <h1 class="text-3xl font-bold text-gray-900 mb-8">🔧 Admin Navigation Debug Tool</h1>
+            
+            <!-- Debug Information -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                <!-- Authentication Status -->
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h2 class="text-xl font-semibold mb-4">🔐 Authentication Status</h2>
+                    <div class="space-y-3">
+                        <div class="flex justify-between">
+                            <span class="font-medium">User Session:</span>
+                            <span id="user-session-status" class="text-gray-600">Checking...</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="font-medium">Auth Status:</span>
+                            <span id="auth-status" class="text-gray-600">Checking...</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="font-medium">User Email:</span>
+                            <span id="user-email" class="text-gray-600">Checking...</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="font-medium">User Role:</span>
+                            <span id="user-role" class="text-gray-600">Checking...</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="font-medium">Is Admin:</span>
+                            <span id="is-admin" class="text-gray-600">Checking...</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Admin Navigation Status -->
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h2 class="text-xl font-semibold mb-4">🧭 Admin Navigation Status</h2>
+                    <div class="space-y-3">
+                        <div class="flex justify-between">
+                            <span class="font-medium">Component Loaded:</span>
+                            <span id="component-loaded" class="text-gray-600">Checking...</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="font-medium">Container Exists:</span>
+                            <span id="container-exists" class="text-gray-600">Checking...</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="font-medium">Navigation Visible:</span>
+                            <span id="nav-visible" class="text-gray-600">Checking...</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="font-medium">Integration Script:</span>
+                            <span id="integration-script" class="text-gray-600">Checking...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Test Actions -->
+            <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+                <h2 class="text-xl font-semibold mb-4">🧪 Test Actions</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <button onclick="simulateAdminLogin()" 
+                            class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+                        🔑 Simulate Admin Login
+                    </button>
+                    <button onclick="refreshAdminNav()" 
+                            class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">
+                        🔄 Refresh Admin Nav
+                    </button>
+                    <button onclick="clearAuth()" 
+                            class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg">
+                        🚪 Clear Auth Data
+                    </button>
+                </div>
+            </div>
+
+            <!-- Console Output -->
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h2 class="text-xl font-semibold mb-4">📝 Debug Console</h2>
+                <div id="debug-console" class="bg-gray-100 rounded p-4 h-64 overflow-y-auto font-mono text-sm">
+                    <div class="text-gray-600">Debug output will appear here...</div>
+                </div>
+                <button onclick="clearConsole()" 
+                        class="mt-2 bg-gray-500 hover:bg-gray-600 text-white px-3 py-1 rounded text-sm">
+                    Clear Console
+                </button>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="mt-8 bg-white rounded-lg shadow-lg p-6">
+                <h2 class="text-xl font-semibold mb-4">🔗 Quick Links</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <a href="dashboard/super-admin-dashboard.html" 
+                       class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-lg text-center">
+                        🏢 Super Admin Dashboard
+                    </a>
+                    <a href="admin-navigation-demo.html" 
+                       class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-center">
+                        🎭 Admin Nav Demo
+                    </a>
+                    <a href="auth/login.html" 
+                       class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg text-center">
+                        🔐 Login Page
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="components/main-navigation.js"></script>
+    <script src="assets/js/admin-navigation-integration.js"></script>
+    
+    <script>
+        // Debug console
+        function debugLog(message) {
+            const console = document.getElementById('debug-console');
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = document.createElement('div');
+            logEntry.innerHTML = `<span class="text-gray-500">[${timestamp}]</span> ${message}`;
+            console.appendChild(logEntry);
+            console.scrollTop = console.scrollHeight;
+        }
+
+        function clearConsole() {
+            document.getElementById('debug-console').innerHTML = '<div class="text-gray-600">Debug output cleared...</div>';
+        }
+
+        // Test functions
+        function simulateAdminLogin() {
+            debugLog('🔑 Simulating admin login...');
+            
+            const adminUser = {
+                id: 'debug-admin-123',
+                email: 'reforiy538@iamtile.com',
+                firstName: 'Debug',
+                lastName: 'Admin',
+                role: 'admin',
+                selectedRole: 'admin'
+            };
+
+            localStorage.setItem('ardonie_user_session', JSON.stringify(adminUser));
+            localStorage.setItem('ardonie_auth_status', 'authenticated');
+            sessionStorage.setItem('ardonie_current_user', JSON.stringify(adminUser));
+            sessionStorage.setItem('ardonie_auth_status', 'authenticated');
+
+            debugLog('✅ Admin user data stored');
+            
+            // Trigger auth events
+            document.dispatchEvent(new CustomEvent('authenticationComplete', {
+                detail: { user: adminUser }
+            }));
+            document.dispatchEvent(new CustomEvent('authStateChanged'));
+
+            debugLog('📡 Auth events dispatched');
+            
+            setTimeout(() => {
+                updateDebugInfo();
+                refreshAdminNav();
+            }, 500);
+        }
+
+        function refreshAdminNav() {
+            debugLog('🔄 Refreshing admin navigation...');
+            
+            if (window.refreshAdminNavigation) {
+                window.refreshAdminNavigation();
+                debugLog('✅ Admin navigation refresh called');
+            } else {
+                debugLog('❌ refreshAdminNavigation function not found');
+            }
+
+            if (window.ArdonieAdminNavigation) {
+                window.ArdonieAdminNavigation.updateVisibility();
+                debugLog('✅ Admin navigation visibility updated');
+            } else {
+                debugLog('❌ ArdonieAdminNavigation component not found');
+            }
+
+            setTimeout(updateDebugInfo, 200);
+        }
+
+        function clearAuth() {
+            debugLog('🚪 Clearing authentication data...');
+            
+            localStorage.removeItem('ardonie_user_session');
+            localStorage.removeItem('ardonie_auth_status');
+            sessionStorage.removeItem('ardonie_current_user');
+            sessionStorage.removeItem('ardonie_auth_status');
+
+            document.dispatchEvent(new CustomEvent('userLoggedOut'));
+            document.dispatchEvent(new CustomEvent('authStateChanged'));
+
+            debugLog('✅ Auth data cleared and events dispatched');
+            
+            setTimeout(updateDebugInfo, 200);
+        }
+
+        // Update debug information
+        function updateDebugInfo() {
+            debugLog('🔍 Updating debug information...');
+
+            // Check authentication
+            const userSession = localStorage.getItem('ardonie_user_session') || sessionStorage.getItem('ardonie_current_user');
+            const authStatus = localStorage.getItem('ardonie_auth_status') || sessionStorage.getItem('ardonie_auth_status');
+            
+            let user = null;
+            try {
+                user = userSession ? JSON.parse(userSession) : null;
+            } catch (e) {
+                debugLog('❌ Error parsing user session: ' + e.message);
+            }
+
+            // Update UI
+            document.getElementById('user-session-status').textContent = userSession ? '✅ Exists' : '❌ Missing';
+            document.getElementById('auth-status').textContent = authStatus || 'Not Set';
+            document.getElementById('user-email').textContent = user?.email || 'Not Available';
+            document.getElementById('user-role').textContent = user?.role || user?.selectedRole || 'Not Available';
+            
+            // Check if user is admin (only 'admin' role has admin navigation access)
+            const isAdmin = user && (user.role === 'admin' || user.selectedRole === 'admin');
+            document.getElementById('is-admin').textContent = isAdmin ? '✅ Yes' : '❌ No';
+
+            // Check admin navigation components
+            document.getElementById('component-loaded').textContent = window.ArdonieAdminNavigation ? '✅ Loaded' : '❌ Missing';
+            document.getElementById('container-exists').textContent = document.getElementById('admin-navigation-container') ? '✅ Exists' : '❌ Missing';
+            document.getElementById('integration-script').textContent = window.AdminNavigationIntegration ? '✅ Loaded' : '❌ Missing';
+            
+            // Check if admin nav is visible
+            const adminNavBar = document.getElementById('admin-navigation-bar');
+            const isVisible = adminNavBar && adminNavBar.style.display !== 'none';
+            document.getElementById('nav-visible').textContent = isVisible ? '✅ Visible' : '❌ Hidden';
+
+            debugLog(`📊 Debug info updated - Admin: ${isAdmin}, Visible: ${isVisible}`);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            debugLog('🚀 Debug tool initialized');
+            
+            // Initial debug info update
+            setTimeout(updateDebugInfo, 1000);
+            
+            // Set up periodic updates
+            setInterval(updateDebugInfo, 5000);
+        });
+
+        // Listen for auth events
+        document.addEventListener('authenticationComplete', () => {
+            debugLog('📡 Received authenticationComplete event');
+        });
+
+        document.addEventListener('authStateChanged', () => {
+            debugLog('📡 Received authStateChanged event');
+        });
+
+        document.addEventListener('userLoggedOut', () => {
+            debugLog('📡 Received userLoggedOut event');
+        });
+    </script>
+</body>
+</html>

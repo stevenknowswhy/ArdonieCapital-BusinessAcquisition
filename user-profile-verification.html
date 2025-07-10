@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile Verification - reforiy538@iamtile.com</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-6xl mx-auto">
+        <h1 class="text-3xl font-bold mb-6">User Profile Verification & Fix</h1>
+        <p class="text-gray-600 mb-6">Verifying and fixing profile for: <strong>reforiy538@iamtile.com</strong></p>
+        
+        <!-- Status Overview -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+            <h2 class="text-xl font-semibold mb-4">Current Status</h2>
+            <div id="status-overview" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="p-4 rounded bg-gray-100">
+                    <h3 class="font-semibold">Auth User</h3>
+                    <p id="auth-status">Checking...</p>
+                </div>
+                <div class="p-4 rounded bg-gray-100">
+                    <h3 class="font-semibold">Profile Record</h3>
+                    <p id="profile-status">Checking...</p>
+                </div>
+                <div class="p-4 rounded bg-gray-100">
+                    <h3 class="font-semibold">Overall Status</h3>
+                    <p id="overall-status">Checking...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Authentication Test -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+            <h2 class="text-xl font-semibold mb-4">1. Authentication Test</h2>
+            <p class="text-gray-600 mb-4">Test if the user can authenticate to get their auth ID:</p>
+            <form id="auth-test-form" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Email</label>
+                    <input type="email" id="test-email" value="reforiy538@iamtile.com" 
+                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md" readonly>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Password</label>
+                    <input type="password" id="test-password" value="" 
+                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
+                           placeholder="Enter user's password">
+                </div>
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                    Test Authentication
+                </button>
+            </form>
+            <div id="auth-results" class="mt-4"></div>
+        </div>
+
+        <!-- Profile Management -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+            <h2 class="text-xl font-semibold mb-4">2. Profile Management</h2>
+            <div class="space-y-4">
+                <div>
+                    <h3 class="font-semibold mb-2">Profile Creation/Update</h3>
+                    <form id="profile-form" class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">First Name</label>
+                            <input type="text" id="profile-firstName" value="User" 
+                                   class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Last Name</label>
+                            <input type="text" id="profile-lastName" value="Account" 
+                                   class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Role</label>
+                            <select id="profile-role" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
+                                <option value="buyer">Buyer</option>
+                                <option value="seller">Seller</option>
+                                <option value="admin">Admin</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">User Auth ID</label>
+                            <input type="text" id="profile-userId" value="" 
+                                   class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
+                                   placeholder="Will be filled after authentication">
+                        </div>
+                    </form>
+                    <div class="mt-4 space-x-2">
+                        <button onclick="createProfile()" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+                            Create Profile
+                        </button>
+                        <button onclick="updateProfile()" class="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600">
+                            Update Profile
+                        </button>
+                        <button onclick="checkProfile()" class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600">
+                            Check Profile
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div id="profile-results" class="mt-4"></div>
+        </div>
+
+        <!-- Resolution Actions -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+            <h2 class="text-xl font-semibold mb-4">3. Resolution Actions</h2>
+            <div class="space-y-4">
+                <button onclick="sendPasswordReset()" class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600">
+                    Send Password Reset Email
+                </button>
+                <button onclick="runCompleteVerification()" class="bg-indigo-500 text-white px-4 py-2 rounded hover:bg-indigo-600">
+                    Run Complete Verification
+                </button>
+                <button onclick="fixUserAccount()" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+                    Fix User Account (Auto)
+                </button>
+            </div>
+            <div id="resolution-results" class="mt-4"></div>
+        </div>
+
+        <!-- Debug Log -->
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-xl font-semibold mb-4">Debug Log</h2>
+            <div id="debug-log" class="bg-gray-100 p-4 rounded text-sm font-mono max-h-64 overflow-y-auto"></div>
+            <button onclick="clearLog()" class="mt-2 bg-gray-500 text-white px-3 py-1 rounded text-sm">Clear Log</button>
+        </div>
+    </div>
+
+    <!-- Supabase CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <script>
+        const TARGET_EMAIL = 'reforiy538@iamtile.com';
+        let supabase;
+        let userAuthId = null;
+        let userProfile = null;
+
+        function log(message, type = 'info') {
+            const debugLog = document.getElementById('debug-log');
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = document.createElement('div');
+            logEntry.className = type === 'error' ? 'text-red-600' : type === 'success' ? 'text-green-600' : 'text-gray-800';
+            logEntry.textContent = `[${timestamp}] ${message}`;
+            debugLog.appendChild(logEntry);
+            debugLog.scrollTop = debugLog.scrollHeight;
+        }
+
+        function clearLog() {
+            document.getElementById('debug-log').innerHTML = '';
+        }
+
+        function addResult(containerId, content, type = 'info') {
+            const container = document.getElementById(containerId);
+            const resultDiv = document.createElement('div');
+            resultDiv.className = `p-3 rounded mt-2 ${
+                type === 'error' ? 'bg-red-100 text-red-800' : 
+                type === 'success' ? 'bg-green-100 text-green-800' : 
+                type === 'warning' ? 'bg-yellow-100 text-yellow-800' : 
+                'bg-blue-100 text-blue-800'
+            }`;
+            resultDiv.innerHTML = content;
+            container.appendChild(resultDiv);
+        }
+
+        function updateStatus(elementId, content, type = 'info') {
+            const element = document.getElementById(elementId);
+            element.className = type === 'error' ? 'text-red-600' : type === 'success' ? 'text-green-600' : 'text-gray-600';
+            element.textContent = content;
+        }
+
+        async function initSupabase() {
+            try {
+                const SUPABASE_URL = 'https://pbydepsqcypwqbicnsco.supabase.co';
+                const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBieWRlcHNxY3lwd3FiaWNuc2NvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE5MjAxOTQsImV4cCI6MjA2NzQ5NjE5NH0.5aF46QcNOFN_vwXcHxCsVx_8a4EsqE1bL4fy4K7UXI0';
+                
+                supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                log('Supabase client initialized', 'success');
+                return true;
+            } catch (error) {
+                log(`Failed to initialize Supabase: ${error.message}`, 'error');
+                return false;
+            }
+        }
+
+        // Test authentication and get user ID
+        async function testAuthentication(password) {
+            try {
+                log(`Testing authentication for ${TARGET_EMAIL}...`);
+                
+                const { data, error } = await supabase.auth.signInWithPassword({
+                    email: TARGET_EMAIL,
+                    password: password
+                });
+
+                if (error) {
+                    log(`Authentication failed: ${error.message}`, 'error');
+                    updateStatus('auth-status', 'Failed', 'error');
+                    addResult('auth-results', `❌ Authentication failed: ${error.message}`, 'error');
+                    return false;
+                } else {
+                    userAuthId = data.user?.id;
+                    log(`Authentication successful! User ID: ${userAuthId}`, 'success');
+                    updateStatus('auth-status', 'Success', 'success');
+                    addResult('auth-results', `✅ Authentication successful! User ID: ${userAuthId}`, 'success');
+                    
+                    // Update form
+                    document.getElementById('profile-userId').value = userAuthId;
+                    
+                    // Sign out immediately
+                    await supabase.auth.signOut();
+                    
+                    // Check profile
+                    await checkProfile();
+                    
+                    return true;
+                }
+            } catch (error) {
+                log(`Authentication exception: ${error.message}`, 'error');
+                updateStatus('auth-status', 'Error', 'error');
+                addResult('auth-results', `❌ Exception: ${error.message}`, 'error');
+                return false;
+            }
+        }
+
+        // Check if profile exists
+        async function checkProfile() {
+            if (!userAuthId) {
+                addResult('profile-results', '❌ Need user auth ID first. Please authenticate.', 'error');
+                return false;
+            }
+
+            try {
+                log(`Checking profile for user ID: ${userAuthId}...`);
+                
+                const { data, error } = await supabase
+                    .from('profiles')
+                    .select('*')
+                    .eq('user_id', userAuthId)
+                    .single();
+
+                if (error) {
+                    if (error.code === 'PGRST116') {
+                        log('No profile found', 'warning');
+                        updateStatus('profile-status', 'Missing', 'error');
+                        addResult('profile-results', '❌ No profile record found', 'error');
+                        return false;
+                    } else {
+                        log(`Profile check error: ${error.message}`, 'error');
+                        updateStatus('profile-status', 'Error', 'error');
+                        addResult('profile-results', `❌ Error checking profile: ${error.message}`, 'error');
+                        return false;
+                    }
+                } else {
+                    userProfile = data;
+                    log('Profile found', 'success');
+                    updateStatus('profile-status', 'Exists', 'success');
+                    addResult('profile-results', 
+                        `✅ Profile found: ${data.first_name} ${data.last_name} (${data.role})`, 'success');
+                    
+                    // Update form with existing data
+                    document.getElementById('profile-firstName').value = data.first_name || '';
+                    document.getElementById('profile-lastName').value = data.last_name || '';
+                    document.getElementById('profile-role').value = data.role || 'buyer';
+                    
+                    updateOverallStatus();
+                    return true;
+                }
+            } catch (error) {
+                log(`Profile check exception: ${error.message}`, 'error');
+                updateStatus('profile-status', 'Error', 'error');
+                addResult('profile-results', `❌ Exception: ${error.message}`, 'error');
+                return false;
+            }
+        }
+
+        // Create profile
+        async function createProfile() {
+            if (!userAuthId) {
+                addResult('profile-results', '❌ Need user auth ID first. Please authenticate.', 'error');
+                return;
+            }
+
+            try {
+                log('Creating user profile...');
+                
+                const profileData = {
+                    user_id: userAuthId,
+                    first_name: document.getElementById('profile-firstName').value,
+                    last_name: document.getElementById('profile-lastName').value,
+                    role: document.getElementById('profile-role').value,
+                    created_at: new Date().toISOString(),
+                    updated_at: new Date().toISOString()
+                };
+
+                const { data, error } = await supabase
+                    .from('profiles')
+                    .insert(profileData)
+                    .select()
+                    .single();
+
+                if (error) {
+                    log(`Profile creation error: ${error.message}`, 'error');
+                    addResult('profile-results', `❌ Profile creation failed: ${error.message}`, 'error');
+                } else {
+                    userProfile = data;
+                    log('Profile created successfully', 'success');
+                    updateStatus('profile-status', 'Created', 'success');
+                    addResult('profile-results', '✅ Profile created successfully!', 'success');
+                    updateOverallStatus();
+                }
+            } catch (error) {
+                log(`Profile creation exception: ${error.message}`, 'error');
+                addResult('profile-results', `❌ Exception: ${error.message}`, 'error');
+            }
+        }
+
+        // Update profile
+        async function updateProfile() {
+            if (!userAuthId) {
+                addResult('profile-results', '❌ Need user auth ID first. Please authenticate.', 'error');
+                return;
+            }
+
+            try {
+                log('Updating user profile...');
+                
+                const profileData = {
+                    first_name: document.getElementById('profile-firstName').value,
+                    last_name: document.getElementById('profile-lastName').value,
+                    role: document.getElementById('profile-role').value,
+                    updated_at: new Date().toISOString()
+                };
+
+                const { data, error } = await supabase
+                    .from('profiles')
+                    .update(profileData)
+                    .eq('user_id', userAuthId)
+                    .select()
+                    .single();
+
+                if (error) {
+                    log(`Profile update error: ${error.message}`, 'error');
+                    addResult('profile-results', `❌ Profile update failed: ${error.message}`, 'error');
+                } else {
+                    userProfile = data;
+                    log('Profile updated successfully', 'success');
+                    addResult('profile-results', '✅ Profile updated successfully!', 'success');
+                }
+            } catch (error) {
+                log(`Profile update exception: ${error.message}`, 'error');
+                addResult('profile-results', `❌ Exception: ${error.message}`, 'error');
+            }
+        }
+
+        // Send password reset
+        async function sendPasswordReset() {
+            try {
+                log('Sending password reset email...');
+                
+                const { data, error } = await supabase.auth.resetPasswordForEmail(TARGET_EMAIL);
+                
+                if (error) {
+                    log(`Password reset error: ${error.message}`, 'error');
+                    addResult('resolution-results', `❌ Password reset failed: ${error.message}`, 'error');
+                } else {
+                    log('Password reset email sent', 'success');
+                    addResult('resolution-results', '✅ Password reset email sent successfully', 'success');
+                }
+            } catch (error) {
+                log(`Password reset exception: ${error.message}`, 'error');
+                addResult('resolution-results', `❌ Exception: ${error.message}`, 'error');
+            }
+        }
+
+        // Run complete verification
+        async function runCompleteVerification() {
+            log('Running complete verification...');
+            document.getElementById('resolution-results').innerHTML = '';
+            
+            // Check if we can determine user existence without password
+            const { data, error } = await supabase.auth.signInWithPassword({
+                email: TARGET_EMAIL,
+                password: 'dummy_check_123'
+            });
+
+            if (error && error.message.includes('Invalid login credentials')) {
+                addResult('resolution-results', 
+                    '✅ User exists in auth.users. Need password to complete verification.', 'success');
+                updateStatus('auth-status', 'Exists (need password)', 'warning');
+            } else if (error && error.message.includes('Email not confirmed')) {
+                addResult('resolution-results', 
+                    '⚠️ User exists but email not confirmed. Sending verification email...', 'warning');
+                updateStatus('auth-status', 'Unverified', 'warning');
+                // Could trigger email verification here
+            } else if (error) {
+                addResult('resolution-results', 
+                    `❌ User may not exist: ${error.message}`, 'error');
+                updateStatus('auth-status', 'Not found', 'error');
+            }
+        }
+
+        // Fix user account automatically
+        async function fixUserAccount() {
+            log('Attempting to fix user account...');
+            addResult('resolution-results', 
+                'ℹ️ Automatic fix requires the user to provide their password for verification. Please use the authentication test first.', 'info');
+        }
+
+        function updateOverallStatus() {
+            if (userAuthId && userProfile) {
+                updateStatus('overall-status', 'Complete', 'success');
+            } else if (userAuthId && !userProfile) {
+                updateStatus('overall-status', 'Profile Missing', 'warning');
+            } else {
+                updateStatus('overall-status', 'Incomplete', 'error');
+            }
+        }
+
+        // Form submission handler
+        document.getElementById('auth-test-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const password = document.getElementById('test-password').value;
+            if (password) {
+                document.getElementById('auth-results').innerHTML = '';
+                await testAuthentication(password);
+            }
+        });
+
+        // Initialize
+        window.addEventListener('load', async () => {
+            log('User Profile Verification tool loaded');
+            const initialized = await initSupabase();
+            if (initialized) {
+                log(`Ready to verify profile for: ${TARGET_EMAIL}`, 'success');
+                await runCompleteVerification();
+            }
+        });
+    </script>
+</body>
+</html>

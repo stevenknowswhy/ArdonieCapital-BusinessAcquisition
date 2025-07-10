@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Monitor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .monitor-panel {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .log-entry {
+            padding: 5px;
+            margin: 2px 0;
+            border-radius: 3px;
+            font-family: monospace;
+            font-size: 12px;
+        }
+        .log-info { background-color: #d1ecf1; }
+        .log-success { background-color: #d4edda; }
+        .log-warning { background-color: #fff3cd; }
+        .log-error { background-color: #f8d7da; }
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        .status-green { background-color: #28a745; }
+        .status-yellow { background-color: #ffc107; }
+        .status-red { background-color: #dc3545; }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+    <h1>Registration Page Monitor</h1>
+    
+    <div class="monitor-panel">
+        <h3>System Status</h3>
+        <div id="status-display">
+            <div><span class="status-indicator status-yellow"></span>Initializing...</div>
+        </div>
+        <button onclick="checkRegistrationPage()">Check Registration Page</button>
+        <button onclick="clearLogs()">Clear Logs</button>
+    </div>
+
+    <div class="monitor-panel">
+        <h3>Activity Log</h3>
+        <div id="activity-log" style="max-height: 400px; overflow-y: auto;"></div>
+    </div>
+
+    <div class="monitor-panel">
+        <h3>Quick Test</h3>
+        <p>Click the button below to open the registration page in a new tab and monitor for issues:</p>
+        <button onclick="openRegistrationPage()">Open Registration Page</button>
+        <button onclick="simulateUserFlow()">Simulate User Flow</button>
+    </div>
+
+    <script>
+        let logCount = 0;
+        let redirectCount = 0;
+        let errorCount = 0;
+        
+        function log(message, type = 'info') {
+            const logDiv = document.getElementById('activity-log');
+            const entry = document.createElement('div');
+            entry.className = `log-entry log-${type}`;
+            entry.innerHTML = `[${new Date().toLocaleTimeString()}] ${message}`;
+            logDiv.appendChild(entry);
+            logDiv.scrollTop = logDiv.scrollHeight;
+            logCount++;
+            
+            if (type === 'error') errorCount++;
+            updateStatus();
+        }
+
+        function updateStatus() {
+            const statusDiv = document.getElementById('status-display');
+            let statusColor = 'status-green';
+            let statusText = 'All systems operational';
+            
+            if (errorCount > 0) {
+                statusColor = 'status-red';
+                statusText = `${errorCount} errors detected`;
+            } else if (redirectCount > 0) {
+                statusColor = 'status-yellow';
+                statusText = `${redirectCount} redirects detected`;
+            }
+            
+            statusDiv.innerHTML = `
+                <div><span class="status-indicator ${statusColor}"></span>${statusText}</div>
+                <div style="font-size: 12px; color: #666; margin-top: 5px;">
+                    Logs: ${logCount} | Redirects: ${redirectCount} | Errors: ${errorCount}
+                </div>
+            `;
+        }
+
+        function checkRegistrationPage() {
+            log('Checking registration page accessibility...', 'info');
+            
+            // Test if we can access the registration page
+            fetch('/auth/register.html')
+                .then(response => {
+                    if (response.ok) {
+                        log('✅ Registration page is accessible', 'success');
+                        return response.text();
+                    } else {
+                        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                    }
+                })
+                .then(html => {
+                    // Check if the page contains expected elements
+                    if (html.includes('multiStepForm')) {
+                        log('✅ Registration form found in page', 'success');
+                    } else {
+                        log('⚠️ Registration form not found in page', 'warning');
+                    }
+                    
+                    if (html.includes('auth-service.js')) {
+                        log('✅ Auth service script included', 'success');
+                    } else {
+                        log('⚠️ Auth service script not found', 'warning');
+                    }
+                })
+                .catch(error => {
+                    log(`❌ Failed to access registration page: ${error.message}`, 'error');
+                });
+        }
+
+        function openRegistrationPage() {
+            log('Opening registration page in new tab...', 'info');
+            const newWindow = window.open('/auth/register.html', '_blank');
+            
+            if (newWindow) {
+                log('✅ Registration page opened successfully', 'success');
+                
+                // Monitor the new window for redirects
+                const checkWindow = setInterval(() => {
+                    try {
+                        if (newWindow.closed) {
+                            clearInterval(checkWindow);
+                            log('Registration page tab was closed', 'info');
+                            return;
+                        }
+                        
+                        const currentUrl = newWindow.location.href;
+                        if (!currentUrl.includes('register.html')) {
+                            redirectCount++;
+                            log(`❌ Registration page redirected to: ${currentUrl}`, 'error');
+                            clearInterval(checkWindow);
+                        }
+                    } catch (e) {
+                        // Cross-origin error - window is still on same domain
+                    }
+                }, 1000);
+                
+                // Stop monitoring after 5 minutes
+                setTimeout(() => {
+                    clearInterval(checkWindow);
+                    log('Stopped monitoring registration page window', 'info');
+                }, 300000);
+                
+            } else {
+                log('❌ Failed to open registration page (popup blocked?)', 'error');
+            }
+        }
+
+        function simulateUserFlow() {
+            log('Simulating user registration flow...', 'info');
+            
+            // Simulate the steps a user would take
+            const steps = [
+                'User navigates to registration page',
+                'User fills out email and password',
+                'User selects account type (buyer/seller)',
+                'User proceeds to step 2',
+                'User fills out personal information',
+                'User proceeds to step 3',
+                'User fills out business information (if seller)',
+                'User reviews information',
+                'User submits registration'
+            ];
+            
+            steps.forEach((step, index) => {
+                setTimeout(() => {
+                    log(`Step ${index + 1}: ${step}`, 'info');
+                    
+                    // Simulate potential issues at each step
+                    if (index === 0) {
+                        // Check if page would redirect immediately
+                        checkRegistrationPage();
+                    }
+                }, index * 1000);
+            });
+        }
+
+        function clearLogs() {
+            document.getElementById('activity-log').innerHTML = '';
+            logCount = 0;
+            redirectCount = 0;
+            errorCount = 0;
+            updateStatus();
+            log('Logs cleared', 'info');
+        }
+
+        // Monitor for global errors
+        window.addEventListener('error', (event) => {
+            log(`❌ JavaScript Error: ${event.message} at ${event.filename}:${event.lineno}`, 'error');
+        });
+
+        // Monitor for unhandled promise rejections
+        window.addEventListener('unhandledrejection', (event) => {
+            log(`❌ Unhandled Promise Rejection: ${event.reason}`, 'error');
+        });
+
+        // Initialize monitoring
+        window.addEventListener('load', () => {
+            log('Registration monitor initialized', 'success');
+            updateStatus();
+            
+            // Auto-check registration page
+            setTimeout(checkRegistrationPage, 1000);
+        });
+
+        // Periodic health check
+        setInterval(() => {
+            log('Periodic health check - monitor is running', 'info');
+        }, 60000); // Every minute
+    </script>
+</body>
+</html>

@@ -10,21 +10,18 @@
      * Security Headers Configuration
      */
     const securityConfig = {
-        // Content Security Policy
+        // Content Security Policy (for meta tag implementation)
         csp: {
             'default-src': ["'self'"],
             'script-src': [
                 "'self'",
-                "'unsafe-inline'", // Required for inline scripts (should be minimized in production)
-                "https://cdn.tailwindcss.com",
-                "https://cdn.jsdelivr.net",
-                "https://cdnjs.cloudflare.com"
+                "'unsafe-inline'", // Required for inline scripts
+                "https://fonts.googleapis.com"
             ],
             'style-src': [
                 "'self'",
-                "'unsafe-inline'", // Required for Tailwind CSS
-                "https://fonts.googleapis.com",
-                "https://cdn.tailwindcss.com"
+                "'unsafe-inline'", // Required for inline styles
+                "https://fonts.googleapis.com"
             ],
             'font-src': [
                 "'self'",
@@ -37,22 +34,24 @@
                 "https://images.unsplash.com"
             ],
             'connect-src': [
-                "'self'",
-                "https://api.ardonie.com" // Replace with actual API domain
+                "'self'"
             ],
-            'frame-ancestors': ["'none'"],
             'base-uri': ["'self'"],
             'form-action': ["'self'"],
             'upgrade-insecure-requests': []
         },
+
+        // Server-only headers (cannot be set via meta tags)
+        serverOnlyHeaders: {
+            'frame-ancestors': "'none'",
+            'X-Frame-Options': 'DENY'
+        },
         
-        // Additional security headers
+        // Additional security headers (safe for meta tag implementation)
         headers: {
             'X-Content-Type-Options': 'nosniff',
-            'X-Frame-Options': 'DENY',
             'X-XSS-Protection': '1; mode=block',
-            'Referrer-Policy': 'strict-origin-when-cross-origin',
-            'Permissions-Policy': 'camera=(), microphone=(), geolocation=()'
+            'Referrer-Policy': 'strict-origin-when-cross-origin'
         }
     };
     

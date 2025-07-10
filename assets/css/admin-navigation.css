@@ -1,0 +1,200 @@
+/* Ardonie Capital - Admin Navigation Styles */
+/* Secondary navigation bar for privileged users */
+
+/* Admin Navigation Bar */
+#admin-navigation-bar {
+    position: sticky;
+    top: 64px; /* Position below main navigation (64px height) */
+    z-index: 40; /* Below main nav (z-50) but above content */
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Admin Badge Styling */
+.admin-badge {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Admin Navigation Links */
+#admin-navigation-bar a {
+    position: relative;
+    overflow: hidden;
+}
+
+#admin-navigation-bar a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s;
+}
+
+#admin-navigation-bar a:hover::before {
+    left: 100%;
+}
+
+/* Active Link Styling */
+#admin-navigation-bar a.active {
+    background-color: rgba(59, 130, 246, 0.1);
+    color: #3b82f6;
+    border-bottom: 2px solid #3b82f6;
+}
+
+/* Mobile Menu Animation */
+#mobile-admin-menu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+}
+
+#mobile-admin-menu:not(.hidden) {
+    max-height: 300px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+    #admin-navigation-bar {
+        top: 64px; /* Maintain position below main nav on mobile */
+    }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    #admin-navigation-bar {
+        background: linear-gradient(135deg, #1e293b, #0f172a);
+        border-color: #334155;
+    }
+}
+
+/* Animation for showing/hiding admin nav */
+.admin-nav-enter {
+    opacity: 0;
+    transform: translateY(-100%);
+}
+
+.admin-nav-enter-active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.admin-nav-exit {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.admin-nav-exit-active {
+    opacity: 0;
+    transform: translateY(-100%);
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+/* Ensure proper spacing for main content when admin nav is visible */
+body.admin-nav-visible {
+    padding-top: 112px; /* 64px main nav + 48px admin nav */
+}
+
+body.admin-nav-visible main,
+body.admin-nav-visible .main-content {
+    margin-top: 0;
+    padding-top: 1rem;
+}
+
+/* Admin navigation icons */
+#admin-navigation-bar svg {
+    transition: transform 0.2s ease-in-out;
+}
+
+#admin-navigation-bar a:hover svg {
+    transform: scale(1.1);
+}
+
+/* Notification badges for admin items */
+.admin-notification-badge {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    background-color: #ef4444;
+    color: white;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+/* Accessibility improvements */
+#admin-navigation-bar a:focus {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+}
+
+#admin-navigation-bar button:focus {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+}
+
+/* Loading state */
+.admin-nav-loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.admin-nav-loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid #f3f4f6;
+    border-top: 2px solid #3b82f6;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Print styles - hide admin nav when printing */
+@media print {
+    #admin-navigation-bar {
+        display: none !important;
+    }
+    
+    body.admin-nav-visible {
+        padding-top: 0 !important;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    #admin-navigation-bar {
+        border: 2px solid;
+    }
+    
+    #admin-navigation-bar a {
+        border: 1px solid transparent;
+    }
+    
+    #admin-navigation-bar a:hover,
+    #admin-navigation-bar a:focus {
+        border-color: currentColor;
+    }
+}

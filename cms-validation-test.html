@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CMS Validation Test - Dual Compatibility System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .success {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+        }
+        .error {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+        }
+        .info {
+            background-color: #d1ecf1;
+            border-color: #bee5eb;
+            color: #0c5460;
+        }
+        .loading {
+            background-color: #fff3cd;
+            border-color: #ffeaa7;
+            color: #856404;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        button:disabled {
+            background-color: #6c757d;
+            cursor: not-allowed;
+        }
+        pre {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 3px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        .status-success { background-color: #28a745; }
+        .status-error { background-color: #dc3545; }
+        .status-loading { background-color: #ffc107; }
+        .status-info { background-color: #17a2b8; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 CMS Validation Test - Dual Compatibility System</h1>
+        <p>Testing the dual-compatibility import system and CMS functionality in browser environment.</p>
+        
+        <div class="test-section info">
+            <h3><span class="status-indicator status-info"></span>Environment Information</h3>
+            <div id="environment-info">Loading environment details...</div>
+        </div>
+
+        <div class="test-section loading">
+            <h3><span class="status-indicator status-loading"></span>Dual-Compatibility System Test</h3>
+            <div id="compatibility-test">Initializing dual-compatibility system...</div>
+        </div>
+
+        <div class="test-section loading">
+            <h3><span class="status-indicator status-loading"></span>Supabase Service Test</h3>
+            <div id="supabase-test">Testing Supabase service initialization...</div>
+        </div>
+
+        <div class="test-section loading">
+            <h3><span class="status-indicator status-loading"></span>ContentAPI Test</h3>
+            <div id="content-api-test">Testing ContentAPI getCategories method...</div>
+        </div>
+
+        <div class="test-section loading">
+            <h3><span class="status-indicator status-loading"></span>BlogCMS Service Test</h3>
+            <div id="blog-cms-test">Testing BlogCMS service operations...</div>
+        </div>
+
+        <div class="test-section">
+            <h3>Manual Tests</h3>
+            <button onclick="runHealthCheck()">Run Health Check</button>
+            <button onclick="testDatabaseConnection()">Test Database Connection</button>
+            <button onclick="runFullCMSTest()">Run Full CMS Test</button>
+            <button onclick="clearResults()">Clear Results</button>
+        </div>
+
+        <div class="test-section">
+            <h3>Test Results</h3>
+            <div id="test-results"></div>
+        </div>
+    </div>
+
+    <script type="module">
+        let supabaseService, blogCMSService, contentAPIService;
+        let testResults = [];
+
+        // Utility functions
+        function updateSection(sectionId, content, status = 'info') {
+            const section = document.getElementById(sectionId);
+            const parentSection = section.closest('.test-section');
+            
+            // Update content
+            section.innerHTML = content;
+            
+            // Update section class and status indicator
+            parentSection.className = `test-section ${status}`;
+            const indicator = parentSection.querySelector('.status-indicator');
+            indicator.className = `status-indicator status-${status}`;
+        }
+
+        function addTestResult(test, result, details = '') {
+            testResults.push({ test, result, details, timestamp: new Date().toISOString() });
+            updateTestResults();
+        }
+
+        function updateTestResults() {
+            const resultsDiv = document.getElementById('test-results');
+            if (testResults.length === 0) {
+                resultsDiv.innerHTML = '<p>No test results yet.</p>';
+                return;
+            }
+
+            const resultsHtml = testResults.map(r => `
+                <div class="test-result ${r.result}">
+                    <strong>${r.test}</strong>: ${r.result.toUpperCase()}
+                    ${r.details ? `<br><small>${r.details}</small>` : ''}
+                    <br><small>Time: ${new Date(r.timestamp).toLocaleTimeString()}</small>
+                </div>
+            `).join('');
+            
+            resultsDiv.innerHTML = resultsHtml;
+        }
+
+        // Test functions
+        async function testEnvironment() {
+            try {
+                const envInfo = {
+                    userAgent: navigator.userAgent,
+                    hasWindow: typeof window !== 'undefined',
+                    hasDocument: typeof document !== 'undefined',
+                    hasProcess: typeof process !== 'undefined',
+                    hasLocalStorage: typeof localStorage !== 'undefined',
+                    currentURL: window.location.href,
+                    timestamp: new Date().toISOString()
+                };
+
+                updateSection('environment-info', `
+                    <pre>${JSON.stringify(envInfo, null, 2)}</pre>
+                `, 'success');
+
+                addTestResult('Environment Check', 'success', 'Browser environment detected correctly');
+            } catch (error) {
+                updateSection('environment-info', `Error: ${error.message}`, 'error');
+                addTestResult('Environment Check', 'error', error.message);
+            }
+        }
+
+        async function testDualCompatibility() {
+            try {
+                updateSection('compatibility-test', 'Loading dual-compatibility system...', 'loading');
+
+                // Import the dual-compatibility system
+                const { getEnvironmentInfo, initializeSupabaseClientFactory, getCreateClient } = 
+                    await import('./src/shared/services/supabase/supabase-client.js');
+
+                // Get environment info
+                const envInfo = getEnvironmentInfo();
+                console.log('Environment info:', envInfo);
+
+                // Initialize the client factory
+                const initResult = await initializeSupabaseClientFactory();
+                console.log('Initialization result:', initResult);
+
+                // Get the createClient function
+                const createClient = await getCreateClient();
+                console.log('CreateClient function:', typeof createClient);
+
+                updateSection('compatibility-test', `
+                    <strong>✅ Dual-compatibility system loaded successfully!</strong><br>
+                    Environment: ${envInfo.isBrowser ? 'Browser' : 'Node.js'}<br>
+                    Initialization: ${initResult ? 'Success' : 'Failed'}<br>
+                    CreateClient: ${typeof createClient}<br>
+                    <pre>${JSON.stringify(envInfo, null, 2)}</pre>
+                `, 'success');
+
+                addTestResult('Dual-Compatibility System', 'success', 'System loaded and initialized correctly');
+                return true;
+            } catch (error) {
+                console.error('Dual-compatibility test error:', error);
+                updateSection('compatibility-test', `❌ Error: ${error.message}`, 'error');
+                addTestResult('Dual-Compatibility System', 'error', error.message);
+                return false;
+            }
+        }
+
+        async function testSupabaseService() {
+            try {
+                updateSection('supabase-test', 'Loading Supabase service...', 'loading');
+
+                // Import Supabase service
+                const { supabaseService: service } = await import('./src/shared/services/supabase/index.js');
+                supabaseService = service;
+
+                // Initialize if needed
+                if (!supabaseService.isInitialized) {
+                    await supabaseService.init();
+                }
+
+                // Test health check
+                const healthResult = await supabaseService.healthCheck();
+                console.log('Health check result:', healthResult);
+
+                updateSection('supabase-test', `
+                    <strong>✅ Supabase service loaded successfully!</strong><br>
+                    Initialized: ${supabaseService.isInitialized}<br>
+                    Health Status: ${healthResult.status}<br>
+                    <pre>${JSON.stringify(healthResult, null, 2)}</pre>
+                `, healthResult.success ? 'success' : 'error');
+
+                addTestResult('Supabase Service', healthResult.success ? 'success' : 'error', 
+                    `Health status: ${healthResult.status}`);
+                return healthResult.success;
+            } catch (error) {
+                console.error('Supabase service test error:', error);
+                updateSection('supabase-test', `❌ Error: ${error.message}`, 'error');
+                addTestResult('Supabase Service', 'error', error.message);
+                return false;
+            }
+        }
+
+        async function testContentAPI() {
+            try {
+                updateSection('content-api-test', 'Loading ContentAPI service...', 'loading');
+
+                // Import ContentAPI service
+                const { contentAPIService: service } = await import(`./src/features/blog/services/content-api.service.js?v=${Date.now()}`);
+                contentAPIService = service;
+
+                // Initialize if needed
+                await contentAPIService.init();
+
+                // Test getCategories method
+                const categoriesResult = await contentAPIService.getCategories();
+                console.log('Categories result:', categoriesResult);
+
+                updateSection('content-api-test', `
+                    <strong>✅ ContentAPI service working!</strong><br>
+                    Categories loaded: ${categoriesResult.success}<br>
+                    Count: ${categoriesResult.data ? categoriesResult.data.length : 0}<br>
+                    <pre>${JSON.stringify(categoriesResult, null, 2)}</pre>
+                `, categoriesResult.success ? 'success' : 'error');
+
+                addTestResult('ContentAPI getCategories', categoriesResult.success ? 'success' : 'error', 
+                    `Found ${categoriesResult.data ? categoriesResult.data.length : 0} categories`);
+                return categoriesResult.success;
+            } catch (error) {
+                console.error('ContentAPI test error:', error);
+                updateSection('content-api-test', `❌ Error: ${error.message}`, 'error');
+                addTestResult('ContentAPI getCategories', 'error', error.message);
+                return false;
+            }
+        }
+
+        async function testBlogCMS() {
+            try {
+                updateSection('blog-cms-test', 'Loading BlogCMS service...', 'loading');
+
+                // Import BlogCMS service
+                const { blogCMSService: service } = await import(`./src/features/blog/services/blog-cms.service.js?v=${Date.now()}`);
+                blogCMSService = service;
+
+                // Initialize if needed
+                await blogCMSService.initializeService();
+
+                // Test basic operations
+                const operations = [];
+
+                // Test getting posts
+                try {
+                    const postsResult = await blogCMSService.getPosts();
+                    operations.push({ name: 'getPosts', success: postsResult.success, data: postsResult });
+                } catch (error) {
+                    operations.push({ name: 'getPosts', success: false, error: error.message });
+                }
+
+                // Test getting categories
+                try {
+                    const categoriesResult = await blogCMSService.getCategories();
+                    operations.push({ name: 'getCategories', success: categoriesResult.success, data: categoriesResult });
+                } catch (error) {
+                    operations.push({ name: 'getCategories', success: false, error: error.message });
+                }
+
+                const successCount = operations.filter(op => op.success).length;
+                const allSuccess = successCount === operations.length;
+
+                updateSection('blog-cms-test', `
+                    <strong>${allSuccess ? '✅' : '⚠️'} BlogCMS service test completed!</strong><br>
+                    Operations successful: ${successCount}/${operations.length}<br>
+                    <pre>${JSON.stringify(operations, null, 2)}</pre>
+                `, allSuccess ? 'success' : 'error');
+
+                addTestResult('BlogCMS Service', allSuccess ? 'success' : 'error', 
+                    `${successCount}/${operations.length} operations successful`);
+                return allSuccess;
+            } catch (error) {
+                console.error('BlogCMS test error:', error);
+                updateSection('blog-cms-test', `❌ Error: ${error.message}`, 'error');
+                addTestResult('BlogCMS Service', 'error', error.message);
+                return false;
+            }
+        }
+
+        // Global functions for manual testing
+        window.runHealthCheck = async function() {
+            if (!supabaseService) {
+                alert('Please wait for automatic tests to complete first.');
+                return;
+            }
+            
+            try {
+                const result = await supabaseService.healthCheck();
+                addTestResult('Manual Health Check', result.success ? 'success' : 'error', 
+                    `Status: ${result.status}`);
+            } catch (error) {
+                addTestResult('Manual Health Check', 'error', error.message);
+            }
+        };
+
+        window.testDatabaseConnection = async function() {
+            if (!supabaseService) {
+                alert('Please wait for automatic tests to complete first.');
+                return;
+            }
+            
+            try {
+                const result = await supabaseService.select('profiles', { limit: 1 });
+                addTestResult('Manual Database Test', result.success ? 'success' : 'error', 
+                    `Query result: ${result.success ? 'Connected' : result.error}`);
+            } catch (error) {
+                addTestResult('Manual Database Test', 'error', error.message);
+            }
+        };
+
+        window.runFullCMSTest = async function() {
+            addTestResult('Full CMS Test', 'info', 'Starting comprehensive CMS test...');
+            
+            const tests = [
+                { name: 'Environment', fn: testEnvironment },
+                { name: 'Dual-Compatibility', fn: testDualCompatibility },
+                { name: 'Supabase Service', fn: testSupabaseService },
+                { name: 'ContentAPI', fn: testContentAPI },
+                { name: 'BlogCMS', fn: testBlogCMS }
+            ];
+
+            let successCount = 0;
+            for (const test of tests) {
+                try {
+                    const result = await test.fn();
+                    if (result) successCount++;
+                } catch (error) {
+                    console.error(`Test ${test.name} failed:`, error);
+                }
+            }
+
+            addTestResult('Full CMS Test', successCount === tests.length ? 'success' : 'error', 
+                `${successCount}/${tests.length} tests passed`);
+        };
+
+        window.clearResults = function() {
+            testResults = [];
+            updateTestResults();
+        };
+
+        // Run automatic tests on page load
+        async function runAutomaticTests() {
+            console.log('🚀 Starting CMS validation tests...');
+            
+            await testEnvironment();
+            await testDualCompatibility();
+            await testSupabaseService();
+            await testContentAPI();
+            await testBlogCMS();
+            
+            console.log('✅ All automatic tests completed!');
+        }
+
+        // Start tests when page loads
+        runAutomaticTests().catch(error => {
+            console.error('Automatic tests failed:', error);
+        });
+    </script>
+</body>
+</html>

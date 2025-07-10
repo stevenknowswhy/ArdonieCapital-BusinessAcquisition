@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Authentication Diagnostic Tool</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-6xl mx-auto">
+        <h1 class="text-3xl font-bold mb-6">User Authentication Diagnostic Tool</h1>
+        <p class="text-gray-600 mb-6">Investigating authentication issue for: <strong>reforiy538@iamtile.com</strong></p>
+        
+        <!-- Database Verification Section -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+            <h2 class="text-xl font-semibold mb-4">1. Database Verification</h2>
+            <div class="space-y-4">
+                <button onclick="checkAuthUsers()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                    Check auth.users Table
+                </button>
+                <button onclick="checkProfiles()" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+                    Check profiles Table
+                </button>
+                <button onclick="checkAllTables()" class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600">
+                    Check All Tables
+                </button>
+            </div>
+            <div id="database-results" class="mt-4 space-y-2"></div>
+        </div>
+
+        <!-- Authentication Testing Section -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+            <h2 class="text-xl font-semibold mb-4">2. Authentication Flow Testing</h2>
+            <form id="login-test-form" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Email</label>
+                    <input type="email" id="test-email" value="reforiy538@iamtile.com" 
+                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md" readonly>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Password (Try different passwords)</label>
+                    <input type="password" id="test-password" value="" 
+                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
+                           placeholder="Enter the password the user is trying to use">
+                </div>
+                <div class="flex gap-2">
+                    <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+                        Test Login
+                    </button>
+                    <button type="button" onclick="testCommonPasswords()" class="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600">
+                        Test Common Passwords
+                    </button>
+                </div>
+            </form>
+            <div id="auth-test-results" class="mt-4"></div>
+        </div>
+
+        <!-- User Account Analysis -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+            <h2 class="text-xl font-semibold mb-4">3. Account Status Analysis</h2>
+            <div class="space-y-4">
+                <button onclick="checkEmailVerification()" class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600">
+                    Check Email Verification Status
+                </button>
+                <button onclick="checkAccountStatus()" class="bg-indigo-500 text-white px-4 py-2 rounded hover:bg-indigo-600">
+                    Check Account Status
+                </button>
+                <button onclick="checkRLSPolicies()" class="bg-pink-500 text-white px-4 py-2 rounded hover:bg-pink-600">
+                    Test RLS Policies
+                </button>
+            </div>
+            <div id="account-analysis-results" class="mt-4"></div>
+        </div>
+
+        <!-- Diagnostic Summary -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+            <h2 class="text-xl font-semibold mb-4">4. Diagnostic Summary</h2>
+            <div id="diagnostic-summary" class="bg-gray-100 p-4 rounded">
+                <p class="text-gray-600">Run diagnostics to see summary...</p>
+            </div>
+        </div>
+
+        <!-- Debug Log -->
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-xl font-semibold mb-4">Debug Log</h2>
+            <div id="debug-log" class="bg-gray-100 p-4 rounded text-sm font-mono max-h-96 overflow-y-auto"></div>
+            <button onclick="clearLog()" class="mt-2 bg-gray-500 text-white px-3 py-1 rounded text-sm">Clear Log</button>
+        </div>
+    </div>
+
+    <!-- Supabase CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- Load Auth Service -->
+    <script src="assets/js/auth-service.js"></script>
+    
+    <script>
+        const TARGET_EMAIL = 'reforiy538@iamtile.com';
+        let supabase;
+        let diagnosticResults = {
+            userExists: null,
+            profileExists: null,
+            emailVerified: null,
+            accountStatus: null,
+            loginAttempts: []
+        };
+
+        // Debug logging function
+        function log(message, type = 'info') {
+            const debugLog = document.getElementById('debug-log');
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = document.createElement('div');
+            logEntry.className = type === 'error' ? 'text-red-600' : type === 'success' ? 'text-green-600' : 'text-gray-800';
+            logEntry.textContent = `[${timestamp}] ${message}`;
+            debugLog.appendChild(logEntry);
+            debugLog.scrollTop = debugLog.scrollHeight;
+            console.log(`[${type.toUpperCase()}] ${message}`);
+        }
+
+        function clearLog() {
+            document.getElementById('debug-log').innerHTML = '';
+        }
+
+        function addResult(containerId, content, type = 'info') {
+            const container = document.getElementById(containerId);
+            const resultDiv = document.createElement('div');
+            resultDiv.className = `p-3 rounded ${type === 'error' ? 'bg-red-100 text-red-800' : 
+                                                type === 'success' ? 'bg-green-100 text-green-800' : 
+                                                type === 'warning' ? 'bg-yellow-100 text-yellow-800' : 
+                                                'bg-blue-100 text-blue-800'}`;
+            resultDiv.innerHTML = content;
+            container.appendChild(resultDiv);
+        }
+
+        // Initialize Supabase
+        async function initSupabase() {
+            try {
+                const SUPABASE_URL = 'https://pbydepsqcypwqbicnsco.supabase.co';
+                const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBieWRlcHNxY3lwd3FiaWNuc2NvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE5MjAxOTQsImV4cCI6MjA2NzQ5NjE5NH0.5aF46QcNOFN_vwXcHxCsVx_8a4EsqE1bL4fy4K7UXI0';
+                
+                supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                log('✅ Supabase client initialized', 'success');
+                return true;
+            } catch (error) {
+                log(`❌ Failed to initialize Supabase: ${error.message}`, 'error');
+                return false;
+            }
+        }
+
+        // Check auth.users table
+        async function checkAuthUsers() {
+            try {
+                log(`🔍 Checking auth.users table for ${TARGET_EMAIL}...`);
+                
+                // Note: We can't directly query auth.users from client side for security reasons
+                // We'll use the auth.getUser() method instead
+                const { data: { user }, error } = await supabase.auth.getUser();
+                
+                if (error) {
+                    log(`❌ Error checking auth users: ${error.message}`, 'error');
+                    addResult('database-results', `<strong>Auth Users Check:</strong> Error - ${error.message}`, 'error');
+                    return;
+                }
+
+                // Try to sign in to check if user exists
+                const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
+                    email: TARGET_EMAIL,
+                    password: 'dummy_password_to_check_existence'
+                });
+
+                if (signInError) {
+                    if (signInError.message.includes('Invalid login credentials')) {
+                        log(`✅ User exists in auth.users but password is incorrect`, 'success');
+                        diagnosticResults.userExists = true;
+                        addResult('database-results', `<strong>Auth Users Check:</strong> ✅ User exists (password incorrect)`, 'success');
+                    } else if (signInError.message.includes('Email not confirmed')) {
+                        log(`⚠️ User exists but email not confirmed`, 'warning');
+                        diagnosticResults.userExists = true;
+                        diagnosticResults.emailVerified = false;
+                        addResult('database-results', `<strong>Auth Users Check:</strong> ⚠️ User exists but email not confirmed`, 'warning');
+                    } else {
+                        log(`❓ Unknown auth error: ${signInError.message}`, 'error');
+                        addResult('database-results', `<strong>Auth Users Check:</strong> ❓ Unknown error - ${signInError.message}`, 'error');
+                    }
+                } else {
+                    log(`✅ User exists and dummy login succeeded (unexpected)`, 'success');
+                    diagnosticResults.userExists = true;
+                    addResult('database-results', `<strong>Auth Users Check:</strong> ✅ User exists and accessible`, 'success');
+                }
+            } catch (error) {
+                log(`❌ Exception checking auth users: ${error.message}`, 'error');
+                addResult('database-results', `<strong>Auth Users Check:</strong> Exception - ${error.message}`, 'error');
+            }
+        }
+
+        // Check profiles table
+        async function checkProfiles() {
+            try {
+                log(`🔍 Checking profiles table for ${TARGET_EMAIL}...`);
+                
+                const { data, error } = await supabase
+                    .from('profiles')
+                    .select('*')
+                    .eq('email', TARGET_EMAIL)
+                    .single();
+
+                if (error) {
+                    if (error.code === 'PGRST116') {
+                        log(`❌ No profile found for ${TARGET_EMAIL}`, 'error');
+                        diagnosticResults.profileExists = false;
+                        addResult('database-results', `<strong>Profiles Check:</strong> ❌ No profile found`, 'error');
+                    } else {
+                        log(`❌ Error checking profiles: ${error.message}`, 'error');
+                        addResult('database-results', `<strong>Profiles Check:</strong> Error - ${error.message}`, 'error');
+                    }
+                } else {
+                    log(`✅ Profile found: ${JSON.stringify(data)}`, 'success');
+                    diagnosticResults.profileExists = true;
+                    addResult('database-results', `<strong>Profiles Check:</strong> ✅ Profile found - ${data.first_name} ${data.last_name} (${data.role})`, 'success');
+                }
+            } catch (error) {
+                log(`❌ Exception checking profiles: ${error.message}`, 'error');
+                addResult('database-results', `<strong>Profiles Check:</strong> Exception - ${error.message}`, 'error');
+            }
+        }
+
+        // Check all tables
+        async function checkAllTables() {
+            document.getElementById('database-results').innerHTML = '';
+            await checkAuthUsers();
+            await checkProfiles();
+            updateDiagnosticSummary();
+        }
+
+        // Test login with specific password
+        async function testLogin(password) {
+            try {
+                log(`🔐 Testing login for ${TARGET_EMAIL} with provided password...`);
+                
+                const { data, error } = await supabase.auth.signInWithPassword({
+                    email: TARGET_EMAIL,
+                    password: password
+                });
+
+                const result = {
+                    password: password.substring(0, 3) + '*'.repeat(password.length - 3),
+                    success: !error,
+                    error: error?.message || null,
+                    timestamp: new Date().toISOString()
+                };
+
+                diagnosticResults.loginAttempts.push(result);
+
+                if (error) {
+                    log(`❌ Login failed: ${error.message}`, 'error');
+                    addResult('auth-test-results', `<strong>Login Test:</strong> ❌ Failed - ${error.message}`, 'error');
+                    return false;
+                } else {
+                    log(`✅ Login successful!`, 'success');
+                    addResult('auth-test-results', `<strong>Login Test:</strong> ✅ Success! User can log in.`, 'success');
+                    
+                    // Sign out immediately
+                    await supabase.auth.signOut();
+                    return true;
+                }
+            } catch (error) {
+                log(`❌ Exception during login test: ${error.message}`, 'error');
+                addResult('auth-test-results', `<strong>Login Test:</strong> Exception - ${error.message}`, 'error');
+                return false;
+            }
+        }
+
+        // Test common passwords
+        async function testCommonPasswords() {
+            const commonPasswords = [
+                'password123',
+                'Password123',
+                'Password123!',
+                'TestPass123!',
+                '123456',
+                'password',
+                'reforiy538',
+                'Reforiy538!',
+                'test123',
+                'Test123!'
+            ];
+
+            document.getElementById('auth-test-results').innerHTML = '';
+            addResult('auth-test-results', '<strong>Testing Common Passwords...</strong>', 'info');
+
+            for (const password of commonPasswords) {
+                const success = await testLogin(password);
+                if (success) {
+                    addResult('auth-test-results', `<strong>✅ FOUND WORKING PASSWORD!</strong> The user can log in with: ${password.substring(0, 3)}***`, 'success');
+                    break;
+                }
+                // Small delay between attempts
+                await new Promise(resolve => setTimeout(resolve, 500));
+            }
+        }
+
+        // Check email verification status
+        async function checkEmailVerification() {
+            try {
+                log(`📧 Checking email verification status for ${TARGET_EMAIL}...`);
+                
+                // Try to trigger a password reset to see if email exists
+                const { data, error } = await supabase.auth.resetPasswordForEmail(TARGET_EMAIL);
+                
+                if (error) {
+                    log(`❌ Password reset error: ${error.message}`, 'error');
+                    addResult('account-analysis-results', `<strong>Email Verification:</strong> Error - ${error.message}`, 'error');
+                } else {
+                    log(`✅ Password reset email sent (user exists)`, 'success');
+                    addResult('account-analysis-results', `<strong>Email Verification:</strong> ✅ User exists, password reset email sent`, 'success');
+                }
+            } catch (error) {
+                log(`❌ Exception checking email verification: ${error.message}`, 'error');
+                addResult('account-analysis-results', `<strong>Email Verification:</strong> Exception - ${error.message}`, 'error');
+            }
+        }
+
+        // Check account status
+        async function checkAccountStatus() {
+            log(`🔍 Checking account status for ${TARGET_EMAIL}...`);
+            addResult('account-analysis-results', `<strong>Account Status:</strong> Checking user account status...`, 'info');
+            
+            // This would require admin access to check account status
+            // For now, we'll provide guidance
+            addResult('account-analysis-results', `<strong>Account Status:</strong> ℹ️ Account status check requires admin access. Check Supabase dashboard for detailed user status.`, 'info');
+        }
+
+        // Test RLS policies
+        async function checkRLSPolicies() {
+            try {
+                log(`🛡️ Testing RLS policies...`);
+                
+                // Try to read from profiles table without authentication
+                const { data, error } = await supabase
+                    .from('profiles')
+                    .select('*')
+                    .limit(1);
+
+                if (error) {
+                    log(`RLS Policy test: ${error.message}`, 'info');
+                    addResult('account-analysis-results', `<strong>RLS Policies:</strong> ✅ RLS is active - ${error.message}`, 'success');
+                } else {
+                    log(`RLS Policy test: Data accessible`, 'warning');
+                    addResult('account-analysis-results', `<strong>RLS Policies:</strong> ⚠️ RLS may not be properly configured`, 'warning');
+                }
+            } catch (error) {
+                log(`❌ Exception testing RLS: ${error.message}`, 'error');
+                addResult('account-analysis-results', `<strong>RLS Policies:</strong> Exception - ${error.message}`, 'error');
+            }
+        }
+
+        // Update diagnostic summary
+        function updateDiagnosticSummary() {
+            const summary = document.getElementById('diagnostic-summary');
+            let summaryHTML = '<h3 class="font-semibold mb-2">Diagnostic Summary for reforiy538@iamtile.com:</h3>';
+            
+            summaryHTML += '<ul class="space-y-1">';
+            summaryHTML += `<li>• User exists in auth.users: ${diagnosticResults.userExists === null ? '❓ Unknown' : diagnosticResults.userExists ? '✅ Yes' : '❌ No'}</li>`;
+            summaryHTML += `<li>• Profile exists: ${diagnosticResults.profileExists === null ? '❓ Unknown' : diagnosticResults.profileExists ? '✅ Yes' : '❌ No'}</li>`;
+            summaryHTML += `<li>• Email verified: ${diagnosticResults.emailVerified === null ? '❓ Unknown' : diagnosticResults.emailVerified ? '✅ Yes' : '❌ No'}</li>`;
+            summaryHTML += `<li>• Login attempts: ${diagnosticResults.loginAttempts.length}</li>`;
+            summaryHTML += '</ul>';
+
+            if (diagnosticResults.loginAttempts.length > 0) {
+                const successfulAttempts = diagnosticResults.loginAttempts.filter(attempt => attempt.success);
+                if (successfulAttempts.length > 0) {
+                    summaryHTML += '<div class="mt-3 p-2 bg-green-100 text-green-800 rounded"><strong>✅ RESOLUTION:</strong> User can log in successfully!</div>';
+                } else {
+                    summaryHTML += '<div class="mt-3 p-2 bg-red-100 text-red-800 rounded"><strong>❌ ISSUE:</strong> User cannot log in with tested passwords.</div>';
+                }
+            }
+
+            summary.innerHTML = summaryHTML;
+        }
+
+        // Form submission handler
+        document.getElementById('login-test-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const password = document.getElementById('test-password').value;
+            if (password) {
+                document.getElementById('auth-test-results').innerHTML = '';
+                await testLogin(password);
+                updateDiagnosticSummary();
+            }
+        });
+
+        // Initialize on page load
+        window.addEventListener('load', async () => {
+            log('🔧 User Diagnostic Tool loaded');
+            const initialized = await initSupabase();
+            if (initialized) {
+                log(`🎯 Ready to diagnose authentication issues for: ${TARGET_EMAIL}`, 'success');
+            }
+        });
+    </script>
+</body>
+</html>

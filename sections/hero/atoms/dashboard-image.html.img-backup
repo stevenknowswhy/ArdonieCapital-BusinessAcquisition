@@ -1,0 +1,230 @@
+<!-- Dashboard Image Atom -->
+<div class="relative max-w-4xl mx-auto mt-12 md:mt-16">
+    <!-- Dashboard Screenshot Container -->
+    <div class="relative">
+        <!-- Main Dashboard Image -->
+        <div class="relative bg-white rounded-xl shadow-2xl overflow-hidden border border-slate-200/50">
+            <!-- Browser Chrome (Optional) -->
+            <div class="bg-slate-100 px-4 py-3 border-b border-slate-200 flex items-center space-x-2">
+                <div class="flex space-x-2">
+                    <div class="w-3 h-3 bg-red-400 rounded-full"></div>
+                    <div class="w-3 h-3 bg-yellow-400 rounded-full"></div>
+                    <div class="w-3 h-3 bg-green-400 rounded-full"></div>
+                </div>
+                <div class="flex-1 text-center">
+                    <div class="bg-white rounded px-3 py-1 text-xs text-slate-600 inline-block">
+                        dashboard.ardoniecapital.com
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Content -->
+            <div class="aspect-[16/10] bg-gradient-to-br from-slate-50 to-slate-100 relative overflow-hidden">
+                <!-- Actual dashboard screenshot -->
+                <img
+                    src="assets/images/dashboard-mockup.svg"
+                    alt="Ardonie Capital Dashboard - Overview showing saved listings, active matches, messages, and deals"
+                    class="w-full h-full object-cover object-top"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+                >
+
+                <!-- Fallback Dashboard Mockup (when image not available) -->
+                <div class="absolute inset-0 p-6 hidden">
+                    <!-- Dashboard Header -->
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 bg-blue-600 rounded-lg"></div>
+                            <h1 class="text-lg font-bold text-slate-900">Dashboard</h1>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <div class="w-8 h-8 bg-slate-200 rounded-full"></div>
+                            <span class="text-sm text-slate-600">Welcome back!</span>
+                        </div>
+                    </div>
+
+                    <!-- Stats Cards -->
+                    <div class="grid grid-cols-4 gap-4 mb-6">
+                        <div class="bg-white rounded-lg p-4 shadow-sm border border-slate-200">
+                            <div class="text-2xl font-bold text-slate-900">12</div>
+                            <div class="text-xs text-slate-600">Saved Listings</div>
+                        </div>
+                        <div class="bg-white rounded-lg p-4 shadow-sm border border-slate-200">
+                            <div class="text-2xl font-bold text-green-600">5</div>
+                            <div class="text-xs text-slate-600">Active Matches</div>
+                        </div>
+                        <div class="bg-white rounded-lg p-4 shadow-sm border border-slate-200">
+                            <div class="text-2xl font-bold text-orange-600">3</div>
+                            <div class="text-xs text-slate-600">Unread Messages</div>
+                        </div>
+                        <div class="bg-white rounded-lg p-4 shadow-sm border border-slate-200">
+                            <div class="text-2xl font-bold text-blue-600">2</div>
+                            <div class="text-xs text-slate-600">Active Deals</div>
+                        </div>
+                    </div>
+
+                    <!-- Chart Area -->
+                    <div class="bg-white rounded-lg p-4 shadow-sm border border-slate-200 h-32">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-sm font-semibold text-slate-900">Market Activity</h3>
+                            <div class="text-xs text-slate-500">Last 30 days</div>
+                        </div>
+                        <!-- Simple chart representation -->
+                        <div class="flex items-end space-x-1 h-16">
+                            <div class="bg-blue-200 w-3 h-8"></div>
+                            <div class="bg-blue-300 w-3 h-12"></div>
+                            <div class="bg-blue-400 w-3 h-6"></div>
+                            <div class="bg-blue-500 w-3 h-16"></div>
+                            <div class="bg-blue-400 w-3 h-10"></div>
+                            <div class="bg-blue-300 w-3 h-14"></div>
+                            <div class="bg-blue-600 w-3 h-12"></div>
+                            <div class="bg-blue-500 w-3 h-8"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Floating Elements for Visual Interest -->
+        <div class="absolute -top-4 -right-4 w-8 h-8 bg-green-400 rounded-full opacity-80 animate-pulse"></div>
+        <div class="absolute -bottom-4 -left-4 w-6 h-6 bg-blue-400 rounded-full opacity-60 animate-pulse delay-1000"></div>
+    </div>
+
+    <!-- Dashboard Features Callouts -->
+    <div class="absolute -left-8 top-1/4 hidden lg:block">
+        <div class="bg-white rounded-lg shadow-lg p-3 border border-slate-200 max-w-xs">
+            <div class="flex items-center space-x-2">
+                <div class="w-2 h-2 bg-green-400 rounded-full"></div>
+                <span class="text-xs font-medium text-slate-700">Real-time Analytics</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="absolute -right-8 top-3/4 hidden lg:block">
+        <div class="bg-white rounded-lg shadow-lg p-3 border border-slate-200 max-w-xs">
+            <div class="flex items-center space-x-2">
+                <div class="w-2 h-2 bg-blue-400 rounded-full"></div>
+                <span class="text-xs font-medium text-slate-700">Smart Matching</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+    <footer class="bg-slate-900 text-white py-10">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Main Footer Content -->
+            <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
+                <!-- Company Info -->
+                <div class="lg:col-span-1">
+                    <div class="text-xl font-bold text-primary-light mb-3">Ardonie Capital</div>
+                    <p class="text-slate-400 text-sm mb-4 max-w-md leading-relaxed">
+                        The premier marketplace for DFW auto repair shop transactions.
+                        Connecting buyers and sellers through our Express Deal Package for 34-day closings.
+                    </p>
+                    <div class="text-slate-400 text-sm space-y-1 mb-4">
+                        <div>55 9th Street, #1316</div>
+                        <div>San Francisco, CA 94103</div>
+                        <div>424-253-4019</div>
+                    </div>
+                    <div class="flex space-x-3">
+                        <a href="https://twitter.com/ardoniecapital" class="text-slate-400 hover:text-white transition-colors" aria-label="Twitter">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                            </svg>
+                        </a>
+                        <a href="https://facebook.com/ardoniecapital" class="text-slate-400 hover:text-white transition-colors" aria-label="Facebook">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                        </a>
+                        <a href="https://linkedin.com/company/ardoniecapital" class="text-slate-400 hover:text-white transition-colors" aria-label="LinkedIn">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Navigation Links -->
+                <div class="lg:col-span-4">
+                    <!-- Top Row - 5 Columns -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-6">
+                        <!-- Main Pages -->
+                        <div>
+                            <h3 class="text-sm font-semibold mb-3 text-white">Main Pages</h3>
+                            <ul class="space-y-1.5">
+                                <li><a href="../../../about.html" class="text-slate-400 hover:text-white transition-colors text-sm">About</a></li>
+                                <li><a href="../../../blog/index.html" class="text-slate-400 hover:text-white transition-colors text-sm">Blog</a></li>
+                                <li><a href="../../../careers.html" class="text-slate-400 hover:text-white transition-colors text-sm">Careers</a></li>
+                                <li><a href="../../../contact.html" class="text-slate-400 hover:text-white transition-colors text-sm">Contact</a></li>
+                                <li><a href="../../../index.html" class="text-slate-400 hover:text-white transition-colors text-sm">Home</a></li>
+                                <li><a href="../../../how-it-works.html" class="text-slate-400 hover:text-white transition-colors text-sm">How It Works</a></li>
+                                <li><a href="../../../for-sellers.html" class="text-slate-400 hover:text-white transition-colors text-sm">For Sellers</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Express Programs -->
+                        <div>
+                            <h3 class="text-sm font-semibold mb-3 text-white">Express Programs</h3>
+                            <ul class="space-y-1.5">
+                                <li><a href="../../../marketplace/listings.html" class="text-slate-400 hover:text-white transition-colors text-sm">Browse Listings</a></li>
+                                <li><a href="../../../express-deal.html" class="text-slate-400 hover:text-white transition-colors text-sm">Express Deal</a></li>
+                                <li><a href="../../../for-buyers.html" class="text-slate-400 hover:text-white transition-colors text-sm">For Buyers</a></li>
+                                <li><a href="../../../for-sellers.html" class="text-slate-400 hover:text-white transition-colors text-sm">For Sellers</a></li>
+                                <li><a href="../../../matchmaking/matches.html" class="text-slate-400 hover:text-white transition-colors text-sm">Matchmaking</a></li>
+                                <li><a href="../../../prelaunch-express.html" class="text-slate-400 hover:text-white transition-colors text-sm">Prelaunch Express</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Professional Services -->
+                        <div>
+                            <h3 class="text-sm font-semibold mb-3 text-white">Professional Services</h3>
+                            <ul class="space-y-1.5">
+                                <li><a href="../../../partner-with-us.html" class="text-slate-400 hover:text-white transition-colors text-sm">Partner With Us</a></li>
+                                <li><a href="accounting-firms.html" class="text-slate-400 hover:text-white transition-colors text-sm">Accounting Firms</a></li>
+                                <li><a href="financial-institutions.html" class="text-slate-400 hover:text-white transition-colors text-sm">Financial Institutions</a></li>
+                                <li><a href="legal-firms.html" class="text-slate-400 hover:text-white transition-colors text-sm">Legal Firms</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- User Portals -->
+                        <div>
+                            <h3 class="text-sm font-semibold mb-3 text-white">User Portals</h3>
+                            <ul class="space-y-1.5">
+                                <li><a href="../../../portals/buyer-portal.html" class="text-slate-400 hover:text-white transition-colors text-sm">Buyer Portal</a></li>
+                                <li><a href="../../../portals/seller-portal.html" class="text-slate-400 hover:text-white transition-colors text-sm">Seller Portal</a></li>
+                                <li><a href="../../../portals/accountant-portal.html" class="text-slate-400 hover:text-white transition-colors text-sm">Accountant Portal</a></li>
+                                <li><a href="../../../portals/attorney-portal.html" class="text-slate-400 hover:text-white transition-colors text-sm">Attorney Portal</a></li>
+                                <li><a href="../../../portals/lender-portal.html" class="text-slate-400 hover:text-white transition-colors text-sm">Lender Portal</a></li>
+                                <li><a href="../../../dashboard/buyer-dashboard.html" class="text-slate-400 hover:text-white transition-colors text-sm">Buyer Dashboard</a></li>
+                                <li><a href="../../../dashboard/seller-dashboard.html" class="text-slate-400 hover:text-white transition-colors text-sm">Seller Dashboard</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Account & Support -->
+                        <div>
+                            <h3 class="text-sm font-semibold mb-3 text-white">Account & Support</h3>
+                            <ul class="space-y-1.5">
+                                <li><a href="../../../contact.html" class="text-slate-400 hover:text-white transition-colors text-sm">Contact Support</a></li>
+                                <li><a href="../../../auth/login.html" class="text-slate-400 hover:text-white transition-colors text-sm">Login</a></li>
+                                <li><a href="../../../auth/register.html" class="text-slate-400 hover:text-white transition-colors text-sm">Register</a></li>
+                                <li><span class="text-slate-400 text-sm">424-253-4019</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="border-t border-slate-800 mt-6 pt-6 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-slate-400 text-sm">
+                    © 2024 Ardonie Capital. All rights reserved. Closing DFW auto repair deals in 34 days.
+                </p>
+                <div class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-6 mt-4 md:mt-0">
+                    <a href="../../../terms-of-service.html" class="text-slate-400 hover:text-white transition-colors text-sm">Terms of Service</a>
+                    <a href="../../../cookie-policy.html" class="text-slate-400 hover:text-white transition-colors text-sm">Cookie Policy</a>
+                    <a href="../../../privacy-policy.html" class="text-slate-400 hover:text-white transition-colors text-sm">Privacy Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>

@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deploy Enhanced Database Schema</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .step {
+            margin: 20px 0;
+            padding: 20px;
+            border-left: 4px solid #007bff;
+            background-color: #f8f9fa;
+        }
+        .critical { border-left-color: #dc3545; background-color: #f8d7da; }
+        .success { border-left-color: #28a745; background-color: #d4edda; }
+        .warning { border-left-color: #ffc107; background-color: #fff3cd; }
+        .info { border-left-color: #17a2b8; background-color: #d1ecf1; }
+        .sql-code {
+            background: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            margin: 10px 0;
+        }
+        .copy-button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .copy-button:hover {
+            background: #0056b3;
+        }
+        .link-button {
+            display: inline-block;
+            background: #28a745;
+            color: white;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            margin: 10px 5px;
+            font-weight: bold;
+        }
+        .link-button:hover {
+            background: #1e7e34;
+            color: white;
+        }
+        .validation-section {
+            margin-top: 30px;
+            padding: 20px;
+            border: 2px solid #007bff;
+            border-radius: 10px;
+            background: #e7f3ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Deploy Enhanced Database Schema</h1>
+        <p><strong>Critical:</strong> The CMS requires enhanced database tables to function properly.</p>
+        
+        <div class="step critical">
+            <h3>⚠️ CRITICAL ISSUE IDENTIFIED</h3>
+            <p>The Supabase service fix has been applied successfully, but the enhanced database schema is not deployed. This is why the CMS validation is failing with table access errors.</p>
+            <p><strong>Status:</strong> <code>supabaseService.select</code> method is now available, but CMS tables don't exist in the database.</p>
+        </div>
+
+        <div class="step info">
+            <h3>📋 Step 1: Open Supabase SQL Editor</h3>
+            <p>Click the button below to open the Supabase SQL Editor for your project:</p>
+            <a href="https://app.supabase.com/project/pbydepsqcypwqbicnsco/sql/new" target="_blank" class="link-button">
+                🔗 Open Supabase SQL Editor
+            </a>
+            <p><em>This will open in a new tab. Keep this page open for the next steps.</em></p>
+        </div>
+
+        <div class="step warning">
+            <h3>📝 Step 2: Copy and Execute Enhanced Schema SQL</h3>
+            <p>Copy the SQL code below and paste it into the Supabase SQL Editor, then click "Run":</p>
+            
+            <div class="sql-code" id="enhanced-schema-sql">
+-- Enhanced Database Schema for BuyMartV1 - Safe Deployment Version
+-- This version handles existing constraints and tables gracefully
+
+-- Enable necessary extensions (if not already enabled)
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+-- ============================================================================
+-- CONTENT MANAGEMENT SYSTEM TABLES
+-- ============================================================================
+
+-- Content pages table for blog posts and CMS content
+CREATE TABLE IF NOT EXISTS content_pages (
+    id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+    slug TEXT UNIQUE NOT NULL,
+    title TEXT NOT NULL,
+    content TEXT NOT NULL,
+    excerpt TEXT,
+    meta_description TEXT,
+    meta_keywords TEXT[],
+    author_id UUID REFERENCES profiles(id) ON DELETE SET NULL,
+    status TEXT DEFAULT 'draft' CHECK (status IN ('draft', 'published', 'archived')),
+    featured_image TEXT,
+    tags TEXT[],
+    category_id UUID,
+    view_count INTEGER DEFAULT 0,
+    reading_time INTEGER DEFAULT 0,
+    seo_score INTEGER DEFAULT 0 CHECK (seo_score >= 0 AND seo_score <= 100),
+    published_at TIMESTAMP WITH TIME ZONE,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW() NOT NULL,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW() NOT NULL
+);
+
+-- Blog categories table for organizing content
+CREATE TABLE IF NOT EXISTS blog_categories (
+    id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+    name TEXT UNIQUE NOT NULL,
+    slug TEXT UNIQUE NOT NULL,
+    description TEXT,
+    color TEXT DEFAULT '#3B82F6',
+    icon TEXT,
+    parent_id UUID REFERENCES blog_categories(id) ON DELETE CASCADE,
+    sort_order INTEGER DEFAULT 0,
+    post_count INTEGER DEFAULT 0,
+    is_active BOOLEAN DEFAULT true,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW() NOT NULL,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW() NOT NULL
+);
+
+-- Add foreign key constraint for content_pages category_id (only if it doesn't exist)
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM information_schema.table_constraints 
+        WHERE constraint_name = 'content_pages_category_id_fkey'
+    ) THEN
+        ALTER TABLE content_pages 
+        ADD CONSTRAINT content_pages_category_id_fkey 
+        FOREIGN KEY (category_id) REFERENCES blog_categories(id) ON DELETE SET NULL;
+    END IF;
+END $$;
+
+-- ============================================================================
+-- DOCUMENT MANAGEMENT SYSTEM
+-- ============================================================================
+
+-- Documents table for file management
+CREATE TABLE IF NOT EXISTS documents (
+    id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+    title TEXT NOT NULL,
+    description TEXT,
+    file_name TEXT NOT NULL,
+    file_path TEXT NOT NULL,
+    file_size BIGINT NOT NULL,
+    file_type TEXT NOT NULL,
+    mime_type TEXT NOT NULL,
+    uploaded_by UUID REFERENCES profiles(id) ON DELETE SET NULL,
+    category TEXT DEFAULT 'general',
+    tags TEXT[],
+    is_public BOOLEAN DEFAULT false,
+    download_count INTEGER DEFAULT 0,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW() NOT NULL,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW() NOT NULL
+);
+
+-- ============================================================================
+-- ENHANCED DEAL MANAGEMENT
+-- ============================================================================
+
+-- Deals table for comprehensive deal tracking
+CREATE TABLE IF NOT EXISTS deals (
+    id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+    listing_id UUID REFERENCES listings(id) ON DELETE CASCADE,
+    buyer_id UUID REFERENCES profiles(id) ON DELETE CASCADE NOT NULL,
+    seller_id UUID REFERENCES profiles(id) ON DELETE CASCADE NOT NULL,
+    deal_value DECIMAL(15,2) NOT NULL,
+    proposed_terms TEXT,
+    status TEXT DEFAULT 'proposed' CHECK (status IN ('proposed', 'negotiating', 'accepted', 'rejected', 'closed', 'cancelled')),
+    closing_date DATE,
+    commission_rate DECIMAL(5,4) DEFAULT 0.05,
+    commission_amount DECIMAL(15,2),
+    notes TEXT,
+    documents TEXT[],
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW() NOT NULL,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW() NOT NULL
+);
+
+-- ============================================================================
+-- VENDOR MANAGEMENT SYSTEM
+-- ============================================================================
+
+-- Vendors table for service providers
+CREATE TABLE IF NOT EXISTS vendors (
+    id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+    name TEXT NOT NULL,
+    description TEXT,
+    category TEXT NOT NULL,
+    subcategory TEXT,
+    contact_email TEXT NOT NULL,
+    contact_phone TEXT,
+    website TEXT,
+    address TEXT,
+    city TEXT,
+    state TEXT,
+    zip_code TEXT,
+    service_areas TEXT[],
+    specialties TEXT[],
+    certifications TEXT[],
+    years_in_business INTEGER DEFAULT 0,
+    employee_count INTEGER DEFAULT 1,
+    hourly_rate_min DECIMAL(8,2),
+    hourly_rate_max DECIMAL(8,2),
+    project_rate_min DECIMAL(10,2),
+    project_rate_max DECIMAL(10,2),
+    availability_status TEXT DEFAULT 'available' CHECK (availability_status IN ('available', 'busy', 'unavailable')),
+    rating DECIMAL(3,2) DEFAULT 0.00 CHECK (rating >= 0 AND rating <= 5),
+    review_count INTEGER DEFAULT 0,
+    is_verified BOOLEAN DEFAULT false,
+    is_featured BOOLEAN DEFAULT false,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW() NOT NULL,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW() NOT NULL
+);
+
+-- Vendor reviews table
+CREATE TABLE IF NOT EXISTS vendor_reviews (
+    id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+    vendor_id UUID REFERENCES vendors(id) ON DELETE CASCADE NOT NULL,
+    reviewer_id UUID REFERENCES profiles(id) ON DELETE CASCADE NOT NULL,
+    deal_id UUID REFERENCES deals(id) ON DELETE SET NULL,
+    rating INTEGER NOT NULL CHECK (rating >= 1 AND rating <= 5),
+    title TEXT NOT NULL,
+    review_text TEXT NOT NULL,
+    service_quality_rating INTEGER CHECK (service_quality_rating >= 1 AND service_quality_rating <= 5),
+    communication_rating INTEGER CHECK (communication_rating >= 1 AND communication_rating <= 5),
+    timeliness_rating INTEGER CHECK (timeliness_rating >= 1 AND timeliness_rating <= 5),
+    value_rating INTEGER CHECK (value_rating >= 1 AND value_rating <= 5),
+    would_recommend BOOLEAN DEFAULT true,
+    helpful_votes INTEGER DEFAULT 0,
+    verified_purchase BOOLEAN DEFAULT false,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW() NOT NULL,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW() NOT NULL,
+    UNIQUE(vendor_id, reviewer_id, deal_id)
+);
+
+-- ============================================================================
+-- INDEXES FOR PERFORMANCE
+-- ============================================================================
+
+-- Content pages indexes
+CREATE INDEX IF NOT EXISTS idx_content_pages_status ON content_pages(status);
+CREATE INDEX IF NOT EXISTS idx_content_pages_published_at ON content_pages(published_at);
+CREATE INDEX IF NOT EXISTS idx_content_pages_author_id ON content_pages(author_id);
+CREATE INDEX IF NOT EXISTS idx_content_pages_category_id ON content_pages(category_id);
+CREATE INDEX IF NOT EXISTS idx_content_pages_tags ON content_pages USING GIN(tags);
+
+-- Blog categories indexes
+CREATE INDEX IF NOT EXISTS idx_blog_categories_slug ON blog_categories(slug);
+CREATE INDEX IF NOT EXISTS idx_blog_categories_parent_id ON blog_categories(parent_id);
+
+-- Documents indexes
+CREATE INDEX IF NOT EXISTS idx_documents_uploaded_by ON documents(uploaded_by);
+CREATE INDEX IF NOT EXISTS idx_documents_category ON documents(category);
+CREATE INDEX IF NOT EXISTS idx_documents_tags ON documents USING GIN(tags);
+
+-- Deals indexes
+CREATE INDEX IF NOT EXISTS idx_deals_listing_id ON deals(listing_id);
+CREATE INDEX IF NOT EXISTS idx_deals_buyer_id ON deals(buyer_id);
+CREATE INDEX IF NOT EXISTS idx_deals_seller_id ON deals(seller_id);
+CREATE INDEX IF NOT EXISTS idx_deals_status ON deals(status);
+
+-- Vendors indexes
+CREATE INDEX IF NOT EXISTS idx_vendors_category ON vendors(category);
+CREATE INDEX IF NOT EXISTS idx_vendors_city_state ON vendors(city, state);
+CREATE INDEX IF NOT EXISTS idx_vendors_rating ON vendors(rating);
+CREATE INDEX IF NOT EXISTS idx_vendors_specialties ON vendors USING GIN(specialties);
+
+-- Vendor reviews indexes
+CREATE INDEX IF NOT EXISTS idx_vendor_reviews_vendor_id ON vendor_reviews(vendor_id);
+CREATE INDEX IF NOT EXISTS idx_vendor_reviews_reviewer_id ON vendor_reviews(reviewer_id);
+CREATE INDEX IF NOT EXISTS idx_vendor_reviews_rating ON vendor_reviews(rating);
+
+-- Success message
+SELECT 'Enhanced database schema deployed successfully! CMS tables are now available.' AS deployment_status;
+            </div>
+            
+            <button class="copy-button" onclick="copyToClipboard('enhanced-schema-sql')">
+                📋 Copy SQL to Clipboard
+            </button>
+        </div>
+
+        <div class="step success">
+            <h3>✅ Step 3: Verify Deployment</h3>
+            <p>After running the SQL, you should see a success message. Then click the button below to validate the deployment:</p>
+            <a href="http://localhost:8080/test-database-schema.html" target="_blank" class="link-button">
+                🔍 Validate Schema Deployment
+            </a>
+        </div>
+
+        <div class="validation-section">
+            <h3>🔧 What This Fixes</h3>
+            <ul>
+                <li><strong>✅ Supabase Service Methods:</strong> Fixed missing <code>select</code>, <code>insert</code>, <code>update</code>, <code>delete</code> methods</li>
+                <li><strong>🔄 Database Schema:</strong> Deploying 6 CMS tables (content_pages, blog_categories, documents, deals, vendors, vendor_reviews)</li>
+                <li><strong>📊 CMS Functionality:</strong> Enables full content management system functionality</li>
+                <li><strong>🎯 Validation Tests:</strong> All CMS validation tests should pass after deployment</li>
+            </ul>
+        </div>
+
+        <div class="step info">
+            <h3>📈 Expected Results After Deployment</h3>
+            <p>Once the schema is deployed, the CMS validation should show:</p>
+            <ul>
+                <li>✅ All 6 CMS tables accessible</li>
+                <li>✅ BlogCMSService working correctly</li>
+                <li>✅ ContentAPIService functional</li>
+                <li>✅ Database operations successful</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function copyToClipboard(elementId) {
+            const element = document.getElementById(elementId);
+            const text = element.textContent;
+            
+            navigator.clipboard.writeText(text).then(function() {
+                const button = event.target;
+                const originalText = button.textContent;
+                button.textContent = '✅ Copied!';
+                button.style.backgroundColor = '#28a745';
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.backgroundColor = '#007bff';
+                }, 2000);
+            }).catch(function(err) {
+                console.error('Could not copy text: ', err);
+                alert('Failed to copy to clipboard. Please select and copy manually.');
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fresh CMS Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .result {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            border-left: 4px solid #007bff;
+            background-color: #f8f9fa;
+        }
+        .success { border-left-color: #28a745; background-color: #d4edda; }
+        .error { border-left-color: #dc3545; background-color: #f8d7da; }
+    </style>
+</head>
+<body>
+    <h1>Fresh CMS Test - ContentAPI getCategories</h1>
+    <div id="results"></div>
+
+    <script type="module">
+        async function runFreshTest() {
+            const resultsDiv = document.getElementById('results');
+            
+            function addResult(message, isSuccess = true) {
+                const div = document.createElement('div');
+                div.className = `result ${isSuccess ? 'success' : 'error'}`;
+                div.textContent = `${new Date().toLocaleTimeString()}: ${message}`;
+                resultsDiv.appendChild(div);
+                console.log(message);
+            }
+
+            try {
+                // Test 1: Import Supabase service
+                addResult('Importing Supabase service...');
+                const { supabaseService } = await import('./src/shared/services/supabase/index.js');
+                if (!supabaseService.isInitialized) {
+                    await supabaseService.init();
+                }
+                addResult('✅ Supabase service ready');
+
+                // Test 2: Import BlogCMS service
+                addResult('Importing BlogCMS service...');
+                const { blogCMSService } = await import('./src/features/blog/services/blog-cms.service.js');
+                await blogCMSService.initializeService();
+                addResult('✅ BlogCMS service ready');
+
+                // Test 3: Test BlogCMS getCategories
+                addResult('Testing BlogCMS getCategories...');
+                const blogResult = await blogCMSService.getCategories();
+                addResult(`✅ BlogCMS getCategories: ${blogResult.success ? 'SUCCESS' : 'FAILED'}`);
+
+                // Test 4: Import ContentAPI service
+                addResult('Importing ContentAPI service...');
+                const { contentAPIService } = await import('./src/features/blog/services/content-api.service.js');
+                addResult('✅ ContentAPI service imported');
+
+                // Test 5: Initialize ContentAPI service
+                addResult('Initializing ContentAPI service...');
+                await contentAPIService.init();
+                addResult('✅ ContentAPI service initialized');
+
+                // Test 6: Check if getCategories method exists
+                addResult('Checking getCategories method...');
+                if (typeof contentAPIService.getCategories === 'function') {
+                    addResult('✅ getCategories method exists');
+                    
+                    // Test 7: Call getCategories
+                    addResult('Calling ContentAPI getCategories...');
+                    const apiResult = await contentAPIService.getCategories();
+                    addResult(`✅ ContentAPI getCategories: ${apiResult.success ? 'SUCCESS' : 'FAILED'}`);
+                    addResult(`Result data: ${JSON.stringify(apiResult)}`);
+                } else {
+                    addResult('❌ getCategories method does NOT exist', false);
+                    addResult(`Method type: ${typeof contentAPIService.getCategories}`, false);
+                    
+                    // List all available methods
+                    const methods = Object.getOwnPropertyNames(Object.getPrototypeOf(contentAPIService))
+                        .filter(name => typeof contentAPIService[name] === 'function');
+                    addResult(`Available methods: ${methods.join(', ')}`);
+                }
+
+                // Test 8: Test other ContentAPI methods for comparison
+                addResult('Testing other ContentAPI methods...');
+                
+                if (typeof contentAPIService.validatePostData === 'function') {
+                    const validationResult = await contentAPIService.validatePostData({
+                        title: 'Test',
+                        content: 'Test content',
+                        status: 'draft'
+                    });
+                    addResult(`✅ validatePostData: ${validationResult.isValid ? 'SUCCESS' : 'FAILED'}`);
+                } else {
+                    addResult('❌ validatePostData method missing', false);
+                }
+
+                if (typeof contentAPIService.getFeaturedPosts === 'function') {
+                    const featuredResult = await contentAPIService.getFeaturedPosts(3);
+                    addResult(`✅ getFeaturedPosts: ${featuredResult.success ? 'SUCCESS' : 'FAILED'}`);
+                } else {
+                    addResult('❌ getFeaturedPosts method missing', false);
+                }
+
+                addResult('🏁 Fresh test completed');
+
+            } catch (error) {
+                addResult(`❌ Error: ${error.message}`, false);
+                console.error('Full error:', error);
+            }
+        }
+
+        // Add cache busting
+        const timestamp = Date.now();
+        console.log(`Starting fresh test at ${timestamp}`);
+        runFreshTest();
+    </script>
+</body>
+</html>

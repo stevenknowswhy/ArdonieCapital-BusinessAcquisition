@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Direct User Lookup - reforiy538@iamtile.com</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6">Direct User Lookup: reforiy538@iamtile.com</h1>
+        
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+            <h2 class="text-xl font-semibold mb-4">Database Query Results</h2>
+            <button onclick="performLookup()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mb-4">
+                Perform Complete Lookup
+            </button>
+            <div id="lookup-results" class="space-y-4"></div>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+            <h2 class="text-xl font-semibold mb-4">Authentication Test</h2>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Test Password</label>
+                    <input type="password" id="test-password" placeholder="Enter password to test" 
+                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
+                </div>
+                <button onclick="testAuthentication()" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+                    Test Authentication
+                </button>
+            </div>
+            <div id="auth-results" class="mt-4"></div>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-xl font-semibold mb-4">Debug Log</h2>
+            <div id="debug-log" class="bg-gray-100 p-4 rounded text-sm font-mono max-h-64 overflow-y-auto"></div>
+        </div>
+    </div>
+
+    <!-- Supabase CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <script>
+        const TARGET_EMAIL = 'reforiy538@iamtile.com';
+        let supabase;
+
+        function log(message, type = 'info') {
+            const debugLog = document.getElementById('debug-log');
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = document.createElement('div');
+            logEntry.className = type === 'error' ? 'text-red-600' : type === 'success' ? 'text-green-600' : 'text-gray-800';
+            logEntry.textContent = `[${timestamp}] ${message}`;
+            debugLog.appendChild(logEntry);
+            debugLog.scrollTop = debugLog.scrollHeight;
+        }
+
+        function addResult(containerId, title, content, type = 'info') {
+            const container = document.getElementById(containerId);
+            const resultDiv = document.createElement('div');
+            resultDiv.className = `p-4 rounded border-l-4 ${
+                type === 'error' ? 'bg-red-50 border-red-400 text-red-800' : 
+                type === 'success' ? 'bg-green-50 border-green-400 text-green-800' : 
+                type === 'warning' ? 'bg-yellow-50 border-yellow-400 text-yellow-800' : 
+                'bg-blue-50 border-blue-400 text-blue-800'
+            }`;
+            resultDiv.innerHTML = `<h3 class="font-semibold">${title}</h3><div class="mt-2">${content}</div>`;
+            container.appendChild(resultDiv);
+        }
+
+        async function initSupabase() {
+            try {
+                const SUPABASE_URL = 'https://pbydepsqcypwqbicnsco.supabase.co';
+                const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBieWRlcHNxY3lwd3FiaWNuc2NvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE5MjAxOTQsImV4cCI6MjA2NzQ5NjE5NH0.5aF46QcNOFN_vwXcHxCsVx_8a4EsqE1bL4fy4K7UXI0';
+                
+                supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                log('Supabase client initialized', 'success');
+                return true;
+            } catch (error) {
+                log(`Failed to initialize Supabase: ${error.message}`, 'error');
+                return false;
+            }
+        }
+
+        async function checkProfilesTable() {
+            try {
+                log(`Checking profiles table for ${TARGET_EMAIL}...`);
+                
+                // Try different query approaches
+                const queries = [
+                    // Direct email match
+                    { name: 'Direct Email Match', query: supabase.from('profiles').select('*').eq('email', TARGET_EMAIL) },
+                    // Case insensitive email match
+                    { name: 'Case Insensitive Email', query: supabase.from('profiles').select('*').ilike('email', TARGET_EMAIL) },
+                    // Check all profiles (limited)
+                    { name: 'All Profiles (Sample)', query: supabase.from('profiles').select('*').limit(10) }
+                ];
+
+                for (const queryInfo of queries) {
+                    try {
+                        const { data, error } = await queryInfo.query;
+                        
+                        if (error) {
+                            addResult('lookup-results', queryInfo.name, `Error: ${error.message}`, 'error');
+                            log(`${queryInfo.name} error: ${error.message}`, 'error');
+                        } else {
+                            if (queryInfo.name === 'All Profiles (Sample)') {
+                                const emailsFound = data.map(profile => profile.email || 'No email').join(', ');
+                                addResult('lookup-results', queryInfo.name, `Found ${data.length} profiles. Emails: ${emailsFound}`, 'info');
+                            } else {
+                                if (data && data.length > 0) {
+                                    const profile = data[0];
+                                    addResult('lookup-results', queryInfo.name, 
+                                        `✅ Profile found!<br>
+                                        Name: ${profile.first_name} ${profile.last_name}<br>
+                                        Role: ${profile.role}<br>
+                                        User ID: ${profile.user_id}<br>
+                                        Created: ${profile.created_at}`, 'success');
+                                    log(`${queryInfo.name}: Profile found`, 'success');
+                                } else {
+                                    addResult('lookup-results', queryInfo.name, '❌ No profile found', 'error');
+                                    log(`${queryInfo.name}: No profile found`, 'error');
+                                }
+                            }
+                        }
+                    } catch (queryError) {
+                        addResult('lookup-results', queryInfo.name, `Exception: ${queryError.message}`, 'error');
+                        log(`${queryInfo.name} exception: ${queryError.message}`, 'error');
+                    }
+                }
+            } catch (error) {
+                log(`Exception in checkProfilesTable: ${error.message}`, 'error');
+            }
+        }
+
+        async function checkAuthUser() {
+            try {
+                log('Attempting to check auth user existence...');
+                
+                // Method 1: Try to sign in with a dummy password to check if user exists
+                const { data, error } = await supabase.auth.signInWithPassword({
+                    email: TARGET_EMAIL,
+                    password: 'dummy_password_check_123'
+                });
+
+                if (error) {
+                    if (error.message.includes('Invalid login credentials')) {
+                        addResult('lookup-results', 'Auth User Check', 
+                            '✅ User exists in auth.users table (password incorrect)', 'success');
+                        log('User exists in auth.users', 'success');
+                        return true;
+                    } else if (error.message.includes('Email not confirmed')) {
+                        addResult('lookup-results', 'Auth User Check', 
+                            '⚠️ User exists but email not confirmed', 'warning');
+                        log('User exists but email not confirmed', 'warning');
+                        return true;
+                    } else if (error.message.includes('Too many requests')) {
+                        addResult('lookup-results', 'Auth User Check', 
+                            '⚠️ Rate limited - user likely exists', 'warning');
+                        log('Rate limited during auth check', 'warning');
+                        return true;
+                    } else {
+                        addResult('lookup-results', 'Auth User Check', 
+                            `❌ User may not exist: ${error.message}`, 'error');
+                        log(`Auth check error: ${error.message}`, 'error');
+                        return false;
+                    }
+                } else {
+                    // This shouldn't happen with a dummy password
+                    addResult('lookup-results', 'Auth User Check', 
+                        '✅ User exists and dummy password worked (unexpected)', 'success');
+                    await supabase.auth.signOut(); // Sign out immediately
+                    return true;
+                }
+            } catch (error) {
+                addResult('lookup-results', 'Auth User Check', 
+                    `Exception: ${error.message}`, 'error');
+                log(`Exception in auth check: ${error.message}`, 'error');
+                return false;
+            }
+        }
+
+        async function performLookup() {
+            document.getElementById('lookup-results').innerHTML = '';
+            log(`Starting complete lookup for ${TARGET_EMAIL}...`);
+            
+            await checkAuthUser();
+            await checkProfilesTable();
+            
+            log('Complete lookup finished');
+        }
+
+        async function testAuthentication() {
+            const password = document.getElementById('test-password').value;
+            if (!password) {
+                alert('Please enter a password to test');
+                return;
+            }
+
+            document.getElementById('auth-results').innerHTML = '';
+            log(`Testing authentication with provided password...`);
+
+            try {
+                const { data, error } = await supabase.auth.signInWithPassword({
+                    email: TARGET_EMAIL,
+                    password: password
+                });
+
+                if (error) {
+                    addResult('auth-results', 'Authentication Test', 
+                        `❌ Login failed: ${error.message}`, 'error');
+                    log(`Login failed: ${error.message}`, 'error');
+                } else {
+                    addResult('auth-results', 'Authentication Test', 
+                        '✅ Login successful! User can authenticate with this password.', 'success');
+                    log('Login successful!', 'success');
+                    
+                    // Get user info
+                    const { data: { user } } = await supabase.auth.getUser();
+                    if (user) {
+                        addResult('auth-results', 'User Information', 
+                            `User ID: ${user.id}<br>
+                            Email: ${user.email}<br>
+                            Email Confirmed: ${user.email_confirmed_at ? 'Yes' : 'No'}<br>
+                            Created: ${user.created_at}`, 'info');
+                    }
+                    
+                    // Sign out
+                    await supabase.auth.signOut();
+                    log('Signed out after successful test');
+                }
+            } catch (error) {
+                addResult('auth-results', 'Authentication Test', 
+                    `Exception: ${error.message}`, 'error');
+                log(`Authentication test exception: ${error.message}`, 'error');
+            }
+        }
+
+        // Initialize on page load
+        window.addEventListener('load', async () => {
+            log('Direct User Lookup tool loaded');
+            const initialized = await initSupabase();
+            if (initialized) {
+                log(`Ready to lookup user: ${TARGET_EMAIL}`, 'success');
+                // Automatically perform initial lookup
+                await performLookup();
+            }
+        });
+    </script>
+</body>
+</html>

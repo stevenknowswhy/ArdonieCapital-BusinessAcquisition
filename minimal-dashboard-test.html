@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minimal Dashboard Test - BuyMartV1</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .log { background: #000; color: #00ff00; padding: 15px; border-radius: 5px; max-height: 400px; overflow-y: auto; font-family: monospace; font-size: 12px; }
+        .status { margin: 10px 0; padding: 10px; border-radius: 5px; font-weight: bold; }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .warning { background: #fff3cd; color: #856404; }
+        .info { background: #d1ecf1; color: #0c5460; }
+        button { margin: 5px; padding: 8px 12px; background: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        .step { margin: 10px 0; padding: 10px; border-left: 4px solid #007bff; background: #f8f9fa; }
+    </style>
+</head>
+<body data-required-role="buyer,admin">
+    <div class="container">
+        <h1>🔬 Minimal Dashboard Authentication Test</h1>
+        
+        <div class="info status">
+            <strong>Purpose:</strong> Test only the essential authentication components that the dashboard loads
+        </div>
+
+        <div class="step">
+            <strong>Step 1:</strong> Setup session data (like successful login)
+            <br><button onclick="setupSession()">Setup Session</button>
+        </div>
+
+        <div class="step">
+            <strong>Step 2a:</strong> Test auth service accessibility
+            <br><button onclick="testAuthServiceAccess()">Test Auth Service Access</button>
+        </div>
+
+        <div class="step">
+            <strong>Step 2b:</strong> Load auth service (like dashboard does)
+            <br><button onclick="loadAuthService()">Load Auth Service</button>
+            <br><button onclick="debugAuthServiceExecution()">Debug Auth Service Execution</button>
+        </div>
+
+        <div class="step">
+            <strong>Step 3:</strong> Load protected-page.js (like dashboard does)
+            <br><button onclick="loadProtectedPage()">Load Protected Page</button>
+        </div>
+
+        <div class="step">
+            <strong>Step 4:</strong> Monitor for redirects
+            <br><button onclick="startRedirectMonitoring()">Start Monitoring</button>
+        </div>
+
+        <div class="step">
+            <strong>Test:</strong> Open real dashboard
+            <br><button onclick="openDashboard()">Open Dashboard</button>
+        </div>
+
+        <div id="status" class="status info">Ready to test...</div>
+        
+        <div class="log" id="logContainer">
+            <div>Minimal dashboard test initialized.</div>
+        </div>
+    </div>
+
+    <script>
+        let logContainer = document.getElementById('logContainer');
+        let statusDiv = document.getElementById('status');
+        let redirectMonitoring = false;
+
+        function addLog(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const logDiv = document.createElement('div');
+            logDiv.style.color = type === 'error' ? '#ff4444' : 
+                               type === 'success' ? '#44ff44' : 
+                               type === 'warning' ? '#ffaa44' : '#00ff00';
+            logDiv.textContent = `[${timestamp}] ${message}`;
+            logContainer.appendChild(logDiv);
+            logContainer.scrollTop = logContainer.scrollHeight;
+            console.log(`[${type.toUpperCase()}] ${message}`);
+        }
+
+        function updateStatus(message, type = 'info') {
+            statusDiv.className = `status ${type}`;
+            statusDiv.innerHTML = `<strong>Status:</strong> ${message}`;
+        }
+
+        function setupSession() {
+            addLog('🔑 Setting up session data...', 'info');
+            updateStatus('Setting up session...', 'info');
+
+            try {
+                const sessionData = {
+                    id: 4,
+                    email: 'reforiy538@iamtile.com',
+                    firstName: 'Test',
+                    lastName: 'User',
+                    userTypes: ['buyer'],
+                    loginTime: new Date().toISOString(),
+                    rememberMe: false,
+                    isAuthenticated: true
+                };
+
+                localStorage.setItem('ardonie_user_session', JSON.stringify(sessionData));
+                sessionStorage.setItem('ardonie_current_user', JSON.stringify(sessionData));
+                localStorage.setItem('ardonie_auth_status', 'authenticated');
+                sessionStorage.setItem('ardonie_auth_status', 'authenticated');
+
+                addLog('✅ Session data created', 'success');
+                updateStatus('Session ready', 'success');
+
+            } catch (error) {
+                addLog('❌ Failed to setup session: ' + error.message, 'error');
+                updateStatus('Session setup failed', 'error');
+            }
+        }
+
+        async function testAuthServiceAccess() {
+            addLog('🔍 Testing auth service file accessibility...', 'info');
+            updateStatus('Testing file access...', 'info');
+
+            const testPaths = [
+                './assets/js/auth-service.js',
+                '../assets/js/auth-service.js',
+                'assets/js/auth-service.js',
+                '/assets/js/auth-service.js'
+            ];
+
+            for (const path of testPaths) {
+                try {
+                    addLog(`🔍 Testing: ${path}`, 'info');
+                    const response = await fetch(path);
+
+                    if (response.ok) {
+                        const content = await response.text();
+                        addLog(`✅ File accessible: ${path} (${content.length} bytes)`, 'success');
+                        addLog(`🔍 Contains 'AuthService': ${content.includes('AuthService')}`, 'info');
+                        addLog(`🔍 Contains 'isAuthenticated': ${content.includes('isAuthenticated')}`, 'info');
+                        updateStatus(`Auth service found at: ${path}`, 'success');
+                        return; // Found working path
+                    } else {
+                        addLog(`❌ HTTP ${response.status}: ${path}`, 'error');
+                    }
+                } catch (error) {
+                    addLog(`❌ Fetch failed: ${path} - ${error.message}`, 'error');
+                }
+            }
+
+            addLog('❌ Auth service file not accessible from any path', 'error');
+            updateStatus('Auth service file not found', 'error');
+        }
+
+        async function loadAuthService() {
+            addLog('🔄 Loading auth service...', 'info');
+            updateStatus('Loading auth service...', 'info');
+
+            try {
+                if (window.authService) {
+                    addLog('✅ Auth service already available', 'success');
+                    updateStatus('Auth service ready', 'success');
+                    return;
+                }
+
+                // Test multiple possible paths
+                const possiblePaths = [
+                    './assets/js/auth-service.js',
+                    '../assets/js/auth-service.js',
+                    'assets/js/auth-service.js',
+                    '/assets/js/auth-service.js'
+                ];
+
+                let scriptLoaded = false;
+                let lastError = null;
+
+                for (const path of possiblePaths) {
+                    try {
+                        addLog(`🔍 Trying path: ${path}`, 'info');
+
+                        const script = document.createElement('script');
+                        script.src = path + '?v=minimal-' + Date.now();
+
+                        await new Promise((resolve, reject) => {
+                            script.onload = () => {
+                                addLog(`✅ Auth service script loaded from: ${path}`, 'success');
+
+                                // Add detailed debugging for instance creation
+                                addLog(`🔍 Checking window properties...`, 'info');
+                                addLog(`🔍 window.SimpleAuthService: ${typeof window.SimpleAuthService}`, 'info');
+                                addLog(`🔍 window.simpleAuthService: ${typeof window.simpleAuthService}`, 'info');
+                                addLog(`🔍 window.AuthService: ${typeof window.AuthService}`, 'info');
+                                addLog(`🔍 window.authService: ${typeof window.authService}`, 'info');
+
+                                let attempts = 0;
+                                const checkService = () => {
+                                    if (window.authService) {
+                                        addLog('✅ Auth service instance available', 'success');
+                                        addLog(`🔍 Methods: isAuthenticated=${typeof window.authService.isAuthenticated}, getCurrentUser=${typeof window.authService.getCurrentUser}`, 'info');
+
+                                        // Test the methods work
+                                        try {
+                                            const isAuth = window.authService.isAuthenticated();
+                                            addLog(`🔍 isAuthenticated() test: ${isAuth}`, 'info');
+                                            const user = window.authService.getCurrentUser();
+                                            addLog(`🔍 getCurrentUser() test: ${user ? 'User found' : 'null'}`, 'info');
+                                        } catch (error) {
+                                            addLog(`❌ Method test failed: ${error.message}`, 'error');
+                                        }
+
+                                        scriptLoaded = true;
+                                        resolve();
+                                    } else if (attempts < 50) {
+                                        attempts++;
+                                        if (attempts % 10 === 0) {
+                                            addLog(`⏳ Still waiting for auth service... attempt ${attempts}/50`, 'warning');
+                                            addLog(`🔍 Current window.authService: ${typeof window.authService}`, 'info');
+                                        }
+                                        setTimeout(checkService, 100);
+                                    } else {
+                                        addLog('❌ Auth service not available after 50 attempts', 'error');
+                                        addLog(`🔍 Final check - window.authService: ${typeof window.authService}`, 'error');
+                                        addLog(`🔍 Final check - window.simpleAuthService: ${typeof window.simpleAuthService}`, 'error');
+                                        reject(new Error('Auth service not available after loading'));
+                                    }
+                                };
+
+                                // Start checking immediately, then every 100ms
+                                checkService();
+                            };
+
+                            script.onerror = (error) => {
+                                addLog(`❌ Failed to load from: ${path}`, 'error');
+                                reject(new Error(`Script load failed: ${path}`));
+                            };
+                        });
+
+                        document.head.appendChild(script);
+                        break; // Success, exit loop
+
+                    } catch (error) {
+                        lastError = error;
+                        addLog(`⚠️ Path failed: ${path} - ${error.message}`, 'warning');
+                        continue; // Try next path
+                    }
+                }
+
+                if (!scriptLoaded) {
+                    throw new Error(`All paths failed. Last error: ${lastError?.message}`);
+                }
+
+                updateStatus('Auth service loaded', 'success');
+
+            } catch (error) {
+                addLog('❌ Failed to load auth service: ' + error.message, 'error');
+                addLog('🔍 Current URL: ' + window.location.href, 'info');
+                addLog('🔍 Tried paths: ' + possiblePaths.join(', '), 'info');
+                updateStatus('Auth service failed', 'error');
+                throw error; // Re-throw to prevent further steps
+            }
+        }
+
+        async function loadProtectedPage() {
+            addLog('🛡️ Loading protected-page.js...', 'info');
+            updateStatus('Loading protected page script...', 'info');
+            
+            try {
+                const script = document.createElement('script');
+                script.src = './assets/js/protected-page.js?v=minimal-' + Date.now();
+                
+                await new Promise((resolve, reject) => {
+                    script.onload = () => {
+                        addLog('✅ Protected page script loaded', 'success');
+                        resolve();
+                    };
+                    script.onerror = () => reject(new Error('Protected page script load failed'));
+                });
+                
+                document.head.appendChild(script);
+                updateStatus('Protected page loaded', 'success');
+                
+                // Wait a moment for initialization
+                setTimeout(() => {
+                    if (window.ProtectedPage) {
+                        addLog('✅ Protected page initialized', 'success');
+                        addLog(`🔍 Auth complete: ${window.ProtectedPage.isAuthComplete()}`, 'info');
+                        const user = window.ProtectedPage.getCurrentUser();
+                        addLog(`👤 Current user: ${user ? user.email : 'null'}`, user ? 'success' : 'warning');
+                    } else {
+                        addLog('⚠️ Protected page not initialized', 'warning');
+                    }
+                }, 2000);
+                
+            } catch (error) {
+                addLog('❌ Failed to load protected page: ' + error.message, 'error');
+                updateStatus('Protected page failed', 'error');
+            }
+        }
+
+        function startRedirectMonitoring() {
+            if (redirectMonitoring) {
+                addLog('⚠️ Redirect monitoring already active', 'warning');
+                return;
+            }
+
+            addLog('👁️ Starting redirect monitoring...', 'info');
+            redirectMonitoring = true;
+
+            // Alternative redirect monitoring approach
+            let currentLocation = window.location.href;
+
+            // Monitor for navigation events
+            window.addEventListener('beforeunload', function(event) {
+                addLog(`🔄 Page unload detected from: ${currentLocation}`, 'warning');
+            });
+
+            // Monitor for hash changes
+            window.addEventListener('hashchange', function(event) {
+                addLog(`🔄 Hash change: ${event.oldURL} → ${event.newURL}`, 'info');
+            });
+
+            // Monitor for popstate (back/forward navigation)
+            window.addEventListener('popstate', function(event) {
+                addLog(`🔄 Navigation detected: ${currentLocation} → ${window.location.href}`, 'info');
+                currentLocation = window.location.href;
+            });
+
+            // Periodically check for location changes (fallback)
+            const locationChecker = setInterval(() => {
+                if (window.location.href !== currentLocation) {
+                    addLog(`🔄 LOCATION CHANGE DETECTED: ${currentLocation} → ${window.location.href}`, 'error');
+                    if (window.location.href.includes('login.html')) {
+                        addLog('❌ LOGIN REDIRECT DETECTED!', 'error');
+                        updateStatus('Redirect to login detected!', 'error');
+                    }
+                    currentLocation = window.location.href;
+                }
+            }, 500);
+
+            // Store interval ID for cleanup
+            window.redirectMonitorInterval = locationChecker;
+
+            // Monitor JavaScript errors
+            window.addEventListener('error', function(event) {
+                addLog(`❌ JavaScript Error: ${event.message} at ${event.filename}:${event.lineno}`, 'error');
+            });
+
+            // Monitor unhandled promise rejections
+            window.addEventListener('unhandledrejection', function(event) {
+                addLog(`❌ Unhandled Promise Rejection: ${event.reason}`, 'error');
+            });
+
+            addLog('✅ Redirect monitoring active (using event listeners)', 'success');
+            updateStatus('Monitoring redirects...', 'warning');
+        }
+
+        async function debugAuthServiceExecution() {
+            addLog('🔍 Debugging auth service execution...', 'info');
+            updateStatus('Debugging auth service...', 'info');
+
+            try {
+                // Clear any existing instances
+                delete window.authService;
+                delete window.simpleAuthService;
+                delete window.AuthService;
+                delete window.SimpleAuthService;
+
+                addLog('🧹 Cleared existing auth service instances', 'info');
+
+                // Monitor ALL console output during loading
+                const originalConsoleLog = console.log;
+                const originalConsoleError = console.error;
+                const originalConsoleWarn = console.warn;
+
+                console.log = function(...args) {
+                    originalConsoleLog.apply(console, args);
+                    addLog(`📝 LOG: ${args.join(' ')}`, 'info');
+                };
+
+                console.error = function(...args) {
+                    originalConsoleError.apply(console, args);
+                    addLog(`❌ ERROR: ${args.join(' ')}`, 'error');
+                };
+
+                console.warn = function(...args) {
+                    originalConsoleWarn.apply(console, args);
+                    addLog(`⚠️ WARN: ${args.join(' ')}`, 'warning');
+                };
+
+                // Monitor for any JavaScript errors
+                const errorHandler = (event) => {
+                    addLog(`❌ JS Error: ${event.message} at ${event.filename}:${event.lineno}`, 'error');
+                    if (event.error && event.error.stack) {
+                        addLog(`📍 Stack: ${event.error.stack}`, 'error');
+                    }
+                };
+                window.addEventListener('error', errorHandler);
+
+                // Load the script with detailed monitoring
+                const script = document.createElement('script');
+                script.src = './assets/js/auth-service.js?v=debug-' + Date.now();
+
+                addLog(`🔄 Loading script: ${script.src}`, 'info');
+
+                script.onload = () => {
+                    addLog('✅ Script onload event fired', 'success');
+
+                    // Immediate check
+                    addLog('🔍 Immediate post-load check:', 'info');
+                    addLog(`  - window.SimpleAuthService: ${typeof window.SimpleAuthService}`, 'info');
+                    addLog(`  - window.simpleAuthService: ${typeof window.simpleAuthService}`, 'info');
+                    addLog(`  - window.AuthService: ${typeof window.AuthService}`, 'info');
+                    addLog(`  - window.authService: ${typeof window.authService}`, 'info');
+
+                    // Delayed check to allow for async initialization
+                    setTimeout(() => {
+                        addLog('🔍 Delayed post-load analysis (1 second later):', 'info');
+                        addLog(`  - window.SimpleAuthService: ${typeof window.SimpleAuthService}`, 'info');
+                        addLog(`  - window.simpleAuthService: ${typeof window.simpleAuthService}`, 'info');
+                        addLog(`  - window.AuthService: ${typeof window.AuthService}`, 'info');
+                        addLog(`  - window.authService: ${typeof window.authService}`, 'info');
+
+                        if (window.simpleAuthService) {
+                            addLog('✅ simpleAuthService instance found!', 'success');
+                            addLog(`  - isAuthenticated: ${typeof window.simpleAuthService.isAuthenticated}`, 'info');
+                            addLog(`  - getCurrentUser: ${typeof window.simpleAuthService.getCurrentUser}`, 'info');
+
+                            // Test the methods
+                            try {
+                                const isAuth = window.simpleAuthService.isAuthenticated();
+                                addLog(`  - isAuthenticated() result: ${isAuth}`, 'info');
+                                const user = window.simpleAuthService.getCurrentUser();
+                                addLog(`  - getCurrentUser() result: ${user ? 'User found' : 'null'}`, 'info');
+                            } catch (methodError) {
+                                addLog(`❌ Method test error: ${methodError.message}`, 'error');
+                            }
+                        } else {
+                            addLog('❌ simpleAuthService instance NOT found', 'error');
+                        }
+
+                        if (window.authService) {
+                            addLog('✅ authService alias found!', 'success');
+                        } else {
+                            addLog('❌ authService alias NOT found', 'error');
+                        }
+
+                        // Restore console
+                        console.log = originalConsoleLog;
+                        console.error = originalConsoleError;
+                        console.warn = originalConsoleWarn;
+                        window.removeEventListener('error', errorHandler);
+
+                        updateStatus('Debug complete', 'success');
+                    }, 1000);
+                };
+
+                script.onerror = (error) => {
+                    addLog(`❌ Script onerror event: ${error}`, 'error');
+                    addLog(`❌ Script failed to load from: ${script.src}`, 'error');
+
+                    // Restore console
+                    console.log = originalConsoleLog;
+                    console.error = originalConsoleError;
+                    console.warn = originalConsoleWarn;
+                    window.removeEventListener('error', errorHandler);
+
+                    updateStatus('Script load failed', 'error');
+                };
+
+                document.head.appendChild(script);
+
+            } catch (error) {
+                addLog('❌ Debug failed: ' + error.message, 'error');
+                addLog(`❌ Debug error stack: ${error.stack}`, 'error');
+                updateStatus('Debug failed', 'error');
+            }
+        }
+
+        function openDashboard() {
+            addLog('🏠 Opening dashboard in new tab...', 'info');
+            addLog('📋 Monitor this tab for redirect detection', 'warning');
+            window.open('http://localhost:8000/dashboard/buyer-dashboard.html', '_blank');
+        }
+
+        // Initialize
+        addLog('🚀 Minimal dashboard test ready', 'info');
+        addLog('📋 Follow the steps in order to test authentication', 'info');
+    </script>
+</body>
+</html>

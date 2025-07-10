@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Acquisition Blog - Ardonie Capital</title>
+    <meta name="description" content="Expert insights on business acquisition, mergers, and investment strategies from Ardonie Capital's team of professionals.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom Tailwind Config -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1e40af',
+                        'primary-dark': '#1e3a8a',
+                        accent: '#f59e0b',
+                        'accent-dark': '#d97706'
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Custom Styles -->
+    <style>
+        .blog-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .blog-content h1, .blog-content h2, .blog-content h3 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .blog-content p {
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+        
+        .blog-content ul, .blog-content ol {
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+        }
+        
+        .blog-content blockquote {
+            border-left: 4px solid #1e40af;
+            padding-left: 1rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-slate-900">
+    <!-- Navigation -->
+    <nav class="bg-white dark:bg-slate-800 shadow-sm border-b border-slate-200 dark:border-slate-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="../index.html" class="flex items-center">
+                        <img src="../assets/images/logo.svg" alt="Ardonie Capital" class="h-8 w-auto">
+                        <span class="ml-2 text-xl font-bold text-slate-900 dark:text-white">Ardonie Capital</span>
+                    </a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="../index.html" class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white">Home</a>
+                    <a href="../programs.html" class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white">Programs</a>
+                    <a href="../services.html" class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white">Services</a>
+                    <a href="../blog.html" class="text-primary font-medium">Blog</a>
+                    <a href="../contact.html" class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Loading State -->
+        <div id="loading-state" class="text-center py-12">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+            <p class="mt-4 text-slate-600 dark:text-slate-400">Loading blog posts...</p>
+        </div>
+
+        <!-- Error State -->
+        <div id="error-state" class="text-center py-12 hidden">
+            <div class="text-red-500 text-6xl mb-4">⚠️</div>
+            <h2 class="text-xl font-semibold text-slate-900 dark:text-white mb-2">Error Loading Blog</h2>
+            <p class="text-slate-600 dark:text-slate-400 mb-4">We're having trouble loading the blog posts. Please try again later.</p>
+            <button type="button" id="retry-btn" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary-dark">
+                Try Again
+            </button>
+        </div>
+
+        <!-- Blog Header -->
+        <div id="blog-header" class="text-center mb-12 hidden">
+            <h1 class="text-4xl font-bold text-slate-900 dark:text-white mb-4">Business Acquisition Blog</h1>
+            <p class="text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto">
+                Expert insights, market trends, and strategic guidance for business acquisition and investment success.
+            </p>
+        </div>
+
+        <!-- Categories Filter -->
+        <div id="categories-filter" class="mb-8 hidden">
+            <div class="flex flex-wrap gap-2 justify-center">
+                <button class="category-filter-btn active" data-category="">All Posts</button>
+            </div>
+        </div>
+
+        <!-- Search Bar -->
+        <div id="search-section" class="mb-8 hidden">
+            <div class="max-w-md mx-auto">
+                <div class="relative">
+                    <input type="text" id="search-input" placeholder="Search blog posts..." 
+                           class="w-full pl-10 pr-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white">
+                    <svg class="absolute left-3 top-2.5 h-5 w-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- Featured Posts -->
+        <div id="featured-posts" class="mb-12 hidden">
+            <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">Featured Posts</h2>
+            <div id="featured-posts-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Featured posts will be loaded here -->
+            </div>
+        </div>
+
+        <!-- Blog Posts Grid -->
+        <div id="blog-posts" class="hidden">
+            <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">Latest Posts</h2>
+            <div id="posts-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Blog posts will be loaded here -->
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div id="pagination" class="mt-12 justify-center hidden">
+            <div class="flex space-x-2">
+                <button id="prev-page" class="px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 disabled:opacity-50 disabled:cursor-not-allowed">
+                    Previous
+                </button>
+                <div id="page-numbers" class="flex space-x-2">
+                    <!-- Page numbers will be generated here -->
+                </div>
+                <button id="next-page" class="px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 disabled:opacity-50 disabled:cursor-not-allowed">
+                    Next
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Ardonie Capital</h3>
+                    <p class="text-slate-400">Empowering business acquisition and investment success through expert guidance and strategic partnerships.</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Services</h4>
+                    <ul class="space-y-2 text-slate-400">
+                        <li><a href="../services.html#business-acquisition" class="hover:text-white">Business Acquisition</a></li>
+                        <li><a href="../services.html#due-diligence" class="hover:text-white">Due Diligence</a></li>
+                        <li><a href="../services.html#valuation" class="hover:text-white">Business Valuation</a></li>
+                        <li><a href="../services.html#financing" class="hover:text-white">Acquisition Financing</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Resources</h4>
+                    <ul class="space-y-2 text-slate-400">
+                        <li><a href="../blog.html" class="hover:text-white">Blog</a></li>
+                        <li><a href="../resources.html" class="hover:text-white">Free Resources</a></li>
+                        <li><a href="../case-studies.html" class="hover:text-white">Case Studies</a></li>
+                        <li><a href="../market-insights.html" class="hover:text-white">Market Insights</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Contact</h4>
+                    <ul class="space-y-2 text-slate-400">
+                        <li>📧 info@ardoniecapital.com</li>
+                        <li>📞 (555) 123-4567</li>
+                        <li>📍 Dallas, TX</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-slate-800 mt-8 pt-8 text-center text-slate-400">
+                <p>&copy; 2024 Ardonie Capital. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Dynamic Blog Script -->
+    <script type="module">
+        import { blogCMSService } from '../src/features/blog/services/blog-cms.service.js';
+        import { contentAPIService } from '../src/features/blog/services/content-api.service.js';
+
+        class DynamicBlog {
+            constructor() {
+                this.currentPage = 1;
+                this.postsPerPage = 6;
+                this.currentCategory = '';
+                this.currentSearch = '';
+                this.posts = [];
+                this.categories = [];
+                this.totalPages = 1;
+                
+                this.init();
+            }
+
+            async init() {
+                try {
+                    // Initialize services
+                    await contentAPIService.init();
+                    
+                    // Load initial data
+                    await this.loadData();
+                    
+                    // Setup event listeners
+                    this.setupEventListeners();
+                    
+                    // Render the blog
+                    this.render();
+                    
+                    console.log('Dynamic blog initialized successfully');
+                } catch (error) {
+                    console.error('Failed to initialize dynamic blog:', error);
+                    this.showError();
+                }
+            }
+
+            async loadData() {
+                try {
+                    // Load posts and categories in parallel
+                    const [postsResult, categoriesResult, featuredResult] = await Promise.all([
+                        contentAPIService.getAllPosts({
+                            page: this.currentPage,
+                            limit: this.postsPerPage,
+                            category: this.currentCategory,
+                            search: this.currentSearch
+                        }),
+                        contentAPIService.getAllCategories(),
+                        contentAPIService.getFeaturedPosts(3)
+                    ]);
+
+                    if (postsResult.success) {
+                        this.posts = postsResult.data;
+                        this.totalPages = postsResult.meta.totalPages || 1;
+                    }
+
+                    if (categoriesResult.success) {
+                        this.categories = categoriesResult.data;
+                    }
+
+                    if (featuredResult.success) {
+                        this.featuredPosts = featuredResult.data;
+                    }
+                } catch (error) {
+                    console.error('Failed to load blog data:', error);
+                    throw error;
+                }
+            }
+
+            render() {
+                this.hideLoading();
+                this.showBlogContent();
+                this.renderCategories();
+                this.renderFeaturedPosts();
+                this.renderPosts();
+                this.renderPagination();
+            }
+
+            hideLoading() {
+                document.getElementById('loading-state').classList.add('hidden');
+            }
+
+            showBlogContent() {
+                document.getElementById('blog-header').classList.remove('hidden');
+                document.getElementById('categories-filter').classList.remove('hidden');
+                document.getElementById('search-section').classList.remove('hidden');
+                document.getElementById('featured-posts').classList.remove('hidden');
+                document.getElementById('blog-posts').classList.remove('hidden');
+                document.getElementById('pagination').classList.remove('hidden');
+            }
+
+            showError() {
+                document.getElementById('loading-state').classList.add('hidden');
+                document.getElementById('error-state').classList.remove('hidden');
+            }
+
+            renderCategories() {
+                const container = document.querySelector('#categories-filter .flex');
+                const categoryButtons = this.categories.map(category => `
+                    <button class="category-filter-btn px-4 py-2 rounded-full border border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" 
+                            data-category="${category.id}">
+                        ${category.name}
+                    </button>
+                `).join('');
+                
+                container.innerHTML = `
+                    <button class="category-filter-btn active px-4 py-2 rounded-full bg-primary text-white" data-category="">All Posts</button>
+                    ${categoryButtons}
+                `;
+            }
+
+            renderFeaturedPosts() {
+                const container = document.getElementById('featured-posts-grid');
+                if (!this.featuredPosts || this.featuredPosts.length === 0) {
+                    document.getElementById('featured-posts').classList.add('hidden');
+                    return;
+                }
+
+                container.innerHTML = this.featuredPosts.map(post => this.renderPostCard(post, true)).join('');
+            }
+
+            renderPosts() {
+                const container = document.getElementById('posts-grid');
+                container.innerHTML = this.posts.map(post => this.renderPostCard(post)).join('');
+            }
+
+            renderPostCard(post, isFeatured = false) {
+                return `
+                    <article class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden hover:shadow-md transition-shadow">
+                        ${post.featured_image ? `
+                            <img src="${post.featured_image}" alt="${post.title}" class="w-full h-48 object-cover">
+                        ` : ''}
+                        <div class="p-6">
+                            ${post.category_name ? `
+                                <div class="flex items-center mb-2">
+                                    <span class="px-2 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">
+                                        ${post.category_name}
+                                    </span>
+                                </div>
+                            ` : ''}
+                            <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-2">
+                                <a href="${post.slug}.html" class="hover:text-primary transition-colors">
+                                    ${post.title}
+                                </a>
+                            </h3>
+                            <p class="text-slate-600 dark:text-slate-400 mb-4 line-clamp-3">
+                                ${post.excerpt}
+                            </p>
+                            <div class="flex items-center justify-between text-sm text-slate-500 dark:text-slate-400">
+                                <div class="flex items-center">
+                                    <span>By ${post.author_name}</span>
+                                    <span class="mx-2">•</span>
+                                    <span>${post.formatted_date}</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <span>${post.reading_time} min read</span>
+                                    ${post.view_count ? `
+                                        <span class="mx-2">•</span>
+                                        <span>${post.view_count} views</span>
+                                    ` : ''}
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                `;
+            }
+
+            renderPagination() {
+                if (this.totalPages <= 1) {
+                    document.getElementById('pagination').classList.add('hidden');
+                    return;
+                }
+
+                const prevBtn = document.getElementById('prev-page');
+                const nextBtn = document.getElementById('next-page');
+                const pageNumbers = document.getElementById('page-numbers');
+
+                prevBtn.disabled = this.currentPage === 1;
+                nextBtn.disabled = this.currentPage === this.totalPages;
+
+                // Generate page numbers
+                let pageNumbersHTML = '';
+                for (let i = 1; i <= this.totalPages; i++) {
+                    if (i === this.currentPage) {
+                        pageNumbersHTML += `<span class="px-4 py-2 bg-primary text-white rounded-lg">${i}</span>`;
+                    } else {
+                        pageNumbersHTML += `<button class="page-number px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800" data-page="${i}">${i}</button>`;
+                    }
+                }
+                pageNumbers.innerHTML = pageNumbersHTML;
+            }
+
+            setupEventListeners() {
+                // Category filter
+                document.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('category-filter-btn')) {
+                        this.handleCategoryFilter(e.target);
+                    }
+                });
+
+                // Search
+                const searchInput = document.getElementById('search-input');
+                searchInput.addEventListener('input', (e) => {
+                    clearTimeout(this.searchTimeout);
+                    this.searchTimeout = setTimeout(() => {
+                        this.handleSearch(e.target.value);
+                    }, 500);
+                });
+
+                // Pagination
+                document.addEventListener('click', (e) => {
+                    if (e.target.id === 'prev-page') {
+                        this.changePage(this.currentPage - 1);
+                    } else if (e.target.id === 'next-page') {
+                        this.changePage(this.currentPage + 1);
+                    } else if (e.target.classList.contains('page-number')) {
+                        this.changePage(parseInt(e.target.dataset.page));
+                    }
+                });
+
+                // Retry button
+                document.getElementById('retry-btn').addEventListener('click', () => {
+                    this.init();
+                });
+            }
+
+            async handleCategoryFilter(button) {
+                // Update active state
+                document.querySelectorAll('.category-filter-btn').forEach(btn => {
+                    btn.classList.remove('active', 'bg-primary', 'text-white');
+                    btn.classList.add('px-4', 'py-2', 'rounded-full', 'border', 'border-slate-300', 'dark:border-slate-600', 'text-slate-600', 'dark:text-slate-400');
+                });
+                
+                button.classList.add('active', 'bg-primary', 'text-white');
+                button.classList.remove('border', 'border-slate-300', 'dark:border-slate-600', 'text-slate-600', 'dark:text-slate-400');
+
+                this.currentCategory = button.dataset.category;
+                this.currentPage = 1;
+                
+                await this.loadData();
+                this.render();
+            }
+
+            async handleSearch(query) {
+                this.currentSearch = query;
+                this.currentPage = 1;
+                
+                await this.loadData();
+                this.render();
+            }
+
+            async changePage(page) {
+                if (page < 1 || page > this.totalPages) return;
+                
+                this.currentPage = page;
+                await this.loadData();
+                this.render();
+                
+                // Scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        // Initialize the dynamic blog
+        new DynamicBlog();
+    </script>
+</body>
+</html>

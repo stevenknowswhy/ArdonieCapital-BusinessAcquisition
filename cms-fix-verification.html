@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CMS Fix Verification Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .success { color: #22c55e; }
+        .error { color: #ef4444; }
+        .loading { color: #3b82f6; }
+        .result {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 10px 0;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+        button {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #2563eb;
+        }
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        .status-success { background-color: #22c55e; }
+        .status-error { background-color: #ef4444; }
+        .status-loading { background-color: #3b82f6; animation: pulse 2s infinite; }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+    </style>
+</head>
+<body>
+    <h1>🔧 CMS Service Fix Verification</h1>
+    <p>Testing the fixes for ContentAPI getCategories and BlogCMS getAllPosts methods.</p>
+
+    <div class="test-container">
+        <h2>🎯 Test Results</h2>
+        <button onclick="runAllTests()">Run All Tests</button>
+        <button onclick="clearResults()">Clear Results</button>
+        
+        <div id="test-results"></div>
+    </div>
+
+    <script type="module">
+        let testResults = [];
+
+        window.runAllTests = async function() {
+            clearResults();
+            addResult('🚀 Starting CMS service fix verification...', 'loading');
+            
+            try {
+                // Test 1: ContentAPI getCategories
+                await testContentAPIGetCategories();
+                
+                // Test 2: BlogCMS getPosts (corrected method name)
+                await testBlogCMSGetPosts();
+                
+                // Test 3: Verify both services work together
+                await testServiceIntegration();
+                
+                // Summary
+                const successCount = testResults.filter(r => r.success).length;
+                const totalTests = testResults.length;
+                
+                addResult(`\n🎉 Test Summary: ${successCount}/${totalTests} tests passed`, 
+                         successCount === totalTests ? 'success' : 'error');
+                
+                if (successCount === totalTests) {
+                    addResult('✅ All CMS service issues have been resolved!', 'success');
+                } else {
+                    addResult('❌ Some issues remain. Check individual test results above.', 'error');
+                }
+                
+            } catch (error) {
+                addResult(`❌ Test suite failed: ${error.message}`, 'error');
+            }
+        };
+
+        async function testContentAPIGetCategories() {
+            try {
+                addResult('\n📋 Test 1: ContentAPI getCategories method', 'loading');
+                
+                const timestamp = Date.now();
+                const { contentAPIService } = await import(`./src/features/blog/services/content-api.service.js?v=${timestamp}`);
+                
+                // Initialize service
+                await contentAPIService.init();
+                
+                // Check if method exists
+                if (typeof contentAPIService.getCategories !== 'function') {
+                    throw new Error('getCategories method not found on contentAPIService');
+                }
+                
+                // Call the method
+                const result = await contentAPIService.getCategories();
+                
+                if (result && result.success !== undefined) {
+                    addResult('✅ ContentAPI getCategories method working correctly', 'success');
+                    testResults.push({ test: 'ContentAPI getCategories', success: true });
+                } else {
+                    throw new Error('Method returned unexpected result format');
+                }
+                
+            } catch (error) {
+                addResult(`❌ ContentAPI getCategories failed: ${error.message}`, 'error');
+                testResults.push({ test: 'ContentAPI getCategories', success: false, error: error.message });
+            }
+        }
+
+        async function testBlogCMSGetPosts() {
+            try {
+                addResult('\n📝 Test 2: BlogCMS getPosts method (corrected)', 'loading');
+                
+                const timestamp = Date.now();
+                const { blogCMSService } = await import(`./src/features/blog/services/blog-cms.service.js?v=${timestamp}`);
+                
+                // Initialize service
+                await blogCMSService.initializeService();
+                
+                // Check if method exists
+                if (typeof blogCMSService.getPosts !== 'function') {
+                    throw new Error('getPosts method not found on blogCMSService');
+                }
+                
+                // Call the method
+                const result = await blogCMSService.getPosts();
+                
+                if (result && result.success !== undefined) {
+                    addResult('✅ BlogCMS getPosts method working correctly', 'success');
+                    testResults.push({ test: 'BlogCMS getPosts', success: true });
+                } else {
+                    throw new Error('Method returned unexpected result format');
+                }
+                
+            } catch (error) {
+                addResult(`❌ BlogCMS getPosts failed: ${error.message}`, 'error');
+                testResults.push({ test: 'BlogCMS getPosts', success: false, error: error.message });
+            }
+        }
+
+        async function testServiceIntegration() {
+            try {
+                addResult('\n🔗 Test 3: Service integration test', 'loading');
+                
+                const timestamp = Date.now();
+                const { contentAPIService } = await import(`./src/features/blog/services/content-api.service.js?v=${timestamp}`);
+                const { blogCMSService } = await import(`./src/features/blog/services/blog-cms.service.js?v=${timestamp + 1}`);
+                
+                // Test that both services can be used together
+                await contentAPIService.init();
+                await blogCMSService.initializeService();
+                
+                const categoriesResult = await contentAPIService.getCategories();
+                const postsResult = await blogCMSService.getPosts();
+                
+                if (categoriesResult.success !== undefined && postsResult.success !== undefined) {
+                    addResult('✅ Both services integrate correctly', 'success');
+                    testResults.push({ test: 'Service Integration', success: true });
+                } else {
+                    throw new Error('Integration test failed - unexpected result format');
+                }
+                
+            } catch (error) {
+                addResult(`❌ Service integration failed: ${error.message}`, 'error');
+                testResults.push({ test: 'Service Integration', success: false, error: error.message });
+            }
+        }
+
+        function addResult(message, type = 'info') {
+            const resultsDiv = document.getElementById('test-results');
+            const resultElement = document.createElement('div');
+            resultElement.className = `result ${type}`;
+            
+            const statusIndicator = document.createElement('span');
+            statusIndicator.className = `status-indicator status-${type}`;
+            
+            resultElement.appendChild(statusIndicator);
+            resultElement.appendChild(document.createTextNode(message));
+            
+            resultsDiv.appendChild(resultElement);
+            resultsDiv.scrollTop = resultsDiv.scrollHeight;
+        }
+
+        window.clearResults = function() {
+            document.getElementById('test-results').innerHTML = '';
+            testResults = [];
+        };
+
+        // Auto-run tests on page load
+        window.addEventListener('load', () => {
+            setTimeout(runAllTests, 1000);
+        });
+    </script>
+</body>
+</html>

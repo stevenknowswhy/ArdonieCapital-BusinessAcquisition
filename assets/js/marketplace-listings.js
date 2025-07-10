@@ -1,5 +1,8 @@
 /**
  * Marketplace Listings Interactive Functionality
+ * LEGACY FILE: This file is maintained for backward compatibility.
+ * New development should use the modular marketplace system in src/features/marketplace/
+ * Import from: import { marketplaceService } from './src/features/marketplace/index.js'
  * Handles filtering, sorting, search, and listing display for the marketplace
  */
 

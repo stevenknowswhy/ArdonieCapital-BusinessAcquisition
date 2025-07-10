@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="dns-prefetch" href="//cdn.tailwindcss.com">
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//images.unsplash.com">
+    <link rel="preload" href="https://cdn.tailwindcss.com" as="script">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Express Deal Success Stories - Ardonie Capital Blog</title>
+    <meta name="description" content="Real stories from auto shop owners who successfully completed transactions through our Express Deal program in just 34 days.">
+    <script src="https://cdn.tailwindcss.com" defer></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#3b82f6',
+                        'primary-dark': '#2563eb',
+                        'primary-light': '#60a5fa',
+                        'secondary': '#64748b',
+                        'secondary-light': '#f1f5f9',
+                        'accent': '#10b981',
+                        'accent-dark': '#059669'
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+</head>
+<body class="bg-white dark:bg-slate-900 text-slate-900 dark:text-white">
+    <!-- Header -->
+    <header class="bg-white dark:bg-slate-900 shadow-sm border-b border-slate-200 dark:border-slate-800">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <a href="../index.html" class="flex items-center">
+                        <span class="text-2xl font-bold text-primary-dark dark:text-primary-light">Ardonie Capital</span>
+                    </a>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="../express-deal.html" class="text-accent-dark hover:text-accent dark:text-accent-light font-medium">🚖 Express Deal</a>
+                    <a href="../marketplace/listings.html" class="text-slate-600 hover:text-primary-dark dark:text-slate-300 dark:hover:text-primary-light">Browse Listings</a>
+                    <a href="../for-sellers.html" class="text-slate-600 hover:text-primary-dark dark:text-slate-300 dark:hover:text-primary-light">For Sellers</a>
+                    <a href="../for-buyers.html" class="text-slate-600 hover:text-primary-dark dark:text-slate-300 dark:hover:text-primary-light">For Buyers</a>
+                    <a href="../blog.html" class="text-primary-dark dark:text-primary-light font-medium">Blog</a>
+                    <a href="../contact.html" class="text-slate-600 hover:text-primary-dark dark:text-slate-300 dark:hover:text-primary-light">Contact</a>
+                    <a href="../auth/register.html" class="text-white bg-primary-dark hover:bg-primary rounded-md px-4 py-2">Get Started</a>
+                </nav>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button type="button" id="mobile-menu-button" class="text-slate-600 hover:text-primary-dark dark:text-slate-300 dark:hover:text-primary-light" aria-label="Open mobile menu">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Breadcrumb -->
+        <nav class="bg-secondary-light dark:bg-slate-800 py-4">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center space-x-2 text-sm">
+                    <a href="../index.html" class="text-slate-600 dark:text-slate-300 hover:text-primary-dark">Home</a>
+                    <span class="text-slate-400">/</span>
+                    <a href="../blog.html" class="text-slate-600 dark:text-slate-300 hover:text-primary-dark">Blog</a>
+                    <span class="text-slate-400">/</span>
+                    <span class="text-slate-900 dark:text-white">Express Deal Success Stories</span>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Article Header -->
+        <section class="py-12 bg-gradient-to-br from-secondary-light to-white dark:from-slate-800 dark:to-slate-900">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-4xl mx-auto">
+                    <div class="text-center mb-8">
+                        <div class="inline-flex items-center bg-orange-100 text-orange-700 px-4 py-2 rounded-full mb-6">
+                            <span class="mr-2">🚖</span>
+                            <span class="font-semibold">Success Story</span>
+                        </div>
+                        <h1 class="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">
+                            Express Deal Success Stories
+                        </h1>
+                        <div class="flex items-center justify-center space-x-6 text-slate-600 dark:text-slate-300">
+                            <div class="flex items-center">
+                                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=32&h=32&q=80" alt="David Rodriguez" class="w-8 h-8 rounded-full mr-2">
+                                <span>By David Rodriguez</span>
+                            </div>
+                            <span>•</span>
+                            <span>January 5, 2024</span>
+                            <span>•</span>
+                            <span>12 min read</span>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=600&q=80" alt="Express Deal success stories" class="w-full h-64 md:h-96 object-cover rounded-lg shadow-lg">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Article Content -->
+        <section class="py-16">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-4xl mx-auto">
+                    <div class="prose prose-lg max-w-none dark:prose-invert">
+                        <p class="text-xl text-slate-600 dark:text-slate-300 mb-8">
+                            Our Express Deal program has helped dozens of auto shop owners complete successful transactions in just 34 days. Here are three inspiring stories that showcase the power of our streamlined process.
+                        </p>
+
+                        <div class="bg-accent/10 border-l-4 border-accent p-6 my-8">
+                            <h3 class="text-accent-dark font-semibold mb-2">🚖 Express Deal Program</h3>
+                            <p class="text-slate-700 dark:text-slate-300">Our Express Deal program connects pre-qualified buyers with motivated sellers, completing transactions in 34 days or less with full support throughout the process.</p>
+                        </div>
+
+                        <h2 class="text-2xl font-bold text-slate-900 dark:text-white mt-12 mb-6">Story 1: From Retirement Dream to Reality</h2>
+                        
+                        <div class="bg-secondary-light dark:bg-slate-800 p-6 rounded-lg mb-8">
+                            <div class="flex items-center mb-4">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=48&h=48&q=80" alt="Tom Martinez" class="w-12 h-12 rounded-full mr-4">
+                                <div>
+                                    <h4 class="font-semibold text-slate-900 dark:text-white">Tom Martinez</h4>
+                                    <p class="text-sm text-slate-600 dark:text-slate-300">Seller - Martinez Auto Service, Plano, TX</p>
+                                </div>
+                            </div>
+                            <p class="text-slate-700 dark:text-slate-300 italic">"After 28 years of running my shop, I was ready to retire but worried about finding the right buyer. The Express Deal program not only found me a qualified buyer but completed the entire transaction in just 31 days."</p>
+                        </div>
+
+                        <p class="text-slate-700 dark:text-slate-300 mb-6">
+                            Tom Martinez had built Martinez Auto Service into a thriving business over nearly three decades. With annual revenues of $1.2M and a loyal customer base, Tom knew his shop was valuable – but he also knew that finding the right buyer could take months or even years.
+                        </p>
+
+                        <h3 class="text-xl font-semibold text-slate-900 dark:text-white mt-8 mb-4">The Challenge</h3>
+                        <ul class="list-disc pl-6 mb-6 text-slate-700 dark:text-slate-300">
+                            <li>Tom wanted to retire by his 65th birthday, giving him a tight timeline</li>
+                            <li>He needed to find a buyer who would maintain his shop's reputation and retain his employees</li>
+                            <li>Traditional business brokers quoted 6-12 month timelines</li>
+                            <li>Tom was concerned about maintaining business operations during a lengthy sale process</li>
+                        </ul>
+
+                        <h3 class="text-xl font-semibold text-slate-900 dark:text-white mt-8 mb-4">The Express Deal Solution</h3>
+                        <p class="text-slate-700 dark:text-slate-300 mb-6">
+                            Within 48 hours of Tom's initial inquiry, our team had:
+                        </p>
+                        <ul class="list-disc pl-6 mb-6 text-slate-700 dark:text-slate-300">
+                            <li>Completed a preliminary valuation of $875K based on financial performance</li>
+                            <li>Identified three pre-qualified buyers from our network</li>
+                            <li>Scheduled initial meetings with interested parties</li>
+                            <li>Begun the due diligence process with our streamlined documentation system</li>
+                        </ul>
+
+                        <h3 class="text-xl font-semibold text-slate-900 dark:text-white mt-8 mb-4">The Outcome</h3>
+                        <p class="text-slate-700 dark:text-slate-300 mb-6">
+                            Tom accepted an offer of $850K from Maria Gonzalez, an experienced technician looking to become an owner. The transaction closed in 31 days, and Tom was able to retire on schedule. Six months later, the shop continues to thrive under Maria's ownership with all original employees retained.
+                        </p>
+
+                        <h2 class="text-2xl font-bold text-slate-900 dark:text-white mt-12 mb-6">Story 2: First-Time Buyer's Dream Come True</h2>
+                        
+                        <div class="bg-secondary-light dark:bg-slate-800 p-6 rounded-lg mb-8">
+                            <div class="flex items-center mb-4">
+                                <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=48&h=48&q=80" alt="Maria Gonzalez" class="w-12 h-12 rounded-full mr-4">
+                                <div>
+                                    <h4 class="font-semibold text-slate-900 dark:text-white">Maria Gonzalez</h4>
+                                    <p class="text-sm text-slate-600 dark:text-slate-300">Buyer - Now Owner of Martinez Auto Service</p>
+                                </div>
+                            </div>
+                            <p class="text-slate-700 dark:text-slate-300 italic">"I had been saving for years to buy my own shop but didn't know where to start. The Express Deal program guided me through every step and helped me secure SBA financing. Now I'm living my dream as a business owner."</p>
+                        </div>
+
+                        <p class="text-slate-700 dark:text-slate-300 mb-6">
+                            Maria Gonzalez had worked as a master technician for 12 years, specializing in European vehicles. She had always dreamed of owning her own shop but found the process of finding and financing a business overwhelming.
+                        </p>
+
+                        <h3 class="text-xl font-semibold text-slate-900 dark:text-white mt-8 mb-4">The Challenge</h3>
+                        <ul class="list-disc pl-6 mb-6 text-slate-700 dark:text-slate-300">
+                            <li>Limited experience with business acquisitions and financing</li>
+                            <li>Needed guidance on valuation and due diligence</li>
+                            <li>Required SBA loan approval within tight timeframes</li>
+                            <li>Wanted to find a shop with growth potential and good reputation</li>
+                        </ul>
+
+                        <h3 class="text-xl font-semibold text-slate-900 dark:text-white mt-8 mb-4">The Express Deal Advantage</h3>
+                        <p class="text-slate-700 dark:text-slate-300 mb-6">
+                            Our team provided comprehensive support:
+                        </p>
+                        <ul class="list-disc pl-6 mb-6 text-slate-700 dark:text-slate-300">
+                            <li>Connected Maria with SBA-preferred lenders in our network</li>
+                            <li>Provided detailed financial analysis and valuation guidance</li>
+                            <li>Facilitated meetings with Tom to ensure cultural fit</li>
+                            <li>Coordinated due diligence with legal and accounting professionals</li>
+                            <li>Managed timeline to ensure all parties met their deadlines</li>
+                        </ul>
+
+                        <h3 class="text-xl font-semibold text-slate-900 dark:text-white mt-8 mb-4">The Result</h3>
+                        <p class="text-slate-700 dark:text-slate-300 mb-6">
+                            Maria secured SBA financing for 80% of the purchase price and closed on her dream business. In her first six months of ownership, she's increased revenue by 15% through expanded European vehicle services and improved customer retention programs.
+                        </p>
+
+                        <h2 class="text-2xl font-bold text-slate-900 dark:text-white mt-12 mb-6">Story 3: Multi-Location Expansion Success</h2>
+                        
+                        <div class="bg-secondary-light dark:bg-slate-800 p-6 rounded-lg mb-8">
+                            <div class="flex items-center mb-4">
+                                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=48&h=48&q=80" alt="James Wilson" class="w-12 h-12 rounded-full mr-4">
+                                <div>
+                                    <h4 class="font-semibold text-slate-900 dark:text-white">James Wilson</h4>
+                                    <p class="text-sm text-slate-600 dark:text-slate-300">Buyer - Wilson Automotive Group</p>
+                                </div>
+                            </div>
+                            <p class="text-slate-700 dark:text-slate-300 italic">"We were looking to expand into the North Dallas market but needed to move quickly on the right opportunity. Express Deal helped us identify and acquire two complementary shops in just 28 days."</p>
+                        </div>
+
+                        <p class="text-slate-700 dark:text-slate-300 mb-6">
+                            James Wilson already owned two successful auto repair shops in Fort Worth and was looking to expand into North Dallas. He needed to find shops that would complement his existing operations and could be integrated quickly.
+                        </p>
+
+                        <h3 class="text-xl font-semibold text-slate-900 dark:text-white mt-8 mb-4">The Opportunity</h3>
+                        <p class="text-slate-700 dark:text-slate-300 mb-6">
+                            Our team identified two shops in Plano and Richardson that were perfect fits:
+                        </p>
+                        <ul class="list-disc pl-6 mb-6 text-slate-700 dark:text-slate-300">
+                            <li>Both shops had strong financial performance but aging owners</li>
+                            <li>Complementary service offerings (one specialized in transmissions, the other in general repair)</li>
+                            <li>Established customer bases with minimal overlap</li>
+                            <li>Opportunities for operational synergies and cost savings</li>
+                        </ul>
+
+                        <h3 class="text-xl font-semibold text-slate-900 dark:text-white mt-8 mb-4">The Express Deal Process</h3>
+                        <p class="text-slate-700 dark:text-slate-300 mb-6">
+                            We coordinated a complex dual acquisition:
+                        </p>
+                        <ul class="list-disc pl-6 mb-6 text-slate-700 dark:text-slate-300">
+                            <li>Structured the deals to close simultaneously</li>
+                            <li>Negotiated favorable terms for both acquisitions</li>
+                            <li>Coordinated due diligence across multiple properties</li>
+                            <li>Facilitated financing for the combined $1.4M purchase price</li>
+                            <li>Managed integration planning to ensure smooth transitions</li>
+                        </ul>
+
+                        <h3 class="text-xl font-semibold text-slate-900 dark:text-white mt-8 mb-4">The Impact</h3>
+                        <p class="text-slate-700 dark:text-slate-300 mb-6">
+                            James successfully expanded his operation and achieved significant synergies. The combined revenue of all four locations increased by 22% in the first year through cross-referrals, shared marketing, and operational efficiencies.
+                        </p>
+
+                        <div class="bg-primary/10 border-l-4 border-primary p-6 my-8">
+                            <h3 class="text-primary-dark font-semibold mb-2">Ready for Your Express Deal?</h3>
+                            <p class="text-slate-700 dark:text-slate-300 mb-4">Whether you're buying your first shop or expanding your existing operation, our Express Deal program can help you achieve your goals quickly and efficiently.</p>
+                            <a href="../express-deal.html" class="inline-flex items-center px-4 py-2 bg-primary-dark text-white rounded-md hover:bg-primary transition-colors">
+                                🚖 Start Your Express Deal
+                            </a>
+                        </div>
+
+                        <h2 class="text-2xl font-bold text-slate-900 dark:text-white mt-12 mb-6">Why Express Deal Works</h2>
+                        <p class="text-slate-700 dark:text-slate-300 mb-6">
+                            These success stories share common elements that make our Express Deal program effective:
+                        </p>
+                        <ul class="list-disc pl-6 mb-6 text-slate-700 dark:text-slate-300">
+                            <li><strong>Pre-Qualified Network:</strong> We maintain relationships with serious buyers and sellers</li>
+                            <li><strong>Streamlined Process:</strong> Our proven 34-day timeline eliminates unnecessary delays</li>
+                            <li><strong>Expert Support:</strong> Professional guidance through every step of the transaction</li>
+                            <li><strong>Financing Partnerships:</strong> Established relationships with SBA lenders and alternative financing sources</li>
+                            <li><strong>Market Knowledge:</strong> Deep understanding of DFW auto repair market dynamics</li>
+                        </ul>
+
+                        <h2 class="text-2xl font-bold text-slate-900 dark:text-white mt-12 mb-6">Get Started Today</h2>
+                        <p class="text-slate-700 dark:text-slate-300 mb-6">
+                            Ready to write your own success story? Whether you're looking to buy your first auto repair shop, expand your existing operation, or sell your business for retirement, our Express Deal program can help you achieve your goals.
+                        </p>
+                        <p class="text-slate-700 dark:text-slate-300 mb-6">
+                            Contact us today to learn more about how we can help you complete your transaction in just 34 days.
+                        </p>
+                    </div>
+
+                    <!-- Author Bio -->
+                    <div class="mt-16 p-6 bg-secondary-light dark:bg-slate-800 rounded-lg">
+                        <div class="flex items-start space-x-4">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=64&h=64&q=80" alt="David Rodriguez" class="w-16 h-16 rounded-full">
+                            <div>
+                                <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-2">David Rodriguez</h3>
+                                <p class="text-slate-600 dark:text-slate-300 mb-3">Transaction Manager at Ardonie Capital, specializing in Express Deal program execution and client success stories.</p>
+                                <div class="flex space-x-3">
+                                    <a href="#" class="text-primary-dark hover:text-primary">LinkedIn</a>
+                                    <a href="#" class="text-primary-dark hover:text-primary">Twitter</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Back to Blog -->
+                    <div class="mt-12 text-center">
+                        <a href="../blog.html" class="inline-flex items-center px-6 py-3 border border-primary-dark text-primary-dark hover:bg-primary-dark hover:text-white rounded-md transition-colors">
+                            ← Back to Blog
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white py-10">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Main Footer Content -->
+            <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
+                <!-- Company Info -->
+                <div class="lg:col-span-1">
+                    <div class="text-xl font-bold text-primary-light mb-3">Ardonie Capital</div>
+                    <p class="text-slate-400 text-sm mb-4 max-w-md leading-relaxed">
+                        The premier marketplace for DFW auto repair shop transactions.
+                        Connecting buyers and sellers through our Express Deal Package for 34-day closings.
+                    </p>
+                    <div class="text-slate-400 text-sm space-y-1 mb-4">
+                        <div>55 9th Street, #1316</div>
+                        <div>San Francisco, CA 94103</div>
+                        <div>424-253-4019</div>
+                    </div>
+                    <div class="flex space-x-3">
+                        <a href="https://twitter.com/ardoniecapital" class="text-slate-400 hover:text-white transition-colors" aria-label="Twitter">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                            </svg>
+                        </a>
+                        <a href="https://facebook.com/ardoniecapital" class="text-slate-400 hover:text-white transition-colors" aria-label="Facebook">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                        </a>
+                        <a href="https://linkedin.com/company/ardoniecapital" class="text-slate-400 hover:text-white transition-colors" aria-label="LinkedIn">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Navigation Links -->
+                <div class="lg:col-span-4">
+                    <!-- Top Row - 4 Columns -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                        <!-- Main Pages -->
+                        <div>
+                            <h3 class="text-sm font-semibold mb-3 text-white">Main Pages</h3>
+                            <ul class="space-y-1.5">
+                                <li><a href="../about.html" class="text-slate-400 hover:text-white transition-colors text-sm">About Us</a></li>
+                                <li><a href="../blog/index.html" class="text-slate-400 hover:text-white transition-colors text-sm">Blog</a></li>
+                                <li><a href="../careers.html" class="text-slate-400 hover:text-white transition-colors text-sm">Careers</a></li>
+                                <li><a href="../contact.html" class="text-slate-400 hover:text-white transition-colors text-sm">Contact</a></li>
+                                <li><a href="../index.html" class="text-slate-400 hover:text-white transition-colors text-sm">Home</a></li>
+                                <li><a href="../how-it-works.html" class="text-slate-400 hover:text-white transition-colors text-sm">How It Works</a></li>
+                                <li><a href="../for-sellers.html" class="text-slate-400 hover:text-white transition-colors text-sm">For Sellers</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Express Programs -->
+                        <div>
+                            <h3 class="text-sm font-semibold mb-3 text-white">Express Programs</h3>
+                            <ul class="space-y-1.5">
+                                <li><a href="../marketplace/listings.html" class="text-slate-400 hover:text-white transition-colors text-sm">Browse Listings</a></li>
+                                <li><a href="../express-deal.html" class="text-slate-400 hover:text-white transition-colors text-sm">Express Deal</a></li>
+                                <li><a href="../for-buyers.html" class="text-slate-400 hover:text-white transition-colors text-sm">For Buyers</a></li>
+                                <li><a href="../for-sellers.html" class="text-slate-400 hover:text-white transition-colors text-sm">For Sellers</a></li>
+                                <li><a href="../matchmaking/matches.html" class="text-slate-400 hover:text-white transition-colors text-sm">Matchmaking</a></li>
+                                <li><a href="../prelaunch-express.html" class="text-slate-400 hover:text-white transition-colors text-sm">Prelaunch Express</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Professional Services -->
+                        <div>
+                            <h3 class="text-sm font-semibold mb-3 text-white">Professional Services</h3>
+                            <ul class="space-y-1.5">
+                                <li><a href="../vendor-portal/accounting-firms.html" class="text-slate-400 hover:text-white transition-colors text-sm">Accounting Firms</a></li>
+                                <li><a href="../documents/vendor-accounting.html" class="text-slate-400 hover:text-white transition-colors text-sm">Accounting Partners</a></li>
+                                <li><a href="../vendor-portal/financial-institutions.html" class="text-slate-400 hover:text-white transition-colors text-sm">Financial Institutions</a></li>
+                                <li><a href="../documents/vendor-financial.html" class="text-slate-400 hover:text-white transition-colors text-sm">Financial Partners</a></li>
+                                <li><a href="../vendor-portal/legal-firms.html" class="text-slate-400 hover:text-white transition-colors text-sm">Legal Firms</a></li>
+                                <li><a href="../documents/vendor-legal.html" class="text-slate-400 hover:text-white transition-colors text-sm">Legal Partners</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- User Portals -->
+                        <div>
+                            <h3 class="text-sm font-semibold mb-3 text-white">User Portals</h3>
+                            <ul class="space-y-1.5">
+                                <li><a href="../portals/accountant-portal.html" class="text-slate-400 hover:text-white transition-colors text-sm">Accountant Portal</a></li>
+                                <li><a href="../portals/attorney-portal.html" class="text-slate-400 hover:text-white transition-colors text-sm">Attorney Portal</a></li>
+                                <li><a href="../portals/buyer-portal.html" class="text-slate-400 hover:text-white transition-colors text-sm">Buyer Dashboard/Portal</a></li>
+                                <li><a href="../portals/seller-portal.html" class="text-slate-400 hover:text-white transition-colors text-sm">Seller Dashboard/Portal</a></li>
+                                <li><a href="../portals/lender-portal.html" class="text-slate-400 hover:text-white transition-colors text-sm">Lender Portal</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Bottom Row - 4 Columns -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <!-- Business Documents -->
+                        <div>
+                            <h3 class="text-sm font-semibold mb-3 text-white">Business Documents</h3>
+                            <ul class="space-y-1.5">
+                                <li><a href="../documents/business-plan.html" class="text-slate-400 hover:text-white transition-colors text-sm">Business Plan</a></li>
+                                <li><a href="../documents/pitch-deck-fi.html" class="text-slate-400 hover:text-white transition-colors text-sm">FI Pitch Deck</a></li>
+                                <li><a href="../documents/pitch-deck-legal.html" class="text-slate-400 hover:text-white transition-colors text-sm">Legal Pitch Deck</a></li>
+                                <li><a href="../documents/marketing-plan.html" class="text-slate-400 hover:text-white transition-colors text-sm">Marketing Plan</a></li>
+                                <li><a href="../documents/one-page-pitch.html" class="text-slate-400 hover:text-white transition-colors text-sm">One Page Pitch</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Strategy & Planning -->
+                        <div>
+                            <h3 class="text-sm font-semibold mb-3 text-white">Strategy & Planning</h3>
+                            <ul class="space-y-1.5">
+                                <li><a href="../documents/company-strategy.html" class="text-slate-400 hover:text-white transition-colors text-sm">Company Strategy</a></li>
+                                <li><a href="../documents/financial-projections.html" class="text-slate-400 hover:text-white transition-colors text-sm">Financial Projections</a></li>
+                                <li><a href="../documents/founding-member.html" class="text-slate-400 hover:text-white transition-colors text-sm">Founding Member</a></li>
+                                <li><a href="../documents/nda.html" class="text-slate-400 hover:text-white transition-colors text-sm">NDA</a></li>
+                                <li><a href="../documents/templates.html" class="text-slate-400 hover:text-white transition-colors text-sm">Templates</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Tools & Resources -->
+                        <div>
+                            <h3 class="text-sm font-semibold mb-3 text-white">Tools & Resources</h3>
+                            <ul class="space-y-1.5">
+                                <li><a href="../tools/due-diligence-checklist.html" class="text-slate-400 hover:text-white transition-colors text-sm">Due Diligence</a></li>
+                                <li><a href="../education/guides.html" class="text-slate-400 hover:text-white transition-colors text-sm">Learning Center</a></li>
+                                <li><a href="../funding/loan-calculator.html" class="text-slate-400 hover:text-white transition-colors text-sm">Loan Calculator</a></li>
+                                <li><a href="../tools/valuation.html" class="text-slate-400 hover:text-white transition-colors text-sm">Valuation Tool</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Account & Support -->
+                        <div>
+                            <h3 class="text-sm font-semibold mb-3 text-white">Account & Support</h3>
+                            <ul class="space-y-1.5">
+                                <li><a href="../contact.html" class="text-slate-400 hover:text-white transition-colors text-sm">Contact Support</a></li>
+                                <li><a href="../auth/login.html" class="text-slate-400 hover:text-white transition-colors text-sm">Login</a></li>
+                                <li><a href="../auth/register.html" class="text-slate-400 hover:text-white transition-colors text-sm">Register</a></li>
+                                <li><span class="text-slate-400 text-sm">424-253-4019</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="border-t border-slate-800 mt-6 pt-6 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-slate-400 text-sm">
+                    © 2024 Ardonie Capital. All rights reserved. Closing DFW auto repair deals in 34 days.
+                </p>
+                <div class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-6 mt-4 md:mt-0">
+                    <a href="../terms-of-service.html" class="text-slate-400 hover:text-white transition-colors text-sm">Terms of Service</a>
+                    <a href="../cookie-policy.html" class="text-slate-400 hover:text-white transition-colors text-sm">Cookie Policy</a>
+                    <a href="../privacy-policy.html" class="text-slate-400 hover:text-white transition-colors text-sm">Privacy Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Dashboard Debug Monitor</title>
+    <style>
+        body { font-family: monospace; margin: 20px; background: #1a1a1a; color: #00ff00; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .log { background: #000; padding: 15px; border-radius: 5px; max-height: 500px; overflow-y: auto; margin: 10px 0; }
+        .controls { background: #333; padding: 15px; border-radius: 5px; margin: 10px 0; }
+        .status { margin: 10px 0; padding: 10px; border-radius: 5px; font-weight: bold; }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .warning { background: #fff3cd; color: #856404; }
+        .info { background: #d1ecf1; color: #0c5460; }
+        button { margin: 5px; padding: 10px 15px; background: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        .critical { background: #dc3545; }
+        .critical:hover { background: #c82333; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .section { background: #2a2a2a; padding: 15px; border-radius: 5px; }
+        .section h3 { color: #ffc107; margin-top: 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Live Dashboard Debug Monitor</h1>
+        
+        <div class="controls">
+            <h3>🎛️ Debug Controls</h3>
+            <button onclick="setupTestSession()">🔑 Setup Test Session</button>
+            <button onclick="checkAuthServiceFiles()">📁 Check Auth Service Files</button>
+            <button onclick="clearAllCaches()">🧹 Clear All Caches</button>
+            <button onclick="monitorDashboardLoad()" class="critical">🚨 Monitor Dashboard Load</button>
+            <button onclick="openDashboardWithDebug()">🏠 Open Dashboard (Debug Mode)</button>
+        </div>
+
+        <div id="status" class="status info">Ready to debug live dashboard...</div>
+
+        <div class="grid">
+            <div class="section">
+                <h3>📊 Auth Service Status</h3>
+                <div id="authStatus" class="log">
+                    <div>Checking auth service status...</div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h3>🔄 Cache Status</h3>
+                <div id="cacheStatus" class="log">
+                    <div>Checking cache status...</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h3>📝 Live Debug Logs</h3>
+            <div id="debugLogs" class="log">
+                <div>Live debug monitor initialized...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let debugLogs = document.getElementById('debugLogs');
+        let authStatus = document.getElementById('authStatus');
+        let cacheStatus = document.getElementById('cacheStatus');
+        let statusDiv = document.getElementById('status');
+
+        function addLog(message, type = 'info', container = debugLogs) {
+            const timestamp = new Date().toLocaleTimeString();
+            const logDiv = document.createElement('div');
+            logDiv.style.color = type === 'error' ? '#ff4444' : 
+                               type === 'success' ? '#44ff44' : 
+                               type === 'warning' ? '#ffaa44' : 
+                               type === 'critical' ? '#ff0000' : '#00ff00';
+            logDiv.textContent = `[${timestamp}] ${message}`;
+            container.appendChild(logDiv);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function updateStatus(message, type = 'info') {
+            statusDiv.className = `status ${type}`;
+            statusDiv.innerHTML = `<strong>Status:</strong> ${message}`;
+        }
+
+        async function setupTestSession() {
+            addLog('🔑 Setting up test session...', 'info');
+            
+            try {
+                const sessionData = {
+                    id: 4,
+                    email: 'reforiy538@iamtile.com',
+                    firstName: 'Test',
+                    lastName: 'User',
+                    userTypes: ['buyer'],
+                    loginTime: new Date().toISOString(),
+                    rememberMe: false,
+                    isAuthenticated: true
+                };
+
+                localStorage.setItem('ardonie_user_session', JSON.stringify(sessionData));
+                sessionStorage.setItem('ardonie_current_user', JSON.stringify(sessionData));
+                localStorage.setItem('ardonie_auth_status', 'authenticated');
+                sessionStorage.setItem('ardonie_auth_status', 'authenticated');
+
+                addLog('✅ Test session created', 'success');
+                updateStatus('Test session ready', 'success');
+                
+            } catch (error) {
+                addLog('❌ Failed to setup session: ' + error.message, 'error');
+                updateStatus('Session setup failed', 'error');
+            }
+        }
+
+        async function checkAuthServiceFiles() {
+            addLog('📁 Checking auth service files...', 'info', authStatus);
+            
+            const filesToCheck = [
+                './assets/js/auth-service.js',
+                './assets/js/auth-service-fixed.js'
+            ];
+
+            for (const file of filesToCheck) {
+                try {
+                    addLog(`🔍 Checking: ${file}`, 'info', authStatus);
+                    const response = await fetch(file + '?v=' + Date.now());
+                    
+                    if (response.ok) {
+                        const content = await response.text();
+                        const isFixed = content.includes('Fixed Authentication Service');
+                        const hasSimpleAuth = content.includes('SimpleAuthService');
+                        
+                        addLog(`✅ ${file}: ${content.length} bytes`, 'success', authStatus);
+                        addLog(`   - Is Fixed Version: ${isFixed}`, isFixed ? 'success' : 'warning', authStatus);
+                        addLog(`   - Has SimpleAuthService: ${hasSimpleAuth}`, hasSimpleAuth ? 'success' : 'error', authStatus);
+                        
+                        if (file.includes('auth-service.js') && !file.includes('fixed')) {
+                            addLog(`⚠️ Original auth-service.js still exists!`, 'warning', authStatus);
+                        }
+                    } else {
+                        addLog(`❌ ${file}: HTTP ${response.status}`, 'error', authStatus);
+                    }
+                } catch (error) {
+                    addLog(`❌ ${file}: ${error.message}`, 'error', authStatus);
+                }
+            }
+        }
+
+        function clearAllCaches() {
+            addLog('🧹 Clearing all caches...', 'info', cacheStatus);
+            
+            try {
+                // Clear localStorage
+                const localKeys = Object.keys(localStorage);
+                localKeys.forEach(key => {
+                    if (key.includes('ardonie') || key.includes('auth')) {
+                        localStorage.removeItem(key);
+                        addLog(`🗑️ Cleared localStorage: ${key}`, 'info', cacheStatus);
+                    }
+                });
+
+                // Clear sessionStorage
+                const sessionKeys = Object.keys(sessionStorage);
+                sessionKeys.forEach(key => {
+                    if (key.includes('ardonie') || key.includes('auth')) {
+                        sessionStorage.removeItem(key);
+                        addLog(`🗑️ Cleared sessionStorage: ${key}`, 'info', cacheStatus);
+                    }
+                });
+
+                // Clear any cached auth service instances
+                delete window.authService;
+                delete window.simpleAuthService;
+                delete window.AuthService;
+                delete window.SimpleAuthService;
+                addLog('🗑️ Cleared window auth objects', 'info', cacheStatus);
+
+                addLog('✅ All caches cleared', 'success', cacheStatus);
+                updateStatus('Caches cleared', 'success');
+                
+            } catch (error) {
+                addLog('❌ Cache clear error: ' + error.message, 'error', cacheStatus);
+                updateStatus('Cache clear failed', 'error');
+            }
+        }
+
+        function monitorDashboardLoad() {
+            addLog('🚨 Starting dashboard load monitoring...', 'critical');
+            updateStatus('Monitoring dashboard load...', 'warning');
+            
+            // Override console methods to capture dashboard logs
+            const originalConsoleLog = console.log;
+            const originalConsoleError = console.error;
+            const originalConsoleWarn = console.warn;
+            
+            console.log = function(...args) {
+                originalConsoleLog.apply(console, args);
+                addLog(`📝 CONSOLE: ${args.join(' ')}`, 'info');
+            };
+            
+            console.error = function(...args) {
+                originalConsoleError.apply(console, args);
+                addLog(`❌ ERROR: ${args.join(' ')}`, 'error');
+            };
+            
+            console.warn = function(...args) {
+                originalConsoleWarn.apply(console, args);
+                addLog(`⚠️ WARN: ${args.join(' ')}`, 'warning');
+            };
+
+            // Monitor for navigation/redirect events
+            let redirectCount = 0;
+            const originalLocation = window.location.href;
+            
+            // Monitor window errors
+            window.addEventListener('error', function(event) {
+                addLog(`❌ JS ERROR: ${event.message} at ${event.filename}:${event.lineno}`, 'error');
+            });
+
+            // Monitor unhandled promise rejections
+            window.addEventListener('unhandledrejection', function(event) {
+                addLog(`❌ PROMISE REJECTION: ${event.reason}`, 'error');
+            });
+
+            addLog('✅ Dashboard monitoring active', 'success');
+            addLog('📋 Now open the dashboard to see live debug output', 'info');
+        }
+
+        function openDashboardWithDebug() {
+            addLog('🏠 Opening dashboard with debug monitoring...', 'info');
+            addLog('📋 Check this window for live debug output', 'warning');
+            
+            // Setup monitoring first
+            monitorDashboardLoad();
+            
+            // Wait a moment then open dashboard
+            setTimeout(() => {
+                addLog('🚀 Opening dashboard now...', 'critical');
+                window.open('http://localhost:8000/dashboard/buyer-dashboard.html', '_blank');
+            }, 1000);
+        }
+
+        // Initialize
+        setTimeout(() => {
+            addLog('🚀 Live dashboard debug monitor ready', 'success');
+            addLog('📋 Use controls above to debug the dashboard issue', 'info');
+            
+            // Check initial auth service status
+            checkAuthServiceFiles();
+            
+            updateStatus('Debug monitor ready', 'success');
+        }, 500);
+    </script>
+</body>
+</html>

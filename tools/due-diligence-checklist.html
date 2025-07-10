@@ -2,43 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="dns-prefetch" href="//cdn.tailwindcss.com">
+    
     <link rel="dns-prefetch" href="//fonts.googleapis.com">
     <link rel="dns-prefetch" href="//images.unsplash.com">
-    <link rel="preload" href="https://cdn.tailwindcss.com" as="script">
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Express Due Diligence Checklist - Ardonie Capital</title>
     <meta name="description" content="Comprehensive due diligence checklist for auto repair shop acquisitions through Ardonie Capital's Express Deal program.">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="../assets/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
 
     <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../assets/css/tailwind.css">
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" media="print" onload="this.media='all'" href="../assets/css/common.css">
-
-    <!-- Security Headers -->
-    <script src="../assets/js/security-headers.js" defer></script>
-
-    <!-- Mobile Menu Script -->
+    <!-- Theme System -->
     <script>
-        // Simple mobile menu toggle functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-
-            if (mobileMenuButton && mobileMenu) {
-                mobileMenuButton.addEventListener('click', function() {
-                    mobileMenu.classList.toggle('hidden');
-                });
-            }
-        });
-    </script>
-
-    <!-- Tailwind Config -->
-    <script>
+        // Initialize tailwind config with theme support
         tailwind.config = {
             darkMode: 'class',
             theme: {
@@ -62,8 +42,42 @@
                     }
                 }
             }
+        };
+
+        // Apply saved theme preference immediately to prevent flash
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
         }
     </script>
+
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" media="print" onload="this.media='all'" href="../assets/css/common.css">
+
+    <!-- Security Headers -->
+    <script src="../assets/js/security-headers.js" defer></script>
+
+    <!-- Mobile Menu Script -->
+    <script>
+        // Simple mobile menu toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', function() {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+        });
+    </script>
+
+    
 
     <!-- Intersection Observer Polyfill for older browsers -->
     <script>
@@ -399,9 +413,8 @@
                         Connecting buyers and sellers through our Express Deal Package for 34-day closings.
                     </p>
                     <div class="text-slate-400 text-sm space-y-1 mb-4">
-                        <div>55 9th Street, #1316</div>
+                        <div>55 9th Street</div>
                         <div>San Francisco, CA 94103</div>
-                        <div>424-253-4019</div>
                     </div>
                     <div class="flex space-x-3">
                         <a href="https://twitter.com/ardoniecapital" class="text-slate-400 hover:text-white transition-colors" aria-label="Twitter">
@@ -523,7 +536,6 @@
                                 <li><a href="../contact.html" class="text-slate-400 hover:text-white transition-colors text-sm">Contact Support</a></li>
                                 <li><a href="../auth/login.html" class="text-slate-400 hover:text-white transition-colors text-sm">Login</a></li>
                                 <li><a href="../auth/register.html" class="text-slate-400 hover:text-white transition-colors text-sm">Register</a></li>
-                                <li><span class="text-slate-400 text-sm">424-253-4019</span></li>
                             </ul>
                         </div>
                     </div>

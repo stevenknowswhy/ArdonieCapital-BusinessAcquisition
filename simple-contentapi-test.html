@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple ContentAPI Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .result {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            border-left: 4px solid #007bff;
+            background-color: #f8f9fa;
+        }
+        .success { border-left-color: #28a745; background-color: #d4edda; }
+        .error { border-left-color: #dc3545; background-color: #f8d7da; }
+    </style>
+</head>
+<body>
+    <h1>Simple ContentAPI Test</h1>
+    <div id="results"></div>
+
+    <script type="module">
+        async function testContentAPI() {
+            const resultsDiv = document.getElementById('results');
+            
+            function addResult(message, isSuccess = true) {
+                const div = document.createElement('div');
+                div.className = `result ${isSuccess ? 'success' : 'error'}`;
+                div.textContent = message;
+                resultsDiv.appendChild(div);
+            }
+
+            try {
+                addResult('Step 1: Importing ContentAPI service...');
+                const { contentAPIService } = await import('./src/features/blog/services/content-api.service.js');
+                addResult('✅ ContentAPI service imported');
+
+                addResult('Step 2: Checking service type...');
+                addResult(`Service type: ${typeof contentAPIService}`);
+
+                addResult('Step 3: Checking getCategories method...');
+                addResult(`getCategories type: ${typeof contentAPIService.getCategories}`);
+
+                if (typeof contentAPIService.getCategories === 'function') {
+                    addResult('✅ getCategories method exists!');
+                    
+                    addResult('Step 4: Initializing service...');
+                    await contentAPIService.init();
+                    addResult('✅ Service initialized');
+
+                    addResult('Step 5: Calling getCategories...');
+                    const result = await contentAPIService.getCategories();
+                    addResult(`✅ getCategories returned: ${JSON.stringify(result)}`);
+                } else {
+                    addResult('❌ getCategories method does not exist!', false);
+                    
+                    // List all methods
+                    const methods = Object.getOwnPropertyNames(Object.getPrototypeOf(contentAPIService))
+                        .filter(name => typeof contentAPIService[name] === 'function');
+                    addResult(`Available methods: ${methods.join(', ')}`);
+                }
+
+            } catch (error) {
+                addResult(`❌ Error: ${error.message}`, false);
+                console.error('Full error:', error);
+            }
+        }
+
+        testContentAPI();
+    </script>
+</body>
+</html>

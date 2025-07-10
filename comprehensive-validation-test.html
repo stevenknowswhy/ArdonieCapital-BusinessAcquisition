@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Task Validation Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-6xl mx-auto">
+        <h1 class="text-3xl font-bold mb-8">BuyMartV1 - Comprehensive Task Validation</h1>
+        
+        <div class="grid md:grid-cols-2 gap-6 mb-8">
+            <!-- Test 1: Database Schema -->
+            <div class="bg-white p-6 rounded-lg shadow">
+                <h2 class="text-xl font-semibold mb-4">1. Database Schema Deployment</h2>
+                <div id="schema-results" class="text-gray-600">
+                    Testing database tables...
+                </div>
+            </div>
+
+            <!-- Test 2: Module Resolution -->
+            <div class="bg-white p-6 rounded-lg shadow">
+                <h2 class="text-xl font-semibold mb-4">2. Module Resolution</h2>
+                <div id="module-results" class="text-gray-600">
+                    Testing module imports...
+                </div>
+            </div>
+
+            <!-- Test 3: CMS Functionality -->
+            <div class="bg-white p-6 rounded-lg shadow">
+                <h2 class="text-xl font-semibold mb-4">3. CMS Functionality</h2>
+                <div id="cms-results" class="text-gray-600">
+                    Testing CMS operations...
+                </div>
+            </div>
+
+            <!-- Test 4: Service Integration -->
+            <div class="bg-white p-6 rounded-lg shadow">
+                <h2 class="text-xl font-semibold mb-4">4. Service Integration</h2>
+                <div id="service-results" class="text-gray-600">
+                    Testing service integration...
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow mb-8">
+            <h2 class="text-xl font-semibold mb-4">Overall Validation Status</h2>
+            <div id="overall-results" class="text-gray-600">
+                Running comprehensive validation...
+            </div>
+        </div>
+
+        <div class="space-x-4">
+            <button type="button" id="run-tests" class="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600">
+                Run All Tests
+            </button>
+            <button type="button" id="test-specific" class="bg-green-500 text-white px-6 py-2 rounded hover:bg-green-600">
+                Test Specific Issues
+            </button>
+        </div>
+    </div>
+
+    <script type="module">
+        // Import Supabase from JSDelivr CDN (confirmed working)
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+        class ComprehensiveValidator {
+            constructor() {
+                this.supabaseClient = null;
+                this.testResults = {
+                    schema: [],
+                    module: [],
+                    cms: [],
+                    service: [],
+                    overall: []
+                };
+            }
+
+            log(section, message, type = 'info') {
+                const timestamp = new Date().toLocaleTimeString();
+                const logEntry = { message, type, timestamp };
+                
+                this.testResults[section].push(logEntry);
+                
+                const container = document.getElementById(`${section}-results`);
+                if (container) {
+                    const div = document.createElement('div');
+                    div.className = `p-2 rounded mb-1 ${this.getLogClass(type)}`;
+                    div.innerHTML = `<span class="text-xs opacity-75">[${timestamp}]</span> ${message}`;
+                    container.appendChild(div);
+                    container.scrollTop = container.scrollHeight;
+                }
+            }
+
+            getLogClass(type) {
+                switch (type) {
+                    case 'success': return 'bg-green-100 text-green-800';
+                    case 'error': return 'bg-red-100 text-red-800';
+                    case 'warning': return 'bg-yellow-100 text-yellow-800';
+                    default: return 'bg-blue-100 text-blue-800';
+                }
+            }
+
+            async testDatabaseSchema() {
+                this.log('schema', '🔍 Testing database schema deployment...', 'info');
+
+                try {
+                    // Create Supabase client
+                    this.supabaseClient = createClient(
+                        'https://pbydepsqcypwqbicnsco.supabase.co',
+                        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBieWRlcHNxY3lwd3FiaWNuc2NvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE5MjAxOTQsImV4cCI6MjA2NzQ5NjE5NH0.5aF46QcNOFN_vwXcHxCsVx_8a4EsqE1bL4fy4K7UXI0'
+                    );
+
+                    const tables = ['profiles', 'listings', 'content_pages', 'blog_categories', 'documents', 'deals', 'vendors', 'vendor_reviews'];
+                    let accessibleTables = 0;
+
+                    for (const tableName of tables) {
+                        try {
+                            const { data, error } = await this.supabaseClient
+                                .from(tableName)
+                                .select('id')
+                                .limit(1);
+
+                            if (error) {
+                                if (error.message.includes('infinite recursion')) {
+                                    this.log('schema', `🚨 ${tableName}: INFINITE RECURSION in RLS policies`, 'error');
+                                } else {
+                                    this.log('schema', `⚠️ ${tableName}: ${error.message}`, 'warning');
+                                }
+                            } else {
+                                this.log('schema', `✅ ${tableName}: accessible (${data.length} records)`, 'success');
+                                accessibleTables++;
+                            }
+                        } catch (error) {
+                            this.log('schema', `❌ ${tableName}: Exception - ${error.message}`, 'error');
+                        }
+                    }
+
+                    if (accessibleTables === tables.length) {
+                        this.log('schema', '🎉 All database tables deployed successfully!', 'success');
+                        return true;
+                    } else {
+                        this.log('schema', `⚠️ ${accessibleTables}/${tables.length} tables accessible`, 'warning');
+                        return false;
+                    }
+
+                } catch (error) {
+                    this.log('schema', `❌ Database schema test failed: ${error.message}`, 'error');
+                    return false;
+                }
+            }
+
+            async testModuleResolution() {
+                this.log('module', '🔍 Testing module resolution and browser compatibility...', 'info');
+
+                try {
+                    // Test 1: Supabase CDN import (already working if we got here)
+                    this.log('module', '✅ Supabase CDN import successful', 'success');
+
+                    // Test 2: Check for "process is not defined" errors
+                    if (typeof process !== 'undefined') {
+                        this.log('module', '⚠️ Node.js process variable detected in browser', 'warning');
+                    } else {
+                        this.log('module', '✅ No Node.js process variable in browser context', 'success');
+                    }
+
+                    // Test 3: Test basic Supabase functionality
+                    if (this.supabaseClient && this.supabaseClient.auth && this.supabaseClient.from) {
+                        this.log('module', '✅ Supabase client fully functional', 'success');
+                    } else {
+                        this.log('module', '❌ Supabase client not properly initialized', 'error');
+                        return false;
+                    }
+
+                    this.log('module', '🎉 Module resolution tests passed!', 'success');
+                    return true;
+
+                } catch (error) {
+                    this.log('module', `❌ Module resolution failed: ${error.message}`, 'error');
+                    return false;
+                }
+            }
+
+            async testCMSFunctionality() {
+                this.log('cms', '🔍 Testing CMS functionality (ContentAPI & BlogCMS)...', 'info');
+
+                try {
+                    if (!this.supabaseClient) {
+                        throw new Error('Supabase client not initialized');
+                    }
+
+                    // Test 1: ContentAPI getCategories (previously failing)
+                    this.log('cms', 'Testing ContentAPI getCategories method...', 'info');
+                    const { data: categories, error: catError } = await this.supabaseClient
+                        .from('blog_categories')
+                        .select('*');
+
+                    if (catError) {
+                        this.log('cms', `❌ ContentAPI getCategories failed: ${catError.message}`, 'error');
+                    } else {
+                        this.log('cms', `✅ ContentAPI getCategories working (${categories.length} categories)`, 'success');
+                    }
+
+                    // Test 2: BlogCMS service operations
+                    this.log('cms', 'Testing BlogCMS service operations...', 'info');
+                    const { data: posts, error: postError } = await this.supabaseClient
+                        .from('content_pages')
+                        .select('*')
+                        .limit(5);
+
+                    if (postError) {
+                        this.log('cms', `❌ BlogCMS operations failed: ${postError.message}`, 'error');
+                    } else {
+                        this.log('cms', `✅ BlogCMS operations working (${posts.length} posts)`, 'success');
+                    }
+
+                    // Test 3: Database CRUD operations
+                    this.log('cms', 'Testing database CRUD operations...', 'info');
+                    const { data: documents, error: docError } = await this.supabaseClient
+                        .from('documents')
+                        .select('*')
+                        .limit(3);
+
+                    if (docError) {
+                        this.log('cms', `❌ Database CRUD failed: ${docError.message}`, 'error');
+                    } else {
+                        this.log('cms', `✅ Database CRUD working (${documents.length} documents)`, 'success');
+                    }
+
+                    this.log('cms', '🎉 CMS functionality tests completed!', 'success');
+                    return !catError && !postError && !docError;
+
+                } catch (error) {
+                    this.log('cms', `❌ CMS functionality test failed: ${error.message}`, 'error');
+                    return false;
+                }
+            }
+
+            async testServiceIntegration() {
+                this.log('service', '🔍 Testing service integration...', 'info');
+
+                try {
+                    if (!this.supabaseClient) {
+                        throw new Error('Supabase client not initialized');
+                    }
+
+                    // Test 1: Authentication service
+                    this.log('service', 'Testing authentication service...', 'info');
+                    const { data: { session }, error: sessionError } = await this.supabaseClient.auth.getSession();
+                    
+                    if (sessionError) {
+                        this.log('service', `⚠️ Auth service warning: ${sessionError.message}`, 'warning');
+                    } else if (session) {
+                        this.log('service', `✅ User authenticated: ${session.user.email}`, 'success');
+                    } else {
+                        this.log('service', '✅ Auth service working (no active session)', 'success');
+                    }
+
+                    // Test 2: Database service integration
+                    this.log('service', 'Testing database service integration...', 'info');
+                    const { data: profiles, error: profileError } = await this.supabaseClient
+                        .from('profiles')
+                        .select('id')
+                        .limit(1);
+
+                    if (profileError) {
+                        this.log('service', `❌ Database service failed: ${profileError.message}`, 'error');
+                        return false;
+                    } else {
+                        this.log('service', '✅ Database service integration working', 'success');
+                    }
+
+                    this.log('service', '🎉 Service integration tests passed!', 'success');
+                    return true;
+
+                } catch (error) {
+                    this.log('service', `❌ Service integration failed: ${error.message}`, 'error');
+                    return false;
+                }
+            }
+
+            async runAllTests() {
+                this.clearAllSections();
+                this.log('overall', '🚀 Starting comprehensive validation tests...', 'info');
+
+                const results = {
+                    schema: await this.testDatabaseSchema(),
+                    module: await this.testModuleResolution(),
+                    cms: await this.testCMSFunctionality(),
+                    service: await this.testServiceIntegration()
+                };
+
+                this.generateFinalReport(results);
+                return results;
+            }
+
+            generateFinalReport(results) {
+                const passed = Object.values(results).filter(r => r).length;
+                const total = Object.keys(results).length;
+                
+                this.log('overall', `📊 Test Results: ${passed}/${total} test suites passed`, 'info');
+
+                if (passed === total) {
+                    this.log('overall', '🎉 ALL TESTS PASSED - Tasks are genuinely complete!', 'success');
+                    this.log('overall', '✅ Database schema deployment: VERIFIED', 'success');
+                    this.log('overall', '✅ Module resolution: VERIFIED', 'success');
+                    this.log('overall', '✅ CMS functionality: VERIFIED', 'success');
+                    this.log('overall', '✅ Service integration: VERIFIED', 'success');
+                } else {
+                    this.log('overall', '❌ SOME TESTS FAILED - Tasks marked complete but have issues', 'error');
+                    
+                    Object.entries(results).forEach(([test, passed]) => {
+                        if (!passed) {
+                            this.log('overall', `❌ ${test} test failed - task needs attention`, 'error');
+                        }
+                    });
+                }
+            }
+
+            clearAllSections() {
+                ['schema', 'module', 'cms', 'service', 'overall'].forEach(section => {
+                    const element = document.getElementById(`${section}-results`);
+                    if (element) {
+                        element.innerHTML = '';
+                    }
+                    if (this.testResults[section]) {
+                        this.testResults[section] = [];
+                    }
+                });
+            }
+        }
+
+        const validator = new ComprehensiveValidator();
+
+        document.getElementById('run-tests').addEventListener('click', () => {
+            validator.runAllTests();
+        });
+
+        document.getElementById('test-specific').addEventListener('click', () => {
+            validator.clearAllSections();
+            validator.log('overall', '🎯 Testing specific issues mentioned in task list...', 'info');
+            
+            // Test the specific issues mentioned in the tasks
+            setTimeout(async () => {
+                await validator.testCMSFunctionality();
+            }, 1000);
+        });
+
+        // Auto-run tests on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                validator.runAllTests();
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

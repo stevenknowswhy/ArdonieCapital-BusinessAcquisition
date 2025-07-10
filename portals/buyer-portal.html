@@ -2,43 +2,63 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buyer Portal - Ardonie Capital</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="../assets/css/common.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/tailwind.css">
+
+    <!-- Theme System -->
     <script>
+        // Initialize tailwind config with theme support
         tailwind.config = {
             darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
                         primary: {
-                            DEFAULT: '#3b82f6',
-                            dark: '#2563eb',
-                            light: '#93c5fd',
+                            light: '#3B82F6',
+                            DEFAULT: '#2563EB',
+                            dark: '#1D4ED8'
                         },
                         secondary: {
-                            DEFAULT: '#64748b',
-                            light: '#f1f5f9',
+                            light: '#F8FAFC',
+                            DEFAULT: '#E2E8F0',
+                            dark: '#64748B'
                         },
                         accent: {
-                            DEFAULT: '#10b981',
-                            dark: '#059669',
+                            light: '#10B981',
+                            DEFAULT: '#059669',
+                            dark: '#047857'
                         }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
+                    }
                 }
             }
+        };
+
+        // Apply saved theme preference immediately to prevent flash
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
         }
     </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="../assets/css/common.css" rel="stylesheet">
+    
+    <!-- Navigation Styles -->
+    <link rel="stylesheet" href="../components/navigation-styles.css">
+    
+    
 </head>
 <body class="font-sans text-slate-800 bg-white dark:bg-slate-900 dark:text-slate-200 portal-buyer">
 
-    <!-- Portal Header -->
-    <div id="portal-header"></div>
+    <!-- Navigation Component -->
+    <div id="main-navigation-container"></div>
 
     <main class="min-h-screen bg-slate-50 dark:bg-slate-900">
         <!-- Dashboard Section -->
@@ -50,154 +70,29 @@
         <!-- Active Deals Section -->
         <div id="active-deals"></div>
 
-        <!-- Financing Section -->
-        <div id="financing-section"></div>
+        <!-- Saved Searches Section -->
+        <div id="saved-searches"></div>
+
+        <!-- Messages Section -->
+        <div id="messages"></div>
+
+        <!-- Profile Section -->
+        <div id="profile"></div>
     </main>
 
     <!-- Portal Footer -->
     <div id="portal-footer"></div>
 
-    <!-- Load Portal Components and Sections -->
-    <script>
-        // Portal configuration
-        window.PortalConfig = {
-            portalType: 'buyer',
-            userRole: 'Express Buyer',
-            apiEndpoint: '/api/portals/buyer/',
-            features: {
-                notifications: true,
-                darkMode: true,
-                realTimeUpdates: true
-            }
-        };
-
-        // Function to load HTML content into a div
-        function loadSection(sectionId, filePath) {
-            fetch(filePath)
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById(sectionId).innerHTML = data;
-                })
-                .catch(error => {
-                    console.error('Error loading section:', error);
-                });
-        }
-
-        // Load all portal components and sections
-        document.addEventListener('DOMContentLoaded', function() {
-            // Load components with cache busting
-            const timestamp = new Date().getTime();
-            const randomId = Math.random().toString(36).substring(7);
-            loadSection('portal-header', `components/portal-header.html?v=${timestamp}&r=${randomId}`);
-            loadSection('portal-footer', `components/portal-footer.html?v=${timestamp}&r=${randomId}`);
-
-            // Load sections
-            loadSection('buyer-dashboard', 'sections/buyer/dashboard.html');
-            loadSection('express-listings', 'sections/buyer/express-listings.html');
-            loadSection('active-deals', 'sections/buyer/active-deals.html');
-            loadSection('financing-section', 'sections/buyer/financing.html');
-
-            // Configure portal after components load
-            setTimeout(() => {
-                configureBuyerPortal();
-            }, 500);
-        });
-
-        // Configure buyer portal specific settings
-        function configureBuyerPortal() {
-            // Set portal title
-            document.title = 'Buyer Portal - Ardonie Capital';
-
-            // Configure header
-            if (window.PortalHeader) {
-                window.PortalHeader.setBadge('🏢 Buyer Portal', 'bg-green-100 text-green-800');
-                window.PortalHeader.setUser('Michael Chen', 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=32&h=32&q=80');
-                window.PortalHeader.setNavigation([
-                    { href: '#buyer-dashboard', text: 'Dashboard', active: true },
-                    { href: '#express-listings', text: 'Express Listings', active: false },
-                    { href: '#active-deals', text: 'My Deals', active: false },
-                    { href: '#financing-section', text: 'Financing', active: false }
-                ]);
-                window.PortalHeader.setNotificationCount(3);
-            }
-
-            // Configure footer
-            if (window.PortalFooter) {
-                window.PortalFooter.setDescription('🏢 Buyer Portal - Your Express Path to Auto Shop Ownership');
-                window.PortalFooter.setTagline('Express Buyer portal for 34-day acquisitions.');
-                window.PortalFooter.setStatus('🚖 Express Buyer Active');
-                window.PortalFooter.setQuickLinks([
-                    { href: '#express-listings', text: '🔍 Browse Express Listings' },
-                    { href: '#active-deals', text: '📋 My Active Deals' },
-                    { href: '#financing-section', text: '💰 Financing Dashboard' },
-                    { href: '../tools/due-diligence-checklist.html', text: '📊 Due Diligence Tools' },
-                    { href: '../education/guides.html', text: '📚 Buyer Resources' }
-                ]);
-            }
-
-            // Load common utilities
-            if (window.ArdonieCapital) {
-                window.ArdonieCapital.showToast('Welcome to your Buyer Portal!', 'success');
-            }
-        }
-
-        // Buyer portal specific utilities
-        window.BuyerPortal = {
-            // Navigate to section
-            navigateToSection: function(sectionId) {
-                const element = document.getElementById(sectionId);
-                if (element) {
-                    element.scrollIntoView({ behavior: 'smooth' });
-
-                    // Update active navigation
-                    if (window.PortalHeader) {
-                        const navItems = [
-                            { href: '#buyer-dashboard', text: 'Dashboard', active: sectionId === 'buyer-dashboard' },
-                            { href: '#express-listings', text: 'Express Listings', active: sectionId === 'express-listings' },
-                            { href: '#active-deals', text: 'My Deals', active: sectionId === 'active-deals' },
-                            { href: '#financing-section', text: 'Financing', active: sectionId === 'financing-section' }
-                        ];
-                        window.PortalHeader.setNavigation(navItems);
-                    }
-                }
-            },
-
-            // Refresh portal data
-            refreshData: function() {
-                if (window.BuyerDashboard) window.BuyerDashboard.loadData();
-                if (window.ExpressListings) window.ExpressListings.init();
-                if (window.ActiveDeals) window.ActiveDeals.init();
-                if (window.ArdonieCapital) {
-                    window.ArdonieCapital.showToast('Portal data refreshed', 'success');
-                }
-            },
-
-            // Get buyer statistics
-            getStats: function() {
-                return {
-                    financingAmount: '$1.2M',
-                    activeDeals: 2,
-                    daysRemaining: 12,
-                    completedDeals: 0,
-                    savedListings: 5
-                };
-            }
-        };
-
-        // Handle navigation clicks
-        document.addEventListener('click', function(event) {
-            if (event.target.tagName === 'A' && event.target.getAttribute('href').startsWith('#')) {
-                event.preventDefault();
-                const sectionId = event.target.getAttribute('href').substring(1);
-                window.BuyerPortal.navigateToSection(sectionId);
-            }
-        });
-
-        // Load common JavaScript utilities
-        const script = document.createElement('script');
-        script.src = '../assets/js/common.js';
-        document.head.appendChild(script);
-    </script>
-
+    <!-- Load Navigation Component -->
+    <script src="../components/main-navigation.js"></script>
+    
+    <!-- Portal Scripts -->
+    <script src="../assets/js/portal-common.js"></script>
+    <script src="components/buyer-dashboard.js"></script>
+    <script src="components/express-listings.js"></script>
+    <script src="components/active-deals.js"></script>
+    <script src="components/saved-searches.js"></script>
+    <script src="components/messages.js"></script>
+    <script src="components/profile.js"></script>
 </body>
 </html>

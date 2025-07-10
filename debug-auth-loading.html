@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Auth Loading</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .log { background: #f8f9fa; padding: 10px; margin: 5px 0; border-left: 4px solid #007bff; font-family: monospace; }
+        .error { border-left-color: #dc3545; background: #f8d7da; }
+        .success { border-left-color: #28a745; background: #d4edda; }
+    </style>
+</head>
+<body>
+    <h1>Debug Auth Service Loading</h1>
+    <div id="logs"></div>
+    
+    <script>
+        const logs = document.getElementById('logs');
+        
+        function log(message, type = 'info') {
+            const div = document.createElement('div');
+            div.className = `log ${type}`;
+            div.textContent = `${new Date().toLocaleTimeString()}: ${message}`;
+            logs.appendChild(div);
+            console.log(message);
+        }
+        
+        // Check initial state
+        log('Starting debug...');
+        log(`window.AuthService: ${typeof window.AuthService}`);
+        log(`window.authService: ${typeof window.authService}`);
+        
+        // Load the auth service script
+        const script = document.createElement('script');
+        script.src = 'assets/js/auth-service.js';
+        
+        script.onload = function() {
+            log('Auth service script loaded', 'success');
+            
+            // Check what's available
+            log(`After load - window.AuthService: ${typeof window.AuthService}`);
+            log(`After load - window.authService: ${typeof window.authService}`);
+            
+            if (window.AuthService) {
+                log(`AuthService is: ${window.AuthService.toString().substring(0, 100)}...`);
+                
+                try {
+                    const instance = new window.AuthService();
+                    log('Successfully created new instance', 'success');
+                    log(`Instance has login method: ${typeof instance.login}`);
+                } catch (error) {
+                    log(`Failed to create instance: ${error.message}`, 'error');
+                }
+            }
+            
+            if (window.authService) {
+                log('Global authService instance available', 'success');
+                log(`Global instance has login method: ${typeof window.authService.login}`);
+                
+                // Test a simple method call
+                try {
+                    const isValid = window.authService.validateEmail('test@example.com');
+                    log(`Email validation test: ${isValid}`, 'success');
+                } catch (error) {
+                    log(`Email validation failed: ${error.message}`, 'error');
+                }
+            }
+        };
+        
+        script.onerror = function() {
+            log('Failed to load auth service script', 'error');
+        };
+        
+        document.head.appendChild(script);
+    </script>
+</body>
+</html>

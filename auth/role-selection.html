@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Your Role - Ardonie Capital</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .role-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .role-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .role-card.selected {
+            border-color: #3b82f6;
+            background-color: #eff6ff;
+        }
+        .loading-spinner {
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-6">
+                <div class="flex items-center">
+                    <h1 class="text-2xl font-bold text-gray-900">Ardonie Capital</h1>
+                </div>
+                <button onclick="logout()" class="text-gray-500 hover:text-gray-700 text-sm">
+                    Logout
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <!-- Welcome Section -->
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Welcome back!</h2>
+            <p class="text-lg text-gray-600 mb-2">
+                You have multiple roles available. Please select the role you'd like to use for this session.
+            </p>
+            <p class="text-sm text-gray-500">
+                You can switch between roles anytime from your account settings.
+            </p>
+        </div>
+
+        <!-- User Info -->
+        <div class="bg-white rounded-lg shadow-sm p-6 mb-8">
+            <div class="flex items-center space-x-4">
+                <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center">
+                    <span class="text-white font-semibold text-lg" id="user-initials">--</span>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-900" id="user-name">Loading...</h3>
+                    <p class="text-gray-600" id="user-email">Loading...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Role Selection -->
+        <div class="mb-8">
+            <h3 class="text-xl font-semibold text-gray-900 mb-6">Select Your Role</h3>
+            <div id="roles-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Roles will be populated here -->
+                <div class="text-center py-12">
+                    <div class="loading-spinner w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full mx-auto mb-4"></div>
+                    <p class="text-gray-600">Loading your roles...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Continue Button -->
+        <div class="text-center">
+            <button id="continue-btn" 
+                    onclick="continueWithSelectedRole()" 
+                    disabled
+                    class="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white px-8 py-3 rounded-lg font-semibold transition-colors duration-200">
+                Continue with Selected Role
+            </button>
+        </div>
+
+        <!-- Remember Preference -->
+        <div class="text-center mt-6">
+            <label class="inline-flex items-center">
+                <input type="checkbox" id="remember-role" class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                <span class="ml-2 text-sm text-gray-600">Remember this choice for future logins</span>
+            </label>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script type="module">
+        import { multiRoleAuthService } from '../src/features/authentication/services/multi-role-auth.service.js';
+
+        let selectedRole = null;
+        let userRoles = [];
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', async function() {
+            try {
+                await loadUserData();
+                await loadUserRoles();
+            } catch (error) {
+                console.error('Error initializing role selection:', error);
+                showError('Failed to load user data. Please try logging in again.');
+            }
+        });
+
+        // Load user data
+        async function loadUserData() {
+            const user = multiRoleAuthService.getCurrentUser();
+            
+            if (!user) {
+                window.location.href = '/auth/login.html';
+                return;
+            }
+
+            // Update UI with user info
+            document.getElementById('user-name').textContent = `${user.firstName} ${user.lastName}`;
+            document.getElementById('user-email').textContent = user.email;
+            
+            // Set user initials
+            const initials = `${user.firstName?.charAt(0) || ''}${user.lastName?.charAt(0) || ''}`;
+            document.getElementById('user-initials').textContent = initials;
+        }
+
+        // Load user roles
+        async function loadUserRoles() {
+            const user = multiRoleAuthService.getCurrentUser();
+            userRoles = user.roles || [];
+
+            if (userRoles.length === 0) {
+                showError('No roles found. Please contact your administrator.');
+                return;
+            }
+
+            if (userRoles.length === 1) {
+                // Auto-select single role and continue
+                selectedRole = userRoles[0].roles;
+                await continueWithSelectedRole();
+                return;
+            }
+
+            renderRoles();
+        }
+
+        // Render role cards
+        function renderRoles() {
+            const container = document.getElementById('roles-container');
+            
+            container.innerHTML = userRoles.map(userRole => {
+                const role = userRole.roles;
+                const company = userRole.companies;
+                
+                return `
+                    <div class="role-card bg-white rounded-lg border-2 border-gray-200 p-6" 
+                         onclick="selectRole('${role.slug}', '${userRole.company_id || ''}')">
+                        <div class="text-center">
+                            <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-br ${getRoleGradient(role.category)} rounded-full flex items-center justify-center">
+                                <span class="text-2xl">${getRoleIcon(role.slug)}</span>
+                            </div>
+                            <h4 class="text-lg font-semibold text-gray-900 mb-2">${role.name}</h4>
+                            <p class="text-sm text-gray-600 mb-3">${role.description}</p>
+                            ${company ? `<p class="text-xs text-blue-600 font-medium">${company.name}</p>` : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Select role
+        window.selectRole = function(roleSlug, companyId) {
+            // Remove previous selection
+            document.querySelectorAll('.role-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+
+            // Add selection to clicked card
+            event.currentTarget.classList.add('selected');
+
+            // Store selected role
+            selectedRole = userRoles.find(ur => 
+                ur.roles.slug === roleSlug && 
+                ur.company_id === (companyId || null)
+            )?.roles;
+
+            // Enable continue button
+            document.getElementById('continue-btn').disabled = false;
+        };
+
+        // Continue with selected role
+        window.continueWithSelectedRole = async function() {
+            if (!selectedRole) {
+                showError('Please select a role to continue.');
+                return;
+            }
+
+            try {
+                // Show loading state
+                const continueBtn = document.getElementById('continue-btn');
+                const originalText = continueBtn.textContent;
+                continueBtn.textContent = 'Loading...';
+                continueBtn.disabled = true;
+
+                // Get company ID for selected role
+                const selectedUserRole = userRoles.find(ur => ur.roles.slug === selectedRole.slug);
+                const companyId = selectedUserRole?.company_id;
+
+                // Select active role
+                const result = await multiRoleAuthService.selectActiveRole(selectedRole.slug, companyId);
+
+                if (result.success) {
+                    // Store remember preference if checked
+                    const rememberRole = document.getElementById('remember-role').checked;
+                    if (rememberRole) {
+                        localStorage.setItem('ardonie_preferred_role', selectedRole.slug);
+                    }
+
+                    // Redirect to appropriate dashboard
+                    window.location.href = result.redirectUrl;
+                } else {
+                    throw new Error('Failed to select role');
+                }
+
+            } catch (error) {
+                console.error('Error selecting role:', error);
+                showError('Failed to select role. Please try again.');
+                
+                // Reset button
+                const continueBtn = document.getElementById('continue-btn');
+                continueBtn.textContent = originalText;
+                continueBtn.disabled = false;
+            }
+        };
+
+        // Logout function
+        window.logout = async function() {
+            try {
+                await multiRoleAuthService.logout();
+                window.location.href = '/auth/login.html';
+            } catch (error) {
+                console.error('Error logging out:', error);
+                window.location.href = '/auth/login.html';
+            }
+        };
+
+        // Show error message
+        function showError(message) {
+            const container = document.getElementById('roles-container');
+            container.innerHTML = `
+                <div class="col-span-full text-center py-12">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-red-100 rounded-full flex items-center justify-center">
+                        <span class="text-red-600 text-2xl">⚠️</span>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Error</h3>
+                    <p class="text-gray-600 mb-4">${message}</p>
+                    <button onclick="window.location.reload()" 
+                            class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg">
+                        Try Again
+                    </button>
+                </div>
+            `;
+        }
+
+        // Get role icon
+        function getRoleIcon(roleSlug) {
+            const icons = {
+                'super_admin': '👑',
+                'company_admin': '🏢',
+                'vendor': '🏪',
+                'seller': '💼',
+                'buyer': '🛒',
+                'blog_editor': '✍️',
+                'blog_contributor': '📝',
+                'admin': '⚡'
+            };
+            return icons[roleSlug] || '👤';
+        }
+
+        // Get role gradient
+        function getRoleGradient(category) {
+            const gradients = {
+                'primary': 'from-blue-400 to-blue-600',
+                'blog': 'from-green-400 to-green-600',
+                'system': 'from-purple-400 to-purple-600'
+            };
+            return gradients[category] || 'from-gray-400 to-gray-600';
+        }
+    </script>
+</body>
+</html>

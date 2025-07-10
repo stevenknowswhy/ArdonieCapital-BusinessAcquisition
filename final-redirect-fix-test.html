@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Redirect Fix Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .test-section {
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .success { background-color: #d4edda; color: #155724; border-color: #c3e6cb; }
+        .error { background-color: #f8d7da; color: #721c24; border-color: #f5c6cb; }
+        .info { background-color: #d1ecf1; color: #0c5460; border-color: #bee5eb; }
+        .warning { background-color: #fff3cd; color: #856404; border-color: #ffeaa7; }
+        .timer {
+            font-size: 36px;
+            font-weight: bold;
+            color: #007bff;
+            text-align: center;
+            margin: 20px 0;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background-color: #0056b3; }
+        .log-entry {
+            padding: 5px;
+            margin: 2px 0;
+            border-radius: 3px;
+            font-family: monospace;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔧 Final Registration Redirect Fix Test</h1>
+    
+    <div class="test-section success">
+        <h2>✅ Fix Applied: Conditional Session Monitoring</h2>
+        <p><strong>What was fixed:</strong> Modified AuthService to skip session monitoring setup on auth pages (/auth/login.html and /auth/register.html)</p>
+        <p><strong>Expected result:</strong> No automatic redirects should occur on registration or login pages</p>
+    </div>
+
+    <div class="test-section info">
+        <h2>⏱️ Live Test Status</h2>
+        <div class="timer" id="timer">00:00</div>
+        <p style="text-align: center;">Time elapsed without redirects</p>
+        <div style="text-align: center;">
+            <strong>Redirect attempts detected: <span id="redirect-count" style="color: red;">0</span></strong>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>🧪 Test Controls</h2>
+        <button onclick="testRegistrationPage()">Test Registration Page</button>
+        <button onclick="testLoginPage()">Test Login Page</button>
+        <button onclick="testNormalPage()">Test Normal Page (should have monitoring)</button>
+        <button onclick="clearLogs()">Clear Logs</button>
+    </div>
+
+    <div class="test-section">
+        <h2>📊 Test Results</h2>
+        <div id="test-results" style="max-height: 300px; overflow-y: auto;"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>🔍 Debug Information</h2>
+        <div id="debug-info"></div>
+    </div>
+
+    <!-- Load Auth Service -->
+    <script src="assets/js/auth-service.js"></script>
+    
+    <script>
+        let startTime = Date.now();
+        let redirectCount = 0;
+        let testResults = [];
+
+        function addResult(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const result = { timestamp, message, type };
+            testResults.push(result);
+            
+            const resultsDiv = document.getElementById('test-results');
+            const resultDiv = document.createElement('div');
+            resultDiv.className = `log-entry ${type}`;
+            resultDiv.innerHTML = `[${timestamp}] ${message}`;
+            resultsDiv.appendChild(resultDiv);
+            resultsDiv.scrollTop = resultsDiv.scrollHeight;
+        }
+
+        function updateTimer() {
+            const elapsed = Date.now() - startTime;
+            const minutes = Math.floor(elapsed / 60000);
+            const seconds = Math.floor((elapsed % 60000) / 1000);
+            document.getElementById('timer').textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            document.getElementById('redirect-count').textContent = redirectCount;
+        }
+
+        function testRegistrationPage() {
+            addResult('🧪 Testing registration page...', 'info');
+            const newWindow = window.open('/auth/register.html', '_blank');
+            
+            if (newWindow) {
+                addResult('✅ Registration page opened - monitoring for redirects', 'success');
+                monitorWindow(newWindow, 'registration');
+            } else {
+                addResult('❌ Failed to open registration page (popup blocked?)', 'error');
+            }
+        }
+
+        function testLoginPage() {
+            addResult('🧪 Testing login page...', 'info');
+            const newWindow = window.open('/auth/login.html', '_blank');
+            
+            if (newWindow) {
+                addResult('✅ Login page opened - monitoring for redirects', 'success');
+                monitorWindow(newWindow, 'login');
+            } else {
+                addResult('❌ Failed to open login page (popup blocked?)', 'error');
+            }
+        }
+
+        function testNormalPage() {
+            addResult('🧪 Testing normal page (should have session monitoring)...', 'info');
+            const newWindow = window.open('/index.html', '_blank');
+            
+            if (newWindow) {
+                addResult('✅ Normal page opened - this should have session monitoring active', 'success');
+                monitorWindow(newWindow, 'normal');
+            } else {
+                addResult('❌ Failed to open normal page (popup blocked?)', 'error');
+            }
+        }
+
+        function monitorWindow(windowRef, pageType) {
+            let redirectDetected = false;
+            const startUrl = windowRef.location.href;
+            
+            const checkWindow = setInterval(() => {
+                try {
+                    if (windowRef.closed) {
+                        clearInterval(checkWindow);
+                        addResult(`${pageType} page window was closed`, 'info');
+                        return;
+                    }
+                    
+                    const currentUrl = windowRef.location.href;
+                    if (currentUrl !== startUrl && !redirectDetected) {
+                        redirectDetected = true;
+                        redirectCount++;
+                        addResult(`❌ ${pageType} page redirected from ${startUrl} to ${currentUrl}`, 'error');
+                        clearInterval(checkWindow);
+                    }
+                } catch (e) {
+                    // Cross-origin error - window is still on same domain
+                }
+            }, 1000);
+            
+            // Stop monitoring after 3 minutes
+            setTimeout(() => {
+                clearInterval(checkWindow);
+                if (!redirectDetected && !windowRef.closed) {
+                    addResult(`✅ ${pageType} page remained stable for 3 minutes`, 'success');
+                }
+            }, 180000);
+        }
+
+        function clearLogs() {
+            document.getElementById('test-results').innerHTML = '';
+            testResults = [];
+            addResult('Logs cleared', 'info');
+        }
+
+        function updateDebugInfo() {
+            const debugDiv = document.getElementById('debug-info');
+            const authPages = ['/auth/login.html', '/auth/register.html'];
+            const currentPath = window.location.pathname;
+            const isOnAuthPage = authPages.some(page => currentPath.endsWith(page));
+            
+            debugDiv.innerHTML = `
+                <div class="log-entry info">
+                    <strong>Current Page Analysis:</strong><br>
+                    Path: ${currentPath}<br>
+                    Is Auth Page: ${isOnAuthPage}<br>
+                    Session Monitoring: ${isOnAuthPage ? 'DISABLED' : 'ENABLED'}<br>
+                    AuthService Available: ${window.AuthService ? 'Yes' : 'No'}
+                </div>
+            `;
+        }
+
+        // Monitor for redirects on this page
+        const originalHref = Object.getOwnPropertyDescriptor(Location.prototype, 'href');
+        Object.defineProperty(Location.prototype, 'href', {
+            get: originalHref.get,
+            set: function(value) {
+                redirectCount++;
+                addResult(`🚨 REDIRECT DETECTED on test page: ${value}`, 'error');
+                return originalHref.set.call(this, value);
+            }
+        });
+
+        // Start timer
+        setInterval(updateTimer, 1000);
+
+        // Initialize
+        window.addEventListener('load', () => {
+            addResult('🚀 Final redirect fix test initialized', 'success');
+            updateDebugInfo();
+            
+            setTimeout(() => {
+                if (window.AuthService) {
+                    addResult('✅ AuthService loaded successfully', 'success');
+                } else {
+                    addResult('❌ AuthService not available', 'error');
+                }
+            }, 1000);
+        });
+
+        // Report final results after 5 minutes
+        setTimeout(() => {
+            const successCount = testResults.filter(r => r.type === 'success').length;
+            const errorCount = testResults.filter(r => r.type === 'error').length;
+            
+            if (redirectCount === 0) {
+                addResult('🎉 FINAL RESULT: SUCCESS! No redirects detected after 5 minutes', 'success');
+            } else {
+                addResult(`❌ FINAL RESULT: FAILURE! ${redirectCount} redirects detected`, 'error');
+            }
+            
+            addResult(`Test Summary: ${successCount} successes, ${errorCount} errors`, 'info');
+        }, 300000); // 5 minutes
+    </script>
+</body>
+</html>

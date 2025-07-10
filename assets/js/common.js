@@ -1,4 +1,7 @@
 // Ardonie Capital Common JavaScript Utilities
+// LEGACY FILE: This file is maintained for backward compatibility.
+// New development should use the modular system in src/shared/
+// Import from: import { ... } from './src/shared/index.js'
 
 // Dark mode toggle functionality
 function initDarkMode() {

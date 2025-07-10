@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Management - Ardonie Capital Dashboard</title>
+    <meta name="description" content="Manage blog posts and content for Ardonie Capital">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom Tailwind Config -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1e40af',
+                        'primary-dark': '#1e3a8a',
+                        accent: '#f59e0b',
+                        'accent-dark': '#d97706'
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Custom Styles -->
+    <style>
+        .sidebar-transition {
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .content-transition {
+            transition: margin-left 0.3s ease-in-out;
+        }
+        
+        .line-clamp-3 {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-slate-900">
+    <!-- Mobile menu overlay -->
+    <div id="mobile-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden hidden"></div>
+
+    <!-- Sidebar -->
+    <div id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-white dark:bg-slate-800 shadow-lg transform -translate-x-full lg:translate-x-0 sidebar-transition">
+        <div class="flex items-center justify-between h-16 px-6 border-b border-slate-200 dark:border-slate-700">
+            <div class="flex items-center">
+                <img src="../assets/images/logo.svg" alt="Ardonie Capital" class="h-8 w-auto">
+                <span class="ml-2 text-lg font-semibold text-slate-900 dark:text-white">Dashboard</span>
+            </div>
+            <button id="close-sidebar" class="lg:hidden text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+        
+        <nav class="mt-6">
+            <div class="px-6 mb-6">
+                <h3 class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Main</h3>
+            </div>
+            <ul class="space-y-1 px-3">
+                <li>
+                    <a href="buyer-dashboard.html" class="flex items-center px-3 py-2 text-slate-600 dark:text-slate-400 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5a2 2 0 012-2h4a2 2 0 012 2v2H8V5z"></path>
+                        </svg>
+                        Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a href="content-management.html" class="flex items-center px-3 py-2 text-primary bg-primary/10 rounded-lg">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                        </svg>
+                        Content Management
+                    </a>
+                </li>
+                <li>
+                    <a href="../blog/dynamic-blog.html" class="flex items-center px-3 py-2 text-slate-600 dark:text-slate-400 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
+                        </svg>
+                        View Blog
+                    </a>
+                </li>
+            </ul>
+            
+            <div class="px-6 mt-8 mb-6">
+                <h3 class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Account</h3>
+            </div>
+            <ul class="space-y-1 px-3">
+                <li>
+                    <a href="../index.html" class="flex items-center px-3 py-2 text-slate-600 dark:text-slate-400 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                        </svg>
+                        Back to Site
+                    </a>
+                </li>
+                <li>
+                    <button id="logout-btn" class="flex items-center w-full px-3 py-2 text-slate-600 dark:text-slate-400 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                        </svg>
+                        Logout
+                    </button>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div id="main-content" class="lg:ml-64 content-transition">
+        <!-- Top Navigation -->
+        <header class="bg-white dark:bg-slate-800 shadow-sm border-b border-slate-200 dark:border-slate-700">
+            <div class="flex items-center justify-between h-16 px-6">
+                <div class="flex items-center">
+                    <button id="menu-toggle" class="lg:hidden text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 mr-4">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                    <h1 class="text-xl font-semibold text-slate-900 dark:text-white">Content Management</h1>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <!-- Dark mode toggle -->
+                    <button id="theme-toggle" class="p-2 text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 rounded-lg">
+                        <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                        </svg>
+                        <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 2L13.09 8.26L20 9L14 14.74L15.18 21.02L10 17.77L4.82 21.02L6 14.74L0 9L6.91 8.26L10 2Z"></path>
+                        </svg>
+                    </button>
+                    
+                    <!-- User menu -->
+                    <div class="relative">
+                        <button id="user-menu-button" class="flex items-center text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                            <img class="h-8 w-8 rounded-full" src="../assets/images/default-avatar.svg" alt="User avatar">
+                            <span class="ml-2 text-slate-700 dark:text-slate-300">Admin User</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Content Management Interface -->
+        <main class="p-6">
+            <!-- Loading State -->
+            <div id="cms-loading" class="text-center py-12">
+                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+                <p class="mt-4 text-slate-600 dark:text-slate-400">Loading content management system...</p>
+            </div>
+
+            <!-- Error State -->
+            <div id="cms-error" class="text-center py-12 hidden">
+                <div class="text-red-500 text-6xl mb-4">⚠️</div>
+                <h2 class="text-xl font-semibold text-slate-900 dark:text-white mb-2">Access Denied</h2>
+                <p class="text-slate-600 dark:text-slate-400 mb-4">You don't have permission to access the content management system.</p>
+                <a href="buyer-dashboard.html" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary-dark">
+                    Back to Dashboard
+                </a>
+            </div>
+
+            <!-- Content Manager Container -->
+            <div id="content-manager-container" class="hidden">
+                <!-- Content will be loaded here by the ContentManagerComponent -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Mobile menu functionality
+        const menuToggle = document.getElementById('menu-toggle');
+        const closeSidebar = document.getElementById('close-sidebar');
+        const sidebar = document.getElementById('sidebar');
+        const mobileOverlay = document.getElementById('mobile-overlay');
+
+        function openSidebar() {
+            sidebar.classList.remove('-translate-x-full');
+            mobileOverlay.classList.remove('hidden');
+        }
+
+        function closeSidebarMenu() {
+            sidebar.classList.add('-translate-x-full');
+            mobileOverlay.classList.add('hidden');
+        }
+
+        menuToggle.addEventListener('click', openSidebar);
+        closeSidebar.addEventListener('click', closeSidebarMenu);
+        mobileOverlay.addEventListener('click', closeSidebarMenu);
+
+        // Dark mode functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        const darkIcon = document.getElementById('theme-toggle-dark-icon');
+        const lightIcon = document.getElementById('theme-toggle-light-icon');
+
+        function updateThemeIcons() {
+            if (document.documentElement.classList.contains('dark')) {
+                darkIcon.classList.add('hidden');
+                lightIcon.classList.remove('hidden');
+            } else {
+                darkIcon.classList.remove('hidden');
+                lightIcon.classList.add('hidden');
+            }
+        }
+
+        function toggleTheme() {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+            updateThemeIcons();
+        }
+
+        // Initialize theme
+        if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+        updateThemeIcons();
+
+        themeToggle.addEventListener('click', toggleTheme);
+
+        // Logout functionality
+        document.getElementById('logout-btn').addEventListener('click', () => {
+            if (confirm('Are you sure you want to logout?')) {
+                // Clear any stored authentication data
+                localStorage.removeItem('auth_token');
+                localStorage.removeItem('user_data');
+                
+                // Redirect to login or home page
+                window.location.href = '../index.html';
+            }
+        });
+    </script>
+
+    <!-- Load Content Management System -->
+    <script type="module">
+        import { ContentManagerComponent } from '../src/features/blog/components/content-manager.component.js';
+        import { supabaseService } from '../src/shared/services/supabase/supabase.service.js';
+
+        class ContentManagementPage {
+            constructor() {
+                this.contentManager = null;
+                this.init();
+            }
+
+            async init() {
+                try {
+                    // Check authentication
+                    const isAuthenticated = await this.checkAuthentication();
+                    if (!isAuthenticated) {
+                        this.showError('Please log in to access the content management system.');
+                        return;
+                    }
+
+                    // Check permissions
+                    const hasPermissions = await this.checkPermissions();
+                    if (!hasPermissions) {
+                        this.showError('You don\'t have permission to access the content management system.');
+                        return;
+                    }
+
+                    // Initialize content manager
+                    this.contentManager = new ContentManagerComponent('content-manager-container');
+                    
+                    // Hide loading and show content manager
+                    document.getElementById('cms-loading').classList.add('hidden');
+                    document.getElementById('content-manager-container').classList.remove('hidden');
+
+                    console.log('Content management page initialized successfully');
+                } catch (error) {
+                    console.error('Failed to initialize content management page:', error);
+                    this.showError('Failed to load content management system. Please try again later.');
+                }
+            }
+
+            async checkAuthentication() {
+                try {
+                    // Initialize Supabase service
+                    if (!supabaseService.isInitialized) {
+                        await supabaseService.init();
+                    }
+
+                    const userResponse = await supabaseService.getCurrentUser();
+                    return userResponse.success && userResponse.user;
+                } catch (error) {
+                    console.error('Authentication check failed:', error);
+                    return false;
+                }
+            }
+
+            async checkPermissions() {
+                try {
+                    const userResponse = await supabaseService.getCurrentUser();
+                    if (!userResponse.success || !userResponse.user) {
+                        return false;
+                    }
+
+                    // Get user profile to check role
+                    const profileResponse = await supabaseService.select('profiles', {
+                        eq: { user_id: userResponse.user.id }
+                    });
+
+                    if (profileResponse.success && profileResponse.data.length > 0) {
+                        const userRole = profileResponse.data[0].role;
+                        const allowedRoles = ['admin', 'blog_editor', 'blog_contributor'];
+                        return allowedRoles.includes(userRole);
+                    }
+
+                    return false;
+                } catch (error) {
+                    console.error('Permission check failed:', error);
+                    return false;
+                }
+            }
+
+            showError(message) {
+                document.getElementById('cms-loading').classList.add('hidden');
+                document.getElementById('cms-error').classList.remove('hidden');
+                
+                const errorElement = document.querySelector('#cms-error p');
+                if (errorElement) {
+                    errorElement.textContent = message;
+                }
+            }
+        }
+
+        // Initialize the content management page
+        new ContentManagementPage();
+    </script>
+</body>
+</html>

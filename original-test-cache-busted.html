@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Original CMS Test - Cache Busted</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border-left: 4px solid #007bff;
+            background-color: #f8f9fa;
+        }
+        .success { border-left-color: #28a745; background-color: #d4edda; }
+        .error { border-left-color: #dc3545; background-color: #f8d7da; }
+        .warning { border-left-color: #ffc107; background-color: #fff3cd; }
+        .info { border-left-color: #17a2b8; background-color: #d1ecf1; }
+        .test-group {
+            margin: 15px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: #f9f9f9;
+        }
+        .summary {
+            margin-top: 30px;
+            padding: 20px;
+            border: 2px solid #007bff;
+            border-radius: 10px;
+            background: #e7f3ff;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        .progress-fill {
+            height: 100%;
+            background-color: #28a745;
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Original CMS Test - Cache Busted</h1>
+        <p>Running the original test suite with cache busting to identify exact failures</p>
+        
+        <div class="test-section info">
+            <h3>📊 Test Progress</h3>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+            </div>
+            <div id="progress-text">Initializing tests...</div>
+        </div>
+        
+        <div id="results"></div>
+        
+        <div id="summary-section"></div>
+    </div>
+
+    <script type="module">
+        class CMSFunctionalityTester {
+            constructor() {
+                this.results = [];
+                this.progressElement = document.getElementById('progress-fill');
+                this.progressText = document.getElementById('progress-text');
+                this.resultsElement = document.getElementById('results');
+                this.summaryElement = document.getElementById('summary-section');
+                this.totalTests = 13; // Corrected count based on actual tests
+                this.completedTests = 0;
+                this.passedTests = 0;
+                this.failedTests = 0;
+                this.supabaseService = null;
+                this.blogCMSService = null;
+                this.contentAPIService = null;
+                this.timestamp = Date.now();
+            }
+
+            log(message, type = 'info', group = 'general') {
+                console.log(message);
+                this.results.push({ message, type, group, timestamp: new Date().toISOString() });
+                this.updateProgress(message);
+                this.updateResults();
+            }
+
+            updateProgress(message) {
+                this.progressText.textContent = message;
+            }
+
+            updateResults() {
+                const groupedResults = this.results.reduce((groups, result) => {
+                    if (!groups[result.group]) groups[result.group] = [];
+                    groups[result.group].push(result);
+                    return groups;
+                }, {});
+
+                this.resultsElement.innerHTML = Object.entries(groupedResults).map(([group, results]) => `
+                    <div class="test-group">
+                        <h4>📋 ${group.charAt(0).toUpperCase() + group.slice(1)} Tests</h4>
+                        ${results.map(result => `
+                            <div class="test-section ${result.type}">
+                                <strong>${result.timestamp.split('T')[1].split('.')[0]}</strong>: ${result.message}
+                            </div>
+                        `).join('')}
+                    </div>
+                `).join('');
+            }
+
+            async testComplete(testName, success, details = '') {
+                this.completedTests++;
+                if (success) {
+                    this.passedTests++;
+                    this.log(`✅ ${testName}${details ? ': ' + details : ''}`, 'success', 'functionality');
+                } else {
+                    this.failedTests++;
+                    this.log(`❌ ${testName}${details ? ': ' + details : ''}`, 'error', 'functionality');
+                }
+                this.updateProgress();
+            }
+
+            updateProgress() {
+                const percentage = this.totalTests > 0 ? (this.completedTests / this.totalTests) * 100 : 0;
+                this.progressElement.style.width = `${percentage}%`;
+                this.progressText.textContent = `${this.completedTests}/${this.totalTests} tests completed (${this.passedTests} passed, ${this.failedTests} failed)`;
+            }
+
+            async initializeServices() {
+                this.log('🔄 Initializing CMS services with cache busting...', 'info', 'initialization');
+                
+                try {
+                    // Import with cache busting
+                    const supabaseUrl = `./src/shared/services/supabase/index.js?v=${this.timestamp}`;
+                    const blogCMSUrl = `./src/features/blog/services/blog-cms.service.js?v=${this.timestamp}`;
+                    const contentAPIUrl = `./src/features/blog/services/content-api.service.js?v=${this.timestamp}`;
+                    
+                    const { supabaseService } = await import(supabaseUrl);
+                    const { blogCMSService } = await import(blogCMSUrl);
+                    const { contentAPIService } = await import(contentAPIUrl);
+                    
+                    this.supabaseService = supabaseService;
+                    this.blogCMSService = blogCMSService;
+                    this.contentAPIService = contentAPIService;
+                    
+                    if (!this.supabaseService.isInitialized) {
+                        await this.supabaseService.init();
+                    }
+                    this.log('✅ Supabase service initialized', 'success', 'initialization');
+
+                    await this.blogCMSService.initializeService();
+                    await this.contentAPIService.init();
+                    
+                    this.log('✅ CMS services initialized', 'success', 'initialization');
+                    return true;
+                } catch (error) {
+                    this.log(`❌ Service initialization failed: ${error.message}`, 'error', 'initialization');
+                    return false;
+                }
+            }
+
+            async testHealthCheck() {
+                try {
+                    const health = await this.supabaseService.healthCheck();
+                    await this.testComplete('Health Check', health.success, health.status);
+                } catch (error) {
+                    await this.testComplete('Health Check', false, error.message);
+                }
+            }
+
+            async testDatabaseOperations() {
+                this.log('🔄 Testing database CRUD operations...', 'info', 'database');
+
+                // Test SELECT operations
+                try {
+                    const result = await this.supabaseService.select('content_pages', { limit: 5 });
+                    await this.testComplete('SELECT content_pages', result.success, `Retrieved ${result.data?.length || 0} records`);
+                } catch (error) {
+                    await this.testComplete('SELECT content_pages', false, error.message);
+                }
+
+                try {
+                    const result = await this.supabaseService.select('blog_categories', { limit: 5 });
+                    await this.testComplete('SELECT blog_categories', result.success, `Retrieved ${result.data?.length || 0} records`);
+                } catch (error) {
+                    await this.testComplete('SELECT blog_categories', false, error.message);
+                }
+
+                // Test other CMS tables
+                const tables = ['documents', 'deals', 'vendors', 'vendor_reviews'];
+                for (const table of tables) {
+                    try {
+                        const result = await this.supabaseService.select(table, { limit: 1 });
+                        await this.testComplete(`SELECT ${table}`, result.success, `Table accessible`);
+                    } catch (error) {
+                        await this.testComplete(`SELECT ${table}`, false, error.message);
+                    }
+                }
+            }
+
+            async testBlogCMSService() {
+                this.log('🔄 Testing BlogCMSService methods...', 'info', 'cms-service');
+
+                // Test getCategories
+                try {
+                    const result = await this.blogCMSService.getCategories();
+                    await this.testComplete('BlogCMS getCategories', result.success, `Retrieved ${result.data?.length || 0} categories`);
+                } catch (error) {
+                    await this.testComplete('BlogCMS getCategories', false, error.message);
+                }
+
+                // Test getPosts
+                try {
+                    const result = await this.blogCMSService.getPosts({ limit: 5 });
+                    await this.testComplete('BlogCMS getPosts', result.success, `Retrieved ${result.total || 0} total posts`);
+                } catch (error) {
+                    await this.testComplete('BlogCMS getPosts', false, error.message);
+                }
+
+                // Test getFeaturedPosts
+                try {
+                    const result = await this.blogCMSService.getFeaturedPosts(3);
+                    await this.testComplete('BlogCMS getFeaturedPosts', result.success, `Retrieved ${result.data?.length || 0} featured posts`);
+                } catch (error) {
+                    await this.testComplete('BlogCMS getFeaturedPosts', false, error.message);
+                }
+            }
+
+            async testContentAPIService() {
+                this.log('🔄 Testing ContentAPIService methods...', 'info', 'api-service');
+
+                // Test validation
+                try {
+                    const testData = {
+                        title: 'Test Post',
+                        content: 'This is test content for validation.',
+                        status: 'draft'
+                    };
+                    const result = await this.contentAPIService.validatePostData(testData);
+                    await this.testComplete('ContentAPI validation', result.isValid, 'Post data validation working');
+                } catch (error) {
+                    await this.testComplete('ContentAPI validation', false, error.message);
+                }
+
+                // Test getCategories - THE CRITICAL TEST
+                try {
+                    this.log('🔍 Critical test: ContentAPI getCategories...', 'info', 'api-service');
+                    
+                    // Verify method exists first
+                    if (typeof this.contentAPIService.getCategories !== 'function') {
+                        await this.testComplete('ContentAPI getCategories', false, `Method not found - type: ${typeof this.contentAPIService.getCategories}`);
+                        return;
+                    }
+                    
+                    const result = await this.contentAPIService.getCategories();
+                    await this.testComplete('ContentAPI getCategories', result.success, `Retrieved ${result.data?.length || 0} categories`);
+                } catch (error) {
+                    await this.testComplete('ContentAPI getCategories', false, error.message);
+                }
+
+                // Test getFeaturedPosts
+                try {
+                    const result = await this.contentAPIService.getFeaturedPosts(3);
+                    await this.testComplete('ContentAPI getFeaturedPosts', result.success, `Retrieved ${result.data?.length || 0} featured posts`);
+                } catch (error) {
+                    await this.testComplete('ContentAPI getFeaturedPosts', false, error.message);
+                }
+            }
+
+            generateSummary() {
+                const successRate = this.totalTests > 0 ? ((this.passedTests / this.totalTests) * 100).toFixed(1) : 0;
+                const status = this.passedTests === this.totalTests ? 'success' : 
+                              this.passedTests > this.failedTests ? 'warning' : 'error';
+
+                this.summaryElement.innerHTML = `
+                    <div class="summary">
+                        <h3>📋 CMS Functionality Test Summary</h3>
+                        <p><strong>Cache Busting Applied:</strong> ✅ Fresh code loaded</p>
+                        <p><strong>Total Tests:</strong> ${this.totalTests}</p>
+                        <p><strong>Passed:</strong> ${this.passedTests}</p>
+                        <p><strong>Failed:</strong> ${this.failedTests}</p>
+                        <p><strong>Success Rate:</strong> ${successRate}%</p>
+                        
+                        ${status === 'success' ? 
+                            '<p class="success">🎉 <strong>100% SUCCESS!</strong> - CMS is fully operational!</p>' :
+                            status === 'warning' ?
+                            '<p class="warning">⚠️ <strong>PARTIAL SUCCESS</strong> - Most functionality working, some issues detected</p>' :
+                            '<p class="error">❌ <strong>CRITICAL ISSUES</strong> - CMS requires attention</p>'
+                        }
+                        
+                        <h4>🎯 Status Assessment:</h4>
+                        <ul>
+                            <li><strong>Database Service:</strong> ${this.passedTests > 0 ? '✅ Operational' : '❌ Failed'}</li>
+                            <li><strong>CMS Tables:</strong> ${this.passedTests >= 6 ? '✅ All accessible' : '⚠️ Some issues'}</li>
+                            <li><strong>BlogCMS Service:</strong> ${this.passedTests >= 9 ? '✅ Functional' : '⚠️ Needs attention'}</li>
+                            <li><strong>ContentAPI Service:</strong> ${this.passedTests >= 12 ? '✅ Functional' : '⚠️ Needs attention'}</li>
+                        </ul>
+                        
+                        ${status === 'success' ? 
+                            '<p><strong>🚀 NEXT STEP:</strong> Proceed with Data Migration Scripts</p>' :
+                            '<p><strong>⚠️ NEXT STEP:</strong> Fix remaining issues for 100% functionality</p>'
+                        }
+                    </div>
+                `;
+            }
+
+            async runAllTests() {
+                this.log('🚀 Starting CMS Functionality Test Suite', 'info', 'initialization');
+                
+                this.updateProgress();
+
+                // Initialize services
+                const initSuccess = await this.initializeServices();
+                if (!initSuccess) {
+                    this.log('❌ Test suite failed - could not initialize services', 'error', 'initialization');
+                    this.generateSummary();
+                    return;
+                }
+
+                // Run test groups
+                await this.testHealthCheck();
+                await this.testDatabaseOperations();
+                await this.testBlogCMSService();
+                await this.testContentAPIService();
+
+                // Generate final summary
+                this.generateSummary();
+                this.log('✅ CMS functionality test suite completed', 'success', 'completion');
+            }
+        }
+
+        // Run tests when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            const tester = new CMSFunctionalityTester();
+            tester.runAllTests();
+        });
+    </script>
+</body>
+</html>

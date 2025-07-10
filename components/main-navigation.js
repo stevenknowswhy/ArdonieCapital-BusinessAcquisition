@@ -333,9 +333,40 @@ window.ArdonieNavigation = {
             this.bindEvents();
             this.updateAuthState();
             this.initThemeToggle();
+            this.setupAuthEventListeners();
         } else {
             console.error('Navigation container not found:', containerId);
         }
+    },
+
+    // Setup event listeners for authentication state changes
+    setupAuthEventListeners: function() {
+        console.log('🔗 Navigation: Setting up auth event listeners...');
+
+        // Listen for authentication completion events from protected pages
+        document.addEventListener('authenticationComplete', (event) => {
+            console.log('✅ Navigation: Received authenticationComplete event');
+            console.log('👤 Navigation: User data from event:', event.detail?.user);
+
+            // Small delay to ensure storage is updated
+            setTimeout(() => {
+                this.updateAuthState();
+            }, 100);
+        });
+
+        // Listen for custom auth state change events
+        document.addEventListener('authStateChanged', (event) => {
+            console.log('🔄 Navigation: Received authStateChanged event');
+            this.updateAuthState();
+        });
+
+        // Listen for auth service ready events
+        document.addEventListener('authServiceReady', (event) => {
+            console.log('🔧 Navigation: Auth service is ready, updating state');
+            this.updateAuthState();
+        });
+
+        console.log('✅ Navigation: Auth event listeners setup complete');
     },
 
     // Bind event handlers
@@ -431,8 +462,17 @@ window.ArdonieNavigation = {
 
     // Update authentication state
     updateAuthState: function() {
-        const user = localStorage.getItem('user');
-        const isAuthenticated = user !== null;
+        console.log('🔄 Navigation: Updating authentication state...');
+
+        const user = localStorage.getItem('ardonie_user_session') || sessionStorage.getItem('ardonie_current_user');
+        const authStatus = localStorage.getItem('ardonie_auth_status') || sessionStorage.getItem('ardonie_auth_status');
+        const isAuthenticated = user !== null && authStatus === 'authenticated';
+
+        console.log('🔍 Navigation: Auth check results:', {
+            userDataExists: !!user,
+            authStatus: authStatus,
+            isAuthenticated: isAuthenticated
+        });
 
         // Desktop authentication elements
         const loginBtn = document.getElementById('login-btn');
@@ -451,22 +491,38 @@ window.ArdonieNavigation = {
             let userData;
             try {
                 userData = JSON.parse(user);
+                console.log('👤 Navigation: Parsed user data:', {
+                    email: userData.email,
+                    firstName: userData.firstName,
+                    lastName: userData.lastName,
+                    userTypes: userData.userTypes
+                });
             } catch (e) {
-                userData = { name: 'User' };
+                console.error('❌ Navigation: Failed to parse user data:', e);
+                userData = { firstName: 'User', lastName: '' };
             }
+
+            // Construct display name from firstName and lastName
+            const displayName = userData.firstName && userData.lastName
+                ? `${userData.firstName} ${userData.lastName}`.trim()
+                : userData.firstName || userData.lastName || userData.name || 'User';
+
+            console.log('✅ Navigation: Showing authenticated state for:', displayName);
 
             // Desktop: Hide login/register, show profile
             if (loginBtn) loginBtn.style.display = 'none';
             if (registerBtn) registerBtn.style.display = 'none';
             if (userProfile) userProfile.classList.remove('hidden');
-            if (userName) userName.textContent = userData.name || 'User';
+            if (userName) userName.textContent = displayName;
 
             // Mobile: Hide login/register, show profile
             if (mobileLoginBtn) mobileLoginBtn.style.display = 'none';
             if (mobileRegisterBtn) mobileRegisterBtn.style.display = 'none';
             if (mobileUserProfile) mobileUserProfile.classList.remove('hidden');
-            if (mobileUserName) mobileUserName.textContent = userData.name || 'User';
+            if (mobileUserName) mobileUserName.textContent = displayName;
         } else {
+            console.log('❌ Navigation: Showing unauthenticated state');
+
             // Desktop: Show login/register, hide profile
             if (loginBtn) loginBtn.style.display = 'block';
             if (registerBtn) registerBtn.style.display = 'block';
@@ -566,24 +622,37 @@ window.ArdonieNavigation = {
 
 // Global logout function
 function logout() {
-    localStorage.removeItem('user');
+    // Remove all auth-related data
+    localStorage.removeItem('ardonie_user_session');
+    localStorage.removeItem('ardonie_auth_status');
+    sessionStorage.removeItem('ardonie_current_user');
+    sessionStorage.removeItem('ardonie_auth_status');
+
     if (window.ArdonieNavigation) {
         window.ArdonieNavigation.updateAuthState();
     }
-    // Optionally redirect to home page
-    // window.location.href = '/';
+
+    // Redirect to login page
+    window.location.href = '/auth/login.html';
 }
 
 // Auto-initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('🔄 Navigation: DOM ready, initializing...');
     if (window.ArdonieNavigation) {
         window.ArdonieNavigation.init();
+
+        // Also check auth state after a short delay to catch late-loading auth services
+        setTimeout(() => {
+            console.log('🔄 Navigation: Delayed auth state check...');
+            window.ArdonieNavigation.updateAuthState();
+        }, 1000);
     }
 });
 
 // Listen for storage changes to update auth state and theme across tabs
 window.addEventListener('storage', function(e) {
-    if (e.key === 'user' && window.ArdonieNavigation) {
+    if ((e.key === 'ardonie_user_session' || e.key === 'ardonie_auth_status') && window.ArdonieNavigation) {
         window.ArdonieNavigation.updateAuthState();
     }
     if (e.key === 'theme' && window.ArdonieNavigation) {

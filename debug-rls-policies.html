@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug RLS Policies - Deep Diagnosis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-6xl mx-auto">
+        <h1 class="text-3xl font-bold mb-6">Deep RLS Policy Diagnosis</h1>
+        <p class="text-gray-600 mb-6">Let's find out exactly what's causing the infinite recursion</p>
+        
+        <!-- Current Status -->
+        <div class="bg-red-50 border-l-4 border-red-400 p-4 mb-6">
+            <h2 class="text-lg font-semibold text-red-800">Current Issue</h2>
+            <p class="text-red-700">SQL fix applied but infinite recursion error persists. Need deeper diagnosis.</p>
+        </div>
+
+        <!-- Diagnostic Steps -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+            <h2 class="text-xl font-semibold mb-4">Step-by-Step Diagnosis</h2>
+            <div class="space-y-4">
+                <button onclick="checkCurrentPolicies()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                    1. Check Current RLS Policies
+                </button>
+                <button onclick="testWithoutRLS()" class="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600">
+                    2. Test Without RLS (Temporarily)
+                </button>
+                <button onclick="testDirectQuery()" class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600">
+                    3. Test Direct Database Query
+                </button>
+                <button onclick="checkTableStructure()" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+                    4. Check Table Structure
+                </button>
+                <button onclick="runCompleteDebug()" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+                    5. Run Complete Debug
+                </button>
+            </div>
+        </div>
+
+        <!-- Alternative Solutions -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+            <h2 class="text-xl font-semibold mb-4">Alternative Solutions</h2>
+            <div class="space-y-4">
+                <button onclick="disableRLSTemporarily()" class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600">
+                    Temporarily Disable RLS
+                </button>
+                <button onclick="createProfileDirectly()" class="bg-indigo-500 text-white px-4 py-2 rounded hover:bg-indigo-600">
+                    Create Profile Directly (Bypass RLS)
+                </button>
+                <button onclick="useServiceRole()" class="bg-pink-500 text-white px-4 py-2 rounded hover:bg-pink-600">
+                    Test with Service Role Key
+                </button>
+            </div>
+        </div>
+
+        <!-- Manual Profile Creation -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+            <h2 class="text-xl font-semibold mb-4">Manual Profile Creation</h2>
+            <p class="text-gray-600 mb-4">If RLS is broken, we can create the profile manually in Supabase dashboard:</p>
+            <div class="bg-gray-100 p-4 rounded">
+                <h3 class="font-semibold mb-2">SQL to run in Supabase SQL Editor:</h3>
+                <code class="text-sm">
+                    INSERT INTO profiles (user_id, first_name, last_name, role, created_at, updated_at)<br>
+                    VALUES ('feb2bf0a-e82c-422c-b987-8e2754077f7c', 'User', 'Account', 'buyer', NOW(), NOW())<br>
+                    ON CONFLICT (user_id) DO UPDATE SET updated_at = NOW();
+                </code>
+            </div>
+        </div>
+
+        <!-- Results -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+            <h2 class="text-xl font-semibold mb-4">Diagnostic Results</h2>
+            <div id="diagnostic-results" class="space-y-2">
+                <p class="text-gray-600">Run diagnostic steps to see results...</p>
+            </div>
+        </div>
+
+        <!-- Debug Log -->
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-xl font-semibold mb-4">Debug Log</h2>
+            <div id="debug-log" class="bg-gray-100 p-4 rounded text-sm font-mono max-h-64 overflow-y-auto"></div>
+            <button onclick="clearLog()" class="mt-2 bg-gray-500 text-white px-3 py-1 rounded text-sm">Clear Log</button>
+        </div>
+    </div>
+
+    <!-- Supabase CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <script>
+        const USER_AUTH_ID = 'feb2bf0a-e82c-422c-b987-8e2754077f7c';
+        let supabase;
+
+        function log(message, type = 'info') {
+            const debugLog = document.getElementById('debug-log');
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = document.createElement('div');
+            logEntry.className = type === 'error' ? 'text-red-600' : type === 'success' ? 'text-green-600' : 'text-gray-800';
+            logEntry.textContent = `[${timestamp}] ${message}`;
+            debugLog.appendChild(logEntry);
+            debugLog.scrollTop = debugLog.scrollHeight;
+        }
+
+        function clearLog() {
+            document.getElementById('debug-log').innerHTML = '';
+        }
+
+        function addResult(content, type = 'info') {
+            const container = document.getElementById('diagnostic-results');
+            const resultDiv = document.createElement('div');
+            resultDiv.className = `p-3 rounded ${
+                type === 'error' ? 'bg-red-100 text-red-800' : 
+                type === 'success' ? 'bg-green-100 text-green-800' : 
+                type === 'warning' ? 'bg-yellow-100 text-yellow-800' : 
+                'bg-blue-100 text-blue-800'
+            }`;
+            resultDiv.innerHTML = content;
+            container.appendChild(resultDiv);
+        }
+
+        async function initSupabase() {
+            try {
+                const SUPABASE_URL = 'https://pbydepsqcypwqbicnsco.supabase.co';
+                const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBieWRlcHNxY3lwd3FiaWNuc2NvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE5MjAxOTQsImV4cCI6MjA2NzQ5NjE5NH0.5aF46QcNOFN_vwXcHxCsVx_8a4EsqE1bL4fy4K7UXI0';
+                
+                supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                log('Supabase client initialized', 'success');
+                return true;
+            } catch (error) {
+                log(`Failed to initialize Supabase: ${error.message}`, 'error');
+                return false;
+            }
+        }
+
+        async function checkCurrentPolicies() {
+            try {
+                log('Checking current RLS policies...');
+                
+                // Try to query the pg_policies view to see what policies exist
+                const { data, error } = await supabase
+                    .rpc('get_policies_info');
+
+                if (error) {
+                    log(`Cannot check policies directly: ${error.message}`, 'warning');
+                    addResult('<strong>Policy Check:</strong> Cannot access pg_policies directly from client. Need to check in Supabase dashboard.', 'warning');
+                } else {
+                    log('Policies retrieved', 'success');
+                    addResult(`<strong>Policy Check:</strong> Found ${data.length} policies`, 'info');
+                }
+            } catch (error) {
+                log(`Exception checking policies: ${error.message}`, 'error');
+                addResult('<strong>Policy Check:</strong> Need to check policies manually in Supabase dashboard SQL Editor:<br><code>SELECT * FROM pg_policies WHERE schemaname = \'public\' AND tablename = \'profiles\';</code>', 'info');
+            }
+        }
+
+        async function testWithoutRLS() {
+            try {
+                log('Testing what happens with different query approaches...');
+                
+                // Test 1: Simple count query
+                const { data: countData, error: countError } = await supabase
+                    .from('profiles')
+                    .select('*', { count: 'exact', head: true });
+
+                if (countError) {
+                    log(`Count query error: ${countError.message}`, 'error');
+                    addResult(`<strong>Count Query:</strong> ❌ ${countError.message}`, 'error');
+                } else {
+                    log('Count query successful', 'success');
+                    addResult(`<strong>Count Query:</strong> ✅ Success`, 'success');
+                }
+
+                // Test 2: Simple select with limit
+                const { data: selectData, error: selectError } = await supabase
+                    .from('profiles')
+                    .select('id')
+                    .limit(1);
+
+                if (selectError) {
+                    log(`Select query error: ${selectError.message}`, 'error');
+                    addResult(`<strong>Select Query:</strong> ❌ ${selectError.message}`, 'error');
+                } else {
+                    log('Select query successful', 'success');
+                    addResult(`<strong>Select Query:</strong> ✅ Success`, 'success');
+                }
+
+            } catch (error) {
+                log(`Exception in test: ${error.message}`, 'error');
+                addResult(`<strong>Test Error:</strong> ${error.message}`, 'error');
+            }
+        }
+
+        async function testDirectQuery() {
+            try {
+                log('Testing direct database queries...');
+                
+                // Test if we can access the table at all
+                const { data, error } = await supabase
+                    .from('profiles')
+                    .select('user_id')
+                    .eq('user_id', USER_AUTH_ID);
+
+                if (error) {
+                    if (error.message.includes('infinite recursion')) {
+                        log('❌ Infinite recursion confirmed in direct query', 'error');
+                        addResult('<strong>Direct Query:</strong> ❌ Infinite recursion still present. RLS policies are still problematic.', 'error');
+                    } else {
+                        log(`Direct query error: ${error.message}`, 'error');
+                        addResult(`<strong>Direct Query:</strong> ❌ ${error.message}`, 'error');
+                    }
+                } else {
+                    log('Direct query successful', 'success');
+                    addResult(`<strong>Direct Query:</strong> ✅ Success - Found ${data.length} profiles`, 'success');
+                }
+            } catch (error) {
+                log(`Exception in direct query: ${error.message}`, 'error');
+                addResult(`<strong>Direct Query:</strong> Exception - ${error.message}`, 'error');
+            }
+        }
+
+        async function checkTableStructure() {
+            try {
+                log('Checking table structure...');
+                
+                // This will help us understand if the table structure is correct
+                addResult('<strong>Table Structure Check:</strong> Run this in Supabase SQL Editor:<br><code>\\d profiles;</code><br>This will show the table structure and constraints.', 'info');
+                
+                addResult('<strong>Check RLS Status:</strong> Run this in Supabase SQL Editor:<br><code>SELECT tablename, rowsecurity FROM pg_tables WHERE schemaname = \'public\' AND tablename = \'profiles\';</code>', 'info');
+                
+            } catch (error) {
+                log(`Exception checking structure: ${error.message}`, 'error');
+            }
+        }
+
+        async function disableRLSTemporarily() {
+            addResult('<strong>Disable RLS Temporarily:</strong> Run this in Supabase SQL Editor:<br><code>ALTER TABLE profiles DISABLE ROW LEVEL SECURITY;</code><br><strong>⚠️ Warning:</strong> This removes all security. Only for testing!', 'warning');
+        }
+
+        async function createProfileDirectly() {
+            addResult('<strong>Create Profile Directly:</strong> Run this in Supabase SQL Editor:<br><code>INSERT INTO profiles (user_id, first_name, last_name, role, created_at, updated_at)<br>VALUES (\'feb2bf0a-e82c-422c-b987-8e2754077f7c\', \'User\', \'Account\', \'buyer\', NOW(), NOW())<br>ON CONFLICT (user_id) DO UPDATE SET updated_at = NOW();</code>', 'info');
+        }
+
+        async function useServiceRole() {
+            addResult('<strong>Service Role Test:</strong> The issue might be with the anon key permissions. Try using the service role key in a separate test.<br><strong>Note:</strong> Service role key should only be used server-side, never in client code.', 'warning');
+        }
+
+        async function runCompleteDebug() {
+            log('Running complete debug sequence...');
+            document.getElementById('diagnostic-results').innerHTML = '';
+            
+            await checkCurrentPolicies();
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            
+            await testWithoutRLS();
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            
+            await testDirectQuery();
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            
+            await checkTableStructure();
+            
+            // Summary
+            addResult('<strong>🔍 Debug Summary:</strong><br>1. Check the diagnostic results above<br>2. If infinite recursion persists, the RLS policies may not have been properly updated<br>3. Consider temporarily disabling RLS to create the profile<br>4. Re-enable RLS with simpler policies', 'info');
+        }
+
+        // Initialize
+        window.addEventListener('load', async () => {
+            log('RLS Debug tool loaded');
+            const initialized = await initSupabase();
+            if (initialized) {
+                log('Ready to debug RLS policies', 'success');
+                
+                // Auto-run a basic test
+                setTimeout(async () => {
+                    await testDirectQuery();
+                }, 1000);
+            }
+        });
+    </script>
+</body>
+</html>

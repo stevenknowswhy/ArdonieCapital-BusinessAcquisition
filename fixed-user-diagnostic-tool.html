@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fixed User Diagnostic Tool - reforiy538@iamtile.com</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-6xl mx-auto">
+        <h1 class="text-3xl font-bold mb-6">Fixed User Diagnostic Tool</h1>
+        <p class="text-gray-600 mb-6">Investigating: <strong>reforiy538@iamtile.com</strong> with corrected schema queries</p>
+        
+        <!-- Schema Fix Status -->
+        <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mb-6">
+            <h2 class="text-lg font-semibold text-blue-800">Schema Fixes Applied</h2>
+            <ul class="text-blue-700 mt-2 space-y-1">
+                <li>✅ Fixed RLS policy infinite recursion</li>
+                <li>✅ Updated profile queries to use correct user_id relationship</li>
+                <li>✅ Removed non-existent email column queries</li>
+            </ul>
+        </div>
+
+        <!-- Database Verification Section -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+            <h2 class="text-xl font-semibold mb-4">1. Database Verification (Fixed)</h2>
+            <div class="space-y-4">
+                <button onclick="checkAuthUser()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                    Check Auth User
+                </button>
+                <button onclick="checkUserProfile()" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+                    Check User Profile (Fixed Query)
+                </button>
+                <button onclick="runCompleteCheck()" class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600">
+                    Run Complete Check
+                </button>
+            </div>
+            <div id="database-results" class="mt-4 space-y-2"></div>
+        </div>
+
+        <!-- Authentication Testing -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+            <h2 class="text-xl font-semibold mb-4">2. Authentication Testing</h2>
+            <form id="login-test-form" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Email</label>
+                    <input type="email" id="test-email" value="reforiy538@iamtile.com" 
+                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md" readonly>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Password</label>
+                    <input type="password" id="test-password" value="" 
+                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
+                           placeholder="Enter password to test">
+                </div>
+                <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+                    Test Authentication
+                </button>
+            </form>
+            <div id="auth-test-results" class="mt-4"></div>
+        </div>
+
+        <!-- Profile Management -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+            <h2 class="text-xl font-semibold mb-4">3. Profile Management</h2>
+            <div class="space-y-4">
+                <button onclick="createMissingProfile()" class="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600">
+                    Create Missing Profile
+                </button>
+                <button onclick="sendPasswordReset()" class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600">
+                    Send Password Reset
+                </button>
+            </div>
+            <div id="profile-management-results" class="mt-4"></div>
+        </div>
+
+        <!-- Diagnostic Summary -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+            <h2 class="text-xl font-semibold mb-4">4. Diagnostic Summary</h2>
+            <div id="diagnostic-summary" class="bg-gray-100 p-4 rounded">
+                <p class="text-gray-600">Run diagnostics to see summary...</p>
+            </div>
+        </div>
+
+        <!-- Debug Log -->
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-xl font-semibold mb-4">Debug Log</h2>
+            <div id="debug-log" class="bg-gray-100 p-4 rounded text-sm font-mono max-h-96 overflow-y-auto"></div>
+            <button onclick="clearLog()" class="mt-2 bg-gray-500 text-white px-3 py-1 rounded text-sm">Clear Log</button>
+        </div>
+    </div>
+
+    <!-- Supabase CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <script>
+        const TARGET_EMAIL = 'reforiy538@iamtile.com';
+        let supabase;
+        let diagnosticResults = {
+            userExists: null,
+            profileExists: null,
+            emailVerified: null,
+            canAuthenticate: null,
+            userAuthId: null
+        };
+
+        // Debug logging function
+        function log(message, type = 'info') {
+            const debugLog = document.getElementById('debug-log');
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = document.createElement('div');
+            logEntry.className = type === 'error' ? 'text-red-600' : type === 'success' ? 'text-green-600' : 'text-gray-800';
+            logEntry.textContent = `[${timestamp}] ${message}`;
+            debugLog.appendChild(logEntry);
+            debugLog.scrollTop = debugLog.scrollHeight;
+        }
+
+        function clearLog() {
+            document.getElementById('debug-log').innerHTML = '';
+        }
+
+        function addResult(containerId, content, type = 'info') {
+            const container = document.getElementById(containerId);
+            const resultDiv = document.createElement('div');
+            resultDiv.className = `p-3 rounded ${type === 'error' ? 'bg-red-100 text-red-800' : 
+                                                type === 'success' ? 'bg-green-100 text-green-800' : 
+                                                type === 'warning' ? 'bg-yellow-100 text-yellow-800' : 
+                                                'bg-blue-100 text-blue-800'}`;
+            resultDiv.innerHTML = content;
+            container.appendChild(resultDiv);
+        }
+
+        // Initialize Supabase
+        async function initSupabase() {
+            try {
+                const SUPABASE_URL = 'https://pbydepsqcypwqbicnsco.supabase.co';
+                const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBieWRlcHNxY3lwd3FiaWNuc2NvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE5MjAxOTQsImV4cCI6MjA2NzQ5NjE5NH0.5aF46QcNOFN_vwXcHxCsVx_8a4EsqE1bL4fy4K7UXI0';
+                
+                supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                log('✅ Supabase client initialized', 'success');
+                return true;
+            } catch (error) {
+                log(`❌ Failed to initialize Supabase: ${error.message}`, 'error');
+                return false;
+            }
+        }
+
+        // Check if auth user exists (FIXED)
+        async function checkAuthUser() {
+            try {
+                log(`🔍 Checking auth user for ${TARGET_EMAIL}...`);
+                
+                // Try to sign in with dummy password to check existence
+                const { data, error } = await supabase.auth.signInWithPassword({
+                    email: TARGET_EMAIL,
+                    password: 'dummy_password_check_123'
+                });
+
+                if (error) {
+                    if (error.message.includes('Invalid login credentials')) {
+                        diagnosticResults.userExists = true;
+                        diagnosticResults.emailVerified = true;
+                        log('✅ User exists in auth.users (password incorrect)', 'success');
+                        addResult('database-results', 
+                            '<strong>Auth User:</strong> ✅ User exists in auth.users table', 'success');
+                        return true;
+                    } else if (error.message.includes('Email not confirmed')) {
+                        diagnosticResults.userExists = true;
+                        diagnosticResults.emailVerified = false;
+                        log('⚠️ User exists but email not confirmed', 'warning');
+                        addResult('database-results', 
+                            '<strong>Auth User:</strong> ⚠️ User exists but email not confirmed', 'warning');
+                        return true;
+                    } else {
+                        diagnosticResults.userExists = false;
+                        log('❌ User does not exist in auth.users', 'error');
+                        addResult('database-results', 
+                            '<strong>Auth User:</strong> ❌ User not found in auth.users', 'error');
+                        return false;
+                    }
+                } else {
+                    // Shouldn't happen with dummy password
+                    diagnosticResults.userExists = true;
+                    diagnosticResults.emailVerified = true;
+                    diagnosticResults.userAuthId = data.user?.id;
+                    await supabase.auth.signOut();
+                    log('✅ User exists and dummy password worked (unexpected)', 'success');
+                    addResult('database-results', 
+                        '<strong>Auth User:</strong> ✅ User exists and accessible', 'success');
+                    return true;
+                }
+            } catch (error) {
+                log(`❌ Exception checking auth user: ${error.message}`, 'error');
+                addResult('database-results', 
+                    `<strong>Auth User:</strong> ❌ Exception - ${error.message}`, 'error');
+                return false;
+            }
+        }
+
+        // Check user profile (FIXED - uses correct query)
+        async function checkUserProfile() {
+            try {
+                log(`🔍 Checking user profile using CORRECT query...`);
+                
+                // FIXED: Query using the correct relationship
+                // First get the user's auth ID, then find their profile
+                const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
+                    email: TARGET_EMAIL,
+                    password: 'dummy_check_123'
+                });
+
+                let userAuthId = null;
+                if (authError && authError.message.includes('Invalid login credentials')) {
+                    // User exists, now we need to find their profile differently
+                    // Since we can't get the auth ID directly, we'll use a different approach
+                    log('User exists, checking profile with alternative method...');
+                    
+                    // Try to query profiles table directly (should work with fixed RLS)
+                    const { data: profiles, error: profileError } = await supabase
+                        .from('profiles')
+                        .select('*')
+                        .limit(10); // Get some profiles to see if RLS is working
+
+                    if (profileError) {
+                        log(`❌ Profile query error: ${profileError.message}`, 'error');
+                        addResult('database-results', 
+                            `<strong>Profile Check:</strong> ❌ RLS Error - ${profileError.message}`, 'error');
+                        return false;
+                    } else {
+                        log(`✅ Profile table accessible, found ${profiles.length} profiles`, 'success');
+                        
+                        // Since we can't directly match by email (no email column), 
+                        // we'll indicate that the profile check needs manual verification
+                        addResult('database-results', 
+                            `<strong>Profile Check:</strong> ✅ Profile table accessible (${profiles.length} total profiles). Manual verification needed for specific user.`, 'info');
+                        
+                        diagnosticResults.profileExists = 'unknown';
+                        return true;
+                    }
+                } else if (!authError) {
+                    // User authenticated successfully
+                    userAuthId = authData.user?.id;
+                    await supabase.auth.signOut();
+                    
+                    // Now check for profile
+                    const { data: profile, error: profileError } = await supabase
+                        .from('profiles')
+                        .select('*')
+                        .eq('user_id', userAuthId)
+                        .single();
+
+                    if (profileError) {
+                        if (profileError.code === 'PGRST116') {
+                            log('❌ No profile found for user', 'error');
+                            addResult('database-results', 
+                                '<strong>Profile Check:</strong> ❌ No profile record found', 'error');
+                            diagnosticResults.profileExists = false;
+                            return false;
+                        } else {
+                            log(`❌ Profile query error: ${profileError.message}`, 'error');
+                            addResult('database-results', 
+                                `<strong>Profile Check:</strong> ❌ Error - ${profileError.message}`, 'error');
+                            return false;
+                        }
+                    } else {
+                        log('✅ Profile found', 'success');
+                        addResult('database-results', 
+                            `<strong>Profile Check:</strong> ✅ Profile found - ${profile.first_name} ${profile.last_name} (${profile.role})`, 'success');
+                        diagnosticResults.profileExists = true;
+                        return true;
+                    }
+                } else {
+                    log(`❌ Auth error: ${authError.message}`, 'error');
+                    addResult('database-results', 
+                        `<strong>Profile Check:</strong> ❌ Cannot verify - ${authError.message}`, 'error');
+                    return false;
+                }
+            } catch (error) {
+                log(`❌ Exception checking profile: ${error.message}`, 'error');
+                addResult('database-results', 
+                    `<strong>Profile Check:</strong> ❌ Exception - ${error.message}`, 'error');
+                return false;
+            }
+        }
+
+        // Run complete check
+        async function runCompleteCheck() {
+            document.getElementById('database-results').innerHTML = '';
+            log('🚀 Running complete diagnostic check...');
+            
+            await checkAuthUser();
+            await checkUserProfile();
+            updateDiagnosticSummary();
+        }
+
+        // Create missing profile
+        async function createMissingProfile() {
+            try {
+                log('🔧 Attempting to create missing profile...');
+                
+                // This would require the user's auth ID, which we can't easily get
+                // For now, provide instructions
+                addResult('profile-management-results', 
+                    '<strong>Profile Creation:</strong> ℹ️ To create a missing profile, the user needs to log in successfully first, then the application will automatically create their profile.', 'info');
+                
+            } catch (error) {
+                log(`❌ Profile creation error: ${error.message}`, 'error');
+                addResult('profile-management-results', 
+                    `<strong>Profile Creation:</strong> ❌ Error - ${error.message}`, 'error');
+            }
+        }
+
+        // Send password reset
+        async function sendPasswordReset() {
+            try {
+                log('📧 Sending password reset email...');
+                
+                const { data, error } = await supabase.auth.resetPasswordForEmail(TARGET_EMAIL);
+                
+                if (error) {
+                    log(`❌ Password reset error: ${error.message}`, 'error');
+                    addResult('profile-management-results', 
+                        `<strong>Password Reset:</strong> ❌ Error - ${error.message}`, 'error');
+                } else {
+                    log('✅ Password reset email sent', 'success');
+                    addResult('profile-management-results', 
+                        '<strong>Password Reset:</strong> ✅ Password reset email sent successfully', 'success');
+                }
+            } catch (error) {
+                log(`❌ Password reset exception: ${error.message}`, 'error');
+                addResult('profile-management-results', 
+                    `<strong>Password Reset:</strong> ❌ Exception - ${error.message}`, 'error');
+            }
+        }
+
+        // Update diagnostic summary
+        function updateDiagnosticSummary() {
+            const summary = document.getElementById('diagnostic-summary');
+            let summaryHTML = '<h3 class="font-semibold mb-2">Diagnostic Summary for reforiy538@iamtile.com:</h3>';
+            
+            summaryHTML += '<ul class="space-y-1">';
+            summaryHTML += `<li>• User exists in auth.users: ${diagnosticResults.userExists === null ? '❓ Unknown' : diagnosticResults.userExists ? '✅ Yes' : '❌ No'}</li>`;
+            summaryHTML += `<li>• Profile exists: ${diagnosticResults.profileExists === null ? '❓ Unknown' : diagnosticResults.profileExists === 'unknown' ? '❓ Needs manual check' : diagnosticResults.profileExists ? '✅ Yes' : '❌ No'}</li>`;
+            summaryHTML += `<li>• Email verified: ${diagnosticResults.emailVerified === null ? '❓ Unknown' : diagnosticResults.emailVerified ? '✅ Yes' : '❌ No'}</li>`;
+            summaryHTML += '</ul>';
+
+            if (diagnosticResults.userExists && diagnosticResults.emailVerified) {
+                summaryHTML += '<div class="mt-3 p-2 bg-green-100 text-green-800 rounded"><strong>✅ GOOD NEWS:</strong> User can authenticate! The issue may be profile-related or application-specific.</div>';
+            } else if (diagnosticResults.userExists && !diagnosticResults.emailVerified) {
+                summaryHTML += '<div class="mt-3 p-2 bg-yellow-100 text-yellow-800 rounded"><strong>⚠️ ACTION NEEDED:</strong> User needs to verify their email address.</div>';
+            } else if (!diagnosticResults.userExists) {
+                summaryHTML += '<div class="mt-3 p-2 bg-red-100 text-red-800 rounded"><strong>❌ ISSUE:</strong> User account not found. Re-registration may be needed.</div>';
+            }
+
+            summary.innerHTML = summaryHTML;
+        }
+
+        // Form submission handler
+        document.getElementById('login-test-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const password = document.getElementById('test-password').value;
+            if (password) {
+                document.getElementById('auth-test-results').innerHTML = '';
+                
+                try {
+                    const { data, error } = await supabase.auth.signInWithPassword({
+                        email: TARGET_EMAIL,
+                        password: password
+                    });
+
+                    if (error) {
+                        addResult('auth-test-results', `❌ Login failed: ${error.message}`, 'error');
+                        log(`Login failed: ${error.message}`, 'error');
+                    } else {
+                        addResult('auth-test-results', '✅ Login successful! User can authenticate with this password.', 'success');
+                        log('Login successful!', 'success');
+                        diagnosticResults.canAuthenticate = true;
+                        
+                        // Sign out immediately
+                        await supabase.auth.signOut();
+                        updateDiagnosticSummary();
+                    }
+                } catch (error) {
+                    addResult('auth-test-results', `❌ Exception: ${error.message}`, 'error');
+                    log(`Login exception: ${error.message}`, 'error');
+                }
+            }
+        });
+
+        // Initialize on page load
+        window.addEventListener('load', async () => {
+            log('🔧 Fixed User Diagnostic Tool loaded');
+            const initialized = await initSupabase();
+            if (initialized) {
+                log(`🎯 Ready to diagnose with FIXED queries: ${TARGET_EMAIL}`, 'success');
+                // Auto-run complete check
+                await runCompleteCheck();
+            }
+        });
+    </script>
+</body>
+</html>

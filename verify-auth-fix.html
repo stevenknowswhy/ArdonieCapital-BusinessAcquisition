@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication Fix Verification</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
+        .container { max-width: 600px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .status { padding: 15px; margin: 10px 0; border-radius: 5px; font-weight: bold; }
+        .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+        .warning { background: #fff3cd; color: #856404; border: 1px solid #ffeaa7; }
+        button { background: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin: 5px; }
+        button:hover { background: #0056b3; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        .credentials { background: #f8f9fa; padding: 10px; border-radius: 5px; font-family: monospace; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Authentication Fix Verification</h1>
+        <p>This page verifies that the JavaScript constructor error has been resolved and authentication is working properly.</p>
+        
+        <div class="test-section">
+            <h2>📋 Test Credentials</h2>
+            <div class="credentials">
+                <strong>Target User:</strong> reforiy538@iamtile.com<br>
+                <strong>Password:</strong> gK9.t1|ROnQ52U[<br>
+                <strong>Expected Result:</strong> Successful authentication
+            </div>
+        </div>
+        
+        <div id="status-container">
+            <div class="status info">🔄 Initializing authentication system...</div>
+        </div>
+        
+        <div class="test-section">
+            <h2>🧪 Automated Tests</h2>
+            <button onclick="testConstructor()">Test Constructor Fix</button>
+            <button onclick="testSpecificUser()">Test Target User Login</button>
+            <button onclick="testPasswordReset()">Test Password Reset</button>
+            <button onclick="runAllTests()">Run All Tests</button>
+        </div>
+        
+        <div id="test-results"></div>
+    </div>
+
+    <!-- Load Auth Service -->
+    <script src="assets/js/auth-service.js?v=2"></script>
+    
+    <script>
+        let authService;
+        const statusContainer = document.getElementById('status-container');
+        const resultsContainer = document.getElementById('test-results');
+        
+        function addStatus(message, type = 'info') {
+            statusContainer.innerHTML = `<div class="status ${type}">${message}</div>`;
+        }
+        
+        function addResult(message, type = 'info') {
+            const div = document.createElement('div');
+            div.className = `status ${type}`;
+            div.innerHTML = `${new Date().toLocaleTimeString()}: ${message}`;
+            resultsContainer.appendChild(div);
+            console.log(`[${type.toUpperCase()}] ${message}`);
+        }
+        
+        // Initialize when page loads
+        window.addEventListener('load', async function() {
+            addStatus('🔄 Loading authentication service...');
+            
+            // Wait for auth service to be available
+            let attempts = 0;
+            while (!window.authService && attempts < 20) {
+                await new Promise(resolve => setTimeout(resolve, 100));
+                attempts++;
+            }
+            
+            if (window.authService) {
+                authService = window.authService;
+                addStatus('✅ Authentication service loaded successfully!', 'success');
+                addResult('✅ Constructor error fixed - authService is available as global instance', 'success');
+                
+                // Test basic functionality
+                if (typeof authService.login === 'function') {
+                    addResult('✅ Login method is available', 'success');
+                } else {
+                    addResult('❌ Login method is not available', 'error');
+                }
+                
+                if (typeof authService.resetPassword === 'function') {
+                    addResult('✅ Password reset method is available', 'success');
+                } else {
+                    addResult('❌ Password reset method is not available', 'error');
+                }
+                
+            } else {
+                addStatus('❌ Failed to load authentication service', 'error');
+                addResult('❌ Constructor error not fixed - authService is not available', 'error');
+            }
+        });
+        
+        async function testConstructor() {
+            addResult('🧪 Testing constructor fix...');
+            
+            try {
+                // Test that we can access the global instance
+                if (window.authService) {
+                    addResult('✅ Global authService instance is available', 'success');
+                }
+                
+                // Test that we can also create new instances if needed
+                if (window.AuthService) {
+                    const newInstance = new window.AuthService();
+                    if (newInstance && typeof newInstance.login === 'function') {
+                        addResult('✅ AuthService constructor is working', 'success');
+                    } else {
+                        addResult('❌ AuthService constructor created invalid instance', 'error');
+                    }
+                } else {
+                    addResult('⚠️ AuthService constructor not available (using global instance)', 'warning');
+                }
+                
+            } catch (error) {
+                addResult(`❌ Constructor test failed: ${error.message}`, 'error');
+            }
+        }
+        
+        async function testSpecificUser() {
+            addResult('🧪 Testing target user authentication...');
+            
+            if (!authService) {
+                addResult('❌ Auth service not available', 'error');
+                return;
+            }
+            
+            try {
+                const result = await authService.login('reforiy538@iamtile.com', 'gK9.t1|ROnQ52U[', false);
+                
+                if (result.success) {
+                    addResult('✅ Target user login successful!', 'success');
+                    addResult(`User: ${result.user.firstName} ${result.user.lastName} (${result.user.email})`, 'info');
+                    addResult(`Redirect URL: ${result.redirectUrl}`, 'info');
+                } else {
+                    addResult(`❌ Target user login failed: ${result.error}`, 'error');
+                }
+            } catch (error) {
+                addResult(`❌ Target user login error: ${error.message}`, 'error');
+            }
+        }
+        
+        async function testPasswordReset() {
+            addResult('🧪 Testing password reset functionality...');
+            
+            if (!authService) {
+                addResult('❌ Auth service not available', 'error');
+                return;
+            }
+            
+            try {
+                const result = await authService.resetPassword('reforiy538@iamtile.com');
+                
+                if (result.success) {
+                    addResult('✅ Password reset successful!', 'success');
+                    addResult(`Message: ${result.message}`, 'info');
+                } else {
+                    addResult(`❌ Password reset failed: ${result.error}`, 'error');
+                }
+            } catch (error) {
+                addResult(`❌ Password reset error: ${error.message}`, 'error');
+            }
+        }
+        
+        async function runAllTests() {
+            addResult('🚀 Running comprehensive test suite...');
+            
+            await testConstructor();
+            await new Promise(resolve => setTimeout(resolve, 500));
+            
+            await testSpecificUser();
+            await new Promise(resolve => setTimeout(resolve, 500));
+            
+            await testPasswordReset();
+            
+            addResult('✅ All tests completed!', 'success');
+        }
+    </script>
+</body>
+</html>

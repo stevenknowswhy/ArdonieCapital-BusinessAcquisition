@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify getCategories Fix</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .result {
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #007bff;
+            background-color: #f8f9fa;
+        }
+        .success { border-left-color: #28a745; background-color: #d4edda; }
+        .error { border-left-color: #dc3545; background-color: #f8d7da; }
+        .critical { border: 2px solid #dc3545; background-color: #f8d7da; font-weight: bold; }
+        .fixed { border: 2px solid #28a745; background-color: #d4edda; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>🔍 Verify getCategories Fix</h1>
+    <p>Testing the specific ContentAPI getCategories method that was failing</p>
+    <div id="results"></div>
+
+    <script type="module">
+        async function verifyFix() {
+            const resultsDiv = document.getElementById('results');
+            const timestamp = Date.now();
+            
+            function addResult(message, className = 'result') {
+                const div = document.createElement('div');
+                div.className = className;
+                div.innerHTML = `<strong>${new Date().toLocaleTimeString()}:</strong> ${message}`;
+                resultsDiv.appendChild(div);
+                console.log(message);
+            }
+
+            try {
+                addResult('🚀 Starting verification test with cache busting');
+                
+                // Step 1: Import with cache busting
+                const contentAPIUrl = `./src/features/blog/services/content-api.service.js?v=${timestamp}`;
+                addResult(`Importing: ${contentAPIUrl}`);
+                
+                const { contentAPIService } = await import(contentAPIUrl);
+                addResult('✅ ContentAPI service imported', 'result success');
+
+                // Step 2: Check method existence
+                addResult('🔍 Checking for getCategories method...');
+                if (typeof contentAPIService.getCategories === 'function') {
+                    addResult('✅ getCategories method EXISTS!', 'result success');
+                } else {
+                    addResult('❌ getCategories method MISSING!', 'result error');
+                    return;
+                }
+
+                // Step 3: Initialize service
+                addResult('🔄 Initializing ContentAPI service...');
+                await contentAPIService.init();
+                addResult('✅ Service initialized', 'result success');
+
+                // Step 4: Call the method
+                addResult('🔄 Calling getCategories method...');
+                const result = await contentAPIService.getCategories();
+                
+                if (result && result.success !== undefined) {
+                    if (result.success) {
+                        addResult(`✅ getCategories SUCCESSFUL! Retrieved ${result.data?.length || 0} categories`, 'result success');
+                        addResult(`📊 Result: ${JSON.stringify(result)}`, 'result success');
+                        addResult('🎉 CONTENTAPI GETCATEGORIES IS FIXED!', 'fixed');
+                    } else {
+                        addResult(`⚠️ getCategories returned error: ${result.error}`, 'result error');
+                    }
+                } else {
+                    addResult('❌ getCategories returned unexpected format', 'result error');
+                }
+
+                // Step 5: Compare with BlogCMS
+                addResult('🔄 Comparing with BlogCMS getCategories...');
+                const { blogCMSService } = await import(`./src/features/blog/services/blog-cms.service.js?v=${timestamp}`);
+                await blogCMSService.initializeService();
+                const blogResult = await blogCMSService.getCategories();
+                
+                if (blogResult.success) {
+                    addResult(`✅ BlogCMS getCategories: ${blogResult.data?.length || 0} categories`, 'result success');
+                    addResult('🎯 Both services working correctly!', 'fixed');
+                } else {
+                    addResult('❌ BlogCMS getCategories failed', 'result error');
+                }
+
+            } catch (error) {
+                addResult(`❌ CRITICAL ERROR: ${error.message}`, 'critical');
+                console.error('Full error:', error);
+            }
+        }
+
+        verifyFix();
+    </script>
+</body>
+</html>

@@ -1,5 +1,8 @@
 /**
  * Shadcn-Inspired Component Interactions
+ * LEGACY FILE: This file is maintained for backward compatibility.
+ * New development should use the modular component system in src/shared/components/
+ * Import from: import { ButtonComponent, ModalComponent } from './src/shared/components/index.js'
  * JavaScript functionality for static HTML shadcn components
  */
 

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Debug Console</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .debug-section {
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        .status-good { color: #059669; }
+        .status-warning { color: #d97706; }
+        .status-error { color: #dc2626; }
+        .console-output {
+            background: #1f2937;
+            color: #f9fafb;
+            font-family: monospace;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            max-height: 300px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 p-6">
+    <div class="max-w-6xl mx-auto">
+        <h1 class="text-3xl font-bold mb-6">Dashboard Debug Console</h1>
+        
+        <div class="debug-section">
+            <h2 class="text-xl font-semibold mb-4">Loading Status</h2>
+            <div id="loading-status" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <div class="debug-section">
+            <h2 class="text-xl font-semibold mb-4">Dashboard Methods</h2>
+            <div id="methods-status" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+                <!-- Will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <div class="debug-section">
+            <h2 class="text-xl font-semibold mb-4">Actions</h2>
+            <div class="flex flex-wrap gap-2">
+                <button onclick="refreshStatus()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                    Refresh Status
+                </button>
+                <button onclick="testInitialization()" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+                    Test Initialization
+                </button>
+                <button onclick="clearConsole()" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">
+                    Clear Console
+                </button>
+                <button onclick="exportDebugInfo()" class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600">
+                    Export Debug Info
+                </button>
+            </div>
+        </div>
+
+        <div class="debug-section">
+            <h2 class="text-xl font-semibold mb-4">Console Output</h2>
+            <div id="console-output" class="console-output">
+                Console output will appear here...
+            </div>
+        </div>
+
+        <!-- Mock dashboard container for testing -->
+        <div id="dashboard-sections" style="display: none;"></div>
+    </div>
+
+    <!-- Load Dashboard Modules in Correct Order -->
+    <script src="modules/dashboard-core.js"></script>
+    <script src="modules/dashboard-utils.js"></script>
+    <script src="modules/dashboard-data.js"></script>
+    <script src="modules/dashboard-events.js"></script>
+    <script src="modules/dashboard-sections.js"></script>
+    <script src="modules/dashboard-active-deals.js"></script>
+    <script src="modules/dashboard-messages.js"></script>
+    <script src="modules/dashboard-express-listings.js"></script>
+
+    <script>
+        // Capture console output
+        const originalConsoleLog = console.log;
+        const originalConsoleError = console.error;
+        const originalConsoleWarn = console.warn;
+        let consoleOutput = [];
+
+        function captureConsole(type, args) {
+            const message = args.map(arg => 
+                typeof arg === 'object' ? JSON.stringify(arg, null, 2) : String(arg)
+            ).join(' ');
+            consoleOutput.push(`[${type.toUpperCase()}] ${new Date().toLocaleTimeString()}: ${message}`);
+            updateConsoleDisplay();
+        }
+
+        console.log = function(...args) {
+            originalConsoleLog.apply(console, args);
+            captureConsole('log', args);
+        };
+
+        console.error = function(...args) {
+            originalConsoleError.apply(console, args);
+            captureConsole('error', args);
+        };
+
+        console.warn = function(...args) {
+            originalConsoleWarn.apply(console, args);
+            captureConsole('warn', args);
+        };
+
+        function updateConsoleDisplay() {
+            const consoleDiv = document.getElementById('console-output');
+            consoleDiv.textContent = consoleOutput.slice(-50).join('\n'); // Show last 50 messages
+            consoleDiv.scrollTop = consoleDiv.scrollHeight;
+        }
+
+        function refreshStatus() {
+            updateLoadingStatus();
+            updateMethodsStatus();
+        }
+
+        function updateLoadingStatus() {
+            const statusDiv = document.getElementById('loading-status');
+            const status = window.dashboardLoadingStatus || {};
+            
+            statusDiv.innerHTML = `
+                <div class="p-3 bg-white rounded border">
+                    <h3 class="font-semibold mb-2">Core Module</h3>
+                    <p class="${status.coreLoaded ? 'status-good' : 'status-error'}">
+                        ${status.coreLoaded ? '✅ Loaded' : '❌ Not Loaded'}
+                    </p>
+                </div>
+                <div class="p-3 bg-white rounded border">
+                    <h3 class="font-semibold mb-2">Extension Modules</h3>
+                    <p class="${status.modulesLoaded?.data ? 'status-good' : 'status-error'}">
+                        Data: ${status.modulesLoaded?.data ? '✅' : '❌'}
+                    </p>
+                    <p class="${status.modulesLoaded?.events ? 'status-good' : 'status-error'}">
+                        Events: ${status.modulesLoaded?.events ? '✅' : '❌'}
+                    </p>
+                    <p class="${status.modulesLoaded?.sections ? 'status-good' : 'status-error'}">
+                        Sections: ${status.modulesLoaded?.sections ? '✅' : '❌'}
+                    </p>
+                </div>
+                <div class="p-3 bg-white rounded border">
+                    <h3 class="font-semibold mb-2">Initialization</h3>
+                    <p class="${status.isInitialized ? 'status-good' : 'status-warning'}">
+                        Status: ${status.isInitialized ? '✅ Initialized' : '⏳ Pending'}
+                    </p>
+                    <p>Attempts: ${status.initializationAttempts || 0}</p>
+                    ${status.lastError ? `<p class="status-error">Error: ${status.lastError}</p>` : ''}
+                </div>
+                <div class="p-3 bg-white rounded border">
+                    <h3 class="font-semibold mb-2">Dashboard Instance</h3>
+                    <p class="${window.buyerDashboard ? 'status-good' : 'status-error'}">
+                        ${window.buyerDashboard ? '✅ Available' : '❌ Not Available'}
+                    </p>
+                </div>
+            `;
+        }
+
+        function updateMethodsStatus() {
+            const methodsDiv = document.getElementById('methods-status');
+            
+            if (!window.buyerDashboard) {
+                methodsDiv.innerHTML = '<p class="status-error">Dashboard instance not available</p>';
+                return;
+            }
+
+            const requiredMethods = [
+                'setupEventListeners', 'initializeSections', 'loadOverviewData', 'loadMessagesData',
+                'createBasicLayout', 'hideLoadingOverlay', 'showError', 'waitForAuthentication'
+            ];
+
+            const methodsHTML = requiredMethods.map(method => {
+                const available = typeof window.buyerDashboard[method] === 'function';
+                return `
+                    <div class="p-2 bg-white rounded border text-sm">
+                        <span class="${available ? 'status-good' : 'status-error'}">
+                            ${available ? '✅' : '❌'} ${method}
+                        </span>
+                    </div>
+                `;
+            }).join('');
+
+            methodsDiv.innerHTML = methodsHTML;
+        }
+
+        function testInitialization() {
+            console.log('🧪 Starting manual initialization test...');
+            
+            try {
+                if (window.buyerDashboard) {
+                    console.log('Dashboard instance exists, testing methods...');
+                    
+                    // Test basic layout creation
+                    if (typeof window.buyerDashboard.createBasicLayout === 'function') {
+                        window.buyerDashboard.createBasicLayout();
+                        console.log('✅ Basic layout test passed');
+                    }
+                    
+                } else {
+                    console.log('Creating new dashboard instance...');
+                    const testDashboard = new BuyerDashboard();
+                    console.log('✅ Dashboard instance created successfully');
+                }
+                
+            } catch (error) {
+                console.error('❌ Initialization test failed:', error);
+            }
+        }
+
+        function clearConsole() {
+            consoleOutput = [];
+            updateConsoleDisplay();
+        }
+
+        function exportDebugInfo() {
+            const debugInfo = {
+                timestamp: new Date().toISOString(),
+                loadingStatus: window.dashboardLoadingStatus,
+                dashboardAvailable: !!window.buyerDashboard,
+                consoleOutput: consoleOutput,
+                userAgent: navigator.userAgent,
+                url: window.location.href
+            };
+            
+            const blob = new Blob([JSON.stringify(debugInfo, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `dashboard-debug-${Date.now()}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Auto-refresh status every 2 seconds
+        setInterval(refreshStatus, 2000);
+
+        // Initial status update
+        setTimeout(refreshStatus, 1000);
+    </script>
+</body>
+</html>

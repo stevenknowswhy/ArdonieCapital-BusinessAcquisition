@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detailed CMS Diagnostic</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-result {
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #007bff;
+            background-color: #f8f9fa;
+        }
+        .success { border-left-color: #28a745; background-color: #d4edda; }
+        .error { border-left-color: #dc3545; background-color: #f8d7da; }
+        .warning { border-left-color: #ffc107; background-color: #fff3cd; }
+        .info { border-left-color: #17a2b8; background-color: #d1ecf1; }
+        .test-number {
+            font-weight: bold;
+            color: #007bff;
+        }
+        .error-details {
+            background: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            font-family: monospace;
+            font-size: 12px;
+        }
+        .summary {
+            margin-top: 30px;
+            padding: 20px;
+            border: 2px solid #007bff;
+            border-radius: 10px;
+            background: #e7f3ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Detailed CMS Diagnostic</h1>
+        <p>Identifying the specific 3 failing tests out of 16 total tests</p>
+        
+        <div id="results"></div>
+        
+        <div id="summary"></div>
+    </div>
+
+    <script type="module">
+        class DetailedCMSDiagnostic {
+            constructor() {
+                this.results = [];
+                this.resultsElement = document.getElementById('results');
+                this.summaryElement = document.getElementById('summary');
+                this.testNumber = 0;
+                this.passedTests = 0;
+                this.failedTests = 0;
+                this.timestamp = Date.now();
+            }
+
+            log(testName, success, details = '', errorDetails = null) {
+                this.testNumber++;
+                const result = {
+                    number: this.testNumber,
+                    name: testName,
+                    success,
+                    details,
+                    errorDetails,
+                    timestamp: new Date().toISOString()
+                };
+                
+                this.results.push(result);
+                
+                if (success) {
+                    this.passedTests++;
+                } else {
+                    this.failedTests++;
+                }
+                
+                this.updateResults();
+                console.log(`Test ${this.testNumber}: ${testName} - ${success ? 'PASS' : 'FAIL'}`, details, errorDetails);
+            }
+
+            updateResults() {
+                this.resultsElement.innerHTML = this.results.map(result => `
+                    <div class="test-result ${result.success ? 'success' : 'error'}">
+                        <span class="test-number">Test ${result.number}:</span> 
+                        <strong>${result.name}</strong>
+                        ${result.success ? '✅' : '❌'} 
+                        ${result.details}
+                        ${result.errorDetails ? `<div class="error-details">${result.errorDetails}</div>` : ''}
+                    </div>
+                `).join('');
+            }
+
+            async runTest(testName, testFunction) {
+                try {
+                    const result = await testFunction();
+                    this.log(testName, result.success, result.details, result.errorDetails);
+                } catch (error) {
+                    this.log(testName, false, 'Exception thrown', error.message);
+                }
+            }
+
+            async runDiagnostic() {
+                console.log('Starting detailed CMS diagnostic...');
+                
+                // Initialize services with cache busting
+                let supabaseService, blogCMSService, contentAPIService;
+                
+                try {
+                    const supabaseUrl = `./src/shared/services/supabase/index.js?v=${this.timestamp}`;
+                    const blogCMSUrl = `./src/features/blog/services/blog-cms.service.js?v=${this.timestamp}`;
+                    const contentAPIUrl = `./src/features/blog/services/content-api.service.js?v=${this.timestamp}`;
+                    
+                    const supabaseModule = await import(supabaseUrl);
+                    const blogCMSModule = await import(blogCMSUrl);
+                    const contentAPIModule = await import(contentAPIUrl);
+                    
+                    supabaseService = supabaseModule.supabaseService;
+                    blogCMSService = blogCMSModule.blogCMSService;
+                    contentAPIService = contentAPIModule.contentAPIService;
+                    
+                    if (!supabaseService.isInitialized) {
+                        await supabaseService.init();
+                    }
+                    await blogCMSService.initializeService();
+                    await contentAPIService.init();
+                    
+                } catch (error) {
+                    this.log('Service Initialization', false, 'Failed to initialize services', error.message);
+                    return;
+                }
+
+                // Test 1: Health Check
+                await this.runTest('Health Check', async () => {
+                    const health = await supabaseService.healthCheck();
+                    return {
+                        success: health.success,
+                        details: health.status,
+                        errorDetails: health.error
+                    };
+                });
+
+                // Tests 2-7: Database Table Access
+                const tables = ['content_pages', 'blog_categories', 'documents', 'deals', 'vendors', 'vendor_reviews'];
+                for (const table of tables) {
+                    await this.runTest(`Database SELECT ${table}`, async () => {
+                        const result = await supabaseService.select(table, { limit: 1 });
+                        return {
+                            success: result.success,
+                            details: result.success ? `Retrieved ${result.data?.length || 0} records` : 'Query failed',
+                            errorDetails: result.error
+                        };
+                    });
+                }
+
+                // Test 8: BlogCMS getCategories
+                await this.runTest('BlogCMS getCategories', async () => {
+                    const result = await blogCMSService.getCategories();
+                    return {
+                        success: result.success,
+                        details: result.success ? `Retrieved ${result.data?.length || 0} categories` : 'Failed',
+                        errorDetails: result.error
+                    };
+                });
+
+                // Test 9: BlogCMS getPosts
+                await this.runTest('BlogCMS getPosts', async () => {
+                    const result = await blogCMSService.getPosts({ limit: 5 });
+                    return {
+                        success: result.success,
+                        details: result.success ? `Retrieved ${result.total || 0} total posts` : 'Failed',
+                        errorDetails: result.error
+                    };
+                });
+
+                // Test 10: BlogCMS getFeaturedPosts
+                await this.runTest('BlogCMS getFeaturedPosts', async () => {
+                    const result = await blogCMSService.getFeaturedPosts(3);
+                    return {
+                        success: result.success,
+                        details: result.success ? `Retrieved ${result.data?.length || 0} featured posts` : 'Failed',
+                        errorDetails: result.error
+                    };
+                });
+
+                // Test 11: ContentAPI validatePostData
+                await this.runTest('ContentAPI validatePostData', async () => {
+                    const testData = {
+                        title: 'Test Post',
+                        content: 'This is test content for validation.',
+                        status: 'draft'
+                    };
+                    const result = await contentAPIService.validatePostData(testData);
+                    return {
+                        success: result.isValid,
+                        details: result.isValid ? 'Validation passed' : 'Validation failed',
+                        errorDetails: result.errors?.join(', ')
+                    };
+                });
+
+                // Test 12: ContentAPI getCategories (THE FIXED ONE)
+                await this.runTest('ContentAPI getCategories', async () => {
+                    // First check if method exists
+                    if (typeof contentAPIService.getCategories !== 'function') {
+                        return {
+                            success: false,
+                            details: 'Method not found',
+                            errorDetails: `Method type: ${typeof contentAPIService.getCategories}`
+                        };
+                    }
+                    
+                    const result = await contentAPIService.getCategories();
+                    return {
+                        success: result.success,
+                        details: result.success ? `Retrieved ${result.data?.length || 0} categories` : 'Failed',
+                        errorDetails: result.error
+                    };
+                });
+
+                // Test 13: ContentAPI getFeaturedPosts
+                await this.runTest('ContentAPI getFeaturedPosts', async () => {
+                    const result = await contentAPIService.getFeaturedPosts(3);
+                    return {
+                        success: result.success,
+                        details: result.success ? `Retrieved ${result.data?.length || 0} featured posts` : 'Failed',
+                        errorDetails: result.error
+                    };
+                });
+
+                // Tests 14-16: Additional tests that might be in the original suite
+                // Let me check what other tests might be included
+
+                // Test 14: Service method availability check
+                await this.runTest('Service Methods Available', async () => {
+                    const requiredMethods = ['select', 'insert', 'update', 'delete', 'healthCheck'];
+                    const availableMethods = requiredMethods.filter(method => typeof supabaseService[method] === 'function');
+                    return {
+                        success: availableMethods.length === requiredMethods.length,
+                        details: `${availableMethods.length}/${requiredMethods.length} methods available`,
+                        errorDetails: availableMethods.length < requiredMethods.length ? 
+                            `Missing: ${requiredMethods.filter(m => !availableMethods.includes(m)).join(', ')}` : null
+                    };
+                });
+
+                // Test 15: Database connectivity test
+                await this.runTest('Database Connectivity', async () => {
+                    try {
+                        const result = await supabaseService.select('profiles', { limit: 1 });
+                        return {
+                            success: result.success,
+                            details: 'Core table accessible',
+                            errorDetails: result.error
+                        };
+                    } catch (error) {
+                        return {
+                            success: false,
+                            details: 'Connection failed',
+                            errorDetails: error.message
+                        };
+                    }
+                });
+
+                // Test 16: Service initialization status
+                await this.runTest('Service Initialization Status', async () => {
+                    const supabaseInit = supabaseService.isInitialized;
+                    const blogCMSInit = blogCMSService.isInitialized;
+                    const contentAPIInit = contentAPIService.isInitialized !== false; // Some services don't have this property
+                    
+                    const allInitialized = supabaseInit && blogCMSInit && contentAPIInit;
+                    return {
+                        success: allInitialized,
+                        details: allInitialized ? 'All services initialized' : 'Some services not initialized',
+                        errorDetails: !allInitialized ? 
+                            `Supabase: ${supabaseInit}, BlogCMS: ${blogCMSInit}, ContentAPI: ${contentAPIInit}` : null
+                    };
+                });
+
+                this.generateSummary();
+            }
+
+            generateSummary() {
+                const totalTests = this.testNumber;
+                const successRate = totalTests > 0 ? ((this.passedTests / totalTests) * 100).toFixed(1) : 0;
+                const failedTestsList = this.results.filter(r => !r.success);
+
+                this.summaryElement.innerHTML = `
+                    <div class="summary">
+                        <h3>📊 Diagnostic Summary</h3>
+                        <p><strong>Total Tests:</strong> ${totalTests}</p>
+                        <p><strong>Passed:</strong> ${this.passedTests}</p>
+                        <p><strong>Failed:</strong> ${this.failedTests}</p>
+                        <p><strong>Success Rate:</strong> ${successRate}%</p>
+                        
+                        ${this.failedTests > 0 ? `
+                            <h4>❌ Failed Tests:</h4>
+                            <ul>
+                                ${failedTestsList.map(test => `
+                                    <li><strong>Test ${test.number}: ${test.name}</strong> - ${test.details}
+                                        ${test.errorDetails ? `<br><em>Error: ${test.errorDetails}</em>` : ''}
+                                    </li>
+                                `).join('')}
+                            </ul>
+                        ` : '<p class="success">🎉 All tests passed!</p>'}
+                        
+                        <h4>🎯 Next Steps:</h4>
+                        ${this.failedTests === 0 ? 
+                            '<p><strong>✅ CMS Backend 100% Complete!</strong> Ready for Data Migration Scripts.</p>' :
+                            '<p><strong>⚠️ Fix the above failing tests</strong> to achieve 100% CMS functionality.</p>'
+                        }
+                    </div>
+                `;
+            }
+        }
+
+        // Run diagnostic when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            const diagnostic = new DetailedCMSDiagnostic();
+            diagnostic.runDiagnostic();
+        });
+    </script>
+</body>
+</html>

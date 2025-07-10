@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cache-Busted ContentAPI Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .result {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            border-left: 4px solid #007bff;
+            background-color: #f8f9fa;
+        }
+        .success { border-left-color: #28a745; background-color: #d4edda; }
+        .error { border-left-color: #dc3545; background-color: #f8d7da; }
+    </style>
+</head>
+<body>
+    <h1>Cache-Busted ContentAPI Test</h1>
+    <div id="results"></div>
+
+    <script type="module">
+        async function runCacheBustedTest() {
+            const resultsDiv = document.getElementById('results');
+            const timestamp = Date.now();
+            
+            function addResult(message, isSuccess = true) {
+                const div = document.createElement('div');
+                div.className = `result ${isSuccess ? 'success' : 'error'}`;
+                div.textContent = `${new Date().toLocaleTimeString()}: ${message}`;
+                resultsDiv.appendChild(div);
+                console.log(message);
+            }
+
+            try {
+                addResult(`Starting cache-busted test at ${timestamp}`);
+                
+                // Force cache bust by adding timestamp
+                const cacheBustUrl = `./src/features/blog/services/content-api.service.js?v=${timestamp}`;
+                addResult(`Importing with cache bust: ${cacheBustUrl}`);
+                
+                const module = await import(cacheBustUrl);
+                addResult('✅ Module imported successfully');
+                
+                const { contentAPIService, ContentAPIService } = module;
+                addResult('✅ Services extracted from module');
+                
+                // Test singleton instance
+                addResult('Testing singleton instance...');
+                addResult(`Singleton type: ${typeof contentAPIService}`);
+                
+                if (contentAPIService) {
+                    const methods = Object.getOwnPropertyNames(Object.getPrototypeOf(contentAPIService))
+                        .filter(name => typeof contentAPIService[name] === 'function');
+                    addResult(`Singleton methods: ${methods.join(', ')}`);
+                    
+                    if (typeof contentAPIService.getCategories === 'function') {
+                        addResult('✅ getCategories found on singleton!');
+                    } else {
+                        addResult('❌ getCategories NOT found on singleton', false);
+                    }
+                }
+                
+                // Test class instance
+                addResult('Testing new class instance...');
+                if (ContentAPIService) {
+                    const newInstance = new ContentAPIService();
+                    addResult('✅ New instance created');
+                    
+                    const classMethods = Object.getOwnPropertyNames(Object.getPrototypeOf(newInstance))
+                        .filter(name => typeof newInstance[name] === 'function');
+                    addResult(`Class methods: ${classMethods.join(', ')}`);
+                    
+                    if (typeof newInstance.getCategories === 'function') {
+                        addResult('✅ getCategories found on class instance!');
+                    } else {
+                        addResult('❌ getCategories NOT found on class instance', false);
+                    }
+                } else {
+                    addResult('❌ ContentAPIService class not found', false);
+                }
+                
+                addResult('🏁 Cache-busted test completed');
+
+            } catch (error) {
+                addResult(`❌ Error: ${error.message}`, false);
+                console.error('Full error:', error);
+            }
+        }
+
+        runCacheBustedTest();
+    </script>
+</body>
+</html>

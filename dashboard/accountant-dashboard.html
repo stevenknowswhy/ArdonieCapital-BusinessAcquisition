@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accountant Dashboard - Ardonie Capital</title>
+    
+    <!-- Tailwind CSS -->
+    <link href="../assets/css/tailwind.css" rel="stylesheet">
+    
+    <!-- Navigation Styles -->
+    <link href="../components/navigation-styles.css" rel="stylesheet">
+    
+    <!-- Theme System -->
+    <script>
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900">
+    <!-- Navigation -->
+    <div id="main-navigation"></div>
+
+    <main class="pt-20 min-h-screen">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <!-- Header -->
+            <div class="mb-8">
+                <h1 class="text-3xl font-bold text-slate-900 dark:text-white">Accountant Dashboard</h1>
+                <p class="mt-2 text-slate-600 dark:text-slate-400">Provide professional accounting services for business transactions</p>
+            </div>
+
+            <!-- Welcome Card -->
+            <div class="bg-white dark:bg-slate-800 rounded-lg shadow p-6 mb-8">
+                <div class="flex items-center space-x-4">
+                    <div class="flex-shrink-0">
+                        <div class="h-12 w-12 rounded-full bg-purple-500 flex items-center justify-center">
+                            <span class="text-white font-medium text-lg">📊</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h2 id="welcomeMessage" class="text-xl font-semibold text-slate-900 dark:text-white">Welcome back!</h2>
+                        <p class="text-slate-600 dark:text-slate-400">Ready to assist with business valuations and financial analysis?</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow p-6">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <div class="w-8 h-8 bg-purple-500 rounded-md flex items-center justify-center">
+                                <span class="text-white text-sm font-medium">📋</span>
+                            </div>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-slate-600 dark:text-slate-400">Active Cases</p>
+                            <p class="text-2xl font-semibold text-slate-900 dark:text-white">7</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow p-6">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <div class="w-8 h-8 bg-green-500 rounded-md flex items-center justify-center">
+                                <span class="text-white text-sm font-medium">✅</span>
+                            </div>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-slate-600 dark:text-slate-400">Completed</p>
+                            <p class="text-2xl font-semibold text-slate-900 dark:text-white">23</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow p-6">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <div class="w-8 h-8 bg-blue-500 rounded-md flex items-center justify-center">
+                                <span class="text-white text-sm font-medium">💰</span>
+                            </div>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-slate-600 dark:text-slate-400">Revenue</p>
+                            <p class="text-2xl font-semibold text-slate-900 dark:text-white">$45K</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow p-6">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <div class="w-8 h-8 bg-indigo-500 rounded-md flex items-center justify-center">
+                                <span class="text-white text-sm font-medium">⭐</span>
+                            </div>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-slate-600 dark:text-slate-400">Rating</p>
+                            <p class="text-2xl font-semibold text-slate-900 dark:text-white">4.9</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow p-6">
+                    <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-4">Business Valuation</h3>
+                    <p class="text-slate-600 dark:text-slate-400 mb-4">Provide professional business valuations</p>
+                    <button class="w-full bg-purple-500 hover:bg-purple-600 text-white font-medium py-2 px-4 rounded-md">
+                        New Valuation
+                    </button>
+                </div>
+                
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow p-6">
+                    <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-4">Financial Analysis</h3>
+                    <p class="text-slate-600 dark:text-slate-400 mb-4">Analyze financial statements and reports</p>
+                    <button class="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-md">
+                        Start Analysis
+                    </button>
+                </div>
+                
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow p-6">
+                    <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-4">Client Management</h3>
+                    <p class="text-slate-600 dark:text-slate-400 mb-4">Manage your client relationships</p>
+                    <button class="w-full bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded-md">
+                        View Clients
+                    </button>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="bg-white dark:bg-slate-800 rounded-lg shadow">
+                <div class="px-6 py-4 border-b border-slate-200 dark:border-slate-700">
+                    <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Recent Activity</h3>
+                </div>
+                <div class="p-6">
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3">
+                            <div class="flex-shrink-0 w-2 h-2 bg-purple-500 rounded-full"></div>
+                            <div class="flex-1">
+                                <p class="text-sm text-slate-900 dark:text-white">Completed valuation for Tech Startup</p>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">2 hours ago</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center space-x-3">
+                            <div class="flex-shrink-0 w-2 h-2 bg-blue-500 rounded-full"></div>
+                            <div class="flex-1">
+                                <p class="text-sm text-slate-900 dark:text-white">Started financial analysis for Restaurant Chain</p>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">4 hours ago</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center space-x-3">
+                            <div class="flex-shrink-0 w-2 h-2 bg-green-500 rounded-full"></div>
+                            <div class="flex-1">
+                                <p class="text-sm text-slate-900 dark:text-white">New client inquiry received</p>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">1 day ago</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Load Navigation -->
+    <script src="../components/main-navigation.js"></script>
+    
+    <!-- Load Auth Service -->
+    <script src="../assets/js/auth-service.js?v=accountant-dashboard"></script>
+    
+    <script>
+        let authService;
+        let currentUser;
+
+        // Initialize when page loads
+        window.addEventListener('load', async function() {
+            console.log('🔄 Initializing accountant dashboard...');
+            
+            // Wait for auth service
+            let attempts = 0;
+            while (!window.authService && attempts < 30) {
+                await new Promise(resolve => setTimeout(resolve, 100));
+                attempts++;
+            }
+
+            if (window.authService) {
+                authService = window.authService;
+                currentUser = authService.getCurrentUser();
+                
+                // Check if user is authorized
+                if (!currentUser || !currentUser.userTypes.includes('accountant')) {
+                    console.log('❌ Unauthorized access to accountant dashboard');
+                    alert('Access denied. Accountant privileges required.');
+                    window.location.href = '../auth/login.html';
+                    return;
+                }
+
+                console.log('✅ Accountant dashboard access authorized');
+                
+                // Update welcome message
+                const welcomeMessage = document.getElementById('welcomeMessage');
+                welcomeMessage.textContent = `Welcome back, ${currentUser.firstName}!`;
+                
+            } else {
+                console.error('❌ Auth service not available');
+                window.location.href = '../auth/login.html';
+            }
+        });
+    </script>
+</body>
+</html>

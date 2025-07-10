@@ -1,43 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="dns-prefetch" href="//cdn.tailwindcss.com">
+    
     <link rel="dns-prefetch" href="//fonts.googleapis.com">
     <link rel="dns-prefetch" href="//images.unsplash.com">
-    <link rel="preload" href="https://cdn.tailwindcss.com" as="script">
+    
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Learning Center - Ardonie Capital</title>
-    <script src="https://cdn.tailwindcss.com" defer></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../assets/css/tailwind.css">
+
+    <!-- Theme System -->
     <script>
+        // Initialize tailwind config with theme support
         tailwind.config = {
             darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
                         primary: {
-                            DEFAULT: '#3b82f6',
-                            dark: '#2563eb',
-                            light: '#93c5fd',
+                            light: '#3B82F6',
+                            DEFAULT: '#2563EB',
+                            dark: '#1D4ED8'
                         },
                         secondary: {
-                            DEFAULT: '#64748b',
-                            light: '#f1f5f9',
+                            light: '#F8FAFC',
+                            DEFAULT: '#E2E8F0',
+                            dark: '#64748B'
                         },
                         accent: {
-                            DEFAULT: '#10b981',
-                            dark: '#059669',
+                            light: '#10B981',
+                            DEFAULT: '#059669',
+                            dark: '#047857'
                         }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
+                    }
                 }
             }
+        };
+
+        // Apply saved theme preference immediately to prevent flash
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
         }
     </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    
 
     <!-- Intersection Observer Polyfill for older browsers -->
     <script>

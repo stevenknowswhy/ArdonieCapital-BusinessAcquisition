@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CMS Deployment Verification</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-6xl mx-auto">
+        <h1 class="text-3xl font-bold mb-8">Content Management System - Deployment Verification</h1>
+        
+        <div class="grid md:grid-cols-2 gap-6">
+            <!-- Schema Status -->
+            <div class="bg-white p-6 rounded-lg shadow">
+                <h2 class="text-xl font-semibold mb-4">Database Schema Status</h2>
+                <div id="schema-status" class="text-gray-600">
+                    Checking database schema...
+                </div>
+            </div>
+
+            <!-- Service Status -->
+            <div class="bg-white p-6 rounded-lg shadow">
+                <h2 class="text-xl font-semibold mb-4">CMS Services Status</h2>
+                <div id="service-status" class="text-gray-600">
+                    Initializing CMS services...
+                </div>
+            </div>
+
+            <!-- Authentication Status -->
+            <div class="bg-white p-6 rounded-lg shadow">
+                <h2 class="text-xl font-semibold mb-4">Authentication Status</h2>
+                <div id="auth-status" class="text-gray-600">
+                    Checking authentication...
+                </div>
+            </div>
+
+            <!-- API Endpoints Status -->
+            <div class="bg-white p-6 rounded-lg shadow">
+                <h2 class="text-xl font-semibold mb-4">API Endpoints Status</h2>
+                <div id="api-status" class="text-gray-600">
+                    Testing API endpoints...
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-8 bg-white p-6 rounded-lg shadow">
+            <h2 class="text-xl font-semibold mb-4">Overall Deployment Status</h2>
+            <div id="overall-status" class="text-gray-600">
+                Running comprehensive verification...
+            </div>
+        </div>
+
+        <div class="mt-8 space-x-4">
+            <button type="button" id="run-verification" class="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600">
+                Run Full Verification
+            </button>
+            <button type="button" id="deploy-schema" class="bg-green-500 text-white px-6 py-2 rounded hover:bg-green-600">
+                Deploy Enhanced Schema
+            </button>
+            <a href="dashboard/content-management.html" class="inline-block bg-purple-500 text-white px-6 py-2 rounded hover:bg-purple-600">
+                Open Content Manager
+            </a>
+            <a href="blog/dynamic-blog.html" class="inline-block bg-indigo-500 text-white px-6 py-2 rounded hover:bg-indigo-600">
+                View Dynamic Blog
+            </a>
+        </div>
+    </div>
+
+    <script type="module">
+        class CMSDeploymentVerifier {
+            constructor() {
+                this.blogCMSService = null;
+                this.contentAPIService = null;
+                this.supabaseService = null;
+                this.results = {
+                    schema: [],
+                    services: [],
+                    auth: [],
+                    api: []
+                };
+            }
+
+            async init() {
+                try {
+                    // Import all CMS services
+                    const { blogCMSService, contentAPIService } = await import('./src/features/blog/index.js');
+                    const { supabaseService } = await import('./src/shared/services/supabase/supabase.service.js');
+                    
+                    this.blogCMSService = blogCMSService;
+                    this.contentAPIService = contentAPIService;
+                    this.supabaseService = supabaseService;
+                    
+                    return true;
+                } catch (error) {
+                    this.logToSection('services', `❌ Failed to import CMS services: ${error.message}`, 'error');
+                    return false;
+                }
+            }
+
+            async runFullVerification() {
+                this.clearAllSections();
+                this.logToSection('overall', '🚀 Starting comprehensive CMS deployment verification...', 'info');
+
+                const initialized = await this.init();
+                if (!initialized) {
+                    this.logToSection('overall', '❌ Verification failed - could not initialize services', 'error');
+                    return;
+                }
+
+                // Run all verification phases
+                await this.verifyDatabaseSchema();
+                await this.verifyServices();
+                await this.verifyAuthentication();
+                await this.verifyAPIEndpoints();
+                
+                this.generateOverallReport();
+            }
+
+            async verifyDatabaseSchema() {
+                this.logToSection('schema', '🔍 Verifying database schema deployment...', 'info');
+
+                try {
+                    // Initialize Supabase service
+                    if (!this.supabaseService.isInitialized) {
+                        await this.supabaseService.init();
+                    }
+                    this.logToSection('schema', '✅ Supabase connection established', 'success');
+
+                    // Test enhanced schema tables
+                    const enhancedTables = [
+                        'content_pages',
+                        'blog_categories',
+                        'documents',
+                        'deals',
+                        'vendors',
+                        'vendor_reviews'
+                    ];
+
+                    let enhancedTablesExist = 0;
+                    for (const tableName of enhancedTables) {
+                        try {
+                            const result = await this.supabaseService.select(tableName, { limit: 1 });
+                            if (result.success) {
+                                this.logToSection('schema', `✅ Enhanced table '${tableName}' exists`, 'success');
+                                enhancedTablesExist++;
+                            } else {
+                                this.logToSection('schema', `❌ Enhanced table '${tableName}' missing or inaccessible`, 'error');
+                            }
+                        } catch (error) {
+                            this.logToSection('schema', `❌ Enhanced table '${tableName}' error: ${error.message}`, 'error');
+                        }
+                    }
+
+                    if (enhancedTablesExist === enhancedTables.length) {
+                        this.logToSection('schema', '🎉 All enhanced schema tables are deployed!', 'success');
+                    } else if (enhancedTablesExist === 0) {
+                        this.logToSection('schema', '⚠️ Enhanced schema not deployed. Please run enhanced-schema.sql', 'warning');
+                    } else {
+                        this.logToSection('schema', `⚠️ Partial deployment: ${enhancedTablesExist}/${enhancedTables.length} tables exist`, 'warning');
+                    }
+
+                } catch (error) {
+                    this.logToSection('schema', `❌ Schema verification failed: ${error.message}`, 'error');
+                }
+            }
+
+            async verifyServices() {
+                this.logToSection('services', '🔧 Verifying CMS services...', 'info');
+
+                try {
+                    // Test BlogCMSService
+                    if (!this.blogCMSService.isInitialized) {
+                        await this.blogCMSService.initializeService();
+                    }
+                    this.logToSection('services', '✅ BlogCMSService initialized', 'success');
+
+                    // Test ContentAPIService
+                    await this.contentAPIService.init();
+                    this.logToSection('services', '✅ ContentAPIService initialized', 'success');
+
+                    // Test service methods
+                    const categoriesResult = await this.blogCMSService.getCategories();
+                    if (categoriesResult.success) {
+                        this.logToSection('services', `✅ Categories service working (${categoriesResult.data.length} categories)`, 'success');
+                    } else {
+                        this.logToSection('services', `⚠️ Categories service issue: ${categoriesResult.error}`, 'warning');
+                    }
+
+                    const postsResult = await this.blogCMSService.getPosts({ limit: 1 });
+                    if (postsResult.success) {
+                        this.logToSection('services', `✅ Posts service working (${postsResult.total} total posts)`, 'success');
+                    } else {
+                        this.logToSection('services', `⚠️ Posts service issue: ${postsResult.error}`, 'warning');
+                    }
+
+                } catch (error) {
+                    this.logToSection('services', `❌ Service verification failed: ${error.message}`, 'error');
+                }
+            }
+
+            async verifyAuthentication() {
+                this.logToSection('auth', '🔐 Verifying authentication system...', 'info');
+
+                try {
+                    const user = await this.blogCMSService.getCurrentUser();
+                    
+                    if (user && user.profile) {
+                        this.logToSection('auth', `✅ User authenticated: ${user.profile.first_name} ${user.profile.last_name}`, 'success');
+                        this.logToSection('auth', `✅ User role: ${user.profile.role}`, 'success');
+                        
+                        const hasPermissions = await this.blogCMSService.hasContentPermissions();
+                        if (hasPermissions) {
+                            this.logToSection('auth', '✅ User has content management permissions', 'success');
+                        } else {
+                            this.logToSection('auth', '⚠️ User lacks content management permissions', 'warning');
+                        }
+                    } else {
+                        this.logToSection('auth', '⚠️ No user authenticated - testing with anonymous access', 'warning');
+                        this.logToSection('auth', '💡 For full testing, please log in through the dashboard', 'info');
+                    }
+
+                } catch (error) {
+                    this.logToSection('auth', `❌ Authentication verification failed: ${error.message}`, 'error');
+                }
+            }
+
+            async verifyAPIEndpoints() {
+                this.logToSection('api', '🌐 Verifying API endpoints...', 'info');
+
+                try {
+                    // Test getAllPosts API
+                    const postsResult = await this.contentAPIService.getAllPosts({ limit: 3 });
+                    if (postsResult.success) {
+                        this.logToSection('api', '✅ getAllPosts API working', 'success');
+                    } else {
+                        this.logToSection('api', `❌ getAllPosts API failed: ${postsResult.error}`, 'error');
+                    }
+
+                    // Test getAllCategories API
+                    const categoriesResult = await this.contentAPIService.getAllCategories();
+                    if (categoriesResult.success) {
+                        this.logToSection('api', '✅ getAllCategories API working', 'success');
+                    } else {
+                        this.logToSection('api', `❌ getAllCategories API failed: ${categoriesResult.error}`, 'error');
+                    }
+
+                    // Test getFeaturedPosts API
+                    const featuredResult = await this.contentAPIService.getFeaturedPosts(2);
+                    if (featuredResult.success) {
+                        this.logToSection('api', '✅ getFeaturedPosts API working', 'success');
+                    } else {
+                        this.logToSection('api', `❌ getFeaturedPosts API failed: ${featuredResult.error}`, 'error');
+                    }
+
+                    // Test validation
+                    const validationResult = await this.contentAPIService.validatePostData({
+                        title: 'Test Post',
+                        content: 'Test content',
+                        status: 'draft'
+                    });
+                    
+                    if (validationResult.isValid) {
+                        this.logToSection('api', '✅ Content validation API working', 'success');
+                    } else {
+                        this.logToSection('api', '❌ Content validation API failed', 'error');
+                    }
+
+                } catch (error) {
+                    this.logToSection('api', `❌ API verification failed: ${error.message}`, 'error');
+                }
+            }
+
+            generateOverallReport() {
+                const allResults = [
+                    ...this.results.schema,
+                    ...this.results.services,
+                    ...this.results.auth,
+                    ...this.results.api
+                ];
+
+                const successes = allResults.filter(r => r.type === 'success').length;
+                const errors = allResults.filter(r => r.type === 'error').length;
+                const warnings = allResults.filter(r => r.type === 'warning').length;
+                const total = allResults.length;
+
+                this.logToSection('overall', `📊 Verification Summary: ${successes} passed, ${errors} failed, ${warnings} warnings`, 'info');
+
+                if (errors === 0 && warnings === 0) {
+                    this.logToSection('overall', '🎉 CMS deployment is fully operational!', 'success');
+                    this.logToSection('overall', '✅ Ready for production use', 'success');
+                } else if (errors === 0) {
+                    this.logToSection('overall', '⚠️ CMS deployment is mostly operational with minor issues', 'warning');
+                    this.logToSection('overall', '✅ Safe to proceed with testing', 'success');
+                } else {
+                    this.logToSection('overall', '❌ CMS deployment has critical issues that need attention', 'error');
+                    this.logToSection('overall', '🔧 Please address errors before proceeding', 'warning');
+                }
+            }
+
+            logToSection(section, message, type = 'info') {
+                const timestamp = new Date().toLocaleTimeString();
+                const logEntry = { message, type, timestamp };
+
+                // Initialize results section if it doesn't exist
+                if (!this.results[section]) {
+                    this.results[section] = [];
+                }
+                this.results[section].push(logEntry);
+                
+                const container = document.getElementById(`${section}-status`);
+                const div = document.createElement('div');
+                div.className = `p-2 rounded mb-1 ${this.getLogClass(type)}`;
+                div.innerHTML = `<span class="text-xs opacity-75">[${timestamp}]</span> ${message}`;
+                container.appendChild(div);
+                
+                container.scrollTop = container.scrollHeight;
+            }
+
+            getLogClass(type) {
+                switch (type) {
+                    case 'success': return 'bg-green-100 text-green-800';
+                    case 'error': return 'bg-red-100 text-red-800';
+                    case 'warning': return 'bg-yellow-100 text-yellow-800';
+                    default: return 'bg-blue-100 text-blue-800';
+                }
+            }
+
+            clearAllSections() {
+                ['schema', 'services', 'auth', 'api', 'overall'].forEach(section => {
+                    const element = document.getElementById(`${section}-status`);
+                    if (element) {
+                        element.innerHTML = '';
+                    }
+                    if (this.results[section]) {
+                        this.results[section] = [];
+                    }
+                });
+            }
+
+            async deployEnhancedSchema() {
+                this.logToSection('overall', '🚀 Enhanced schema deployment instructions:', 'info');
+                this.logToSection('overall', '1. Open Supabase Dashboard: https://app.supabase.com', 'info');
+                this.logToSection('overall', '2. Navigate to SQL Editor', 'info');
+                this.logToSection('overall', '3. Run database/enhanced-schema.sql', 'info');
+                this.logToSection('overall', '4. Run database/enhanced-rls-policies.sql', 'info');
+                this.logToSection('overall', '5. Click "Run Full Verification" to test', 'info');
+                
+                // Open the schema files for easy access
+                window.open('database/enhanced-schema.sql', '_blank');
+                window.open('database/enhanced-rls-policies.sql', '_blank');
+            }
+        }
+
+        const verifier = new CMSDeploymentVerifier();
+
+        document.getElementById('run-verification').addEventListener('click', () => {
+            verifier.runFullVerification();
+        });
+
+        document.getElementById('deploy-schema').addEventListener('click', () => {
+            verifier.deployEnhancedSchema();
+        });
+
+        // Auto-run verification on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                verifier.runFullVerification();
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

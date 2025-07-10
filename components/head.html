@@ -1,52 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Ardonie Capital - Streamlining auto repair shop acquisitions with our 34-day Express Deal Package">
-    
-    <!-- Favicon -->
-    <link rel="icon" href="/assets/images/favicon.ico">
-    <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png">
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Theme System -->
-    <script>
-        // Initialize tailwind config with theme support
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {}
-            }
-        };
-        
-        // Apply saved theme preference immediately to prevent flash
-        const savedTheme = localStorage.getItem('theme');
-        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        
-        if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
+<!-- Head Component - Include in HTML pages -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'">
+<link rel="dns-prefetch" href="//cdn.tailwindcss.com">
+<link rel="dns-prefetch" href="//fonts.googleapis.com">
+<link rel="dns-prefetch" href="//images.unsplash.com">
+<link rel="preload" href="https://cdn.tailwindcss.com" as="script">
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Ardonie Capital - Streamlining auto repair shop acquisitions with our 34-day Express Deal Package">
+
+<!-- Favicon -->
+<link rel="icon" href="/assets/images/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com" defer></script>
+
+<!-- Theme System -->
+<script>
+    // Initialize tailwind config with theme support
+    tailwind.config = {
+        darkMode: 'class',
+        theme: {
+            extend: {}
         }
-    </script>
-    
-    <!-- Common CSS -->
-    <link rel="stylesheet" href="/assets/css/common.css">
-    
-    <!-- Common JavaScript -->
-    <script src="/assets/js/common.js" defer></script>
-    
-    <!-- Page-specific CSS (if needed) -->
-    <link rel="stylesheet" href="/assets/css/pages/{{page}}.css">
-    
-    <title>{{title}} | Ardonie Capital</title>
-</head>
-<body class="font-sans text-slate-800 bg-white dark:bg-slate-900 dark:text-slate-200">
+    };
+
+    // Apply saved theme preference immediately to prevent flash
+    const savedTheme = localStorage.getItem('theme');
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+        document.documentElement.classList.add('dark');
+    } else {
+        document.documentElement.classList.remove('dark');
+    }
+</script>
+
+<!-- Common CSS -->
+<link rel="stylesheet" media="print" onload="this.media='all'" href="/assets/css/common.css">
+
+<!-- Common JavaScript -->
+<script src="/assets/js/common.js" defer></script>
+
+<!-- Page-specific CSS (if needed) -->
+<link rel="stylesheet" media="print" onload="this.media='all'" href="/assets/css/pages/{{page}}.css">
+
+<!-- Accessibility CSS -->
+<link rel="stylesheet" href="/assets/css/accessibility.css">
+
+<!-- Skip Navigation Link -->
+<a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 bg-primary-dark text-white p-2 z-50">Skip to main content</a>
+

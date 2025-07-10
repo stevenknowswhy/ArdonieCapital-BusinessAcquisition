@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Role Management - Ardonie Capital</title>
+    
+    <!-- Tailwind CSS -->
+    <link href="../assets/css/tailwind.css" rel="stylesheet">
+    
+    <!-- Navigation Styles -->
+    <link href="../components/navigation-styles.css" rel="stylesheet">
+    
+    <!-- Admin Navigation Styles -->
+    <link href="../assets/css/admin-navigation.css" rel="stylesheet">
+    
+    <style>
+        .role-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        .role-primary { background-color: #dbeafe; color: #1e40af; }
+        .role-blog { background-color: #dcfce7; color: #166534; }
+        .role-system { background-color: #f3e8ff; color: #7c3aed; }
+        
+        .user-avatar {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900">
+    <!-- Navigation -->
+    <div id="main-navigation-container"></div>
+
+    <main class="pt-20 min-h-screen">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <!-- Header -->
+            <div class="mb-8">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h1 class="text-3xl font-bold text-slate-900 dark:text-white">Role Management</h1>
+                        <p class="mt-2 text-slate-600 dark:text-slate-400">Manage user roles and permissions across the platform</p>
+                    </div>
+                    <button onclick="openAddUserModal()" 
+                            class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium">
+                        Add User Role
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow p-6">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <div class="w-8 h-8 bg-blue-500 rounded-md flex items-center justify-center">
+                                <span class="text-white text-sm font-medium">👥</span>
+                            </div>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-slate-600 dark:text-slate-400">Total Users</p>
+                            <p id="totalUsers" class="text-2xl font-semibold text-slate-900 dark:text-white">-</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow p-6">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <div class="w-8 h-8 bg-green-500 rounded-md flex items-center justify-center">
+                                <span class="text-white text-sm font-medium">🎭</span>
+                            </div>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-slate-600 dark:text-slate-400">Multi-Role Users</p>
+                            <p id="multiRoleUsers" class="text-2xl font-semibold text-slate-900 dark:text-white">-</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow p-6">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <div class="w-8 h-8 bg-purple-500 rounded-md flex items-center justify-center">
+                                <span class="text-white text-sm font-medium">🏢</span>
+                            </div>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-slate-600 dark:text-slate-400">Companies</p>
+                            <p id="totalCompanies" class="text-2xl font-semibold text-slate-900 dark:text-white">-</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow p-6">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <div class="w-8 h-8 bg-orange-500 rounded-md flex items-center justify-center">
+                                <span class="text-white text-sm font-medium">👑</span>
+                            </div>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-slate-600 dark:text-slate-400">Admin Users</p>
+                            <p id="adminUsers" class="text-2xl font-semibold text-slate-900 dark:text-white">-</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filters and Search -->
+            <div class="bg-white dark:bg-slate-800 rounded-lg shadow p-6 mb-8">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Search Users</label>
+                        <input type="text" id="searchInput" placeholder="Search by name or email..." 
+                               class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-slate-700 dark:text-white">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Filter by Role</label>
+                        <select id="roleFilter" 
+                                class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-slate-700 dark:text-white">
+                            <option value="">All Roles</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Filter by Company</label>
+                        <select id="companyFilter" 
+                                class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-slate-700 dark:text-white">
+                            <option value="">All Companies</option>
+                        </select>
+                    </div>
+                    <div class="flex items-end">
+                        <button onclick="applyFilters()" 
+                                class="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md font-medium">
+                            Apply Filters
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Users Table -->
+            <div class="bg-white dark:bg-slate-800 rounded-lg shadow overflow-hidden">
+                <div class="px-6 py-4 border-b border-slate-200 dark:border-slate-700">
+                    <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Users and Roles</h3>
+                </div>
+                
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-slate-200 dark:divide-slate-700">
+                        <thead class="bg-slate-50 dark:bg-slate-700">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-300 uppercase tracking-wider">User</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-300 uppercase tracking-wider">Roles</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-300 uppercase tracking-wider">Company</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-300 uppercase tracking-wider">Last Active</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-300 uppercase tracking-wider">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTableBody" class="bg-white dark:bg-slate-800 divide-y divide-slate-200 dark:divide-slate-700">
+                            <!-- Users will be populated here -->
+                            <tr>
+                                <td colspan="5" class="px-6 py-12 text-center text-slate-500 dark:text-slate-400">
+                                    <div class="flex flex-col items-center">
+                                        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mb-4"></div>
+                                        <p>Loading users...</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="mt-6 flex items-center justify-between">
+                <div class="text-sm text-slate-700 dark:text-slate-300">
+                    Showing <span id="showingStart">0</span> to <span id="showingEnd">0</span> of <span id="totalResults">0</span> results
+                </div>
+                <div class="flex space-x-2">
+                    <button id="prevPage" onclick="changePage(-1)" 
+                            class="px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed">
+                        Previous
+                    </button>
+                    <button id="nextPage" onclick="changePage(1)" 
+                            class="px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed">
+                        Next
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Add/Edit User Role Modal -->
+    <div id="userRoleModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white dark:bg-slate-800 rounded-lg shadow-xl max-w-md w-full">
+                <div class="px-6 py-4 border-b border-slate-200 dark:border-slate-700">
+                    <h3 id="modalTitle" class="text-lg font-semibold text-slate-900 dark:text-white">Add User Role</h3>
+                </div>
+                
+                <form id="userRoleForm" class="px-6 py-4">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">User</label>
+                            <select id="userSelect" required 
+                                    class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-slate-700 dark:text-white">
+                                <option value="">Select a user...</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Role</label>
+                            <select id="roleSelect" required 
+                                    class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-slate-700 dark:text-white">
+                                <option value="">Select a role...</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Company</label>
+                            <select id="companySelect" 
+                                    class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-slate-700 dark:text-white">
+                                <option value="">Select a company...</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Expiration Date (Optional)</label>
+                            <input type="date" id="expirationDate" 
+                                   class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-slate-700 dark:text-white">
+                        </div>
+                    </div>
+                </form>
+                
+                <div class="px-6 py-4 border-t border-slate-200 dark:border-slate-700 flex justify-end space-x-3">
+                    <button onclick="closeUserRoleModal()" 
+                            class="px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-md text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700">
+                        Cancel
+                    </button>
+                    <button onclick="saveUserRole()" 
+                            class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md text-sm font-medium">
+                        Save Role
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../components/main-navigation.js"></script>
+    <script src="../assets/js/admin-navigation-integration.js"></script>
+    <script src="../assets/js/auth-service-fixed.js?v=role-management"></script>
+    
+    <script>
+        let authService;
+        let currentUser;
+        let allUsers = [];
+        let filteredUsers = [];
+        let currentPage = 1;
+        let pageSize = 10;
+        let allRoles = [];
+        let allCompanies = [];
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', async function() {
+            try {
+                // Initialize auth service
+                authService = new window.AuthService();
+                currentUser = authService.getCurrentUser();
+
+                if (!currentUser) {
+                    window.location.href = '../auth/login.html';
+                    return;
+                }
+
+                // Check if user has permission to access role management
+                if (!hasRoleManagementPermission()) {
+                    alert('You do not have permission to access role management.');
+                    window.location.href = '../dashboard/';
+                    return;
+                }
+
+                // Load data
+                await Promise.all([
+                    loadUsers(),
+                    loadRoles(),
+                    loadCompanies(),
+                    updateStats()
+                ]);
+
+                // Setup event listeners
+                setupEventListeners();
+
+                console.log('✅ Role management page initialized');
+
+            } catch (error) {
+                console.error('❌ Error initializing role management:', error);
+                alert('Failed to initialize role management. Please try again.');
+            }
+        });
+
+        // Check if user has role management permission
+        function hasRoleManagementPermission() {
+            // Super Admin has full access
+            if (currentUser.role === 'admin' || currentUser.selectedRole === 'super_admin') {
+                return true;
+            }
+            
+            // Company Admin has limited access (implement company scope later)
+            if (currentUser.selectedRole === 'company_admin') {
+                return true;
+            }
+            
+            return false;
+        }
+
+        // Load users with their roles
+        async function loadUsers() {
+            try {
+                // This would be replaced with actual API call
+                // For now, using mock data
+                allUsers = [
+                    {
+                        id: '1',
+                        email: 'reforiy538@iamtile.com',
+                        firstName: 'Test',
+                        lastName: 'Admin',
+                        roles: [
+                            { name: 'Super Admin', slug: 'super_admin', category: 'primary' }
+                        ],
+                        company: { name: 'Ardonie Capital' },
+                        lastActive: '2024-01-15T10:30:00Z'
+                    }
+                ];
+
+                filteredUsers = [...allUsers];
+                renderUsersTable();
+
+            } catch (error) {
+                console.error('Error loading users:', error);
+                throw error;
+            }
+        }
+
+        // Load available roles
+        async function loadRoles() {
+            try {
+                // Mock roles data - replace with API call
+                allRoles = [
+                    { id: '1', name: 'Super Admin', slug: 'super_admin', category: 'primary' },
+                    { id: '2', name: 'Company Admin', slug: 'company_admin', category: 'primary' },
+                    { id: '3', name: 'Vendor', slug: 'vendor', category: 'primary' },
+                    { id: '4', name: 'Seller', slug: 'seller', category: 'primary' },
+                    { id: '5', name: 'Buyer', slug: 'buyer', category: 'primary' },
+                    { id: '6', name: 'Blog Editor', slug: 'blog_editor', category: 'blog' },
+                    { id: '7', name: 'Blog Contributor', slug: 'blog_contributor', category: 'blog' }
+                ];
+
+                populateRoleFilters();
+
+            } catch (error) {
+                console.error('Error loading roles:', error);
+                throw error;
+            }
+        }
+
+        // Load companies
+        async function loadCompanies() {
+            try {
+                // Mock companies data - replace with API call
+                allCompanies = [
+                    { id: '1', name: 'Ardonie Capital', slug: 'ardonie-capital' }
+                ];
+
+                populateCompanyFilters();
+
+            } catch (error) {
+                console.error('Error loading companies:', error);
+                throw error;
+            }
+        }
+
+        // Update statistics
+        async function updateStats() {
+            try {
+                const totalUsers = allUsers.length;
+                const multiRoleUsers = allUsers.filter(u => u.roles.length > 1).length;
+                const totalCompanies = allCompanies.length;
+                const adminUsers = allUsers.filter(u => 
+                    u.roles.some(r => ['super_admin', 'company_admin', 'admin'].includes(r.slug))
+                ).length;
+
+                document.getElementById('totalUsers').textContent = totalUsers;
+                document.getElementById('multiRoleUsers').textContent = multiRoleUsers;
+                document.getElementById('totalCompanies').textContent = totalCompanies;
+                document.getElementById('adminUsers').textContent = adminUsers;
+
+            } catch (error) {
+                console.error('Error updating stats:', error);
+            }
+        }
+
+        // Render users table
+        function renderUsersTable() {
+            const tbody = document.getElementById('usersTableBody');
+            const start = (currentPage - 1) * pageSize;
+            const end = start + pageSize;
+            const pageUsers = filteredUsers.slice(start, end);
+
+            if (pageUsers.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="5" class="px-6 py-12 text-center text-slate-500 dark:text-slate-400">
+                            No users found matching your criteria.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = pageUsers.map(user => `
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-700">
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="flex items-center">
+                            <div class="user-avatar">
+                                ${user.firstName.charAt(0)}${user.lastName.charAt(0)}
+                            </div>
+                            <div class="ml-4">
+                                <div class="text-sm font-medium text-slate-900 dark:text-white">
+                                    ${user.firstName} ${user.lastName}
+                                </div>
+                                <div class="text-sm text-slate-500 dark:text-slate-400">
+                                    ${user.email}
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="flex flex-wrap gap-1">
+                            ${user.roles.map(role => `
+                                <span class="role-badge role-${role.category}">
+                                    ${role.name}
+                                </span>
+                            `).join('')}
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-900 dark:text-white">
+                        ${user.company?.name || 'No Company'}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500 dark:text-slate-400">
+                        ${new Date(user.lastActive).toLocaleDateString()}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                        <button onclick="editUserRoles('${user.id}')" 
+                                class="text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300 mr-3">
+                            Edit Roles
+                        </button>
+                        <button onclick="viewUserDetails('${user.id}')" 
+                                class="text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300">
+                            View Details
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+
+            updatePagination();
+        }
+
+        // Populate role filters
+        function populateRoleFilters() {
+            const roleFilter = document.getElementById('roleFilter');
+            const roleSelect = document.getElementById('roleSelect');
+
+            const roleOptions = allRoles.map(role => 
+                `<option value="${role.slug}">${role.name}</option>`
+            ).join('');
+
+            roleFilter.innerHTML = '<option value="">All Roles</option>' + roleOptions;
+            roleSelect.innerHTML = '<option value="">Select a role...</option>' + roleOptions;
+        }
+
+        // Populate company filters
+        function populateCompanyFilters() {
+            const companyFilter = document.getElementById('companyFilter');
+            const companySelect = document.getElementById('companySelect');
+
+            const companyOptions = allCompanies.map(company => 
+                `<option value="${company.id}">${company.name}</option>`
+            ).join('');
+
+            companyFilter.innerHTML = '<option value="">All Companies</option>' + companyOptions;
+            companySelect.innerHTML = '<option value="">Select a company...</option>' + companyOptions;
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            document.getElementById('searchInput').addEventListener('input', debounce(applyFilters, 300));
+        }
+
+        // Apply filters
+        function applyFilters() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const roleFilter = document.getElementById('roleFilter').value;
+            const companyFilter = document.getElementById('companyFilter').value;
+
+            filteredUsers = allUsers.filter(user => {
+                const matchesSearch = !searchTerm || 
+                    user.firstName.toLowerCase().includes(searchTerm) ||
+                    user.lastName.toLowerCase().includes(searchTerm) ||
+                    user.email.toLowerCase().includes(searchTerm);
+
+                const matchesRole = !roleFilter || 
+                    user.roles.some(role => role.slug === roleFilter);
+
+                const matchesCompany = !companyFilter || 
+                    user.company?.id === companyFilter;
+
+                return matchesSearch && matchesRole && matchesCompany;
+            });
+
+            currentPage = 1;
+            renderUsersTable();
+        }
+
+        // Pagination functions
+        function updatePagination() {
+            const totalResults = filteredUsers.length;
+            const start = (currentPage - 1) * pageSize + 1;
+            const end = Math.min(currentPage * pageSize, totalResults);
+
+            document.getElementById('showingStart').textContent = totalResults > 0 ? start : 0;
+            document.getElementById('showingEnd').textContent = end;
+            document.getElementById('totalResults').textContent = totalResults;
+
+            document.getElementById('prevPage').disabled = currentPage === 1;
+            document.getElementById('nextPage').disabled = end >= totalResults;
+        }
+
+        function changePage(direction) {
+            const totalPages = Math.ceil(filteredUsers.length / pageSize);
+            const newPage = currentPage + direction;
+
+            if (newPage >= 1 && newPage <= totalPages) {
+                currentPage = newPage;
+                renderUsersTable();
+            }
+        }
+
+        // Modal functions
+        function openAddUserModal() {
+            document.getElementById('modalTitle').textContent = 'Add User Role';
+            document.getElementById('userRoleForm').reset();
+            document.getElementById('userRoleModal').classList.remove('hidden');
+        }
+
+        function closeUserRoleModal() {
+            document.getElementById('userRoleModal').classList.add('hidden');
+        }
+
+        function saveUserRole() {
+            // Implementation for saving user role
+            alert('Role assignment functionality will be implemented with backend integration.');
+            closeUserRoleModal();
+        }
+
+        function editUserRoles(userId) {
+            alert(`Edit roles for user ${userId} - functionality will be implemented with backend integration.`);
+        }
+
+        function viewUserDetails(userId) {
+            alert(`View details for user ${userId} - functionality will be implemented with backend integration.`);
+        }
+
+        // Utility functions
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+    </script>
+</body>
+</html>
