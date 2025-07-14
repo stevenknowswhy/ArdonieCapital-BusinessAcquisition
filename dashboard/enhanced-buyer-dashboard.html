@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buyer Dashboard - Ardonie Capital</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style">
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            light: '#3B82F6',
+                            DEFAULT: '#2563EB',
+                            dark: '#1D4ED8'
+                        },
+                        secondary: {
+                            light: '#F8FAFC',
+                            DEFAULT: '#E2E8F0',
+                            dark: '#64748B'
+                        },
+                        accent: {
+                            light: '#10B981',
+                            DEFAULT: '#059669',
+                            dark: '#047857'
+                        }
+                    }
+                }
+            }
+        };
+
+        // Apply saved theme immediately to prevent flash
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Shadcn Components CSS -->
+    <link rel="stylesheet" href="../assets/css/shadcn-components.css">
+    
+    <!-- Navigation Styles -->
+    <link rel="stylesheet" href="../components/navigation-styles.css">
+    
+    <!-- Chart.js for analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+    
+    <!-- Custom Dashboard Styles -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        /* Enhanced Dashboard Sidebar Styles */
+        .dashboard-sidebar {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: transform;
+        }
+
+        /* Mobile: Hidden by default */
+        @media (max-width: 1023px) {
+            .dashboard-sidebar {
+                transform: translateX(-100%);
+            }
+
+            .dashboard-sidebar.mobile-open {
+                transform: translateX(0);
+            }
+        }
+
+        /* Desktop: Always visible */
+        @media (min-width: 1024px) {
+            .dashboard-sidebar {
+                transform: translateX(0);
+            }
+        }
+
+        .dashboard-content {
+            transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @media (min-width: 1024px) {
+            .dashboard-content {
+                margin-left: 16rem; /* 64 * 0.25rem = 16rem for w-64 sidebar */
+            }
+        }
+
+        /* KPI Card Animations */
+        .kpi-card {
+            transition: all 0.3s ease;
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Loading States */
+        .loading-skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+
+        .dark .loading-skeleton {
+            background: linear-gradient(90deg, #374151 25%, #4b5563 50%, #374151 75%);
+            background-size: 200% 100%;
+        }
+
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Enhanced animations */
+        .fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .slide-in {
+            animation: slideIn 0.4s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900">
+    <!-- Loading Overlay -->
+    <div id="auth-loading" class="fixed inset-0 bg-white dark:bg-gray-900 z-50 flex items-center justify-center">
+        <div class="text-center">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+            <p class="text-gray-600 dark:text-gray-400">Loading your dashboard...</p>
+            <p class="text-sm text-gray-500 dark:text-gray-500 mt-2">Connecting to database...</p>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div id="navigation-container"></div>
+
+    <!-- Dashboard Layout -->
+    <div class="min-h-screen">
+        <!-- Sidebar -->
+        <aside class="dashboard-sidebar fixed inset-y-0 left-0 z-40 w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 lg:translate-x-0">
+            <div class="flex flex-col h-full">
+                <!-- Sidebar Header -->
+                <div class="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
+                    <div class="flex items-center space-x-3">
+                        <div class="user-avatar w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white font-semibold">
+                            <!-- Will be populated by JS -->
+                        </div>
+                        <div>
+                            <p class="user-name font-medium text-gray-900 dark:text-white">Loading...</p>
+                            <p class="user-role text-sm text-gray-500 dark:text-gray-400">Buyer</p>
+                        </div>
+                    </div>
+                    <button id="mobile-sidebar-close" class="lg:hidden p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Navigation Menu -->
+                <nav class="flex-1 p-4 space-y-2">
+                    <a href="#" data-section="overview" class="dashboard-nav-item active flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                        <span class="text-lg">📊</span>
+                        <span>Overview</span>
+                    </a>
+                    <a href="#" data-section="saved-listings" class="dashboard-nav-item flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                        <span class="text-lg">💾</span>
+                        <span>Saved Listings</span>
+                    </a>
+                    <a href="#" data-section="matches" class="dashboard-nav-item flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                        <span class="text-lg">🎯</span>
+                        <span>Matches</span>
+                    </a>
+                    <a href="#" data-section="messages" class="dashboard-nav-item flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                        <span class="text-lg">💬</span>
+                        <span>Messages</span>
+                    </a>
+                    <a href="#" data-section="search" class="dashboard-nav-item flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                        <span class="text-lg">🔍</span>
+                        <span>Search</span>
+                    </a>
+                    <a href="#" data-section="profile" class="dashboard-nav-item flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                        <span class="text-lg">👤</span>
+                        <span>Profile</span>
+                    </a>
+                </nav>
+
+                <!-- Sidebar Footer -->
+                <div class="p-4 border-t border-gray-200 dark:border-gray-700">
+                    <div class="flex space-x-2">
+                        <button id="refresh-dashboard" class="flex-1 bg-primary hover:bg-primary-dark text-white px-3 py-2 rounded-lg text-sm font-medium transition-colors">
+                            Refresh
+                        </button>
+                        <button id="switch-role" class="flex-1 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 px-3 py-2 rounded-lg text-sm font-medium transition-colors">
+                            Switch Role
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dashboard-content">
+            <!-- Mobile Header -->
+            <div class="lg:hidden bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-4 py-3">
+                <div class="flex items-center justify-between">
+                    <h1 class="text-lg font-semibold text-gray-900 dark:text-white">Buyer Dashboard</h1>
+                    <button id="mobile-sidebar-open" class="p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Dashboard Content -->
+            <div class="p-6">
+                <!-- Overview Section -->
+                <div id="overview-section" class="dashboard-section">
+                    <!-- Page Header -->
+                    <div class="mb-8">
+                        <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Buyer Dashboard</h1>
+                        <p class="text-gray-600 dark:text-gray-400">Welcome back! Here's what's happening with your business search.</p>
+                    </div>
+
+                    <!-- KPI Cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                        <!-- Saved Listings Card -->
+                        <div class="kpi-card bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm border border-gray-200 dark:border-gray-700" data-kpi="saved-listings">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="kpi-label text-sm font-medium text-gray-600 dark:text-gray-400">Saved Listings</p>
+                                    <p class="kpi-value text-2xl font-bold text-gray-900 dark:text-white">--</p>
+                                </div>
+                                <div class="kpi-icon text-2xl">💾</div>
+                            </div>
+                            <div data-loader="overview" class="loading-skeleton h-4 rounded mt-2" style="display: none;"></div>
+                        </div>
+
+                        <!-- Active Matches Card -->
+                        <div class="kpi-card bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm border border-gray-200 dark:border-gray-700" data-kpi="active-matches">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="kpi-label text-sm font-medium text-gray-600 dark:text-gray-400">Active Matches</p>
+                                    <p class="kpi-value text-2xl font-bold text-gray-900 dark:text-white">--</p>
+                                </div>
+                                <div class="kpi-icon text-2xl">🎯</div>
+                            </div>
+                            <div data-loader="overview" class="loading-skeleton h-4 rounded mt-2" style="display: none;"></div>
+                        </div>
+
+                        <!-- Total Views Card -->
+                        <div class="kpi-card bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm border border-gray-200 dark:border-gray-700" data-kpi="total-views">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="kpi-label text-sm font-medium text-gray-600 dark:text-gray-400">Total Views</p>
+                                    <p class="kpi-value text-2xl font-bold text-gray-900 dark:text-white">--</p>
+                                </div>
+                                <div class="kpi-icon text-2xl">👁️</div>
+                            </div>
+                            <div data-loader="overview" class="loading-skeleton h-4 rounded mt-2" style="display: none;"></div>
+                        </div>
+
+                        <!-- Unread Messages Card -->
+                        <div class="kpi-card bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm border border-gray-200 dark:border-gray-700" data-kpi="unread-messages">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="kpi-label text-sm font-medium text-gray-600 dark:text-gray-400">Unread Messages</p>
+                                    <p class="kpi-value text-2xl font-bold text-gray-900 dark:text-white">--</p>
+                                </div>
+                                <div class="kpi-icon text-2xl">💬</div>
+                            </div>
+                            <div data-loader="overview" class="loading-skeleton h-4 rounded mt-2" style="display: none;"></div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity -->
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
+                        <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                            <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Recent Activity</h2>
+                        </div>
+                        <div class="p-6">
+                            <div id="recent-activity-list" class="space-y-2">
+                                <div data-loader="activity" class="loading-skeleton h-16 rounded" style="display: none;"></div>
+                                <!-- Activity items will be populated by JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Other sections will be added here -->
+                <div id="saved-listings-section" class="dashboard-section" style="display: none;">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Saved Listings</h2>
+                    <div id="saved-listings-container">
+                        <!-- Saved listings will be populated by JS -->
+                    </div>
+                </div>
+
+                <div id="matches-section" class="dashboard-section" style="display: none;">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Your Matches</h2>
+                    <div id="matches-container">
+                        <!-- Matches will be populated by JS -->
+                    </div>
+                </div>
+
+                <div id="messages-section" class="dashboard-section" style="display: none;">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Messages</h2>
+                    <div id="messages-container">
+                        <!-- Messages will be populated by JS -->
+                    </div>
+                </div>
+
+                <div id="search-section" class="dashboard-section" style="display: none;">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Search Businesses</h2>
+                    <div id="search-container">
+                        <!-- Search interface will be populated by JS -->
+                    </div>
+                </div>
+
+                <div id="profile-section" class="dashboard-section" style="display: none;">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Profile Settings</h2>
+                    <div id="profile-container">
+                        <!-- Profile settings will be populated by JS -->
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Mobile Sidebar Overlay -->
+    <div id="mobile-sidebar-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden" style="display: none;"></div>
+
+    <!-- Scripts -->
+    <script type="module">
+        // Import enhanced modules
+        import { EnhancedDashboard } from './modules/enhanced-dashboard-core.js';
+        
+        // Mobile sidebar functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const sidebar = document.querySelector('.dashboard-sidebar');
+            const overlay = document.getElementById('mobile-sidebar-overlay');
+            const openBtn = document.getElementById('mobile-sidebar-open');
+            const closeBtn = document.getElementById('mobile-sidebar-close');
+
+            function openSidebar() {
+                sidebar.classList.add('mobile-open');
+                overlay.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeSidebar() {
+                sidebar.classList.remove('mobile-open');
+                overlay.style.display = 'none';
+                document.body.style.overflow = '';
+            }
+
+            openBtn?.addEventListener('click', openSidebar);
+            closeBtn?.addEventListener('click', closeSidebar);
+            overlay?.addEventListener('click', closeSidebar);
+
+            // Close sidebar on escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeSidebar();
+            });
+        });
+    </script>
+
+    <!-- Load Navigation Component -->
+    <script src="../components/navigation.js"></script>
+    <script src="../components/admin-navigation.js"></script>
+</body>
+</html>

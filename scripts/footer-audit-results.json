@@ -1,0 +1,3911 @@
+{
+  "totalPages": 114,
+  "pagesWithStandardizedFooter": 5,
+  "pagesWithDynamicLoading": 4,
+  "pagesMissingFooter": 56,
+  "pagesWithIncompleteFooter": 39,
+  "pageDetails": [
+    {
+      "file": "about.html",
+      "directory": ".",
+      "exists": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": true,
+      "hasNavigationSections": true,
+      "hasSocialLinks": false,
+      "hasBottomBar": true,
+      "hasAllRequiredSections": false,
+      "footerType": "standardized",
+      "issues": [
+        "Missing social media links"
+      ],
+      "fileSize": 44705
+    },
+    {
+      "file": "assets/components/shadcn/badge.html",
+      "directory": "assets/components/shadcn",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 7456
+    },
+    {
+      "file": "assets/components/shadcn/button.html",
+      "directory": "assets/components/shadcn",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 6873
+    },
+    {
+      "file": "assets/components/shadcn/card.html",
+      "directory": "assets/components/shadcn",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 6691
+    },
+    {
+      "file": "assets/images/dashboard-placeholder.html",
+      "directory": "assets/images",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 9135
+    },
+    {
+      "file": "auth/login.html",
+      "directory": "auth",
+      "exists": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": true,
+      "hasNavigationSections": true,
+      "hasSocialLinks": true,
+      "hasBottomBar": true,
+      "hasAllRequiredSections": true,
+      "footerType": "standardized",
+      "issues": [],
+      "fileSize": 32256
+    },
+    {
+      "file": "auth/register.html",
+      "directory": "auth",
+      "exists": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": true,
+      "hasNavigationSections": true,
+      "hasSocialLinks": true,
+      "hasBottomBar": true,
+      "hasAllRequiredSections": true,
+      "footerType": "standardized",
+      "issues": [],
+      "fileSize": 38586
+    },
+    {
+      "file": "auth-footer-standardized.html",
+      "directory": ".",
+      "exists": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": true,
+      "hasNavigationSections": true,
+      "hasSocialLinks": false,
+      "hasBottomBar": true,
+      "hasAllRequiredSections": false,
+      "footerType": "standardized",
+      "issues": [
+        "Missing social media links"
+      ],
+      "fileSize": 14932
+    },
+    {
+      "file": "blog/auto-shop-valuation-factors.html",
+      "directory": "blog",
+      "exists": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": true,
+      "hasNavigationSections": true,
+      "hasSocialLinks": false,
+      "hasBottomBar": true,
+      "hasAllRequiredSections": false,
+      "footerType": "standardized",
+      "issues": [
+        "Missing social media links"
+      ],
+      "fileSize": 31189
+    },
+    {
+      "file": "blog/dfw-market-trends-2024.html",
+      "directory": "blog",
+      "exists": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": true,
+      "hasNavigationSections": true,
+      "hasSocialLinks": false,
+      "hasBottomBar": true,
+      "hasAllRequiredSections": false,
+      "footerType": "standardized",
+      "issues": [
+        "Missing social media links"
+      ],
+      "fileSize": 36111
+    },
+    {
+      "file": "blog/due-diligence-checklist.html",
+      "directory": "blog",
+      "exists": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": true,
+      "hasNavigationSections": true,
+      "hasSocialLinks": false,
+      "hasBottomBar": true,
+      "hasAllRequiredSections": false,
+      "footerType": "standardized",
+      "issues": [
+        "Missing social media links"
+      ],
+      "fileSize": 36417
+    },
+    {
+      "file": "blog/express-deal-success-stories.html",
+      "directory": "blog",
+      "exists": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": true,
+      "hasNavigationSections": true,
+      "hasSocialLinks": false,
+      "hasBottomBar": true,
+      "hasAllRequiredSections": false,
+      "footerType": "standardized",
+      "issues": [
+        "Missing social media links"
+      ],
+      "fileSize": 37945
+    },
+    {
+      "file": "blog/financing-options-auto-shops.html",
+      "directory": "blog",
+      "exists": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": true,
+      "hasNavigationSections": true,
+      "hasSocialLinks": false,
+      "hasBottomBar": true,
+      "hasAllRequiredSections": false,
+      "footerType": "standardized",
+      "issues": [
+        "Missing social media links"
+      ],
+      "fileSize": 34260
+    },
+    {
+      "file": "blog/index.html",
+      "directory": "blog",
+      "exists": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": true,
+      "hasNavigationSections": true,
+      "hasSocialLinks": false,
+      "hasBottomBar": true,
+      "hasAllRequiredSections": false,
+      "footerType": "standardized",
+      "issues": [
+        "Missing social media links"
+      ],
+      "fileSize": 34424
+    },
+    {
+      "file": "blog/preparing-auto-shop-for-sale.html",
+      "directory": "blog",
+      "exists": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": true,
+      "hasNavigationSections": true,
+      "hasSocialLinks": false,
+      "hasBottomBar": true,
+      "hasAllRequiredSections": false,
+      "footerType": "standardized",
+      "issues": [
+        "Missing social media links"
+      ],
+      "fileSize": 38290
+    },
+    {
+      "file": "blog.html",
+      "directory": ".",
+      "exists": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": true,
+      "hasNavigationSections": true,
+      "hasSocialLinks": false,
+      "hasBottomBar": true,
+      "hasAllRequiredSections": false,
+      "footerType": "standardized",
+      "issues": [
+        "Missing social media links"
+      ],
+      "fileSize": 34062
+    },
+    {
+      "file": "careers.html",
+      "directory": ".",
+      "exists": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": true,
+      "hasNavigationSections": true,
+      "hasSocialLinks": false,
+      "hasBottomBar": true,
+      "hasAllRequiredSections": false,
+      "footerType": "standardized",
+      "issues": [
+        "Missing social media links"
+      ],
+      "fileSize": 33331
+    },
+    {
+      "file": "components/head.html",
+      "directory": "components",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 1985
+    },
+    {
+      "file": "components/header.html",
+      "directory": "components",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 3786
+    },
+    {
+      "file": "components/navigation.html",
+      "directory": "components",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 4202
+    },
+    {
+      "file": "contact.html",
+      "directory": ".",
+      "exists": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": true,
+      "hasNavigationSections": true,
+      "hasSocialLinks": false,
+      "hasBottomBar": true,
+      "hasAllRequiredSections": false,
+      "footerType": "standardized",
+      "issues": [
+        "Missing social media links"
+      ],
+      "fileSize": 44580
+    },
+    {
+      "file": "cookie-policy.html",
+      "directory": ".",
+      "exists": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": true,
+      "hasNavigationSections": true,
+      "hasSocialLinks": false,
+      "hasBottomBar": true,
+      "hasAllRequiredSections": false,
+      "footerType": "standardized",
+      "issues": [
+        "Missing social media links"
+      ],
+      "fileSize": 24972
+    },
+    {
+      "file": "dashboard/buyer-dashboard-backup.html",
+      "directory": "dashboard",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": true,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "dynamic",
+      "issues": [
+        "Still using dynamic footer loading",
+        "Has footer but not standardized structure"
+      ],
+      "fileSize": 110301
+    },
+    {
+      "file": "dashboard/buyer-dashboard.html",
+      "directory": "dashboard",
+      "exists": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": true,
+      "hasNavigationSections": true,
+      "hasSocialLinks": false,
+      "hasBottomBar": true,
+      "hasAllRequiredSections": false,
+      "footerType": "standardized",
+      "issues": [
+        "Missing social media links"
+      ],
+      "fileSize": 125635
+    },
+    {
+      "file": "dashboard/seller-dashboard.html",
+      "directory": "dashboard",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "custom",
+      "issues": [
+        "Has footer but not standardized structure"
+      ],
+      "fileSize": 196480
+    },
+    {
+      "file": "documents/business-plan.html",
+      "directory": "documents",
+      "exists": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": true,
+      "hasNavigationSections": true,
+      "hasSocialLinks": false,
+      "hasBottomBar": true,
+      "hasAllRequiredSections": false,
+      "footerType": "standardized",
+      "issues": [
+        "Missing social media links"
+      ],
+      "fileSize": 71547
+    },
+    {
+      "file": "documents/company-strategy.html",
+      "directory": "documents",
+      "exists": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": true,
+      "hasNavigationSections": true,
+      "hasSocialLinks": false,
+      "hasBottomBar": true,
+      "hasAllRequiredSections": false,
+      "footerType": "standardized",
+      "issues": [
+        "Missing social media links"
+      ],
+      "fileSize": 40795
+    },
+    {
+      "file": "documents/financial-projections.html",
+      "directory": "documents",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "custom",
+      "issues": [
+        "Has footer but not standardized structure"
+      ],
+      "fileSize": 19105
+    },
+    {
+      "file": "documents/founding-member.html",
+      "directory": "documents",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "custom",
+      "issues": [
+        "Has footer but not standardized structure"
+      ],
+      "fileSize": 20733
+    },
+    {
+      "file": "documents/marketing-plan.html",
+      "directory": "documents",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "custom",
+      "issues": [
+        "Has footer but not standardized structure"
+      ],
+      "fileSize": 26200
+    },
+    {
+      "file": "documents/nda.html",
+      "directory": "documents",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 15774
+    },
+    {
+      "file": "documents/one-page-pitch.html",
+      "directory": "documents",
+      "exists": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": true,
+      "hasNavigationSections": true,
+      "hasSocialLinks": false,
+      "hasBottomBar": true,
+      "hasAllRequiredSections": false,
+      "footerType": "standardized",
+      "issues": [
+        "Missing social media links"
+      ],
+      "fileSize": 83314
+    },
+    {
+      "file": "documents/pitch-deck-fi.html",
+      "directory": "documents",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": true,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "dynamic",
+      "issues": [
+        "Still using dynamic footer loading",
+        "Has footer but not standardized structure"
+      ],
+      "fileSize": 25009
+    },
+    {
+      "file": "documents/pitch-deck-legal.html",
+      "directory": "documents",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "custom",
+      "issues": [
+        "Has footer but not standardized structure"
+      ],
+      "fileSize": 24309
+    },
+    {
+      "file": "documents/templates.html",
+      "directory": "documents",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 20622
+    },
+    {
+      "file": "documents/vendor-accounting.html",
+      "directory": "documents",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "custom",
+      "issues": [
+        "Has footer but not standardized structure"
+      ],
+      "fileSize": 27252
+    },
+    {
+      "file": "documents/vendor-financial.html",
+      "directory": "documents",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "custom",
+      "issues": [
+        "Has footer but not standardized structure"
+      ],
+      "fileSize": 24071
+    },
+    {
+      "file": "documents/vendor-legal.html",
+      "directory": "documents",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "custom",
+      "issues": [
+        "Has footer but not standardized structure"
+      ],
+      "fileSize": 32082
+    },
+    {
+      "file": "documents-footer-standardized.html",
+      "directory": ".",
+      "exists": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": true,
+      "hasNavigationSections": true,
+      "hasSocialLinks": false,
+      "hasBottomBar": true,
+      "hasAllRequiredSections": false,
+      "footerType": "standardized",
+      "issues": [
+        "Missing social media links"
+      ],
+      "fileSize": 14787
+    },
+    {
+      "file": "education/guides.html",
+      "directory": "education",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": true,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "dynamic",
+      "issues": [
+        "Still using dynamic footer loading",
+        "Has footer but not standardized structure"
+      ],
+      "fileSize": 20502
+    },
+    {
+      "file": "enhanced-comparison-section.html",
+      "directory": ".",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 22212
+    },
+    {
+      "file": "enhanced-for-buyers-section.html",
+      "directory": ".",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 10632
+    },
+    {
+      "file": "enhanced-for-sellers-section.html",
+      "directory": ".",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 14364
+    },
+    {
+      "file": "enhanced-matches-page.html",
+      "directory": ".",
+      "exists": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": true,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "standardized",
+      "issues": [
+        "Missing navigation sections",
+        "Missing social media links",
+        "Missing bottom bar with copyright"
+      ],
+      "fileSize": 12532
+    },
+    {
+      "file": "enhanced-partner-cards-section.html",
+      "directory": ".",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 15982
+    },
+    {
+      "file": "express-deal.html",
+      "directory": ".",
+      "exists": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": true,
+      "hasNavigationSections": true,
+      "hasSocialLinks": false,
+      "hasBottomBar": true,
+      "hasAllRequiredSections": false,
+      "footerType": "standardized",
+      "issues": [
+        "Missing social media links"
+      ],
+      "fileSize": 41123
+    },
+    {
+      "file": "footer-embedded-subdirectory.html",
+      "directory": ".",
+      "exists": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": true,
+      "hasNavigationSections": true,
+      "hasSocialLinks": false,
+      "hasBottomBar": true,
+      "hasAllRequiredSections": false,
+      "footerType": "standardized",
+      "issues": [
+        "Missing social media links"
+      ],
+      "fileSize": 14136
+    },
+    {
+      "file": "footer-embedded.html",
+      "directory": ".",
+      "exists": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": true,
+      "hasNavigationSections": true,
+      "hasSocialLinks": false,
+      "hasBottomBar": true,
+      "hasAllRequiredSections": false,
+      "footerType": "standardized",
+      "issues": [
+        "Missing social media links"
+      ],
+      "fileSize": 13980
+    },
+    {
+      "file": "for-buyers.html",
+      "directory": ".",
+      "exists": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": true,
+      "hasNavigationSections": true,
+      "hasSocialLinks": false,
+      "hasBottomBar": true,
+      "hasAllRequiredSections": false,
+      "footerType": "standardized",
+      "issues": [
+        "Missing social media links"
+      ],
+      "fileSize": 54394
+    },
+    {
+      "file": "for-sellers.html",
+      "directory": ".",
+      "exists": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": true,
+      "hasNavigationSections": true,
+      "hasSocialLinks": false,
+      "hasBottomBar": true,
+      "hasAllRequiredSections": false,
+      "footerType": "standardized",
+      "issues": [
+        "Missing social media links"
+      ],
+      "fileSize": 52624
+    },
+    {
+      "file": "funding/loan-calculator.html",
+      "directory": "funding",
+      "exists": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": true,
+      "hasNavigationSections": true,
+      "hasSocialLinks": false,
+      "hasBottomBar": true,
+      "hasAllRequiredSections": false,
+      "footerType": "standardized",
+      "issues": [
+        "Missing social media links"
+      ],
+      "fileSize": 32352
+    },
+    {
+      "file": "how-it-works.html",
+      "directory": ".",
+      "exists": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": true,
+      "hasNavigationSections": true,
+      "hasSocialLinks": false,
+      "hasBottomBar": true,
+      "hasAllRequiredSections": false,
+      "footerType": "standardized",
+      "issues": [
+        "Missing social media links"
+      ],
+      "fileSize": 44644
+    },
+    {
+      "file": "index.html",
+      "directory": ".",
+      "exists": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": true,
+      "hasNavigationSections": true,
+      "hasSocialLinks": false,
+      "hasBottomBar": true,
+      "hasAllRequiredSections": false,
+      "footerType": "standardized",
+      "issues": [
+        "Missing social media links"
+      ],
+      "fileSize": 46725
+    },
+    {
+      "file": "marketplace/listings.html",
+      "directory": "marketplace",
+      "exists": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": true,
+      "hasNavigationSections": true,
+      "hasSocialLinks": false,
+      "hasBottomBar": true,
+      "hasAllRequiredSections": false,
+      "footerType": "standardized",
+      "issues": [
+        "Missing social media links"
+      ],
+      "fileSize": 37885
+    },
+    {
+      "file": "matchmaking/matches.html",
+      "directory": "matchmaking",
+      "exists": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": true,
+      "hasNavigationSections": true,
+      "hasSocialLinks": false,
+      "hasBottomBar": true,
+      "hasAllRequiredSections": false,
+      "footerType": "standardized",
+      "issues": [
+        "Missing social media links"
+      ],
+      "fileSize": 39622
+    },
+    {
+      "file": "partner-with-us.html",
+      "directory": ".",
+      "exists": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": true,
+      "hasNavigationSections": true,
+      "hasSocialLinks": false,
+      "hasBottomBar": true,
+      "hasAllRequiredSections": false,
+      "footerType": "standardized",
+      "issues": [
+        "Missing social media links"
+      ],
+      "fileSize": 56931
+    },
+    {
+      "file": "portals/accountant-portal.html",
+      "directory": "portals",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 24228
+    },
+    {
+      "file": "portals/appraiser-portal.html",
+      "directory": "portals",
+      "exists": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": true,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "standardized",
+      "issues": [
+        "Missing navigation sections",
+        "Missing social media links",
+        "Missing bottom bar with copyright"
+      ],
+      "fileSize": 17099
+    },
+    {
+      "file": "portals/attorney-portal.html",
+      "directory": "portals",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "custom",
+      "issues": [
+        "Has footer but not standardized structure"
+      ],
+      "fileSize": 29141
+    },
+    {
+      "file": "portals/buyer-portal.html",
+      "directory": "portals",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 8379
+    },
+    {
+      "file": "portals/components/portal-footer.html",
+      "directory": "portals/components",
+      "exists": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": true,
+      "hasNavigationSections": true,
+      "hasSocialLinks": false,
+      "hasBottomBar": true,
+      "hasAllRequiredSections": false,
+      "footerType": "standardized",
+      "issues": [
+        "Missing social media links"
+      ],
+      "fileSize": 15291
+    },
+    {
+      "file": "portals/components/portal-head.html",
+      "directory": "portals/components",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 4250
+    },
+    {
+      "file": "portals/components/portal-header.html",
+      "directory": "portals/components",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 9955
+    },
+    {
+      "file": "portals/insurance-portal.html",
+      "directory": "portals",
+      "exists": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": true,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "standardized",
+      "issues": [
+        "Missing navigation sections",
+        "Missing social media links",
+        "Missing bottom bar with copyright"
+      ],
+      "fileSize": 17223
+    },
+    {
+      "file": "portals/lender-portal.html",
+      "directory": "portals",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 13990
+    },
+    {
+      "file": "portals/ma-consultant-portal.html",
+      "directory": "portals",
+      "exists": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": true,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "standardized",
+      "issues": [
+        "Missing navigation sections",
+        "Missing social media links",
+        "Missing bottom bar with copyright"
+      ],
+      "fileSize": 15169
+    },
+    {
+      "file": "portals/sections/buyer/active-deals.html",
+      "directory": "portals/sections/buyer",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 11218
+    },
+    {
+      "file": "portals/sections/buyer/browse-listings.html",
+      "directory": "portals/sections/buyer",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 15859
+    },
+    {
+      "file": "portals/sections/buyer/dashboard.html",
+      "directory": "portals/sections/buyer",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 8321
+    },
+    {
+      "file": "portals/sections/buyer/express-listings.html",
+      "directory": "portals/sections/buyer",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 11355
+    },
+    {
+      "file": "portals/sections/buyer/financing.html",
+      "directory": "portals/sections/buyer",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 13906
+    },
+    {
+      "file": "portals/sections/buyer/funding-tools.html",
+      "directory": "portals/sections/buyer",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 22604
+    },
+    {
+      "file": "portals/sections/buyer/learning-center.html",
+      "directory": "portals/sections/buyer",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 23173
+    },
+    {
+      "file": "portals/sections/buyer/my-matches.html",
+      "directory": "portals/sections/buyer",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 21553
+    },
+    {
+      "file": "portals/sections/seller/buyer-interest.html",
+      "directory": "portals/sections/seller",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 18297
+    },
+    {
+      "file": "portals/sections/seller/dashboard.html",
+      "directory": "portals/sections/seller",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 13435
+    },
+    {
+      "file": "portals/sections/seller/express-status.html",
+      "directory": "portals/sections/seller",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 15597
+    },
+    {
+      "file": "portals/sections/seller/listing-management.html",
+      "directory": "portals/sections/seller",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 19883
+    },
+    {
+      "file": "portals/seller-portal.html",
+      "directory": "portals",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 8462
+    },
+    {
+      "file": "portals-footer-standardized.html",
+      "directory": ".",
+      "exists": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": true,
+      "hasNavigationSections": true,
+      "hasSocialLinks": false,
+      "hasBottomBar": true,
+      "hasAllRequiredSections": false,
+      "footerType": "standardized",
+      "issues": [
+        "Missing social media links"
+      ],
+      "fileSize": 14927
+    },
+    {
+      "file": "prelaunch-express.html",
+      "directory": ".",
+      "exists": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": true,
+      "hasNavigationSections": true,
+      "hasSocialLinks": false,
+      "hasBottomBar": true,
+      "hasAllRequiredSections": false,
+      "footerType": "standardized",
+      "issues": [
+        "Missing social media links"
+      ],
+      "fileSize": 48073
+    },
+    {
+      "file": "privacy-policy.html",
+      "directory": ".",
+      "exists": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": true,
+      "hasNavigationSections": true,
+      "hasSocialLinks": false,
+      "hasBottomBar": true,
+      "hasAllRequiredSections": false,
+      "footerType": "standardized",
+      "issues": [
+        "Missing social media links"
+      ],
+      "fileSize": 25380
+    },
+    {
+      "file": "sections/featured-listings.html",
+      "directory": "sections",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 13135
+    },
+    {
+      "file": "sections/features.html",
+      "directory": "sections",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 14235
+    },
+    {
+      "file": "sections/hero/atoms/badge-arrow.html",
+      "directory": "sections/hero/atoms",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 230
+    },
+    {
+      "file": "sections/hero/atoms/badge-new.html",
+      "directory": "sections/hero/atoms",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 122
+    },
+    {
+      "file": "sections/hero/atoms/badge-text.html",
+      "directory": "sections/hero/atoms",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 159
+    },
+    {
+      "file": "sections/hero/atoms/button-primary.html",
+      "directory": "sections/hero/atoms",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 303
+    },
+    {
+      "file": "sections/hero/atoms/button-secondary.html",
+      "directory": "sections/hero/atoms",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 499
+    },
+    {
+      "file": "sections/hero/atoms/dashboard-image.html",
+      "directory": "sections/hero/atoms",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 6113
+    },
+    {
+      "file": "sections/hero/atoms/description.html",
+      "directory": "sections/hero/atoms",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 218
+    },
+    {
+      "file": "sections/hero/atoms/headline.html",
+      "directory": "sections/hero/atoms",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 134
+    },
+    {
+      "file": "sections/hero/hero-badge.html",
+      "directory": "sections/hero",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 599
+    },
+    {
+      "file": "sections/hero/hero-content.html",
+      "directory": "sections/hero",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 344
+    },
+    {
+      "file": "sections/hero/hero-cta-buttons.html",
+      "directory": "sections/hero",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 888
+    },
+    {
+      "file": "sections/hero/hero-dashboard-preview.html",
+      "directory": "sections/hero",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 10594
+    },
+    {
+      "file": "sections/hero-consolidated.html",
+      "directory": "sections",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 16142
+    },
+    {
+      "file": "sections/hero.html",
+      "directory": "sections",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 3061
+    },
+    {
+      "file": "sections/process-timeline.html",
+      "directory": "sections",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 9521
+    },
+    {
+      "file": "sections/testimonials.html",
+      "directory": "sections",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 14016
+    },
+    {
+      "file": "simple-swiper-js-example/dist/index.html",
+      "directory": "simple-swiper-js-example/dist",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 2616
+    },
+    {
+      "file": "simple-swiper-js-example/src/index.html",
+      "directory": "simple-swiper-js-example/src",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 2254
+    },
+    {
+      "file": "src/features/authentication/pages/login.html",
+      "directory": "src/features/authentication/pages",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 12193
+    },
+    {
+      "file": "terms-of-service.html",
+      "directory": ".",
+      "exists": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": true,
+      "hasNavigationSections": true,
+      "hasSocialLinks": false,
+      "hasBottomBar": true,
+      "hasAllRequiredSections": false,
+      "footerType": "standardized",
+      "issues": [
+        "Missing social media links"
+      ],
+      "fileSize": 24098
+    },
+    {
+      "file": "test-dashboard-fixes.html",
+      "directory": ".",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 6082
+    },
+    {
+      "file": "test-hero.html",
+      "directory": ".",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 2236
+    },
+    {
+      "file": "test-portal-sections.html",
+      "directory": ".",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 4178
+    },
+    {
+      "file": "test-spacing-fixes.html",
+      "directory": ".",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "missing",
+      "issues": [
+        "No footer found"
+      ],
+      "fileSize": 8412
+    },
+    {
+      "file": "tools/due-diligence-checklist.html",
+      "directory": "tools",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "custom",
+      "issues": [
+        "Has footer but not standardized structure"
+      ],
+      "fileSize": 21357
+    },
+    {
+      "file": "tools/valuation.html",
+      "directory": "tools",
+      "exists": true,
+      "hasStandardizedFooter": false,
+      "hasDynamicLoading": true,
+      "hasCompanyInfo": false,
+      "hasNavigationSections": false,
+      "hasSocialLinks": false,
+      "hasBottomBar": false,
+      "hasAllRequiredSections": false,
+      "footerType": "dynamic",
+      "issues": [
+        "Still using dynamic footer loading",
+        "Has footer but not standardized structure"
+      ],
+      "fileSize": 20866
+    },
+    {
+      "file": "vendor-portal/accounting-firms.html",
+      "directory": "vendor-portal",
+      "exists": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": true,
+      "hasNavigationSections": true,
+      "hasSocialLinks": true,
+      "hasBottomBar": true,
+      "hasAllRequiredSections": true,
+      "footerType": "standardized",
+      "issues": [],
+      "fileSize": 24229
+    },
+    {
+      "file": "vendor-portal/financial-institutions.html",
+      "directory": "vendor-portal",
+      "exists": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": true,
+      "hasNavigationSections": true,
+      "hasSocialLinks": true,
+      "hasBottomBar": true,
+      "hasAllRequiredSections": true,
+      "footerType": "standardized",
+      "issues": [],
+      "fileSize": 23541
+    },
+    {
+      "file": "vendor-portal/legal-firms.html",
+      "directory": "vendor-portal",
+      "exists": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": true,
+      "hasNavigationSections": true,
+      "hasSocialLinks": true,
+      "hasBottomBar": true,
+      "hasAllRequiredSections": true,
+      "footerType": "standardized",
+      "issues": [],
+      "fileSize": 24220
+    },
+    {
+      "file": "vendor-portal-footer-standardized.html",
+      "directory": ".",
+      "exists": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": true,
+      "hasNavigationSections": true,
+      "hasSocialLinks": false,
+      "hasBottomBar": true,
+      "hasAllRequiredSections": false,
+      "footerType": "standardized",
+      "issues": [
+        "Missing social media links"
+      ],
+      "fileSize": 14907
+    }
+  ],
+  "summary": {
+    "rootDirectory": [
+      {
+        "file": "about.html",
+        "directory": ".",
+        "exists": true,
+        "hasStandardizedFooter": true,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": true,
+        "hasNavigationSections": true,
+        "hasSocialLinks": false,
+        "hasBottomBar": true,
+        "hasAllRequiredSections": false,
+        "footerType": "standardized",
+        "issues": [
+          "Missing social media links"
+        ],
+        "fileSize": 44705
+      },
+      {
+        "file": "auth-footer-standardized.html",
+        "directory": ".",
+        "exists": true,
+        "hasStandardizedFooter": true,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": true,
+        "hasNavigationSections": true,
+        "hasSocialLinks": false,
+        "hasBottomBar": true,
+        "hasAllRequiredSections": false,
+        "footerType": "standardized",
+        "issues": [
+          "Missing social media links"
+        ],
+        "fileSize": 14932
+      },
+      {
+        "file": "blog.html",
+        "directory": ".",
+        "exists": true,
+        "hasStandardizedFooter": true,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": true,
+        "hasNavigationSections": true,
+        "hasSocialLinks": false,
+        "hasBottomBar": true,
+        "hasAllRequiredSections": false,
+        "footerType": "standardized",
+        "issues": [
+          "Missing social media links"
+        ],
+        "fileSize": 34062
+      },
+      {
+        "file": "careers.html",
+        "directory": ".",
+        "exists": true,
+        "hasStandardizedFooter": true,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": true,
+        "hasNavigationSections": true,
+        "hasSocialLinks": false,
+        "hasBottomBar": true,
+        "hasAllRequiredSections": false,
+        "footerType": "standardized",
+        "issues": [
+          "Missing social media links"
+        ],
+        "fileSize": 33331
+      },
+      {
+        "file": "contact.html",
+        "directory": ".",
+        "exists": true,
+        "hasStandardizedFooter": true,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": true,
+        "hasNavigationSections": true,
+        "hasSocialLinks": false,
+        "hasBottomBar": true,
+        "hasAllRequiredSections": false,
+        "footerType": "standardized",
+        "issues": [
+          "Missing social media links"
+        ],
+        "fileSize": 44580
+      },
+      {
+        "file": "cookie-policy.html",
+        "directory": ".",
+        "exists": true,
+        "hasStandardizedFooter": true,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": true,
+        "hasNavigationSections": true,
+        "hasSocialLinks": false,
+        "hasBottomBar": true,
+        "hasAllRequiredSections": false,
+        "footerType": "standardized",
+        "issues": [
+          "Missing social media links"
+        ],
+        "fileSize": 24972
+      },
+      {
+        "file": "documents-footer-standardized.html",
+        "directory": ".",
+        "exists": true,
+        "hasStandardizedFooter": true,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": true,
+        "hasNavigationSections": true,
+        "hasSocialLinks": false,
+        "hasBottomBar": true,
+        "hasAllRequiredSections": false,
+        "footerType": "standardized",
+        "issues": [
+          "Missing social media links"
+        ],
+        "fileSize": 14787
+      },
+      {
+        "file": "enhanced-comparison-section.html",
+        "directory": ".",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 22212
+      },
+      {
+        "file": "enhanced-for-buyers-section.html",
+        "directory": ".",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 10632
+      },
+      {
+        "file": "enhanced-for-sellers-section.html",
+        "directory": ".",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 14364
+      },
+      {
+        "file": "enhanced-matches-page.html",
+        "directory": ".",
+        "exists": true,
+        "hasStandardizedFooter": true,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": true,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "standardized",
+        "issues": [
+          "Missing navigation sections",
+          "Missing social media links",
+          "Missing bottom bar with copyright"
+        ],
+        "fileSize": 12532
+      },
+      {
+        "file": "enhanced-partner-cards-section.html",
+        "directory": ".",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 15982
+      },
+      {
+        "file": "express-deal.html",
+        "directory": ".",
+        "exists": true,
+        "hasStandardizedFooter": true,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": true,
+        "hasNavigationSections": true,
+        "hasSocialLinks": false,
+        "hasBottomBar": true,
+        "hasAllRequiredSections": false,
+        "footerType": "standardized",
+        "issues": [
+          "Missing social media links"
+        ],
+        "fileSize": 41123
+      },
+      {
+        "file": "footer-embedded-subdirectory.html",
+        "directory": ".",
+        "exists": true,
+        "hasStandardizedFooter": true,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": true,
+        "hasNavigationSections": true,
+        "hasSocialLinks": false,
+        "hasBottomBar": true,
+        "hasAllRequiredSections": false,
+        "footerType": "standardized",
+        "issues": [
+          "Missing social media links"
+        ],
+        "fileSize": 14136
+      },
+      {
+        "file": "footer-embedded.html",
+        "directory": ".",
+        "exists": true,
+        "hasStandardizedFooter": true,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": true,
+        "hasNavigationSections": true,
+        "hasSocialLinks": false,
+        "hasBottomBar": true,
+        "hasAllRequiredSections": false,
+        "footerType": "standardized",
+        "issues": [
+          "Missing social media links"
+        ],
+        "fileSize": 13980
+      },
+      {
+        "file": "for-buyers.html",
+        "directory": ".",
+        "exists": true,
+        "hasStandardizedFooter": true,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": true,
+        "hasNavigationSections": true,
+        "hasSocialLinks": false,
+        "hasBottomBar": true,
+        "hasAllRequiredSections": false,
+        "footerType": "standardized",
+        "issues": [
+          "Missing social media links"
+        ],
+        "fileSize": 54394
+      },
+      {
+        "file": "for-sellers.html",
+        "directory": ".",
+        "exists": true,
+        "hasStandardizedFooter": true,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": true,
+        "hasNavigationSections": true,
+        "hasSocialLinks": false,
+        "hasBottomBar": true,
+        "hasAllRequiredSections": false,
+        "footerType": "standardized",
+        "issues": [
+          "Missing social media links"
+        ],
+        "fileSize": 52624
+      },
+      {
+        "file": "how-it-works.html",
+        "directory": ".",
+        "exists": true,
+        "hasStandardizedFooter": true,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": true,
+        "hasNavigationSections": true,
+        "hasSocialLinks": false,
+        "hasBottomBar": true,
+        "hasAllRequiredSections": false,
+        "footerType": "standardized",
+        "issues": [
+          "Missing social media links"
+        ],
+        "fileSize": 44644
+      },
+      {
+        "file": "index.html",
+        "directory": ".",
+        "exists": true,
+        "hasStandardizedFooter": true,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": true,
+        "hasNavigationSections": true,
+        "hasSocialLinks": false,
+        "hasBottomBar": true,
+        "hasAllRequiredSections": false,
+        "footerType": "standardized",
+        "issues": [
+          "Missing social media links"
+        ],
+        "fileSize": 46725
+      },
+      {
+        "file": "partner-with-us.html",
+        "directory": ".",
+        "exists": true,
+        "hasStandardizedFooter": true,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": true,
+        "hasNavigationSections": true,
+        "hasSocialLinks": false,
+        "hasBottomBar": true,
+        "hasAllRequiredSections": false,
+        "footerType": "standardized",
+        "issues": [
+          "Missing social media links"
+        ],
+        "fileSize": 56931
+      },
+      {
+        "file": "portals-footer-standardized.html",
+        "directory": ".",
+        "exists": true,
+        "hasStandardizedFooter": true,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": true,
+        "hasNavigationSections": true,
+        "hasSocialLinks": false,
+        "hasBottomBar": true,
+        "hasAllRequiredSections": false,
+        "footerType": "standardized",
+        "issues": [
+          "Missing social media links"
+        ],
+        "fileSize": 14927
+      },
+      {
+        "file": "prelaunch-express.html",
+        "directory": ".",
+        "exists": true,
+        "hasStandardizedFooter": true,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": true,
+        "hasNavigationSections": true,
+        "hasSocialLinks": false,
+        "hasBottomBar": true,
+        "hasAllRequiredSections": false,
+        "footerType": "standardized",
+        "issues": [
+          "Missing social media links"
+        ],
+        "fileSize": 48073
+      },
+      {
+        "file": "privacy-policy.html",
+        "directory": ".",
+        "exists": true,
+        "hasStandardizedFooter": true,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": true,
+        "hasNavigationSections": true,
+        "hasSocialLinks": false,
+        "hasBottomBar": true,
+        "hasAllRequiredSections": false,
+        "footerType": "standardized",
+        "issues": [
+          "Missing social media links"
+        ],
+        "fileSize": 25380
+      },
+      {
+        "file": "terms-of-service.html",
+        "directory": ".",
+        "exists": true,
+        "hasStandardizedFooter": true,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": true,
+        "hasNavigationSections": true,
+        "hasSocialLinks": false,
+        "hasBottomBar": true,
+        "hasAllRequiredSections": false,
+        "footerType": "standardized",
+        "issues": [
+          "Missing social media links"
+        ],
+        "fileSize": 24098
+      },
+      {
+        "file": "test-dashboard-fixes.html",
+        "directory": ".",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 6082
+      },
+      {
+        "file": "test-hero.html",
+        "directory": ".",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 2236
+      },
+      {
+        "file": "test-portal-sections.html",
+        "directory": ".",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 4178
+      },
+      {
+        "file": "test-spacing-fixes.html",
+        "directory": ".",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 8412
+      },
+      {
+        "file": "vendor-portal-footer-standardized.html",
+        "directory": ".",
+        "exists": true,
+        "hasStandardizedFooter": true,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": true,
+        "hasNavigationSections": true,
+        "hasSocialLinks": false,
+        "hasBottomBar": true,
+        "hasAllRequiredSections": false,
+        "footerType": "standardized",
+        "issues": [
+          "Missing social media links"
+        ],
+        "fileSize": 14907
+      }
+    ],
+    "authDirectory": [
+      {
+        "file": "auth/login.html",
+        "directory": "auth",
+        "exists": true,
+        "hasStandardizedFooter": true,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": true,
+        "hasNavigationSections": true,
+        "hasSocialLinks": true,
+        "hasBottomBar": true,
+        "hasAllRequiredSections": true,
+        "footerType": "standardized",
+        "issues": [],
+        "fileSize": 32256
+      },
+      {
+        "file": "auth/register.html",
+        "directory": "auth",
+        "exists": true,
+        "hasStandardizedFooter": true,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": true,
+        "hasNavigationSections": true,
+        "hasSocialLinks": true,
+        "hasBottomBar": true,
+        "hasAllRequiredSections": true,
+        "footerType": "standardized",
+        "issues": [],
+        "fileSize": 38586
+      }
+    ],
+    "portalsDirectory": [
+      {
+        "file": "portals/accountant-portal.html",
+        "directory": "portals",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 24228
+      },
+      {
+        "file": "portals/appraiser-portal.html",
+        "directory": "portals",
+        "exists": true,
+        "hasStandardizedFooter": true,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": true,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "standardized",
+        "issues": [
+          "Missing navigation sections",
+          "Missing social media links",
+          "Missing bottom bar with copyright"
+        ],
+        "fileSize": 17099
+      },
+      {
+        "file": "portals/attorney-portal.html",
+        "directory": "portals",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "custom",
+        "issues": [
+          "Has footer but not standardized structure"
+        ],
+        "fileSize": 29141
+      },
+      {
+        "file": "portals/buyer-portal.html",
+        "directory": "portals",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 8379
+      },
+      {
+        "file": "portals/components/portal-footer.html",
+        "directory": "portals/components",
+        "exists": true,
+        "hasStandardizedFooter": true,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": true,
+        "hasNavigationSections": true,
+        "hasSocialLinks": false,
+        "hasBottomBar": true,
+        "hasAllRequiredSections": false,
+        "footerType": "standardized",
+        "issues": [
+          "Missing social media links"
+        ],
+        "fileSize": 15291
+      },
+      {
+        "file": "portals/components/portal-head.html",
+        "directory": "portals/components",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 4250
+      },
+      {
+        "file": "portals/components/portal-header.html",
+        "directory": "portals/components",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 9955
+      },
+      {
+        "file": "portals/insurance-portal.html",
+        "directory": "portals",
+        "exists": true,
+        "hasStandardizedFooter": true,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": true,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "standardized",
+        "issues": [
+          "Missing navigation sections",
+          "Missing social media links",
+          "Missing bottom bar with copyright"
+        ],
+        "fileSize": 17223
+      },
+      {
+        "file": "portals/lender-portal.html",
+        "directory": "portals",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 13990
+      },
+      {
+        "file": "portals/ma-consultant-portal.html",
+        "directory": "portals",
+        "exists": true,
+        "hasStandardizedFooter": true,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": true,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "standardized",
+        "issues": [
+          "Missing navigation sections",
+          "Missing social media links",
+          "Missing bottom bar with copyright"
+        ],
+        "fileSize": 15169
+      },
+      {
+        "file": "portals/sections/buyer/active-deals.html",
+        "directory": "portals/sections/buyer",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 11218
+      },
+      {
+        "file": "portals/sections/buyer/browse-listings.html",
+        "directory": "portals/sections/buyer",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 15859
+      },
+      {
+        "file": "portals/sections/buyer/dashboard.html",
+        "directory": "portals/sections/buyer",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 8321
+      },
+      {
+        "file": "portals/sections/buyer/express-listings.html",
+        "directory": "portals/sections/buyer",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 11355
+      },
+      {
+        "file": "portals/sections/buyer/financing.html",
+        "directory": "portals/sections/buyer",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 13906
+      },
+      {
+        "file": "portals/sections/buyer/funding-tools.html",
+        "directory": "portals/sections/buyer",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 22604
+      },
+      {
+        "file": "portals/sections/buyer/learning-center.html",
+        "directory": "portals/sections/buyer",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 23173
+      },
+      {
+        "file": "portals/sections/buyer/my-matches.html",
+        "directory": "portals/sections/buyer",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 21553
+      },
+      {
+        "file": "portals/sections/seller/buyer-interest.html",
+        "directory": "portals/sections/seller",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 18297
+      },
+      {
+        "file": "portals/sections/seller/dashboard.html",
+        "directory": "portals/sections/seller",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 13435
+      },
+      {
+        "file": "portals/sections/seller/express-status.html",
+        "directory": "portals/sections/seller",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 15597
+      },
+      {
+        "file": "portals/sections/seller/listing-management.html",
+        "directory": "portals/sections/seller",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 19883
+      },
+      {
+        "file": "portals/seller-portal.html",
+        "directory": "portals",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 8462
+      }
+    ],
+    "vendorPortalDirectory": [
+      {
+        "file": "vendor-portal/accounting-firms.html",
+        "directory": "vendor-portal",
+        "exists": true,
+        "hasStandardizedFooter": true,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": true,
+        "hasNavigationSections": true,
+        "hasSocialLinks": true,
+        "hasBottomBar": true,
+        "hasAllRequiredSections": true,
+        "footerType": "standardized",
+        "issues": [],
+        "fileSize": 24229
+      },
+      {
+        "file": "vendor-portal/financial-institutions.html",
+        "directory": "vendor-portal",
+        "exists": true,
+        "hasStandardizedFooter": true,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": true,
+        "hasNavigationSections": true,
+        "hasSocialLinks": true,
+        "hasBottomBar": true,
+        "hasAllRequiredSections": true,
+        "footerType": "standardized",
+        "issues": [],
+        "fileSize": 23541
+      },
+      {
+        "file": "vendor-portal/legal-firms.html",
+        "directory": "vendor-portal",
+        "exists": true,
+        "hasStandardizedFooter": true,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": true,
+        "hasNavigationSections": true,
+        "hasSocialLinks": true,
+        "hasBottomBar": true,
+        "hasAllRequiredSections": true,
+        "footerType": "standardized",
+        "issues": [],
+        "fileSize": 24220
+      }
+    ],
+    "marketplaceDirectory": [
+      {
+        "file": "marketplace/listings.html",
+        "directory": "marketplace",
+        "exists": true,
+        "hasStandardizedFooter": true,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": true,
+        "hasNavigationSections": true,
+        "hasSocialLinks": false,
+        "hasBottomBar": true,
+        "hasAllRequiredSections": false,
+        "footerType": "standardized",
+        "issues": [
+          "Missing social media links"
+        ],
+        "fileSize": 37885
+      }
+    ],
+    "dashboardDirectory": [
+      {
+        "file": "dashboard/buyer-dashboard-backup.html",
+        "directory": "dashboard",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": true,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "dynamic",
+        "issues": [
+          "Still using dynamic footer loading",
+          "Has footer but not standardized structure"
+        ],
+        "fileSize": 110301
+      },
+      {
+        "file": "dashboard/buyer-dashboard.html",
+        "directory": "dashboard",
+        "exists": true,
+        "hasStandardizedFooter": true,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": true,
+        "hasNavigationSections": true,
+        "hasSocialLinks": false,
+        "hasBottomBar": true,
+        "hasAllRequiredSections": false,
+        "footerType": "standardized",
+        "issues": [
+          "Missing social media links"
+        ],
+        "fileSize": 125635
+      },
+      {
+        "file": "dashboard/seller-dashboard.html",
+        "directory": "dashboard",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "custom",
+        "issues": [
+          "Has footer but not standardized structure"
+        ],
+        "fileSize": 196480
+      }
+    ],
+    "blogDirectory": [
+      {
+        "file": "blog/auto-shop-valuation-factors.html",
+        "directory": "blog",
+        "exists": true,
+        "hasStandardizedFooter": true,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": true,
+        "hasNavigationSections": true,
+        "hasSocialLinks": false,
+        "hasBottomBar": true,
+        "hasAllRequiredSections": false,
+        "footerType": "standardized",
+        "issues": [
+          "Missing social media links"
+        ],
+        "fileSize": 31189
+      },
+      {
+        "file": "blog/dfw-market-trends-2024.html",
+        "directory": "blog",
+        "exists": true,
+        "hasStandardizedFooter": true,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": true,
+        "hasNavigationSections": true,
+        "hasSocialLinks": false,
+        "hasBottomBar": true,
+        "hasAllRequiredSections": false,
+        "footerType": "standardized",
+        "issues": [
+          "Missing social media links"
+        ],
+        "fileSize": 36111
+      },
+      {
+        "file": "blog/due-diligence-checklist.html",
+        "directory": "blog",
+        "exists": true,
+        "hasStandardizedFooter": true,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": true,
+        "hasNavigationSections": true,
+        "hasSocialLinks": false,
+        "hasBottomBar": true,
+        "hasAllRequiredSections": false,
+        "footerType": "standardized",
+        "issues": [
+          "Missing social media links"
+        ],
+        "fileSize": 36417
+      },
+      {
+        "file": "blog/express-deal-success-stories.html",
+        "directory": "blog",
+        "exists": true,
+        "hasStandardizedFooter": true,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": true,
+        "hasNavigationSections": true,
+        "hasSocialLinks": false,
+        "hasBottomBar": true,
+        "hasAllRequiredSections": false,
+        "footerType": "standardized",
+        "issues": [
+          "Missing social media links"
+        ],
+        "fileSize": 37945
+      },
+      {
+        "file": "blog/financing-options-auto-shops.html",
+        "directory": "blog",
+        "exists": true,
+        "hasStandardizedFooter": true,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": true,
+        "hasNavigationSections": true,
+        "hasSocialLinks": false,
+        "hasBottomBar": true,
+        "hasAllRequiredSections": false,
+        "footerType": "standardized",
+        "issues": [
+          "Missing social media links"
+        ],
+        "fileSize": 34260
+      },
+      {
+        "file": "blog/index.html",
+        "directory": "blog",
+        "exists": true,
+        "hasStandardizedFooter": true,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": true,
+        "hasNavigationSections": true,
+        "hasSocialLinks": false,
+        "hasBottomBar": true,
+        "hasAllRequiredSections": false,
+        "footerType": "standardized",
+        "issues": [
+          "Missing social media links"
+        ],
+        "fileSize": 34424
+      },
+      {
+        "file": "blog/preparing-auto-shop-for-sale.html",
+        "directory": "blog",
+        "exists": true,
+        "hasStandardizedFooter": true,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": true,
+        "hasNavigationSections": true,
+        "hasSocialLinks": false,
+        "hasBottomBar": true,
+        "hasAllRequiredSections": false,
+        "footerType": "standardized",
+        "issues": [
+          "Missing social media links"
+        ],
+        "fileSize": 38290
+      }
+    ],
+    "documentsDirectory": [
+      {
+        "file": "documents/business-plan.html",
+        "directory": "documents",
+        "exists": true,
+        "hasStandardizedFooter": true,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": true,
+        "hasNavigationSections": true,
+        "hasSocialLinks": false,
+        "hasBottomBar": true,
+        "hasAllRequiredSections": false,
+        "footerType": "standardized",
+        "issues": [
+          "Missing social media links"
+        ],
+        "fileSize": 71547
+      },
+      {
+        "file": "documents/company-strategy.html",
+        "directory": "documents",
+        "exists": true,
+        "hasStandardizedFooter": true,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": true,
+        "hasNavigationSections": true,
+        "hasSocialLinks": false,
+        "hasBottomBar": true,
+        "hasAllRequiredSections": false,
+        "footerType": "standardized",
+        "issues": [
+          "Missing social media links"
+        ],
+        "fileSize": 40795
+      },
+      {
+        "file": "documents/financial-projections.html",
+        "directory": "documents",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "custom",
+        "issues": [
+          "Has footer but not standardized structure"
+        ],
+        "fileSize": 19105
+      },
+      {
+        "file": "documents/founding-member.html",
+        "directory": "documents",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "custom",
+        "issues": [
+          "Has footer but not standardized structure"
+        ],
+        "fileSize": 20733
+      },
+      {
+        "file": "documents/marketing-plan.html",
+        "directory": "documents",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "custom",
+        "issues": [
+          "Has footer but not standardized structure"
+        ],
+        "fileSize": 26200
+      },
+      {
+        "file": "documents/nda.html",
+        "directory": "documents",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 15774
+      },
+      {
+        "file": "documents/one-page-pitch.html",
+        "directory": "documents",
+        "exists": true,
+        "hasStandardizedFooter": true,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": true,
+        "hasNavigationSections": true,
+        "hasSocialLinks": false,
+        "hasBottomBar": true,
+        "hasAllRequiredSections": false,
+        "footerType": "standardized",
+        "issues": [
+          "Missing social media links"
+        ],
+        "fileSize": 83314
+      },
+      {
+        "file": "documents/pitch-deck-fi.html",
+        "directory": "documents",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": true,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "dynamic",
+        "issues": [
+          "Still using dynamic footer loading",
+          "Has footer but not standardized structure"
+        ],
+        "fileSize": 25009
+      },
+      {
+        "file": "documents/pitch-deck-legal.html",
+        "directory": "documents",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "custom",
+        "issues": [
+          "Has footer but not standardized structure"
+        ],
+        "fileSize": 24309
+      },
+      {
+        "file": "documents/templates.html",
+        "directory": "documents",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 20622
+      },
+      {
+        "file": "documents/vendor-accounting.html",
+        "directory": "documents",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "custom",
+        "issues": [
+          "Has footer but not standardized structure"
+        ],
+        "fileSize": 27252
+      },
+      {
+        "file": "documents/vendor-financial.html",
+        "directory": "documents",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "custom",
+        "issues": [
+          "Has footer but not standardized structure"
+        ],
+        "fileSize": 24071
+      },
+      {
+        "file": "documents/vendor-legal.html",
+        "directory": "documents",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "custom",
+        "issues": [
+          "Has footer but not standardized structure"
+        ],
+        "fileSize": 32082
+      }
+    ],
+    "fundingDirectory": [
+      {
+        "file": "funding/loan-calculator.html",
+        "directory": "funding",
+        "exists": true,
+        "hasStandardizedFooter": true,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": true,
+        "hasNavigationSections": true,
+        "hasSocialLinks": false,
+        "hasBottomBar": true,
+        "hasAllRequiredSections": false,
+        "footerType": "standardized",
+        "issues": [
+          "Missing social media links"
+        ],
+        "fileSize": 32352
+      }
+    ],
+    "otherDirectories": [
+      {
+        "file": "assets/components/shadcn/badge.html",
+        "directory": "assets/components/shadcn",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 7456
+      },
+      {
+        "file": "assets/components/shadcn/button.html",
+        "directory": "assets/components/shadcn",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 6873
+      },
+      {
+        "file": "assets/components/shadcn/card.html",
+        "directory": "assets/components/shadcn",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 6691
+      },
+      {
+        "file": "assets/images/dashboard-placeholder.html",
+        "directory": "assets/images",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 9135
+      },
+      {
+        "file": "components/head.html",
+        "directory": "components",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 1985
+      },
+      {
+        "file": "components/header.html",
+        "directory": "components",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 3786
+      },
+      {
+        "file": "components/navigation.html",
+        "directory": "components",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 4202
+      },
+      {
+        "file": "education/guides.html",
+        "directory": "education",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": true,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "dynamic",
+        "issues": [
+          "Still using dynamic footer loading",
+          "Has footer but not standardized structure"
+        ],
+        "fileSize": 20502
+      },
+      {
+        "file": "matchmaking/matches.html",
+        "directory": "matchmaking",
+        "exists": true,
+        "hasStandardizedFooter": true,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": true,
+        "hasNavigationSections": true,
+        "hasSocialLinks": false,
+        "hasBottomBar": true,
+        "hasAllRequiredSections": false,
+        "footerType": "standardized",
+        "issues": [
+          "Missing social media links"
+        ],
+        "fileSize": 39622
+      },
+      {
+        "file": "sections/featured-listings.html",
+        "directory": "sections",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 13135
+      },
+      {
+        "file": "sections/features.html",
+        "directory": "sections",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 14235
+      },
+      {
+        "file": "sections/hero/atoms/badge-arrow.html",
+        "directory": "sections/hero/atoms",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 230
+      },
+      {
+        "file": "sections/hero/atoms/badge-new.html",
+        "directory": "sections/hero/atoms",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 122
+      },
+      {
+        "file": "sections/hero/atoms/badge-text.html",
+        "directory": "sections/hero/atoms",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 159
+      },
+      {
+        "file": "sections/hero/atoms/button-primary.html",
+        "directory": "sections/hero/atoms",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 303
+      },
+      {
+        "file": "sections/hero/atoms/button-secondary.html",
+        "directory": "sections/hero/atoms",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 499
+      },
+      {
+        "file": "sections/hero/atoms/dashboard-image.html",
+        "directory": "sections/hero/atoms",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 6113
+      },
+      {
+        "file": "sections/hero/atoms/description.html",
+        "directory": "sections/hero/atoms",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 218
+      },
+      {
+        "file": "sections/hero/atoms/headline.html",
+        "directory": "sections/hero/atoms",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 134
+      },
+      {
+        "file": "sections/hero/hero-badge.html",
+        "directory": "sections/hero",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 599
+      },
+      {
+        "file": "sections/hero/hero-content.html",
+        "directory": "sections/hero",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 344
+      },
+      {
+        "file": "sections/hero/hero-cta-buttons.html",
+        "directory": "sections/hero",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 888
+      },
+      {
+        "file": "sections/hero/hero-dashboard-preview.html",
+        "directory": "sections/hero",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 10594
+      },
+      {
+        "file": "sections/hero-consolidated.html",
+        "directory": "sections",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 16142
+      },
+      {
+        "file": "sections/hero.html",
+        "directory": "sections",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 3061
+      },
+      {
+        "file": "sections/process-timeline.html",
+        "directory": "sections",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 9521
+      },
+      {
+        "file": "sections/testimonials.html",
+        "directory": "sections",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 14016
+      },
+      {
+        "file": "simple-swiper-js-example/dist/index.html",
+        "directory": "simple-swiper-js-example/dist",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 2616
+      },
+      {
+        "file": "simple-swiper-js-example/src/index.html",
+        "directory": "simple-swiper-js-example/src",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 2254
+      },
+      {
+        "file": "src/features/authentication/pages/login.html",
+        "directory": "src/features/authentication/pages",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "missing",
+        "issues": [
+          "No footer found"
+        ],
+        "fileSize": 12193
+      },
+      {
+        "file": "tools/due-diligence-checklist.html",
+        "directory": "tools",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": false,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "custom",
+        "issues": [
+          "Has footer but not standardized structure"
+        ],
+        "fileSize": 21357
+      },
+      {
+        "file": "tools/valuation.html",
+        "directory": "tools",
+        "exists": true,
+        "hasStandardizedFooter": false,
+        "hasDynamicLoading": true,
+        "hasCompanyInfo": false,
+        "hasNavigationSections": false,
+        "hasSocialLinks": false,
+        "hasBottomBar": false,
+        "hasAllRequiredSections": false,
+        "footerType": "dynamic",
+        "issues": [
+          "Still using dynamic footer loading",
+          "Has footer but not standardized structure"
+        ],
+        "fileSize": 20866
+      }
+    ]
+  }
+}

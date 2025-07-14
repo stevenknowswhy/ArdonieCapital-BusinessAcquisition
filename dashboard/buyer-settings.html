@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Buyer Dashboard | Ardonie Capital</title>
+    <meta name="description" content="Manage your account settings, subscription, and preferences for Ardonie Capital's Express Path program.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            light: '#3B82F6',
+                            DEFAULT: '#2563EB',
+                            dark: '#1D4ED8'
+                        },
+                        secondary: {
+                            light: '#F8FAFC',
+                            DEFAULT: '#E2E8F0',
+                            dark: '#64748B'
+                        },
+                        accent: {
+                            light: '#10B981',
+                            DEFAULT: '#059669',
+                            dark: '#047857'
+                        }
+                    }
+                }
+            }
+        };
+
+        // Apply saved theme preference immediately
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+
+    <!-- Navigation Styles -->
+    <link rel="stylesheet" href="../components/navigation-styles.css">
+    <link rel="stylesheet" href="../assets/css/admin-navigation.css">
+
+    <!-- Custom Styles -->
+    <style>
+        /* Dashboard Sidebar Styles */
+        .dashboard-sidebar {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @media (max-width: 1023px) {
+            .dashboard-sidebar {
+                transform: translateX(-100%);
+            }
+            .dashboard-sidebar.mobile-open {
+                transform: translateX(0);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .dashboard-sidebar {
+                transform: translateX(0);
+            }
+        }
+
+        .dashboard-content {
+            transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @media (min-width: 1024px) {
+            .dashboard-content {
+                margin-left: 16rem;
+            }
+        }
+
+        .dashboard-nav-item {
+            color: #64748b;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .dashboard-nav-item:hover {
+            color: #2563eb;
+            background-color: rgba(37, 99, 235, 0.1);
+        }
+
+        .dashboard-nav-item.active {
+            color: #2563eb;
+            background-color: rgba(37, 99, 235, 0.1);
+            font-weight: 600;
+        }
+
+        .dark .dashboard-nav-item {
+            color: #94a3b8;
+        }
+
+        .dark .dashboard-nav-item:hover {
+            color: #3b82f6;
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+
+        .dark .dashboard-nav-item.active {
+            color: #3b82f6;
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+
+        /* Settings Tab Styles */
+        .settings-tab {
+            transition: all 0.2s ease-in-out;
+        }
+
+        .settings-tab.active {
+            background-color: rgba(37, 99, 235, 0.1);
+            color: #2563eb;
+            border-color: #2563eb;
+        }
+
+        .dark .settings-tab.active {
+            background-color: rgba(59, 130, 246, 0.1);
+            color: #3b82f6;
+            border-color: #3b82f6;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100" data-required-role="buyer,admin">
+    <!-- Authentication Loading Overlay -->
+    <div id="auth-loading" class="fixed inset-0 bg-white dark:bg-slate-900 z-50 flex items-center justify-center">
+        <div class="text-center">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+            <p class="text-slate-600 dark:text-slate-400">Loading settings...</p>
+        </div>
+    </div>
+
+    <!-- Main Site Navigation Header -->
+    <div id="main-navigation-container"></div>
+    <div id="admin-navigation-container"></div>
+
+    <!-- Dashboard Layout -->
+    <div class="flex min-h-screen pt-16">
+        <!-- Dashboard Sidebar -->
+        <aside id="dashboard-sidebar" class="dashboard-sidebar fixed left-0 top-16 h-full w-64 bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 z-40">
+            <div class="p-6">
+                <!-- User Profile Section -->
+                <div class="mb-8">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="w-12 h-12 bg-gradient-to-r from-primary to-primary-dark rounded-full flex items-center justify-center">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 id="sidebar-user-name" class="font-semibold text-slate-900 dark:text-white">Loading...</h3>
+                            <p class="text-sm text-slate-600 dark:text-slate-400">Express Buyer</p>
+                        </div>
+                    </div>
+
+                    <!-- Express Status Badge -->
+                    <div class="bg-gradient-to-r from-accent to-accent-dark text-white px-3 py-2 rounded-lg text-sm">
+                        <div class="flex items-center justify-between">
+                            <span class="font-medium">Express Status</span>
+                            <span class="text-xs text-slate-600 dark:text-slate-400">34-day avg</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Menu -->
+                <nav class="space-y-2">
+                    <a href="./buyer-dashboard.html" class="dashboard-nav-item flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"></path>
+                        </svg>
+                        <span>Overview</span>
+                    </a>
+
+                    <a href="../marketplace/listings.html" class="dashboard-nav-item flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                        <span>Express Listings</span>
+                    </a>
+
+                    <a href="../chat/index.html" class="dashboard-nav-item flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                        </svg>
+                        <span>Chat</span>
+                        <span id="unread-chat-badge" class="ml-auto bg-orange-500 text-white text-xs px-2 py-1 rounded-full badge-hidden">0</span>
+                    </a>
+
+                    <div class="pt-4 mt-4 border-t border-slate-200 dark:border-slate-700">
+                        <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2 px-3">Account</p>
+
+                        <a href="./buyer-profile.html" class="dashboard-nav-item flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                            </svg>
+                            <span>Profile</span>
+                        </a>
+
+                        <a href="./buyer-settings.html" class="dashboard-nav-item active flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                            <span>Settings</span>
+                        </a>
+
+                        <a href="../auth/logout.html" class="dashboard-nav-item flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium text-red-600 hover:text-red-700 hover:bg-red-50 dark:text-red-400 dark:hover:text-red-300 dark:hover:bg-red-900/20">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                            </svg>
+                            <span>Logout</span>
+                        </a>
+                    </div>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Mobile Sidebar Overlay -->
+        <div id="sidebar-overlay" class="fixed inset-0 bg-black/50 z-30 lg:hidden hidden"></div>
+
+        <!-- Mobile Sidebar Toggle -->
+        <button type="button" id="mobile-sidebar-toggle" aria-label="Toggle sidebar navigation" title="Toggle sidebar navigation" class="fixed top-20 left-4 z-50 lg:hidden bg-white dark:bg-slate-800 p-3 rounded-lg shadow-lg border border-slate-200 dark:border-slate-700">
+            <div class="w-5 h-5 flex flex-col justify-center space-y-1">
+                <span class="block w-full h-0.5 bg-slate-600 dark:bg-slate-300"></span>
+                <span class="block w-full h-0.5 bg-slate-600 dark:bg-slate-300"></span>
+                <span class="block w-full h-0.5 bg-slate-600 dark:bg-slate-300"></span>
+            </div>
+        </button>
+
+        <!-- Main Content -->
+        <main class="dashboard-content flex-1 p-6">
+            <div class="max-w-4xl mx-auto">
+                <!-- Page Header -->
+                <div class="mb-8">
+                    <h1 class="text-3xl font-bold text-slate-900 dark:text-white">Settings</h1>
+                    <p class="text-slate-600 dark:text-slate-400 mt-2">Manage your account settings and preferences</p>
+                </div>
+
+                <!-- Settings Tabs -->
+                <div class="mb-8">
+                    <div class="border-b border-slate-200 dark:border-slate-700">
+                        <nav class="flex space-x-8">
+                            <button type="button" class="settings-tab active py-2 px-1 border-b-2 border-transparent font-medium text-sm" data-tab="subscription">
+                                Subscription
+                            </button>
+                            <button type="button" class="settings-tab py-2 px-1 border-b-2 border-transparent font-medium text-sm text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300" data-tab="notifications">
+                                Notifications
+                            </button>
+                            <button type="button" class="settings-tab py-2 px-1 border-b-2 border-transparent font-medium text-sm text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300" data-tab="security">
+                                Security
+                            </button>
+                            <button type="button" class="settings-tab py-2 px-1 border-b-2 border-transparent font-medium text-sm text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300" data-tab="preferences">
+                                Preferences
+                            </button>
+                        </nav>
+                    </div>
+                </div>
+
+                <!-- Settings Content -->
+                <div id="settings-content">
+                    <!-- Subscription Tab -->
+                    <div id="subscription-tab" class="settings-panel">
+                        <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 p-6">
+                            <h2 class="text-xl font-semibold text-slate-900 dark:text-white mb-6">Subscription Management</h2>
+
+                            <!-- Current Plan -->
+                            <div class="mb-8">
+                                <h3 class="text-lg font-medium text-slate-900 dark:text-white mb-4">Current Plan</h3>
+                                <div class="bg-slate-50 dark:bg-slate-700 rounded-lg p-6">
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <h4 class="text-lg font-semibold text-slate-900 dark:text-white">Free Plan</h4>
+                                            <p class="text-slate-600 dark:text-slate-400">Basic access to listings and messaging</p>
+                                            <ul class="mt-2 text-sm text-slate-600 dark:text-slate-400 space-y-1">
+                                                <li>• View up to 10 listings per month</li>
+                                                <li>• Basic messaging with sellers</li>
+                                                <li>• Standard support</li>
+                                            </ul>
+                                        </div>
+                                        <div class="text-right">
+                                            <p class="text-2xl font-bold text-slate-900 dark:text-white">$0</p>
+                                            <p class="text-sm text-slate-600 dark:text-slate-400">per month</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Upgrade Options -->
+                            <div class="mb-8">
+                                <h3 class="text-lg font-medium text-slate-900 dark:text-white mb-4">Upgrade Options</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <!-- Pro Plan -->
+                                    <div class="border border-slate-200 dark:border-slate-600 rounded-lg p-6 hover:border-primary transition-colors">
+                                        <div class="flex items-center justify-between mb-4">
+                                            <h4 class="text-lg font-semibold text-slate-900 dark:text-white">Pro Plan</h4>
+                                            <span class="bg-primary text-white text-xs px-2 py-1 rounded-full">Popular</span>
+                                        </div>
+                                        <p class="text-slate-600 dark:text-slate-400 mb-4">Enhanced features for serious buyers</p>
+                                        <ul class="text-sm text-slate-600 dark:text-slate-400 space-y-2 mb-6">
+                                            <li>• Unlimited listing views</li>
+                                            <li>• Priority messaging</li>
+                                            <li>• Advanced search filters</li>
+                                            <li>• Deal analytics</li>
+                                            <li>• Priority support</li>
+                                        </ul>
+                                        <div class="flex items-center justify-between">
+                                            <div>
+                                                <p class="text-2xl font-bold text-slate-900 dark:text-white">$49</p>
+                                                <p class="text-sm text-slate-600 dark:text-slate-400">per month</p>
+                                            </div>
+                                            <button type="button" class="bg-primary text-white px-4 py-2 rounded-md hover:bg-primary-dark transition-colors">
+                                                Upgrade
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Enterprise Plan -->
+                                    <div class="border border-slate-200 dark:border-slate-600 rounded-lg p-6 hover:border-primary transition-colors">
+                                        <h4 class="text-lg font-semibold text-slate-900 dark:text-white mb-4">Enterprise Plan</h4>
+                                        <p class="text-slate-600 dark:text-slate-400 mb-4">For investment groups and brokers</p>
+                                        <ul class="text-sm text-slate-600 dark:text-slate-400 space-y-2 mb-6">
+                                            <li>• Everything in Pro</li>
+                                            <li>• Multi-user access</li>
+                                            <li>• Custom deal flow</li>
+                                            <li>• API access</li>
+                                            <li>• Dedicated support</li>
+                                        </ul>
+                                        <div class="flex items-center justify-between">
+                                            <div>
+                                                <p class="text-2xl font-bold text-slate-900 dark:text-white">$199</p>
+                                                <p class="text-sm text-slate-600 dark:text-slate-400">per month</p>
+                                            </div>
+                                            <button type="button" class="bg-slate-600 text-white px-4 py-2 rounded-md hover:bg-slate-700 transition-colors">
+                                                Contact Sales
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Billing Information -->
+                            <div>
+                                <h3 class="text-lg font-medium text-slate-900 dark:text-white mb-4">Billing Information</h3>
+                                <div class="bg-slate-50 dark:bg-slate-700 rounded-lg p-4">
+                                    <p class="text-slate-600 dark:text-slate-400">No billing information on file for Free plan.</p>
+                                    <p class="text-sm text-slate-500 dark:text-slate-400 mt-2">Upgrade to a paid plan to add billing information.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Other tabs content will be added here -->
+                    <div id="notifications-tab" class="settings-panel hidden">
+                        <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 p-6">
+                            <h2 class="text-xl font-semibold text-slate-900 dark:text-white mb-6">Notification Preferences</h2>
+                            <p class="text-slate-600 dark:text-slate-400">Notification settings will be implemented here.</p>
+                        </div>
+                    </div>
+
+                    <div id="security-tab" class="settings-panel hidden">
+                        <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 p-6">
+                            <h2 class="text-xl font-semibold text-slate-900 dark:text-white mb-6">Security Settings</h2>
+                            <p class="text-slate-600 dark:text-slate-400">Security settings will be implemented here.</p>
+                        </div>
+                    </div>
+
+                    <div id="preferences-tab" class="settings-panel hidden">
+                        <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 p-6">
+                            <h2 class="text-xl font-semibold text-slate-900 dark:text-white mb-6">Preferences</h2>
+                            <p class="text-slate-600 dark:text-slate-400">User preferences will be implemented here.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <div id="footer-container"></div>
+
+    <!-- Scripts -->
+    <script src="../components/main-navigation.js"></script>
+    <script src="../components/admin-navigation.js"></script>
+    <script src="../components/main-footer.js"></script>
+    <script src="../auth/auth-service-fixed.js"></script>
+
+    <!-- Sidebar Navigation Integration -->
+    <script src="modules/sidebar-navigation-integration.js"></script>
+
+    <!-- Settings Management Script -->
+    <script>
+        // Settings tab functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.settings-tab');
+            const panels = document.querySelectorAll('.settings-panel');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const targetTab = this.dataset.tab;
+
+                    // Remove active class from all tabs
+                    tabs.forEach(t => t.classList.remove('active'));
+
+                    // Add active class to clicked tab
+                    this.classList.add('active');
+
+                    // Hide all panels
+                    panels.forEach(panel => panel.classList.add('hidden'));
+
+                    // Show target panel
+                    const targetPanel = document.getElementById(targetTab + '-tab');
+                    if (targetPanel) {
+                        targetPanel.classList.remove('hidden');
+                    }
+                });
+            });
+
+            console.log('🔄 Loading buyer settings page...');
+        });
+    </script>
+</body>
+</html>

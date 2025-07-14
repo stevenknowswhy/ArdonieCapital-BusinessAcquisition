@@ -1,0 +1,115 @@
+
+/**
+ * Accessibility Color Contrast Fixes
+ * Improves color contrast ratios for better accessibility compliance
+ */
+
+/* Improve text contrast on dark backgrounds */
+.bg-slate-900 .text-slate-400 {
+    color: #cbd5e1 !important; /* Improved contrast ratio */
+}
+
+.bg-slate-800 .text-slate-500 {
+    color: #e2e8f0 !important; /* Better contrast */
+}
+
+/* Fix button contrast issues */
+.btn-secondary {
+    background-color: #475569 !important;
+    color: #ffffff !important;
+    border: 2px solid #64748b !important;
+}
+
+.btn-secondary:hover {
+    background-color: #334155 !important;
+    border-color: #475569 !important;
+}
+
+/* Improve link contrast */
+.text-blue-600 {
+    color: #1d4ed8 !important; /* Darker blue for better contrast */
+}
+
+.text-blue-500 {
+    color: #1e40af !important; /* Darker blue for better contrast */
+}
+
+/* Fix form input contrast */
+.form-input:focus {
+    border-color: #1d4ed8 !important;
+    box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.1) !important;
+}
+
+/* Improve navigation contrast */
+.nav-link {
+    color: #1f2937 !important;
+}
+
+.nav-link:hover {
+    color: #111827 !important;
+    background-color: #f3f4f6 !important;
+}
+
+/* Fix footer text contrast */
+.footer-text {
+    color: #e5e7eb !important;
+}
+
+/* Improve card text contrast */
+.card .text-gray-600 {
+    color: #374151 !important;
+}
+
+.card .text-gray-500 {
+    color: #4b5563 !important;
+}
+
+/* Fix pricing text contrast */
+.pricing-text {
+    color: #111827 !important;
+    font-weight: 600;
+}
+
+/* Improve status badge contrast */
+.status-badge {
+    background-color: #1f2937 !important;
+    color: #ffffff !important;
+    border: 1px solid #374151 !important;
+}
+
+/* Fix table text contrast */
+.table-text {
+    color: #111827 !important;
+}
+
+/* Improve modal text contrast */
+.modal-content .text-gray-600 {
+    color: #374151 !important;
+}
+
+/* Focus indicators for better accessibility */
+.focus-visible {
+    outline: 3px solid #3b82f6 !important;
+    outline-offset: 2px !important;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .text-slate-400,
+    .text-slate-500,
+    .text-gray-500,
+    .text-gray-600 {
+        color: #000000 !important;
+    }
+    
+    .bg-white {
+        background-color: #ffffff !important;
+        color: #000000 !important;
+    }
+    
+    .bg-slate-900,
+    .bg-slate-800 {
+        background-color: #000000 !important;
+        color: #ffffff !important;
+    }
+}

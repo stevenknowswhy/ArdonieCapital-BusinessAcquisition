@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Debug - BuyMartV1</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 p-8">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6">Database Debug & RLS Policy Check</h1>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Controls -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <h2 class="text-lg font-semibold mb-4">Debug Controls</h2>
+                <div class="space-y-3">
+                    <button id="check-auth" class="w-full px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+                        Check Authentication
+                    </button>
+                    <button id="check-table-structure" class="w-full px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">
+                        Check Table Structure
+                    </button>
+                    <button id="check-rls-policies" class="w-full px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-600">
+                        Check RLS Policies
+                    </button>
+                    <button id="test-insert" class="w-full px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-600">
+                        Test Insert Permission
+                    </button>
+                    <button id="test-update" class="w-full px-4 py-2 bg-pink-500 text-white rounded hover:bg-pink-600">
+                        Test Update Permission
+                    </button>
+                    <button id="clear-results" class="w-full px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">
+                        Clear Results
+                    </button>
+                </div>
+            </div>
+
+            <!-- Results -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <h2 class="text-lg font-semibold mb-4">Debug Results</h2>
+                <div id="debug-results" class="space-y-2 max-h-96 overflow-y-auto">
+                    <div class="text-slate-500">No debug results yet</div>
+                </div>
+            </div>
+
+            <!-- Console Log -->
+            <div class="lg:col-span-2 bg-white rounded-lg shadow p-6">
+                <h2 class="text-lg font-semibold mb-4">Console Log</h2>
+                <div id="console-log" class="bg-slate-100 p-4 rounded text-sm font-mono h-64 overflow-y-auto">
+                    <div class="text-slate-700">Database debug initialized...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script>
+        let supabaseClient = null;
+        let currentUser = null;
+
+        const log = (message, type = 'info') => {
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = `[${timestamp}] ${message}`;
+            
+            const logElement = document.getElementById('console-log');
+            const div = document.createElement('div');
+            div.className = type === 'error' ? 'text-red-600' : type === 'success' ? 'text-green-600' : 'text-slate-700';
+            div.textContent = logEntry;
+            logElement.appendChild(div);
+            logElement.scrollTop = logElement.scrollHeight;
+            
+            console.log(logEntry);
+        };
+
+        const addResult = (test, result, details = '') => {
+            const resultsElement = document.getElementById('debug-results');
+            const div = document.createElement('div');
+            div.className = `p-3 rounded border ${
+                result === 'pass' ? 'bg-green-50 border-green-200 text-green-800' :
+                result === 'fail' ? 'bg-red-50 border-red-200 text-red-800' :
+                'bg-yellow-50 border-yellow-200 text-yellow-800'
+            }`;
+            div.innerHTML = `
+                <div class="font-medium">${test}</div>
+                <div class="text-sm mt-1">${result.toUpperCase()}: ${details}</div>
+            `;
+            resultsElement.appendChild(div);
+        };
+
+        const initializeSupabase = () => {
+            try {
+                log('Initializing Supabase...');
+                
+                const supabaseUrl = 'https://pbydepsqcypwqbicnsco.supabase.co';
+                const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBieWRlcHNxY3lwd3FiaWNuc2NvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE5MjAxOTQsImV4cCI6MjA2NzQ5NjE5NH0.5aF46QcNOFN_vwXcHxCsVx_8a4EsqE1bL4fy4K7UXI0';
+
+                supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+                
+                log('✅ Supabase initialized successfully', 'success');
+                return supabaseClient;
+            } catch (error) {
+                log(`❌ Supabase initialization failed: ${error.message}`, 'error');
+                throw error;
+            }
+        };
+
+        const checkAuth = async () => {
+            try {
+                log('Checking authentication...');
+                
+                if (!supabaseClient) {
+                    supabaseClient = initializeSupabase();
+                }
+
+                // Try to sign in with test user
+                const { data, error } = await supabaseClient.auth.signInWithPassword({
+                    email: 'reforiy538@iamtile.com',
+                    password: 'gK9.t1|ROnQ52U['
+                });
+
+                if (error) {
+                    addResult('Authentication', 'fail', error.message);
+                    log(`❌ Authentication failed: ${error.message}`, 'error');
+                } else {
+                    currentUser = data.user;
+                    addResult('Authentication', 'pass', `Authenticated as ${data.user.email}`);
+                    log(`✅ Authenticated as ${data.user.email}`, 'success');
+                    log(`User ID: ${data.user.id}`, 'info');
+                }
+
+            } catch (error) {
+                addResult('Authentication', 'fail', error.message);
+                log(`❌ Authentication error: ${error.message}`, 'error');
+            }
+        };
+
+        const checkTableStructure = async () => {
+            try {
+                log('Checking table structure...');
+                
+                if (!supabaseClient) {
+                    throw new Error('Supabase client not initialized');
+                }
+
+                // Try to query the profiles table structure
+                const { data, error } = await supabaseClient
+                    .from('profiles')
+                    .select('*')
+                    .limit(1);
+
+                if (error) {
+                    addResult('Table Structure', 'fail', `Error: ${error.message}`);
+                    log(`❌ Table structure check failed: ${error.message}`, 'error');
+                    log(`Error details: ${JSON.stringify(error, null, 2)}`, 'error');
+                } else {
+                    addResult('Table Structure', 'pass', 'Profiles table accessible');
+                    log('✅ Profiles table structure check passed', 'success');
+                    
+                    if (data && data.length > 0) {
+                        const columns = Object.keys(data[0]);
+                        log(`Table columns: ${columns.join(', ')}`, 'info');
+                        addResult('Table Columns', 'info', columns.join(', '));
+                    }
+                }
+
+            } catch (error) {
+                addResult('Table Structure', 'fail', error.message);
+                log(`❌ Table structure error: ${error.message}`, 'error');
+            }
+        };
+
+        const checkRLSPolicies = async () => {
+            try {
+                log('Checking RLS policies...');
+                
+                if (!currentUser) {
+                    throw new Error('No user authenticated');
+                }
+
+                // Test SELECT permission
+                const { data: selectData, error: selectError } = await supabaseClient
+                    .from('profiles')
+                    .select('*')
+                    .eq('user_id', currentUser.id);
+
+                if (selectError) {
+                    addResult('RLS SELECT Policy', 'fail', selectError.message);
+                    log(`❌ SELECT policy failed: ${selectError.message}`, 'error');
+                } else {
+                    addResult('RLS SELECT Policy', 'pass', 'Can read own profile');
+                    log('✅ SELECT policy working', 'success');
+                }
+
+            } catch (error) {
+                addResult('RLS Policies', 'fail', error.message);
+                log(`❌ RLS policy check error: ${error.message}`, 'error');
+            }
+        };
+
+        const testInsert = async () => {
+            try {
+                log('Testing INSERT permission...');
+                
+                if (!currentUser) {
+                    throw new Error('No user authenticated');
+                }
+
+                const testData = {
+                    user_id: currentUser.id,
+                    email: currentUser.email,
+                    first_name: 'Test',
+                    last_name: 'Insert',
+                    phone: '+1 (555) 999-0000',
+                    location: 'Test Location',
+                    company: 'Test Company',
+                    bio: 'Test bio for insert permission',
+                    website: 'https://test-insert.example.com',
+                    linkedin_url: 'https://linkedin.com/in/test-insert',
+                    created_at: new Date().toISOString(),
+                    updated_at: new Date().toISOString()
+                };
+
+                // First, check if profile already exists
+                const { data: existingProfiles, error: checkError } = await supabaseClient
+                    .from('profiles')
+                    .select('id')
+                    .eq('user_id', currentUser.id);
+
+                if (checkError) {
+                    throw new Error(`Check error: ${checkError.message}`);
+                }
+
+                if (existingProfiles && existingProfiles.length > 0) {
+                    addResult('INSERT Test', 'info', 'Profile already exists, skipping insert test');
+                    log('ℹ️ Profile already exists, skipping insert test', 'info');
+                    return;
+                }
+
+                const { data, error } = await supabaseClient
+                    .from('profiles')
+                    .insert([testData])
+                    .select();
+
+                if (error) {
+                    addResult('INSERT Permission', 'fail', error.message);
+                    log(`❌ INSERT permission failed: ${error.message}`, 'error');
+                    log(`Error details: ${JSON.stringify(error, null, 2)}`, 'error');
+                } else {
+                    addResult('INSERT Permission', 'pass', 'Successfully inserted test profile');
+                    log('✅ INSERT permission working', 'success');
+                }
+
+            } catch (error) {
+                addResult('INSERT Test', 'fail', error.message);
+                log(`❌ INSERT test error: ${error.message}`, 'error');
+            }
+        };
+
+        const testUpdate = async () => {
+            try {
+                log('Testing UPDATE permission...');
+                
+                if (!currentUser) {
+                    throw new Error('No user authenticated');
+                }
+
+                const updateData = {
+                    first_name: 'Updated',
+                    last_name: 'Test',
+                    bio: 'Updated bio for testing update permission',
+                    updated_at: new Date().toISOString()
+                };
+
+                const { data, error } = await supabaseClient
+                    .from('profiles')
+                    .update(updateData)
+                    .eq('user_id', currentUser.id)
+                    .select();
+
+                if (error) {
+                    addResult('UPDATE Permission', 'fail', error.message);
+                    log(`❌ UPDATE permission failed: ${error.message}`, 'error');
+                    log(`Error details: ${JSON.stringify(error, null, 2)}`, 'error');
+                } else {
+                    addResult('UPDATE Permission', 'pass', 'Successfully updated profile');
+                    log('✅ UPDATE permission working', 'success');
+                    
+                    if (data && data.length > 0) {
+                        log(`Updated profile: ${JSON.stringify(data[0], null, 2)}`, 'info');
+                    }
+                }
+
+            } catch (error) {
+                addResult('UPDATE Test', 'fail', error.message);
+                log(`❌ UPDATE test error: ${error.message}`, 'error');
+            }
+        };
+
+        const clearResults = () => {
+            document.getElementById('debug-results').innerHTML = '<div class="text-slate-500">No debug results yet</div>';
+            document.getElementById('console-log').innerHTML = '<div class="text-slate-700">Database debug cleared...</div>';
+            log('🧹 Results cleared');
+        };
+
+        // Event listeners
+        document.getElementById('check-auth').addEventListener('click', checkAuth);
+        document.getElementById('check-table-structure').addEventListener('click', checkTableStructure);
+        document.getElementById('check-rls-policies').addEventListener('click', checkRLSPolicies);
+        document.getElementById('test-insert').addEventListener('click', testInsert);
+        document.getElementById('test-update').addEventListener('click', testUpdate);
+        document.getElementById('clear-results').addEventListener('click', clearResults);
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', () => {
+            log('🔄 Database debug page loaded');
+            
+            try {
+                initializeSupabase();
+                log('✅ Initial setup completed', 'success');
+            } catch (error) {
+                log(`❌ Initialization failed: ${error.message}`, 'error');
+            }
+        });
+    </script>
+</body>
+</html>

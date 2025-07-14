@@ -58,11 +58,13 @@
     
     <!-- Navigation Styles -->
     <link rel="stylesheet" href="../components/navigation-styles.css">
+    <link rel="stylesheet" href="../assets/css/admin-navigation.css">
 </head>
 <body class="font-sans text-slate-800 bg-white dark:bg-slate-900 dark:text-slate-200">
     <!-- Header -->
         <!-- Navigation Component -->
     <div id="main-navigation-container"></div>
+    <div id="admin-navigation-container"></div>
 
     <main class="min-h-screen bg-slate-50 dark:bg-slate-900">
         <!-- Hero Section -->
@@ -304,66 +306,6 @@
         </section>
     </main>
 
-    <!-- Portal Footer - Removed dynamic loading for standardization -->
-
-    <!-- Load Portal Components -->
-    <script>
-        // Portal configuration
-        window.PortalConfig = {
-            portalType: 'accountant',
-            userRole: 'Accountant Partner',
-            apiEndpoint: '/api/portals/accountant/',
-            features: {
-                notifications: true,
-                darkMode: true,
-                realTimeUpdates: true
-            }
-        };
-
-        // Function to load HTML content into a div
-        function loadSection(sectionId, filePath) {
-            fetch(filePath)
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById(sectionId).innerHTML = data;
-                })
-                .catch(error => {
-                    console.error('Error loading section:', error);
-                });
-        }
-
-        // Load portal components
-        document.addEventListener('DOMContentLoaded', function() {
-            // Load components with cache busting
-            const timestamp = new Date().getTime();
-            const randomId = Math.random().toString(36).substring(7);
-            // Removed dynamic footer loading for standardization
-
-            // Configure portal after components load
-            setTimeout(() => {
-                configureAccountantPortal();
-            }, 500);
-        });
-
-        // Configure accountant portal specific settings
-        function configureAccountantPortal() {
-            // Set portal title
-            document.title = 'Accountant Portal - Ardonie Capital';
-
-
-
-            // Load common utilities
-            if (window.ArdonieCapital) {
-                window.ArdonieCapital.showToast('Welcome to your Accountant Portal!', 'success');
-            }
-        }
-
-        // Load common JavaScript utilities
-        const script = document.createElement('script');
-        script.src = '../assets/js/common.js';
-        document.head.appendChild(script);
-    </script>
-
     <!-- Footer -->
     <footer class="bg-slate-900 text-white py-10">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -521,8 +463,70 @@
             </div>
         </div>
     </footer>
+
+    <!-- Load Portal Components -->
+    <script>
+        // Portal configuration
+        window.PortalConfig = {
+            portalType: 'accountant',
+            userRole: 'Accountant Partner',
+            apiEndpoint: '/api/portals/accountant/',
+            features: {
+                notifications: true,
+                darkMode: true,
+                realTimeUpdates: true
+            }
+        };
+
+        // Function to load HTML content into a div
+        function loadSection(sectionId, filePath) {
+            fetch(filePath)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById(sectionId).innerHTML = data;
+                })
+                .catch(error => {
+                    console.error('Error loading section:', error);
+                });
+        }
+
+        // Load portal components
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load components with cache busting
+            const timestamp = new Date().getTime();
+            const randomId = Math.random().toString(36).substring(7);
+            // Removed dynamic footer loading for standardization
+
+            // Configure portal after components load
+            setTimeout(() => {
+                configureAccountantPortal();
+            }, 500);
+        });
+
+        // Configure accountant portal specific settings
+        function configureAccountantPortal() {
+            // Set portal title
+            document.title = 'Accountant Portal - Ardonie Capital';
+
+
+
+            // Load common utilities
+            if (window.ArdonieCapital) {
+                window.ArdonieCapital.showToast('Welcome to your Accountant Portal!', 'success');
+            }
+        }
+
+        // Load common JavaScript utilities
+        const script = document.createElement('script');
+        script.src = '../assets/js/common.js';
+        document.head.appendChild(script);
+    </script>
+
+
+
     
     <!-- Load Navigation Component -->
     <script src="../components/main-navigation.js"></script>
+    <script src="../components/admin-navigation.js"></script>
 </body>
 </html>

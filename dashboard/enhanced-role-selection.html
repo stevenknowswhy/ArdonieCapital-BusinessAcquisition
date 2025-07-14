@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Your Role - Ardonie Capital</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            light: '#3B82F6',
+                            DEFAULT: '#2563EB',
+                            dark: '#1D4ED8'
+                        },
+                        secondary: {
+                            light: '#F8FAFC',
+                            DEFAULT: '#E2E8F0',
+                            dark: '#64748B'
+                        },
+                        accent: {
+                            light: '#10B981',
+                            DEFAULT: '#059669',
+                            dark: '#047857'
+                        }
+                    }
+                }
+            }
+        };
+
+        // Apply saved theme immediately
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom Styles -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .role-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .role-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .role-card.selected {
+            border-color: #2563EB;
+            background: linear-gradient(135deg, #EBF4FF 0%, #F0F9FF 100%);
+        }
+        
+        .dark .role-card.selected {
+            border-color: #3B82F6;
+            background: linear-gradient(135deg, #1E3A8A 0%, #1E40AF 100%);
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 min-h-screen">
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="fixed inset-0 bg-white dark:bg-gray-900 z-50 flex items-center justify-center">
+        <div class="text-center">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+            <p class="text-gray-600 dark:text-gray-400">Loading your roles...</p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="min-h-screen flex items-center justify-center p-4">
+        <div class="max-w-4xl w-full">
+            <!-- Header -->
+            <div class="text-center mb-8 fade-in">
+                <div class="mb-6">
+                    <img src="../assets/images/logo.png" alt="Ardonie Capital" class="h-12 mx-auto mb-4" onerror="this.style.display='none'">
+                    <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Welcome Back!</h1>
+                    <p class="text-gray-600 dark:text-gray-400 mt-2">Select the role you'd like to use today</p>
+                </div>
+                
+                <!-- User Info -->
+                <div id="user-info" class="bg-white dark:bg-gray-800 rounded-lg p-4 shadow-sm border border-gray-200 dark:border-gray-700 inline-block">
+                    <div class="flex items-center space-x-3">
+                        <div id="user-avatar" class="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white font-semibold">
+                            <!-- Avatar will be populated by JS -->
+                        </div>
+                        <div class="text-left">
+                            <p id="user-name" class="font-medium text-gray-900 dark:text-white">Loading...</p>
+                            <p id="user-email" class="text-sm text-gray-500 dark:text-gray-400">Loading...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Role Selection Grid -->
+            <div id="roles-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                <!-- Role cards will be populated by JavaScript -->
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex justify-center space-x-4 fade-in">
+                <button id="continue-btn" 
+                        class="bg-primary hover:bg-primary-dark text-white px-8 py-3 rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+                        disabled>
+                    Continue to Dashboard
+                </button>
+                
+                <button id="logout-btn" 
+                        class="bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 px-6 py-3 rounded-lg font-medium transition-all duration-200">
+                    Logout
+                </button>
+            </div>
+
+            <!-- Role Switching Info -->
+            <div class="text-center mt-8 fade-in">
+                <p class="text-sm text-gray-500 dark:text-gray-400">
+                    💡 You can switch between roles anytime from your dashboard settings
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module">
+        import { enhancedAuthService } from '../src/features/authentication/services/enhanced-auth.service.js';
+
+        class RoleSelectionManager {
+            constructor() {
+                this.selectedRole = null;
+                this.userRoles = [];
+                this.currentUser = null;
+            }
+
+            async init() {
+                try {
+                    console.log('🎯 Initializing Role Selection...');
+                    
+                    // Initialize auth service
+                    await enhancedAuthService.init();
+                    
+                    // Get current user
+                    this.currentUser = await enhancedAuthService.getCurrentUser();
+                    
+                    if (!this.currentUser) {
+                        console.log('❌ No authenticated user found, redirecting to login');
+                        window.location.href = '/auth/login.html';
+                        return;
+                    }
+
+                    // Check if user already has a selected role
+                    if (this.currentUser.selectedRole && !this.currentUser.needsRoleSelection) {
+                        console.log('✅ User already has selected role, redirecting to dashboard');
+                        this.redirectToDashboard(this.currentUser.selectedRole);
+                        return;
+                    }
+
+                    // Display user info
+                    this.displayUserInfo();
+                    
+                    // Get and display user roles
+                    this.userRoles = this.currentUser.roles || [];
+                    
+                    if (this.userRoles.length === 0) {
+                        this.showNoRolesMessage();
+                        return;
+                    }
+
+                    if (this.userRoles.length === 1) {
+                        // Auto-select single role and redirect
+                        const singleRole = this.userRoles[0];
+                        const roleSlug = singleRole.roles?.slug || singleRole.slug;
+                        await enhancedAuthService.setActiveRole(this.currentUser.id, roleSlug);
+                        this.redirectToDashboard(roleSlug);
+                        return;
+                    }
+
+                    // Display role selection for multi-role users
+                    this.displayRoles();
+                    this.setupEventListeners();
+                    
+                    // Hide loading overlay
+                    document.getElementById('loading-overlay').style.display = 'none';
+                    
+                } catch (error) {
+                    console.error('❌ Error initializing role selection:', error);
+                    this.showError('Failed to load roles. Please try again.');
+                }
+            }
+
+            displayUserInfo() {
+                const userNameEl = document.getElementById('user-name');
+                const userEmailEl = document.getElementById('user-email');
+                const userAvatarEl = document.getElementById('user-avatar');
+
+                const fullName = `${this.currentUser.firstName} ${this.currentUser.lastName}`.trim();
+                userNameEl.textContent = fullName || 'User';
+                userEmailEl.textContent = this.currentUser.email;
+                
+                // Set avatar initials
+                const initials = (this.currentUser.firstName?.[0] || '') + (this.currentUser.lastName?.[0] || '');
+                userAvatarEl.textContent = initials || this.currentUser.email[0].toUpperCase();
+            }
+
+            displayRoles() {
+                const rolesGrid = document.getElementById('roles-grid');
+                rolesGrid.innerHTML = '';
+
+                this.userRoles.forEach((userRole, index) => {
+                    const role = userRole.roles || userRole;
+                    const roleCard = this.createRoleCard(role, index);
+                    rolesGrid.appendChild(roleCard);
+                });
+            }
+
+            createRoleCard(role, index) {
+                const card = document.createElement('div');
+                card.className = 'role-card bg-white dark:bg-gray-800 rounded-lg p-6 border-2 border-gray-200 dark:border-gray-700 cursor-pointer';
+                card.dataset.roleSlug = role.slug;
+
+                const roleInfo = this.getRoleInfo(role.slug);
+                
+                card.innerHTML = `
+                    <div class="text-center">
+                        <div class="w-16 h-16 mx-auto mb-4 rounded-full ${roleInfo.bgColor} flex items-center justify-center">
+                            <span class="text-2xl">${roleInfo.icon}</span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">${role.name}</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">${role.description || roleInfo.description}</p>
+                        <div class="text-xs text-gray-500 dark:text-gray-500">
+                            <span class="inline-block bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">${roleInfo.category}</span>
+                        </div>
+                    </div>
+                `;
+
+                // Add click handler
+                card.addEventListener('click', () => this.selectRole(role.slug));
+
+                // Add animation delay
+                card.style.animationDelay = `${index * 0.1}s`;
+                card.classList.add('fade-in');
+
+                return card;
+            }
+
+            getRoleInfo(roleSlug) {
+                const roleInfoMap = {
+                    'buyer': {
+                        icon: '🏢',
+                        bgColor: 'bg-blue-100 dark:bg-blue-900',
+                        category: 'Business Acquisition',
+                        description: 'Browse and purchase auto repair businesses'
+                    },
+                    'seller': {
+                        icon: '💼',
+                        bgColor: 'bg-green-100 dark:bg-green-900',
+                        category: 'Business Sales',
+                        description: 'List and sell your auto repair business'
+                    },
+                    'vendor': {
+                        icon: '🤝',
+                        bgColor: 'bg-purple-100 dark:bg-purple-900',
+                        category: 'Service Provider',
+                        description: 'Provide professional services to buyers and sellers'
+                    },
+                    'financial_professional': {
+                        icon: '📊',
+                        bgColor: 'bg-yellow-100 dark:bg-yellow-900',
+                        category: 'Financial Services',
+                        description: 'Business brokers, CPAs, financial advisors'
+                    },
+                    'legal_professional': {
+                        icon: '⚖️',
+                        bgColor: 'bg-red-100 dark:bg-red-900',
+                        category: 'Legal Services',
+                        description: 'Business attorneys, tax professionals, consultants'
+                    },
+                    'super_admin': {
+                        icon: '👑',
+                        bgColor: 'bg-indigo-100 dark:bg-indigo-900',
+                        category: 'Administration',
+                        description: 'Full platform access and user management'
+                    },
+                    'company_admin': {
+                        icon: '🏛️',
+                        bgColor: 'bg-gray-100 dark:bg-gray-700',
+                        category: 'Company Management',
+                        description: 'Manage users within your company'
+                    },
+                    'blog_editor': {
+                        icon: '✍️',
+                        bgColor: 'bg-pink-100 dark:bg-pink-900',
+                        category: 'Content Management',
+                        description: 'Create and publish blog content'
+                    },
+                    'blog_contributor': {
+                        icon: '📝',
+                        bgColor: 'bg-orange-100 dark:bg-orange-900',
+                        category: 'Content Creation',
+                        description: 'Write and edit blog content'
+                    }
+                };
+
+                return roleInfoMap[roleSlug] || {
+                    icon: '👤',
+                    bgColor: 'bg-gray-100 dark:bg-gray-700',
+                    category: 'General',
+                    description: 'Platform access'
+                };
+            }
+
+            selectRole(roleSlug) {
+                // Remove previous selection
+                document.querySelectorAll('.role-card').forEach(card => {
+                    card.classList.remove('selected');
+                });
+
+                // Add selection to clicked card
+                const selectedCard = document.querySelector(`[data-role-slug="${roleSlug}"]`);
+                if (selectedCard) {
+                    selectedCard.classList.add('selected');
+                }
+
+                this.selectedRole = roleSlug;
+                
+                // Enable continue button
+                const continueBtn = document.getElementById('continue-btn');
+                continueBtn.disabled = false;
+                continueBtn.classList.add('shadow-lg');
+            }
+
+            setupEventListeners() {
+                // Continue button
+                document.getElementById('continue-btn').addEventListener('click', async () => {
+                    if (this.selectedRole) {
+                        await this.proceedWithRole(this.selectedRole);
+                    }
+                });
+
+                // Logout button
+                document.getElementById('logout-btn').addEventListener('click', async () => {
+                    await enhancedAuthService.logout();
+                    window.location.href = '/auth/login.html';
+                });
+            }
+
+            async proceedWithRole(roleSlug) {
+                try {
+                    console.log('🎯 Proceeding with role:', roleSlug);
+                    
+                    // Set active role
+                    await enhancedAuthService.setActiveRole(this.currentUser.id, roleSlug);
+                    
+                    // Redirect to appropriate dashboard
+                    this.redirectToDashboard(roleSlug);
+                    
+                } catch (error) {
+                    console.error('❌ Error setting active role:', error);
+                    this.showError('Failed to set active role. Please try again.');
+                }
+            }
+
+            redirectToDashboard(roleSlug) {
+                const dashboardUrls = {
+                    'buyer': '/dashboard/buyer-dashboard.html',
+                    'seller': '/dashboard/seller-dashboard.html',
+                    'vendor': '/dashboard/vendor-dashboard.html',
+                    'financial_professional': '/dashboard/vendor-dashboard.html',
+                    'legal_professional': '/dashboard/vendor-dashboard.html',
+                    'super_admin': '/dashboard/super-admin-dashboard.html',
+                    'company_admin': '/dashboard/admin-dashboard.html',
+                    'blog_editor': '/dashboard/content-management.html',
+                    'blog_contributor': '/dashboard/content-management.html'
+                };
+
+                const redirectUrl = dashboardUrls[roleSlug] || '/dashboard/';
+                console.log('🔄 Redirecting to:', redirectUrl);
+                window.location.href = redirectUrl;
+            }
+
+            showNoRolesMessage() {
+                const rolesGrid = document.getElementById('roles-grid');
+                rolesGrid.innerHTML = `
+                    <div class="col-span-full text-center py-12">
+                        <div class="text-6xl mb-4">🚫</div>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">No Roles Assigned</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-6">You don't have any roles assigned to your account.</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-500">Please contact your administrator to assign appropriate roles.</p>
+                    </div>
+                `;
+                document.getElementById('loading-overlay').style.display = 'none';
+            }
+
+            showError(message) {
+                const rolesGrid = document.getElementById('roles-grid');
+                rolesGrid.innerHTML = `
+                    <div class="col-span-full text-center py-12">
+                        <div class="text-6xl mb-4">⚠️</div>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Error</h3>
+                        <p class="text-gray-600 dark:text-gray-400">${message}</p>
+                    </div>
+                `;
+                document.getElementById('loading-overlay').style.display = 'none';
+            }
+        }
+
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            const roleSelection = new RoleSelectionManager();
+            roleSelection.init();
+        });
+    </script>
+</body>
+</html>

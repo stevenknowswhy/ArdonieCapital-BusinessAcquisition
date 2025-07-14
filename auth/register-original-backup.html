@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     
     
     <link rel="dns-prefetch" href="//fonts.googleapis.com">
@@ -58,6 +59,8 @@
     
     <!-- Navigation Styles -->
     <link rel="stylesheet" href="../components/navigation-styles.css">
+    <link rel="stylesheet" href="../assets/css/accessibility-fixes.css">
+    <link rel="stylesheet" href="../assets/css/mobile-responsiveness.css">
 </head>
 <body class="font-sans text-slate-800 bg-white dark:bg-slate-900 dark:text-slate-200">
         <!-- Navigation Component -->
@@ -127,7 +130,7 @@
                         </div>
                     </div>
 
-                    <form class="space-y-6" id="registrationForm">
+                    <form class="space-y-6" id="registrationForm" data-secure="true">
                         <!-- Basic Information -->
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
@@ -190,7 +193,9 @@
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
                                         <label for="business_location" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Business Location</label>
-                                        <input type="text" id="business_location" name="business_location" placeholder="City, State" class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary">
+                                        <label class="sr-only" for="input-City, State">City, State</label>
+<label class="sr-only" for="input-City, State">City, State</label>
+<input type="text" id="business_location" name="business_location" placeholder="City, State" id="input-City, State" id="input-City, State" class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary">
                                     </div>
                                     <div>
                                         <label for="years_in_business" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Years in Business</label>
@@ -921,5 +926,6 @@
     
     <!-- Load Navigation Component -->
     <script src="../components/main-navigation.js"></script>
+    <script src="../assets/js/security-enhanced.js" defer></script>
 </body>
 </html>

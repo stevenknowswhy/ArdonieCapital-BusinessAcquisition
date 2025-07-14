@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     
     
     <link rel="dns-prefetch" href="//fonts.googleapis.com">
@@ -38,6 +39,8 @@
     
     <!-- Navigation Styles -->
     <link rel="stylesheet" href="../components/navigation-styles.css">
+    <link rel="stylesheet" href="../assets/css/accessibility-fixes.css">
+    <link rel="stylesheet" href="../assets/css/mobile-responsiveness.css">
 </head>
 <body class="font-sans text-slate-800 bg-white dark:bg-slate-900 dark:text-slate-200">
         <!-- Navigation Component -->
@@ -53,7 +56,7 @@
                         <p class="text-slate-600 dark:text-slate-300">Sign in to your Ardonie Capital account</p>
                     </div>
 
-                    <form class="space-y-6" id="loginForm">
+                    <form class="space-y-6" id="loginForm" data-secure="true">
                         <div>
                             <label for="email" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Email Address</label>
                             <input type="email" id="email" name="email" required aria-required="true" class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary">
@@ -158,18 +161,20 @@
                     </button>
                 </div>
 
-                <form id="passwordResetForm" class="space-y-4">
+                <form id="passwordResetForm" class="space-y-4" data-secure="true">
                     <div>
                         <label for="resetEmail" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                             Email Address
                         </label>
-                        <input
+                        <label class="sr-only" for="input-Enter your email address">Enter your email address</label>
+<label class="sr-only" for="input-Enter your email address">Enter your email address</label>
+<input
                             type="email"
                             id="resetEmail"
                             name="resetEmail"
                             required
                             class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
-                            placeholder="Enter your email address"
+                            placeholder="Enter your email address" id="input-Enter your email address" id="input-Enter your email address"
                         >
                     </div>
 
@@ -989,5 +994,6 @@
     
     <!-- Load Navigation Component -->
     <script src="../components/main-navigation.js"></script>
+    <script src="../assets/js/security-enhanced.js" defer></script>
 </body>
 </html>

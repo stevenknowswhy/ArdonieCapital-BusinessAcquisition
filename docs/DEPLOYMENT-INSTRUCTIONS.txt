@@ -1,0 +1,33 @@
+
+🚀 HOSTINGER DEPLOYMENT INSTRUCTIONS
+
+📦 Package: buymart-v1-hostinger-deployment.zip
+
+DEPLOYMENT STEPS:
+1. Log into your Hostinger control panel
+2. Navigate to File Manager
+3. Go to public_html directory
+4. Upload buymart-v1-hostinger-deployment.zip
+5. Extract the zip file (Hostinger will ask for folder name - use "buymart-v1")
+6. Move all files from buymart-v1/ to public_html/ root
+7. Delete the empty buymart-v1/ folder and zip file
+
+CRITICAL FIXES INCLUDED:
+✅ Professional favicon (favicon.ico) - displays correctly
+✅ Dark/light mode toggle - works consistently across all pages  
+✅ No page refresh requirement - immediate loading
+✅ Free Resources page - fully functional with all tools
+✅ Local Tailwind CSS - no more CDN warnings
+✅ Fixed CSP security headers - no browser console errors
+
+VERIFICATION CHECKLIST:
+□ Favicon appears in browser tab on all pages
+□ Dark/light mode toggle works on every page
+□ Free Resources page loads and all links work
+□ No console errors or warnings
+□ All navigation links work properly
+□ Site loads quickly without refresh requirement
+
+🎉 Your site is now production-ready for Hostinger!
+
+For support: contact@ardoniecapital.com

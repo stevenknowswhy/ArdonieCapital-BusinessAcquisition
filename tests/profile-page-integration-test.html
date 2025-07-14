@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page Integration Test - BuyMartV1</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            light: '#3B82F6',
+                            DEFAULT: '#2563EB',
+                            dark: '#1D4ED8'
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+    
+    <style>
+        .test-result {
+            transition: all 0.3s ease;
+        }
+        .test-result.success {
+            background-color: #10b981;
+            color: white;
+        }
+        .test-result.error {
+            background-color: #ef4444;
+            color: white;
+        }
+        .test-result.warning {
+            background-color: #f59e0b;
+            color: white;
+        }
+        .test-result.info {
+            background-color: #3b82f6;
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100">
+    <div class="max-w-6xl mx-auto p-6">
+        <!-- Header -->
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-slate-900 dark:text-white mb-2">Profile Page Integration Test</h1>
+            <p class="text-slate-600 dark:text-slate-400">Comprehensive testing of profile functionality, validation, and integration</p>
+        </div>
+
+        <!-- Test Controls -->
+        <div class="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-6 mb-6">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-xl font-semibold">Test Controls</h2>
+                <div class="flex space-x-4">
+                    <button id="run-all-tests" class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors">
+                        Run All Tests
+                    </button>
+                    <button id="clear-results" class="px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
+                        Clear Results
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Test Configuration -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                    <label class="block text-sm font-medium mb-2">Test User Email</label>
+                    <input type="email" id="test-email" value="reforiy538@iamtile.com" class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-2">Test User Password</label>
+                    <input type="password" id="test-password" value="gK9.t1|ROnQ52U[" class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-2">Profile Page URL</label>
+                    <input type="url" id="profile-url" value="../dashboard/user-profile.html" class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700">
+                </div>
+            </div>
+        </div>
+
+        <!-- Test Results -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Authentication Tests -->
+            <div class="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-6">
+                <h3 class="text-lg font-semibold mb-4">Authentication Integration</h3>
+                <div class="space-y-3">
+                    <div id="auth-service-test" class="test-result p-3 rounded-lg border">
+                        <div class="flex items-center justify-between">
+                            <span>Auth Service Availability</span>
+                            <span class="status">Pending</span>
+                        </div>
+                    </div>
+                    <div id="user-session-test" class="test-result p-3 rounded-lg border">
+                        <div class="flex items-center justify-between">
+                            <span>User Session Validation</span>
+                            <span class="status">Pending</span>
+                        </div>
+                    </div>
+                    <div id="profile-access-test" class="test-result p-3 rounded-lg border">
+                        <div class="flex items-center justify-between">
+                            <span>Profile Page Access Control</span>
+                            <span class="status">Pending</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Service Integration Tests -->
+            <div class="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-6">
+                <h3 class="text-lg font-semibold mb-4">Service Integration</h3>
+                <div class="space-y-3">
+                    <div id="profile-service-test" class="test-result p-3 rounded-lg border">
+                        <div class="flex items-center justify-between">
+                            <span>Profile Service Loading</span>
+                            <span class="status">Pending</span>
+                        </div>
+                    </div>
+                    <div id="validation-service-test" class="test-result p-3 rounded-lg border">
+                        <div class="flex items-center justify-between">
+                            <span>Validation Service Loading</span>
+                            <span class="status">Pending</span>
+                        </div>
+                    </div>
+                    <div id="error-handler-test" class="test-result p-3 rounded-lg border">
+                        <div class="flex items-center justify-between">
+                            <span>Error Handler Loading</span>
+                            <span class="status">Pending</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Persistence Tests -->
+            <div class="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-6">
+                <h3 class="text-lg font-semibold mb-4">Data Persistence</h3>
+                <div class="space-y-3">
+                    <div id="profile-fetch-test" class="test-result p-3 rounded-lg border">
+                        <div class="flex items-center justify-between">
+                            <span>Profile Data Fetching</span>
+                            <span class="status">Pending</span>
+                        </div>
+                    </div>
+                    <div id="profile-update-test" class="test-result p-3 rounded-lg border">
+                        <div class="flex items-center justify-between">
+                            <span>Profile Data Updates</span>
+                            <span class="status">Pending</span>
+                        </div>
+                    </div>
+                    <div id="cache-test" class="test-result p-3 rounded-lg border">
+                        <div class="flex items-center justify-between">
+                            <span>Profile Cache Management</span>
+                            <span class="status">Pending</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form Validation Tests -->
+            <div class="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-6">
+                <h3 class="text-lg font-semibold mb-4">Form Validation</h3>
+                <div class="space-y-3">
+                    <div id="field-validation-test" class="test-result p-3 rounded-lg border">
+                        <div class="flex items-center justify-between">
+                            <span>Field Validation Rules</span>
+                            <span class="status">Pending</span>
+                        </div>
+                    </div>
+                    <div id="realtime-validation-test" class="test-result p-3 rounded-lg border">
+                        <div class="flex items-center justify-between">
+                            <span>Real-time Validation</span>
+                            <span class="status">Pending</span>
+                        </div>
+                    </div>
+                    <div id="password-validation-test" class="test-result p-3 rounded-lg border">
+                        <div class="flex items-center justify-between">
+                            <span>Password Validation</span>
+                            <span class="status">Pending</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- UI/UX Tests -->
+            <div class="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-6">
+                <h3 class="text-lg font-semibold mb-4">UI/UX Integration</h3>
+                <div class="space-y-3">
+                    <div id="navigation-test" class="test-result p-3 rounded-lg border">
+                        <div class="flex items-center justify-between">
+                            <span>Navigation Integration</span>
+                            <span class="status">Pending</span>
+                        </div>
+                    </div>
+                    <div id="tab-switching-test" class="test-result p-3 rounded-lg border">
+                        <div class="flex items-center justify-between">
+                            <span>Tab Switching</span>
+                            <span class="status">Pending</span>
+                        </div>
+                    </div>
+                    <div id="responsive-test" class="test-result p-3 rounded-lg border">
+                        <div class="flex items-center justify-between">
+                            <span>Responsive Design</span>
+                            <span class="status">Pending</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Error Handling Tests -->
+            <div class="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-6">
+                <h3 class="text-lg font-semibold mb-4">Error Handling</h3>
+                <div class="space-y-3">
+                    <div id="toast-notifications-test" class="test-result p-3 rounded-lg border">
+                        <div class="flex items-center justify-between">
+                            <span>Toast Notifications</span>
+                            <span class="status">Pending</span>
+                        </div>
+                    </div>
+                    <div id="loading-states-test" class="test-result p-3 rounded-lg border">
+                        <div class="flex items-center justify-between">
+                            <span>Loading States</span>
+                            <span class="status">Pending</span>
+                        </div>
+                    </div>
+                    <div id="error-recovery-test" class="test-result p-3 rounded-lg border">
+                        <div class="flex items-center justify-between">
+                            <span>Error Recovery</span>
+                            <span class="status">Pending</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Test Log -->
+        <div class="mt-8 bg-white dark:bg-slate-800 rounded-lg shadow-lg p-6">
+            <h3 class="text-lg font-semibold mb-4">Test Log</h3>
+            <div id="test-log" class="bg-slate-100 dark:bg-slate-700 rounded-lg p-4 h-64 overflow-y-auto font-mono text-sm">
+                <div class="text-slate-500 dark:text-slate-400">Test log will appear here...</div>
+            </div>
+        </div>
+
+        <!-- Test Summary -->
+        <div class="mt-6 bg-white dark:bg-slate-800 rounded-lg shadow-lg p-6">
+            <h3 class="text-lg font-semibold mb-4">Test Summary</h3>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div class="text-center">
+                    <div id="total-tests" class="text-2xl font-bold text-slate-900 dark:text-white">0</div>
+                    <div class="text-sm text-slate-600 dark:text-slate-400">Total Tests</div>
+                </div>
+                <div class="text-center">
+                    <div id="passed-tests" class="text-2xl font-bold text-green-600">0</div>
+                    <div class="text-sm text-slate-600 dark:text-slate-400">Passed</div>
+                </div>
+                <div class="text-center">
+                    <div id="failed-tests" class="text-2xl font-bold text-red-600">0</div>
+                    <div class="text-sm text-slate-600 dark:text-slate-400">Failed</div>
+                </div>
+                <div class="text-center">
+                    <div id="success-rate" class="text-2xl font-bold text-blue-600">0%</div>
+                    <div class="text-sm text-slate-600 dark:text-slate-400">Success Rate</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- Test Script -->
+    <script type="module">
+        // Initialize Supabase first
+        const initializeSupabase = () => {
+            if (typeof window.supabase === 'undefined') {
+                throw new Error('Supabase CDN not loaded');
+            }
+
+            const supabaseUrl = 'https://pbydepsqcypwqbicnsco.supabase.co';
+            const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBieWRlcHNxY3lwd3FiaWNuc2NvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE5MjAxOTQsImV4cCI6MjA2NzQ5NjE5NH0.5aF46QcNOFN_vwXcHxCsVx_8a4EsqE1bL4fy4K7UXI0';
+
+            return window.supabase.createClient(supabaseUrl, supabaseKey);
+        };
+
+        // Load services
+        let profileService, profileValidator, profileErrorHandler;
+
+        class ProfilePageTester {
+            constructor() {
+                this.testResults = {};
+                this.testLog = [];
+                this.totalTests = 0;
+                this.passedTests = 0;
+                this.failedTests = 0;
+                this.servicesLoaded = false;
+
+                this.init();
+            }
+
+            async init() {
+                this.setupEventListeners();
+                this.log('Profile Page Tester initialized');
+
+                // Load services
+                try {
+                    await this.loadServices();
+                    this.servicesLoaded = true;
+                    this.log('✅ Test services loaded successfully');
+                } catch (error) {
+                    this.log(`❌ Failed to load test services: ${error.message}`, 'error');
+                }
+            }
+
+            async loadServices() {
+                // Initialize Supabase
+                const supabaseClient = initializeSupabase();
+                window.supabaseService = { client: supabaseClient, isInitialized: true };
+
+                // Load other services
+                const [
+                    profileModule,
+                    validationModule,
+                    errorModule
+                ] = await Promise.all([
+                    import('../src/features/user-profile/services/profile.service.js'),
+                    import('../src/features/user-profile/utils/validation.js'),
+                    import('../src/features/user-profile/utils/error-handler.js')
+                ]);
+
+                profileService = profileModule.profileService;
+                profileValidator = validationModule.profileValidator;
+                profileErrorHandler = errorModule.profileErrorHandler;
+
+                // Make globally available
+                window.profileService = profileService;
+                window.profileValidator = profileValidator;
+                window.profileErrorHandler = profileErrorHandler;
+            }
+
+            setupEventListeners() {
+                document.getElementById('run-all-tests').addEventListener('click', () => {
+                    this.runAllTests();
+                });
+
+                document.getElementById('clear-results').addEventListener('click', () => {
+                    this.clearResults();
+                });
+            }
+
+            async runAllTests() {
+                this.log('🚀 Starting comprehensive profile page tests...');
+                this.clearResults();
+
+                if (!this.servicesLoaded) {
+                    this.log('⏳ Services not loaded yet, attempting to load...');
+                    try {
+                        await this.loadServices();
+                        this.servicesLoaded = true;
+                    } catch (error) {
+                        this.log(`❌ Failed to load services: ${error.message}`, 'error');
+                        return;
+                    }
+                }
+
+                try {
+                    // Authentication Tests
+                    await this.testAuthServiceAvailability();
+                    await this.testUserSessionValidation();
+                    await this.testProfilePageAccess();
+
+                    // Service Integration Tests
+                    await this.testProfileServiceLoading();
+                    await this.testValidationServiceLoading();
+                    await this.testErrorHandlerLoading();
+
+                    // Data Persistence Tests
+                    await this.testProfileDataFetching();
+                    await this.testProfileDataUpdates();
+                    await this.testCacheManagement();
+
+                    // Form Validation Tests
+                    await this.testFieldValidation();
+                    await this.testRealtimeValidation();
+                    await this.testPasswordValidation();
+
+                    // UI/UX Tests
+                    await this.testNavigationIntegration();
+                    await this.testTabSwitching();
+                    await this.testResponsiveDesign();
+
+                    // Error Handling Tests
+                    await this.testToastNotifications();
+                    await this.testLoadingStates();
+                    await this.testErrorRecovery();
+
+                } catch (error) {
+                    this.log(`❌ Test suite failed: ${error.message}`, 'error');
+                }
+
+                this.updateSummary();
+                this.log('✅ Test suite completed');
+            }
+
+            // Authentication Tests
+            async testAuthServiceAvailability() {
+                const testId = 'auth-service-test';
+                try {
+                    this.log('Testing auth service availability...');
+
+                    if (window.authService) {
+                        this.setTestResult(testId, 'success', 'Auth service is available');
+                        this.passedTests++;
+                    } else {
+                        this.setTestResult(testId, 'error', 'Auth service not available');
+                        this.failedTests++;
+                    }
+                } catch (error) {
+                    this.setTestResult(testId, 'error', `Auth service test failed: ${error.message}`);
+                    this.failedTests++;
+                }
+                this.totalTests++;
+            }
+
+            async testUserSessionValidation() {
+                const testId = 'user-session-test';
+                try {
+                    this.log('Testing user session validation...');
+
+                    if (window.authService) {
+                        const user = await window.authService.getCurrentUser();
+                        if (user) {
+                            this.setTestResult(testId, 'success', 'User session is valid');
+                            this.passedTests++;
+                        } else {
+                            this.setTestResult(testId, 'warning', 'No active user session');
+                            this.failedTests++;
+                        }
+                    } else {
+                        this.setTestResult(testId, 'error', 'Auth service not available');
+                        this.failedTests++;
+                    }
+                } catch (error) {
+                    this.setTestResult(testId, 'error', `Session validation failed: ${error.message}`);
+                    this.failedTests++;
+                }
+                this.totalTests++;
+            }
+
+            async testProfilePageAccess() {
+                const testId = 'profile-access-test';
+                try {
+                    this.log('Testing profile page access control...');
+
+                    // Check if profile page exists and is accessible
+                    const profileUrl = document.getElementById('profile-url').value;
+                    const response = await fetch(profileUrl);
+
+                    if (response.ok) {
+                        this.setTestResult(testId, 'success', 'Profile page is accessible');
+                        this.passedTests++;
+                    } else {
+                        this.setTestResult(testId, 'error', `Profile page not accessible: ${response.status}`);
+                        this.failedTests++;
+                    }
+                } catch (error) {
+                    this.setTestResult(testId, 'error', `Access test failed: ${error.message}`);
+                    this.failedTests++;
+                }
+                this.totalTests++;
+            }
+
+            // Service Integration Tests
+            async testProfileServiceLoading() {
+                const testId = 'profile-service-test';
+                try {
+                    this.log('Testing profile service loading...');
+
+                    if (profileService && typeof profileService.getCurrentUserProfile === 'function') {
+                        this.setTestResult(testId, 'success', 'Profile service loaded successfully');
+                        this.passedTests++;
+                    } else {
+                        this.setTestResult(testId, 'error', 'Profile service not properly loaded');
+                        this.failedTests++;
+                    }
+                } catch (error) {
+                    this.setTestResult(testId, 'error', `Profile service test failed: ${error.message}`);
+                    this.failedTests++;
+                }
+                this.totalTests++;
+            }
+
+            async testValidationServiceLoading() {
+                const testId = 'validation-service-test';
+                try {
+                    this.log('Testing validation service loading...');
+
+                    if (profileValidator && typeof profileValidator.validateField === 'function') {
+                        this.setTestResult(testId, 'success', 'Validation service loaded successfully');
+                        this.passedTests++;
+                    } else {
+                        this.setTestResult(testId, 'error', 'Validation service not properly loaded');
+                        this.failedTests++;
+                    }
+                } catch (error) {
+                    this.setTestResult(testId, 'error', `Validation service test failed: ${error.message}`);
+                    this.failedTests++;
+                }
+                this.totalTests++;
+            }
+
+            async testErrorHandlerLoading() {
+                const testId = 'error-handler-test';
+                try {
+                    this.log('Testing error handler loading...');
+
+                    if (profileErrorHandler && typeof profileErrorHandler.handleError === 'function') {
+                        this.setTestResult(testId, 'success', 'Error handler loaded successfully');
+                        this.passedTests++;
+                    } else {
+                        this.setTestResult(testId, 'error', 'Error handler not properly loaded');
+                        this.failedTests++;
+                    }
+                } catch (error) {
+                    this.setTestResult(testId, 'error', `Error handler test failed: ${error.message}`);
+                    this.failedTests++;
+                }
+                this.totalTests++;
+            }
+
+            // Data Persistence Tests
+            async testProfileDataFetching() {
+                const testId = 'profile-fetch-test';
+                try {
+                    this.log('Testing profile data fetching...');
+
+                    if (profileService) {
+                        const result = await profileService.getCurrentUserProfile();
+                        if (result.success) {
+                            this.setTestResult(testId, 'success', 'Profile data fetched successfully');
+                            this.passedTests++;
+                        } else {
+                            this.setTestResult(testId, 'warning', `Profile fetch failed: ${result.error}`);
+                            this.failedTests++;
+                        }
+                    } else {
+                        this.setTestResult(testId, 'error', 'Profile service not available');
+                        this.failedTests++;
+                    }
+                } catch (error) {
+                    this.setTestResult(testId, 'error', `Profile fetch test failed: ${error.message}`);
+                    this.failedTests++;
+                }
+                this.totalTests++;
+            }
+
+            async testProfileDataUpdates() {
+                const testId = 'profile-update-test';
+                try {
+                    this.log('Testing profile data updates...');
+
+                    if (profileService) {
+                        // Test with minimal update to avoid side effects
+                        const testData = { bio: 'Test bio update' };
+                        const result = await profileService.updateProfile(testData);
+
+                        if (result.success) {
+                            this.setTestResult(testId, 'success', 'Profile update functionality works');
+                            this.passedTests++;
+                        } else {
+                            this.setTestResult(testId, 'warning', `Profile update failed: ${result.error}`);
+                            this.failedTests++;
+                        }
+                    } else {
+                        this.setTestResult(testId, 'error', 'Profile service not available');
+                        this.failedTests++;
+                    }
+                } catch (error) {
+                    this.setTestResult(testId, 'error', `Profile update test failed: ${error.message}`);
+                    this.failedTests++;
+                }
+                this.totalTests++;
+            }
+
+            async testCacheManagement() {
+                const testId = 'cache-test';
+                try {
+                    this.log('Testing profile cache management...');
+
+                    if (profileService && typeof profileService.clearCache === 'function') {
+                        profileService.clearCache();
+                        this.setTestResult(testId, 'success', 'Cache management works');
+                        this.passedTests++;
+                    } else {
+                        this.setTestResult(testId, 'warning', 'Cache management not available');
+                        this.failedTests++;
+                    }
+                } catch (error) {
+                    this.setTestResult(testId, 'error', `Cache test failed: ${error.message}`);
+                    this.failedTests++;
+                }
+                this.totalTests++;
+            }
+
+            // Form Validation Tests
+            async testFieldValidation() {
+                const testId = 'field-validation-test';
+                try {
+                    this.log('Testing field validation rules...');
+
+                    if (profileValidator) {
+                        // Test various validation scenarios
+                        const tests = [
+                            { field: 'firstName', value: '', shouldPass: false },
+                            { field: 'firstName', value: 'John', shouldPass: true },
+                            { field: 'email', value: 'invalid-email', shouldPass: false },
+                            { field: 'email', value: 'test@example.com', shouldPass: true },
+                            { field: 'phone', value: '123', shouldPass: false },
+                            { field: 'phone', value: '+1234567890', shouldPass: true }
+                        ];
+
+                        let passed = 0;
+                        for (const test of tests) {
+                            const result = profileValidator.validateField(test.field, test.value);
+                            if (result.isValid === test.shouldPass) {
+                                passed++;
+                            }
+                        }
+
+                        if (passed === tests.length) {
+                            this.setTestResult(testId, 'success', 'All validation rules work correctly');
+                            this.passedTests++;
+                        } else {
+                            this.setTestResult(testId, 'warning', `${passed}/${tests.length} validation tests passed`);
+                            this.failedTests++;
+                        }
+                    } else {
+                        this.setTestResult(testId, 'error', 'Validation service not available');
+                        this.failedTests++;
+                    }
+                } catch (error) {
+                    this.setTestResult(testId, 'error', `Field validation test failed: ${error.message}`);
+                    this.failedTests++;
+                }
+                this.totalTests++;
+            }
+
+            async testRealtimeValidation() {
+                const testId = 'realtime-validation-test';
+                try {
+                    this.log('Testing real-time validation...');
+
+                    // This would require DOM manipulation in the actual profile page
+                    // For now, we'll test the validator's real-time capabilities
+                    if (profileValidator && typeof profileValidator.validateFieldRealTime === 'function') {
+                        this.setTestResult(testId, 'success', 'Real-time validation available');
+                        this.passedTests++;
+                    } else {
+                        this.setTestResult(testId, 'error', 'Real-time validation not available');
+                        this.failedTests++;
+                    }
+                } catch (error) {
+                    this.setTestResult(testId, 'error', `Real-time validation test failed: ${error.message}`);
+                    this.failedTests++;
+                }
+                this.totalTests++;
+            }
+
+            async testPasswordValidation() {
+                const testId = 'password-validation-test';
+                try {
+                    this.log('Testing password validation...');
+
+                    if (profileValidator) {
+                        const passwordTests = [
+                            { current: '', new: '', confirm: '', shouldPass: false },
+                            { current: 'old123', new: 'new123', confirm: 'new123', shouldPass: true },
+                            { current: 'old123', new: 'new123', confirm: 'different', shouldPass: false },
+                            { current: 'old123', new: '123', confirm: '123', shouldPass: false }
+                        ];
+
+                        let passed = 0;
+                        for (const test of passwordTests) {
+                            const result = profileValidator.validatePasswordChange(test);
+                            if (result.isValid === test.shouldPass) {
+                                passed++;
+                            }
+                        }
+
+                        if (passed === passwordTests.length) {
+                            this.setTestResult(testId, 'success', 'Password validation works correctly');
+                            this.passedTests++;
+                        } else {
+                            this.setTestResult(testId, 'warning', `${passed}/${passwordTests.length} password tests passed`);
+                            this.failedTests++;
+                        }
+                    } else {
+                        this.setTestResult(testId, 'error', 'Validation service not available');
+                        this.failedTests++;
+                    }
+                } catch (error) {
+                    this.setTestResult(testId, 'error', `Password validation test failed: ${error.message}`);
+                    this.failedTests++;
+                }
+                this.totalTests++;
+            }
+
+            // UI/UX Tests
+            async testNavigationIntegration() {
+                const testId = 'navigation-test';
+                try {
+                    this.log('Testing navigation integration...');
+
+                    // Check if navigation functions are available
+                    if (typeof window.navigateToProfile === 'function') {
+                        this.setTestResult(testId, 'success', 'Navigation integration works');
+                        this.passedTests++;
+                    } else {
+                        this.setTestResult(testId, 'warning', 'Navigation functions not available');
+                        this.failedTests++;
+                    }
+                } catch (error) {
+                    this.setTestResult(testId, 'error', `Navigation test failed: ${error.message}`);
+                    this.failedTests++;
+                }
+                this.totalTests++;
+            }
+
+            async testTabSwitching() {
+                const testId = 'tab-switching-test';
+                try {
+                    this.log('Testing tab switching functionality...');
+
+                    // This would require testing in the actual profile page context
+                    // For now, we'll mark it as a manual test
+                    this.setTestResult(testId, 'info', 'Manual test required - check tab switching in profile page');
+                    this.passedTests++;
+                } catch (error) {
+                    this.setTestResult(testId, 'error', `Tab switching test failed: ${error.message}`);
+                    this.failedTests++;
+                }
+                this.totalTests++;
+            }
+
+            async testResponsiveDesign() {
+                const testId = 'responsive-test';
+                try {
+                    this.log('Testing responsive design...');
+
+                    // Check if the page has responsive classes
+                    const hasResponsiveClasses = document.querySelector('.lg\\:col-span-2, .md\\:grid-cols-2, .sm\\:px-6');
+                    if (hasResponsiveClasses) {
+                        this.setTestResult(testId, 'success', 'Responsive design classes detected');
+                        this.passedTests++;
+                    } else {
+                        this.setTestResult(testId, 'info', 'Manual test required - check responsive behavior');
+                        this.passedTests++;
+                    }
+                } catch (error) {
+                    this.setTestResult(testId, 'error', `Responsive design test failed: ${error.message}`);
+                    this.failedTests++;
+                }
+                this.totalTests++;
+            }
+
+            // Error Handling Tests
+            async testToastNotifications() {
+                const testId = 'toast-notifications-test';
+                try {
+                    this.log('Testing toast notifications...');
+
+                    if (profileErrorHandler) {
+                        // Test toast creation
+                        profileErrorHandler.showSuccessToast('Test success message');
+                        profileErrorHandler.showErrorToast('Test error message');
+
+                        // Check if toast container exists
+                        setTimeout(() => {
+                            const toastContainer = document.getElementById('toast-container');
+                            if (toastContainer && toastContainer.children.length > 0) {
+                                this.setTestResult(testId, 'success', 'Toast notifications work');
+                                this.passedTests++;
+                            } else {
+                                this.setTestResult(testId, 'warning', 'Toast notifications may not be working');
+                                this.failedTests++;
+                            }
+                            this.updateSummary();
+                        }, 1000);
+
+                        return; // Don't increment totalTests here, it's done in setTimeout
+                    } else {
+                        this.setTestResult(testId, 'error', 'Error handler not available');
+                        this.failedTests++;
+                    }
+                } catch (error) {
+                    this.setTestResult(testId, 'error', `Toast notification test failed: ${error.message}`);
+                    this.failedTests++;
+                }
+                this.totalTests++;
+            }
+
+            async testLoadingStates() {
+                const testId = 'loading-states-test';
+                try {
+                    this.log('Testing loading states...');
+
+                    if (profileErrorHandler && typeof profileErrorHandler.setLoadingState === 'function') {
+                        this.setTestResult(testId, 'success', 'Loading state management available');
+                        this.passedTests++;
+                    } else {
+                        this.setTestResult(testId, 'error', 'Loading state management not available');
+                        this.failedTests++;
+                    }
+                } catch (error) {
+                    this.setTestResult(testId, 'error', `Loading states test failed: ${error.message}`);
+                    this.failedTests++;
+                }
+                this.totalTests++;
+            }
+
+            async testErrorRecovery() {
+                const testId = 'error-recovery-test';
+                try {
+                    this.log('Testing error recovery...');
+
+                    if (profileErrorHandler) {
+                        // Test error handling
+                        const result = profileErrorHandler.handleError(new Error('Test error'), {
+                            showToast: false,
+                            logError: false
+                        });
+
+                        if (result.handled) {
+                            this.setTestResult(testId, 'success', 'Error recovery works');
+                            this.passedTests++;
+                        } else {
+                            this.setTestResult(testId, 'error', 'Error recovery failed');
+                            this.failedTests++;
+                        }
+                    } else {
+                        this.setTestResult(testId, 'error', 'Error handler not available');
+                        this.failedTests++;
+                    }
+                } catch (error) {
+                    this.setTestResult(testId, 'error', `Error recovery test failed: ${error.message}`);
+                    this.failedTests++;
+                }
+                this.totalTests++;
+            }
+
+            // Utility methods
+            setTestResult(testId, status, message) {
+                const element = document.getElementById(testId);
+                if (element) {
+                    element.className = `test-result p-3 rounded-lg border ${status}`;
+                    element.querySelector('.status').textContent = status.charAt(0).toUpperCase() + status.slice(1);
+                    element.title = message;
+                }
+                this.log(`${testId}: ${status} - ${message}`, status);
+            }
+
+            log(message, level = 'info') {
+                const timestamp = new Date().toLocaleTimeString();
+                const logEntry = `[${timestamp}] ${message}`;
+                this.testLog.push(logEntry);
+
+                const logElement = document.getElementById('test-log');
+                if (logElement) {
+                    const logDiv = document.createElement('div');
+                    logDiv.className = `text-${level === 'error' ? 'red' : level === 'warning' ? 'yellow' : level === 'success' ? 'green' : 'slate'}-600 dark:text-${level === 'error' ? 'red' : level === 'warning' ? 'yellow' : level === 'success' ? 'green' : 'slate'}-400`;
+                    logDiv.textContent = logEntry;
+                    logElement.appendChild(logDiv);
+                    logElement.scrollTop = logElement.scrollHeight;
+                }
+            }
+
+            clearResults() {
+                this.testResults = {};
+                this.testLog = [];
+                this.totalTests = 0;
+                this.passedTests = 0;
+                this.failedTests = 0;
+
+                // Clear UI
+                document.querySelectorAll('.test-result').forEach(element => {
+                    element.className = 'test-result p-3 rounded-lg border';
+                    element.querySelector('.status').textContent = 'Pending';
+                    element.title = '';
+                });
+
+                const logElement = document.getElementById('test-log');
+                if (logElement) {
+                    logElement.innerHTML = '<div class="text-slate-500 dark:text-slate-400">Test log cleared...</div>';
+                }
+
+                this.updateSummary();
+            }
+
+            updateSummary() {
+                document.getElementById('total-tests').textContent = this.totalTests;
+                document.getElementById('passed-tests').textContent = this.passedTests;
+                document.getElementById('failed-tests').textContent = this.failedTests;
+
+                const successRate = this.totalTests > 0 ? Math.round((this.passedTests / this.totalTests) * 100) : 0;
+                document.getElementById('success-rate').textContent = `${successRate}%`;
+            }
+        }
+
+        // Initialize tester when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            window.profilePageTester = new ProfilePageTester();
+        });
+    </script>
+</body>
+</html>

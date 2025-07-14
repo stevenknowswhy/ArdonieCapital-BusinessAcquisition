@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Ardonie Capital</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            light: '#3B82F6',
+                            DEFAULT: '#2563EB',
+                            dark: '#1D4ED8'
+                        }
+                    }
+                }
+            }
+        };
+
+        // Apply saved theme immediately
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .loading-dots {
+            animation: loading 1.5s infinite;
+        }
+        
+        @keyframes loading {
+            0%, 20% { opacity: 0; }
+            50% { opacity: 1; }
+            80%, 100% { opacity: 0; }
+        }
+        
+        .loading-dots:nth-child(2) { animation-delay: 0.2s; }
+        .loading-dots:nth-child(3) { animation-delay: 0.4s; }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 min-h-screen">
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="fixed inset-0 bg-white dark:bg-gray-900 z-50 flex items-center justify-center">
+        <div class="text-center">
+            <!-- Logo -->
+            <div class="mb-8">
+                <img src="../assets/images/logo.png" alt="Ardonie Capital" class="h-16 mx-auto mb-4" onerror="this.style.display='none'">
+                <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Ardonie Capital</h1>
+                <p class="text-gray-600 dark:text-gray-400">Business Acquisition Platform</p>
+            </div>
+            
+            <!-- Loading Animation -->
+            <div class="mb-6">
+                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+            </div>
+            
+            <!-- Loading Text -->
+            <div class="space-y-2">
+                <p id="loading-text" class="text-gray-600 dark:text-gray-400 font-medium">Initializing dashboard...</p>
+                <div class="flex justify-center space-x-1">
+                    <div class="loading-dots w-2 h-2 bg-primary rounded-full"></div>
+                    <div class="loading-dots w-2 h-2 bg-primary rounded-full"></div>
+                    <div class="loading-dots w-2 h-2 bg-primary rounded-full"></div>
+                </div>
+            </div>
+            
+            <!-- Progress Steps -->
+            <div class="mt-8 max-w-md mx-auto">
+                <div class="space-y-2 text-sm text-gray-500 dark:text-gray-400">
+                    <div id="step-auth" class="flex items-center space-x-2">
+                        <div class="w-4 h-4 rounded-full border-2 border-gray-300 dark:border-gray-600"></div>
+                        <span>Verifying authentication...</span>
+                    </div>
+                    <div id="step-roles" class="flex items-center space-x-2">
+                        <div class="w-4 h-4 rounded-full border-2 border-gray-300 dark:border-gray-600"></div>
+                        <span>Loading user roles...</span>
+                    </div>
+                    <div id="step-dashboard" class="flex items-center space-x-2">
+                        <div class="w-4 h-4 rounded-full border-2 border-gray-300 dark:border-gray-600"></div>
+                        <span>Preparing dashboard...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Screen (hidden by default) -->
+    <div id="error-screen" class="fixed inset-0 bg-white dark:bg-gray-900 z-40 flex items-center justify-center" style="display: none;">
+        <div class="max-w-md w-full bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 text-center mx-4">
+            <div class="text-6xl mb-4">⚠️</div>
+            <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Dashboard Error</h1>
+            <p id="error-message" class="text-gray-600 dark:text-gray-400 mb-6">
+                Something went wrong while loading your dashboard.
+            </p>
+            <div class="space-y-3">
+                <button onclick="location.reload()" 
+                        class="w-full bg-primary hover:bg-primary-dark text-white px-4 py-2 rounded-lg font-medium transition-colors">
+                    Try Again
+                </button>
+                <button onclick="location.href='/auth/login.html'" 
+                        class="w-full bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg font-medium transition-colors">
+                    Back to Login
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module">
+        import { dashboardRouter } from './dashboard-router.js';
+
+        class DashboardLoader {
+            constructor() {
+                this.loadingSteps = [
+                    { id: 'step-auth', text: 'Verifying authentication...', duration: 1000 },
+                    { id: 'step-roles', text: 'Loading user roles...', duration: 1500 },
+                    { id: 'step-dashboard', text: 'Preparing dashboard...', duration: 1000 }
+                ];
+                this.currentStep = 0;
+            }
+
+            async init() {
+                try {
+                    console.log('🎯 Starting dashboard loading process...');
+                    
+                    // Start loading animation
+                    this.startLoadingAnimation();
+                    
+                    // Initialize and route
+                    await dashboardRouter.route();
+                    
+                } catch (error) {
+                    console.error('❌ Dashboard loading failed:', error);
+                    this.showError(error.message || 'Failed to load dashboard');
+                }
+            }
+
+            startLoadingAnimation() {
+                this.updateLoadingText('Initializing dashboard...');
+                
+                // Animate through loading steps
+                this.loadingSteps.forEach((step, index) => {
+                    setTimeout(() => {
+                        this.completeStep(step.id);
+                        this.updateLoadingText(step.text);
+                        
+                        // If this is the last step, show completion
+                        if (index === this.loadingSteps.length - 1) {
+                            setTimeout(() => {
+                                this.updateLoadingText('Redirecting to your dashboard...');
+                            }, step.duration);
+                        }
+                    }, index * 800);
+                });
+            }
+
+            completeStep(stepId) {
+                const step = document.getElementById(stepId);
+                if (step) {
+                    const circle = step.querySelector('div');
+                    circle.classList.remove('border-gray-300', 'dark:border-gray-600');
+                    circle.classList.add('bg-primary', 'border-primary');
+                    
+                    // Add checkmark
+                    circle.innerHTML = '<svg class="w-2 h-2 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>';
+                }
+            }
+
+            updateLoadingText(text) {
+                const loadingText = document.getElementById('loading-text');
+                if (loadingText) {
+                    loadingText.textContent = text;
+                }
+            }
+
+            showError(message) {
+                const errorScreen = document.getElementById('error-screen');
+                const errorMessage = document.getElementById('error-message');
+                const loadingScreen = document.getElementById('loading-screen');
+                
+                if (errorMessage) {
+                    errorMessage.textContent = message;
+                }
+                
+                if (loadingScreen) {
+                    loadingScreen.style.display = 'none';
+                }
+                
+                if (errorScreen) {
+                    errorScreen.style.display = 'flex';
+                }
+            }
+        }
+
+        // Initialize when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            const loader = new DashboardLoader();
+            loader.init();
+        });
+
+        // Handle page visibility changes
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden) {
+                // Page became visible, check if user is still authenticated
+                console.log('👁️ Page became visible, checking authentication...');
+                // Could add re-authentication check here
+            }
+        });
+
+        // Handle browser back/forward navigation
+        window.addEventListener('popstate', () => {
+            console.log('🔄 Navigation detected, re-routing...');
+            dashboardRouter.route();
+        });
+
+        // Global error handler
+        window.addEventListener('error', (event) => {
+            console.error('🚨 Global error:', event.error);
+            
+            // Show error if it's related to dashboard loading
+            if (event.error?.message?.includes('dashboard') || event.error?.message?.includes('auth')) {
+                const loader = new DashboardLoader();
+                loader.showError('A technical error occurred. Please try refreshing the page.');
+            }
+        });
+
+        // Handle unhandled promise rejections
+        window.addEventListener('unhandledrejection', (event) => {
+            console.error('🚨 Unhandled promise rejection:', event.reason);
+            
+            // Prevent the default browser error handling
+            event.preventDefault();
+            
+            // Show user-friendly error
+            const loader = new DashboardLoader();
+            loader.showError('Something went wrong. Please try refreshing the page.');
+        });
+    </script>
+</body>
+</html>

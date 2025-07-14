@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Role-Based Homepage Demo - Ardonie Capital</title>
+    <link rel="stylesheet" href="assets/css/tailwind.css">
+    <style>
+        .demo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .demo-section {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-highlight {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 0.5rem 0;
+        }
+        
+        .implementation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .implementation-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+        
+        .role-preview {
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            background: #fafafa;
+        }
+        
+        .role-preview h4 {
+            color: #1a202c;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .role-preview p {
+            color: #4a5568;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="demo-container">
+        <!-- Header -->
+        <div class="demo-section text-center">
+            <h1 class="text-4xl font-bold text-gray-900 mb-4">🎯 New Role-Based Homepage Implementation</h1>
+            <p class="text-xl text-gray-600 mb-6">Complete redesign with role selection as the primary interface</p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="index.html" class="inline-flex items-center px-8 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors shadow-lg">
+                    🌐 View Live Implementation
+                    <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                    </svg>
+                </a>
+                <a href="role-segmentation-demo.html" class="inline-flex items-center px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-lg hover:border-gray-400 transition-colors">
+                    📊 Previous Demo
+                </a>
+            </div>
+        </div>
+
+        <!-- Key Features -->
+        <div class="demo-section">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">✨ Key Implementation Features</h2>
+            
+            <div class="implementation-grid">
+                <div class="implementation-card">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-3">🎭 Full-Screen Role Selection</h3>
+                    <ul class="space-y-2 text-gray-600 text-sm">
+                        <li>• Clean, uncluttered initial experience</li>
+                        <li>• Animated globe background (CodePen embed)</li>
+                        <li>• Four distinct user paths</li>
+                        <li>• Hover animations and transitions</li>
+                        <li>• Mobile-responsive design</li>
+                    </ul>
+                </div>
+
+                <div class="implementation-card">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-3">🎯 Dynamic Content Switching</h3>
+                    <ul class="space-y-2 text-gray-600 text-sm">
+                        <li>• Role-specific headlines and CTAs</li>
+                        <li>• Targeted feature highlights</li>
+                        <li>• Personalized dashboard previews</li>
+                        <li>• Smooth content transitions</li>
+                        <li>• Persistent role preferences</li>
+                    </ul>
+                </div>
+
+                <div class="implementation-card">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-3">🛡️ Trust & Security Elements</h3>
+                    <ul class="space-y-2 text-gray-600 text-sm">
+                        <li>• Bank-level security badges</li>
+                        <li>• Client testimonials with ratings</li>
+                        <li>• Trust statistics and metrics</li>
+                        <li>• Professional network indicators</li>
+                        <li>• Verified profile messaging</li>
+                    </ul>
+                </div>
+
+                <div class="implementation-card">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-3">⚡ Urgency & Ecosystem Benefits</h3>
+                    <ul class="space-y-2 text-gray-600 text-sm">
+                        <li>• 34-Day Express Deal program</li>
+                        <li>• Limited-time opportunity messaging</li>
+                        <li>• Professional network connections</li>
+                        <li>• Seamless buyer-seller-vendor ecosystem</li>
+                        <li>• Fast-track acquisition processes</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Role-Specific Content Preview -->
+        <div class="demo-section">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">👥 Role-Specific Content Examples</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Business Buyers -->
+                <div class="role-preview border-blue-200 bg-blue-50">
+                    <h4 class="text-blue-800">🔍 Business Buyers</h4>
+                    <p><strong>Headline:</strong> "Discover Profitable DFW Auto Shops – Matched to Your Criteria in Minutes"</p>
+                    <p><strong>Focus:</strong> AI-powered matching, verified opportunities, investment tools, professional network access</p>
+                    <p><strong>CTA:</strong> "Browse Listings Now" • "Get Personalized Matches"</p>
+                </div>
+
+                <!-- Business Sellers -->
+                <div class="role-preview border-emerald-200 bg-emerald-50">
+                    <h4 class="text-emerald-800">🏪 Business Sellers</h4>
+                    <p><strong>Headline:</strong> "Sell Your DFW Auto Shop Fast – Reach Qualified Buyers and Close in 34 Days"</p>
+                    <p><strong>Focus:</strong> Express selling program, maximum valuation, qualified buyers, full-service support</p>
+                    <p><strong>CTA:</strong> "List Your Shop Today" • "Get a Free Valuation"</p>
+                </div>
+
+                <!-- Financial Professionals -->
+                <div class="role-preview border-purple-200 bg-purple-50">
+                    <h4 class="text-purple-800">💼 Financial Professionals</h4>
+                    <p><strong>Headline:</strong> "Expand Your Practice – Connect with DFW Auto Deals and Clients Ready for Your Expertise"</p>
+                    <p><strong>Focus:</strong> Lead generation, deal pipeline access, professional network, collaboration opportunities</p>
+                    <p><strong>CTA:</strong> "Become a Financial Partner" • "Access Deal Pipeline"</p>
+                </div>
+
+                <!-- Legal Professionals -->
+                <div class="role-preview border-orange-200 bg-orange-50">
+                    <h4 class="text-orange-800">⚖️ Legal Professionals</h4>
+                    <p><strong>Headline:</strong> "Support Seamless DFW Acquisitions – Provide Legal/Consulting Expertise to Our Growing Network"</p>
+                    <p><strong>Focus:</strong> Secure document platform, legal referrals, compliance tools, professional networking</p>
+                    <p><strong>CTA:</strong> "Join as a Legal Partner" • "Explore Vendor Opportunities"</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Technical Implementation -->
+        <div class="demo-section">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">⚙️ Technical Implementation Details</h2>
+            
+            <div class="space-y-4">
+                <div class="feature-highlight">
+                    <h3 class="font-semibold mb-2">🌐 CodePen Globe Integration</h3>
+                    <p class="text-sm">Embedded CSS Non-WebGL realistic globe as animated background with dark overlay for readability</p>
+                </div>
+
+                <div class="feature-highlight">
+                    <h3 class="font-semibold mb-2">🎨 Advanced CSS Animations</h3>
+                    <p class="text-sm">Smooth transitions, hover effects, floating animations, and role-specific content switching</p>
+                </div>
+
+                <div class="feature-highlight">
+                    <h3 class="font-semibold mb-2">📱 Mobile-First Responsive Design</h3>
+                    <p class="text-sm">Optimized for all screen sizes with touch-friendly interactions and adaptive layouts</p>
+                </div>
+
+                <div class="feature-highlight">
+                    <h3 class="font-semibold mb-2">💾 Persistent User Preferences</h3>
+                    <p class="text-sm">LocalStorage and cookie-based role persistence for returning users</p>
+                </div>
+
+                <div class="feature-highlight">
+                    <h3 class="font-semibold mb-2">🔄 Dynamic Content Management</h3>
+                    <p class="text-sm">JavaScript-powered content switching with fade transitions and role-specific messaging</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- User Experience Flow -->
+        <div class="demo-section">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">🎯 User Experience Flow</h2>
+            
+            <div class="space-y-6">
+                <div class="flex items-center space-x-4">
+                    <div class="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold">1</div>
+                    <div>
+                        <h4 class="font-semibold text-gray-900">Landing Experience</h4>
+                        <p class="text-gray-600 text-sm">User lands on clean role selection screen with animated globe background</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <div class="w-8 h-8 bg-emerald-500 text-white rounded-full flex items-center justify-center font-bold">2</div>
+                    <div>
+                        <h4 class="font-semibold text-gray-900">Role Selection</h4>
+                        <p class="text-gray-600 text-sm">User chooses their role from four distinct options with hover animations</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <div class="w-8 h-8 bg-purple-500 text-white rounded-full flex items-center justify-center font-bold">3</div>
+                    <div>
+                        <h4 class="font-semibold text-gray-900">Personalized Content</h4>
+                        <p class="text-gray-600 text-sm">Homepage transforms to show role-specific content, features, and CTAs</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <div class="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold">4</div>
+                    <div>
+                        <h4 class="font-semibold text-gray-900">Persistent Experience</h4>
+                        <p class="text-gray-600 text-sm">Role preference saved for future visits with option to change anytime</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results & Benefits -->
+        <div class="demo-section">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">📈 Expected Results & Benefits</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-blue-600 mb-2">85%</div>
+                    <div class="text-gray-600 text-sm">Reduced Cognitive Load</div>
+                    <div class="text-xs text-gray-500 mt-1">Users see only relevant content</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-emerald-600 mb-2">60%</div>
+                    <div class="text-gray-600 text-sm">Increased Engagement</div>
+                    <div class="text-xs text-gray-500 mt-1">Personalized messaging</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-purple-600 mb-2">40%</div>
+                    <div class="text-gray-600 text-sm">Higher Conversion</div>
+                    <div class="text-xs text-gray-500 mt-1">Targeted CTAs and features</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

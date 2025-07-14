@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theme Test - BuyMartV1</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            DEFAULT: '#3B82F6',
+                            dark: '#2563EB'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-white dark:bg-slate-900 text-slate-900 dark:text-white transition-colors duration-200">
+    <div class="min-h-screen p-8">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-3xl font-bold mb-8">Theme Functionality Test</h1>
+            
+            <!-- Theme Controls -->
+            <div class="bg-slate-50 dark:bg-slate-800 rounded-lg p-6 mb-8">
+                <h2 class="text-xl font-semibold mb-4">Theme Controls</h2>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <button id="light-btn" class="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 transition-colors">
+                        Light Theme
+                    </button>
+                    <button id="dark-btn" class="px-4 py-2 bg-slate-800 text-white rounded hover:bg-slate-700 transition-colors">
+                        Dark Theme
+                    </button>
+                    <button id="system-btn" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors">
+                        System Theme
+                    </button>
+                    <button id="toggle-btn" class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-600 transition-colors">
+                        Toggle Theme
+                    </button>
+                </div>
+            </div>
+
+            <!-- Theme Status -->
+            <div class="bg-slate-100 dark:bg-slate-800 rounded-lg p-6 mb-8">
+                <h2 class="text-xl font-semibold mb-4">Current Status</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label class="text-sm font-medium text-slate-600 dark:text-slate-400">Selected Theme:</label>
+                        <div id="selected-theme" class="text-lg font-semibold">Loading...</div>
+                    </div>
+                    <div>
+                        <label class="text-sm font-medium text-slate-600 dark:text-slate-400">Applied Theme:</label>
+                        <div id="applied-theme" class="text-lg font-semibold">Loading...</div>
+                    </div>
+                    <div>
+                        <label class="text-sm font-medium text-slate-600 dark:text-slate-400">System Preference:</label>
+                        <div id="system-preference" class="text-lg font-semibold">Loading...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Visual Examples -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <!-- Card Example -->
+                <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg p-6 shadow-sm">
+                    <h3 class="text-lg font-semibold mb-3">Sample Card</h3>
+                    <p class="text-slate-600 dark:text-slate-400 mb-4">
+                        This card demonstrates how the theme affects different UI elements.
+                    </p>
+                    <button class="px-4 py-2 bg-primary text-white rounded hover:bg-primary-dark transition-colors">
+                        Primary Button
+                    </button>
+                </div>
+
+                <!-- Form Example -->
+                <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg p-6 shadow-sm">
+                    <h3 class="text-lg font-semibold mb-3">Sample Form</h3>
+                    <div class="space-y-3">
+                        <input type="text" placeholder="Text input" class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded bg-white dark:bg-slate-700 text-slate-900 dark:text-white">
+                        <select class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded bg-white dark:bg-slate-700 text-slate-900 dark:text-white">
+                            <option>Select option</option>
+                            <option>Option 1</option>
+                            <option>Option 2</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Links -->
+            <div class="bg-slate-50 dark:bg-slate-800 rounded-lg p-6">
+                <h2 class="text-xl font-semibold mb-4">Test Other Pages</h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <a href="./user-profile.html" class="text-primary hover:text-primary-dark underline">Profile Page</a>
+                    <a href="../index.html" class="text-primary hover:text-primary-dark underline">Home Page</a>
+                    <a href="../auth/login.html" class="text-primary hover:text-primary-dark underline">Login Page</a>
+                    <a href="../dashboard/dashboard.html" class="text-primary hover:text-primary-dark underline">Dashboard</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load Theme Manager -->
+    <script src="../assets/js/theme-manager.js"></script>
+
+    <script>
+        // Update status display
+        function updateStatus() {
+            if (window.themeManager) {
+                const currentTheme = window.themeManager.getCurrentTheme();
+                const isDark = window.themeManager.isDarkMode();
+                const systemPreference = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'Dark' : 'Light';
+                
+                document.getElementById('selected-theme').textContent = currentTheme.charAt(0).toUpperCase() + currentTheme.slice(1);
+                document.getElementById('applied-theme').textContent = isDark ? 'Dark' : 'Light';
+                document.getElementById('system-preference').textContent = systemPreference;
+            }
+        }
+
+        // Set up event listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            // Wait for theme manager to initialize
+            setTimeout(() => {
+                updateStatus();
+                
+                // Listen for theme changes
+                window.addEventListener('themeChanged', updateStatus);
+                
+                // Set up buttons
+                document.getElementById('light-btn').addEventListener('click', () => {
+                    if (window.themeManager) {
+                        window.themeManager.setTheme('light');
+                    }
+                });
+                
+                document.getElementById('dark-btn').addEventListener('click', () => {
+                    if (window.themeManager) {
+                        window.themeManager.setTheme('dark');
+                    }
+                });
+                
+                document.getElementById('system-btn').addEventListener('click', () => {
+                    if (window.themeManager) {
+                        window.themeManager.setTheme('system');
+                    }
+                });
+                
+                document.getElementById('toggle-btn').addEventListener('click', () => {
+                    if (window.themeManager) {
+                        window.themeManager.toggleTheme();
+                    }
+                });
+                
+            }, 200);
+        });
+
+        // Listen for system theme changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateStatus);
+    </script>
+</body>
+</html>

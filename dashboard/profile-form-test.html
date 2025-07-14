@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Form Test - BuyMartV1</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 p-8">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6">Profile Form Submission Test</h1>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Test Form -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <h2 class="text-lg font-semibold mb-4">Test Profile Form</h2>
+                <form id="test-profile-form" class="space-y-4" data-secure="true">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">First Name</label>
+                            <input type="text" id="first-name" class="w-full px-3 py-2 border border-slate-300 rounded bg-white text-slate-900" value="John">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Last Name</label>
+                            <input type="text" id="last-name" class="w-full px-3 py-2 border border-slate-300 rounded bg-white text-slate-900" value="Doe">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Phone</label>
+                            <input type="text" id="phone" class="w-full px-3 py-2 border border-slate-300 rounded bg-white text-slate-900" value="+1 (555) 123-4567">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Location</label>
+                            <input type="text" id="location" class="w-full px-3 py-2 border border-slate-300 rounded bg-white text-slate-900" value="San Francisco, CA">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Company</label>
+                        <input type="text" id="company" class="w-full px-3 py-2 border border-slate-300 rounded bg-white text-slate-900" value="Acme Corporation">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Bio</label>
+                        <textarea id="bio" rows="3" class="w-full px-3 py-2 border border-slate-300 rounded bg-white text-slate-900">Experienced professional with a passion for innovation and technology.</textarea>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Website</label>
+                            <input type="url" id="website" class="w-full px-3 py-2 border border-slate-300 rounded bg-white text-slate-900" value="https://johndoe.com">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">LinkedIn</label>
+                            <input type="url" id="linkedin" class="w-full px-3 py-2 border border-slate-300 rounded bg-white text-slate-900" value="https://linkedin.com/in/johndoe">
+                        </div>
+                    </div>
+                    <div class="flex justify-end space-x-3">
+                        <button type="button" id="load-current-data" class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">
+                            Load Current Data
+                        </button>
+                        <button type="submit" id="save-profile" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+                            Save Profile
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Test Results -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <h2 class="text-lg font-semibold mb-4">Test Results</h2>
+                <div id="test-results" class="space-y-2 max-h-96 overflow-y-auto">
+                    <div class="text-slate-500">No tests run yet</div>
+                </div>
+                <button id="clear-results" class="mt-3 px-3 py-1 bg-gray-500 text-white rounded text-sm hover:bg-gray-600">
+                    Clear Results
+                </button>
+            </div>
+
+            <!-- Current Profile Data -->
+            <div class="lg:col-span-2 bg-white rounded-lg shadow p-6">
+                <h2 class="text-lg font-semibold mb-4">Current Profile Data from Database</h2>
+                <div id="profile-data" class="bg-slate-100 p-4 rounded text-sm font-mono">
+                    <div class="text-slate-500">No profile data loaded</div>
+                </div>
+                <button id="refresh-profile-data" class="mt-3 px-3 py-1 bg-blue-500 text-white rounded text-sm hover:bg-blue-600">
+                    Refresh Profile Data
+                </button>
+            </div>
+
+            <!-- Console Log -->
+            <div class="lg:col-span-2 bg-white rounded-lg shadow p-6">
+                <h2 class="text-lg font-semibold mb-4">Console Log</h2>
+                <div id="console-log" class="bg-slate-100 p-4 rounded text-sm font-mono h-64 overflow-y-auto">
+                    <div class="text-slate-700">Profile form test initialized...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script>
+        let supabaseClient = null;
+        let currentUser = null;
+
+        const log = (message, type = 'info') => {
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = `[${timestamp}] ${message}`;
+            
+            const logElement = document.getElementById('console-log');
+            const div = document.createElement('div');
+            div.className = type === 'error' ? 'text-red-600' : type === 'success' ? 'text-green-600' : 'text-slate-700';
+            div.textContent = logEntry;
+            logElement.appendChild(div);
+            logElement.scrollTop = logElement.scrollHeight;
+            
+            console.log(logEntry);
+        };
+
+        const addResult = (test, result, details = '') => {
+            const resultsElement = document.getElementById('test-results');
+            const div = document.createElement('div');
+            div.className = `p-3 rounded border ${
+                result === 'pass' ? 'bg-green-50 border-green-200 text-green-800' :
+                result === 'fail' ? 'bg-red-50 border-red-200 text-red-800' :
+                'bg-yellow-50 border-yellow-200 text-yellow-800'
+            }`;
+            div.innerHTML = `
+                <div class="font-medium">${test}</div>
+                <div class="text-sm mt-1">${result.toUpperCase()}: ${details}</div>
+            `;
+            resultsElement.appendChild(div);
+        };
+
+        const showToast = (message, type = 'info') => {
+            log(`Toast: ${message}`, type);
+            addResult('Toast Message', type, message);
+        };
+
+        const initializeSupabase = () => {
+            try {
+                log('Initializing Supabase...');
+                
+                const supabaseUrl = 'https://pbydepsqcypwqbicnsco.supabase.co';
+                const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBieWRlcHNxY3lwd3FiaWNuc2NvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE5MjAxOTQsImV4cCI6MjA2NzQ5NjE5NH0.5aF46QcNOFN_vwXcHxCsVx_8a4EsqE1bL4fy4K7UXI0';
+
+                supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+                
+                log('✅ Supabase initialized successfully', 'success');
+                return supabaseClient;
+            } catch (error) {
+                log(`❌ Supabase initialization failed: ${error.message}`, 'error');
+                throw error;
+            }
+        };
+
+        // Copy the exact saveProfileData function from the main profile page
+        async function saveProfileData(profileData) {
+            try {
+                log('💾 Saving profile data...');
+                
+                // Get current user
+                const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
+                
+                if (userError || !user) {
+                    throw new Error('User not authenticated');
+                }
+                
+                log('👤 Saving profile for user:', user.id);
+                log('📋 Profile data:', JSON.stringify(profileData, null, 2));
+                
+                // Check if profile exists
+                const { data: existingProfiles, error: checkError } = await supabaseClient
+                    .from('profiles')
+                    .select('id')
+                    .eq('user_id', user.id);
+                
+                if (checkError) {
+                    log('❌ Error checking existing profile:', checkError);
+                    log('Check error details:', JSON.stringify({
+                        message: checkError.message,
+                        details: checkError.details,
+                        hint: checkError.hint,
+                        code: checkError.code
+                    }, null, 2));
+                    throw new Error(`Database check error: ${checkError.message}`);
+                }
+                
+                let result;
+                
+                if (existingProfiles && existingProfiles.length > 0) {
+                    // Update existing profile
+                    log('🔄 Updating existing profile...');
+                    const { data, error } = await supabaseClient
+                        .from('profiles')
+                        .update(profileData)
+                        .eq('user_id', user.id)
+                        .select();
+                    
+                    if (error) {
+                        log('❌ Update error:', error);
+                        log('Update error details:', JSON.stringify({
+                            message: error.message,
+                            details: error.details,
+                            hint: error.hint,
+                            code: error.code
+                        }, null, 2));
+                        throw new Error(`Update failed: ${error.message}`);
+                    }
+                    
+                    result = { data, error: null };
+                    log('✅ Profile updated successfully:', JSON.stringify(data, null, 2));
+                    
+                } else {
+                    // Create new profile
+                    log('➕ Creating new profile...');
+                    const newProfileData = {
+                        user_id: user.id,
+                        email: user.email,
+                        ...profileData,
+                        created_at: new Date().toISOString()
+                    };
+                    
+                    const { data, error } = await supabaseClient
+                        .from('profiles')
+                        .insert([newProfileData])
+                        .select();
+                    
+                    if (error) {
+                        log('❌ Insert error:', error);
+                        log('Insert error details:', JSON.stringify({
+                            message: error.message,
+                            details: error.details,
+                            hint: error.hint,
+                            code: error.code
+                        }, null, 2));
+                        throw new Error(`Insert failed: ${error.message}`);
+                    }
+                    
+                    result = { data, error: null };
+                    log('✅ Profile created successfully:', JSON.stringify(data, null, 2));
+                }
+                
+                return { success: true, data: result.data };
+                
+            } catch (error) {
+                log('❌ Save profile error:', error.message, 'error');
+                return { 
+                    success: false, 
+                    error: error.message,
+                    details: error
+                };
+            }
+        }
+
+        // Test functions
+        const loginAndSetup = async () => {
+            try {
+                log('Setting up test environment...');
+
+                if (!supabaseClient) {
+                    supabaseClient = initializeSupabase();
+                }
+
+                // Login with test user
+                const { data, error } = await supabaseClient.auth.signInWithPassword({
+                    email: 'reforiy538@iamtile.com',
+                    password: 'gK9.t1|ROnQ52U['
+                });
+
+                if (error) {
+                    throw new Error(`Login failed: ${error.message}`);
+                }
+
+                currentUser = data.user;
+                log(`✅ Logged in as ${data.user.email}`, 'success');
+                addResult('Setup', 'pass', `Authenticated as ${data.user.email}`);
+
+                // Load current profile data
+                await refreshProfileData();
+
+            } catch (error) {
+                log(`❌ Setup failed: ${error.message}`, 'error');
+                addResult('Setup', 'fail', error.message);
+            }
+        };
+
+        const refreshProfileData = async () => {
+            try {
+                if (!currentUser) {
+                    throw new Error('No user logged in');
+                }
+
+                log('📖 Loading current profile data...');
+
+                const { data: profiles, error } = await supabaseClient
+                    .from('profiles')
+                    .select('*')
+                    .eq('user_id', currentUser.id);
+
+                if (error) {
+                    throw new Error(`Failed to load profile: ${error.message}`);
+                }
+
+                const profileDataElement = document.getElementById('profile-data');
+
+                if (profiles && profiles.length > 0) {
+                    const profile = profiles[0];
+                    profileDataElement.innerHTML = `<pre>${JSON.stringify(profile, null, 2)}</pre>`;
+                    log('✅ Profile data loaded successfully', 'success');
+                    addResult('Profile Load', 'pass', 'Current profile data loaded');
+                } else {
+                    profileDataElement.innerHTML = '<div class="text-slate-500">No profile found in database</div>';
+                    log('⚠️ No profile found in database', 'warning');
+                    addResult('Profile Load', 'warning', 'No profile found in database');
+                }
+
+            } catch (error) {
+                log(`❌ Failed to load profile data: ${error.message}`, 'error');
+                addResult('Profile Load', 'fail', error.message);
+            }
+        };
+
+        const loadCurrentData = async () => {
+            try {
+                if (!currentUser) {
+                    await loginAndSetup();
+                }
+
+                log('📥 Loading current data into form...');
+
+                const { data: profiles, error } = await supabaseClient
+                    .from('profiles')
+                    .select('*')
+                    .eq('user_id', currentUser.id);
+
+                if (error) {
+                    throw new Error(`Failed to load profile: ${error.message}`);
+                }
+
+                if (profiles && profiles.length > 0) {
+                    const profile = profiles[0];
+
+                    // Populate form with current data
+                    document.getElementById('first-name').value = profile.first_name || '';
+                    document.getElementById('last-name').value = profile.last_name || '';
+                    document.getElementById('phone').value = profile.phone || '';
+                    document.getElementById('location').value = profile.location || '';
+                    document.getElementById('company').value = profile.company || '';
+                    document.getElementById('bio').value = profile.bio || '';
+                    document.getElementById('website').value = profile.website || '';
+                    document.getElementById('linkedin').value = profile.linkedin_url || '';
+
+                    log('✅ Form populated with current data', 'success');
+                    addResult('Form Load', 'pass', 'Form populated with current profile data');
+                } else {
+                    log('⚠️ No profile data to load', 'warning');
+                    addResult('Form Load', 'warning', 'No profile data found to load');
+                }
+
+            } catch (error) {
+                log(`❌ Failed to load current data: ${error.message}`, 'error');
+                addResult('Form Load', 'fail', error.message);
+            }
+        };
+
+        const saveProfile = async (e) => {
+            e.preventDefault();
+
+            try {
+                if (!currentUser) {
+                    await loginAndSetup();
+                }
+
+                log('💾 Starting profile save test...');
+
+                // Show loading state
+                const submitBtn = document.getElementById('save-profile');
+                const originalText = submitBtn.textContent;
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Saving...';
+
+                // Collect form data (exactly like the main profile page)
+                const formData = {
+                    first_name: document.getElementById('first-name').value.trim(),
+                    last_name: document.getElementById('last-name').value.trim(),
+                    phone: document.getElementById('phone').value.trim(),
+                    location: document.getElementById('location').value.trim(),
+                    company: document.getElementById('company').value.trim(),
+                    bio: document.getElementById('bio').value.trim(),
+                    website: document.getElementById('website').value.trim(),
+                    linkedin_url: document.getElementById('linkedin').value.trim(),
+                    updated_at: new Date().toISOString()
+                };
+
+                log('📋 Form data to save:', JSON.stringify(formData, null, 2));
+
+                // Validate required fields
+                if (!formData.first_name && !formData.last_name) {
+                    throw new Error('At least first name or last name is required');
+                }
+
+                // Save to database
+                const result = await saveProfileData(formData);
+
+                log('💾 Save result:', JSON.stringify(result, null, 2));
+
+                if (result.success) {
+                    showToast('Profile updated successfully!', 'success');
+                    addResult('Profile Save', 'pass', 'Profile data saved successfully');
+                    log('✅ Profile saved successfully', 'success');
+
+                    // Refresh profile data display
+                    setTimeout(refreshProfileData, 1000);
+                } else {
+                    throw new Error(result.error || 'Failed to save profile');
+                }
+
+            } catch (error) {
+                log(`❌ Profile save error: ${error.message}`, 'error');
+                showToast(`Failed to save profile: ${error.message}`, 'error');
+                addResult('Profile Save', 'fail', error.message);
+            } finally {
+                // Restore button state
+                const submitBtn = document.getElementById('save-profile');
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Save Profile';
+            }
+        };
+
+        const clearResults = () => {
+            document.getElementById('test-results').innerHTML = '<div class="text-slate-500">No tests run yet</div>';
+            document.getElementById('console-log').innerHTML = '<div class="text-slate-700">Profile form test cleared...</div>';
+            log('🧹 Results cleared');
+        };
+
+        // Event listeners
+        document.getElementById('test-profile-form').addEventListener('submit', saveProfile);
+        document.getElementById('load-current-data').addEventListener('click', loadCurrentData);
+        document.getElementById('refresh-profile-data').addEventListener('click', refreshProfileData);
+        document.getElementById('clear-results').addEventListener('click', clearResults);
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', async () => {
+            log('🔄 Profile form test page loaded');
+
+            try {
+                await loginAndSetup();
+                log('✅ Initial setup completed', 'success');
+            } catch (error) {
+                log(`❌ Initialization failed: ${error.message}`, 'error');
+            }
+        });
+    </script>
+</body>
+</html>

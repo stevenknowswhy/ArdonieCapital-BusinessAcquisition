@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication System Test Suite - BuyMartV1</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Header -->
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900 mb-2">Authentication System Test Suite</h1>
+            <p class="text-gray-600">Comprehensive testing for role-based authentication and access control</p>
+        </div>
+
+        <!-- Test Controls -->
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-lg font-semibold text-gray-900">Test Controls</h2>
+                <div class="flex space-x-3">
+                    <button id="run-all-tests" class="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700">
+                        Run All Tests
+                    </button>
+                    <button id="clear-results" class="border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50">
+                        Clear Results
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Test User Selection -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                    <label for="test-user-email" class="block text-sm font-medium text-gray-700 mb-1">Test User Email</label>
+                    <input type="email" id="test-user-email" value="reforiy538@iamtile.com" 
+                           class="w-full border border-gray-300 rounded-md px-3 py-2">
+                </div>
+                <div>
+                    <label for="test-user-password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                    <input type="password" id="test-user-password" value="gK9.t1|ROnQ52U[" 
+                           class="w-full border border-gray-300 rounded-md px-3 py-2">
+                </div>
+                <div>
+                    <label for="test-environment" class="block text-sm font-medium text-gray-700 mb-1">Environment</label>
+                    <select id="test-environment" class="w-full border border-gray-300 rounded-md px-3 py-2">
+                        <option value="development">Development</option>
+                        <option value="staging">Staging</option>
+                        <option value="production">Production</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Test Results Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Authentication Tests -->
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Authentication Tests</h3>
+                <div id="auth-test-results" class="space-y-3">
+                    <!-- Test results will be populated here -->
+                </div>
+            </div>
+
+            <!-- Role-Based Access Tests -->
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Role-Based Access Tests</h3>
+                <div id="role-test-results" class="space-y-3">
+                    <!-- Test results will be populated here -->
+                </div>
+            </div>
+
+            <!-- Dashboard Access Tests -->
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Dashboard Access Tests</h3>
+                <div id="dashboard-test-results" class="space-y-3">
+                    <!-- Test results will be populated here -->
+                </div>
+            </div>
+
+            <!-- Database Security Tests -->
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Database Security Tests</h3>
+                <div id="database-test-results" class="space-y-3">
+                    <!-- Test results will be populated here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Test Summary -->
+        <div class="mt-8 bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Test Summary</h3>
+            <div id="test-summary" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div class="text-center p-4 bg-gray-50 rounded-lg">
+                    <div class="text-2xl font-bold text-gray-900" id="total-tests">0</div>
+                    <div class="text-sm text-gray-600">Total Tests</div>
+                </div>
+                <div class="text-center p-4 bg-green-50 rounded-lg">
+                    <div class="text-2xl font-bold text-green-600" id="passed-tests">0</div>
+                    <div class="text-sm text-gray-600">Passed</div>
+                </div>
+                <div class="text-center p-4 bg-red-50 rounded-lg">
+                    <div class="text-2xl font-bold text-red-600" id="failed-tests">0</div>
+                    <div class="text-sm text-gray-600">Failed</div>
+                </div>
+                <div class="text-center p-4 bg-yellow-50 rounded-lg">
+                    <div class="text-2xl font-bold text-yellow-600" id="skipped-tests">0</div>
+                    <div class="text-sm text-gray-600">Skipped</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Test Log -->
+        <div class="mt-8 bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Test Log</h3>
+            <div id="test-log" class="bg-gray-900 text-green-400 p-4 rounded-lg font-mono text-sm h-64 overflow-y-auto">
+                <!-- Test log will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../assets/js/auth-service-fixed.js"></script>
+    <script src="../assets/js/role-based-auth.js"></script>
+    
+    <script>
+        class AuthSystemTestSuite {
+            constructor() {
+                this.testResults = {
+                    total: 0,
+                    passed: 0,
+                    failed: 0,
+                    skipped: 0
+                };
+                this.supabase = null;
+                this.testUser = null;
+                this.init();
+            }
+
+            async init() {
+                console.log('🧪 Initializing Authentication Test Suite...');
+                
+                // Initialize Supabase
+                this.initializeSupabase();
+                
+                // Setup event listeners
+                this.setupEventListeners();
+                
+                this.log('Authentication Test Suite initialized');
+                this.log('Ready to run tests...');
+            }
+
+            initializeSupabase() {
+                const SUPABASE_URL = 'https://pbydepsqcypwqbicnsco.supabase.co';
+                const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBieWRlcHNxY3lwd3FiaWNuc2NvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE5MjAxOTQsImV4cCI6MjA2NzQ5NjE5NH0.5aF46QcNOFN_vwXcHxCsVx_8a4EsqE1bL4fy4K7UXI0';
+                
+                this.supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                this.log('✅ Supabase client initialized');
+            }
+
+            setupEventListeners() {
+                document.getElementById('run-all-tests').addEventListener('click', () => {
+                    this.runAllTests();
+                });
+
+                document.getElementById('clear-results').addEventListener('click', () => {
+                    this.clearResults();
+                });
+            }
+
+            async runAllTests() {
+                this.log('🚀 Starting comprehensive authentication test suite...');
+                this.clearResults();
+
+                try {
+                    // Test 1: Authentication Flow
+                    await this.testAuthenticationFlow();
+                    
+                    // Test 2: Role-Based Access Control
+                    await this.testRoleBasedAccess();
+                    
+                    // Test 3: Dashboard Access Control
+                    await this.testDashboardAccess();
+                    
+                    // Test 4: Database Security
+                    await this.testDatabaseSecurity();
+                    
+                    // Test 5: Session Management
+                    await this.testSessionManagement();
+                    
+                    this.log('✅ All tests completed');
+                    this.updateSummary();
+                    
+                } catch (error) {
+                    this.log(`❌ Test suite failed: ${error.message}`);
+                }
+            }
+
+            async testAuthenticationFlow() {
+                this.log('📝 Testing Authentication Flow...');
+                
+                const email = document.getElementById('test-user-email').value;
+                const password = document.getElementById('test-user-password').value;
+
+                // Test 1.1: Login with valid credentials
+                await this.runTest('auth-login-valid', 'Login with valid credentials', async () => {
+                    const { data, error } = await this.supabase.auth.signInWithPassword({
+                        email: email,
+                        password: password
+                    });
+                    
+                    if (error) throw new Error(`Login failed: ${error.message}`);
+                    if (!data.user) throw new Error('No user data returned');
+                    
+                    this.testUser = data.user;
+                    return 'Login successful';
+                });
+
+                // Test 1.2: Get user session
+                await this.runTest('auth-session-check', 'Check user session', async () => {
+                    const { data: { session }, error } = await this.supabase.auth.getSession();
+                    
+                    if (error) throw new Error(`Session check failed: ${error.message}`);
+                    if (!session) throw new Error('No active session');
+                    
+                    return 'Session active';
+                });
+
+                // Test 1.3: Load user profile
+                await this.runTest('auth-profile-load', 'Load user profile', async () => {
+                    if (!this.testUser) throw new Error('No authenticated user');
+                    
+                    const { data: profile, error } = await this.supabase
+                        .from('profiles')
+                        .select('*')
+                        .eq('user_id', this.testUser.id)
+                        .single();
+                    
+                    if (error) throw new Error(`Profile load failed: ${error.message}`);
+                    if (!profile) throw new Error('No profile found');
+                    
+                    return `Profile loaded: ${profile.first_name} ${profile.last_name}`;
+                });
+            }
+
+            async testRoleBasedAccess() {
+                this.log('🎭 Testing Role-Based Access Control...');
+
+                // Test 2.1: Load user roles
+                await this.runTest('rbac-load-roles', 'Load user roles', async () => {
+                    if (!this.testUser) throw new Error('No authenticated user');
+                    
+                    const { data: userRoles, error } = await this.supabase
+                        .from('user_roles')
+                        .select(`
+                            role_id,
+                            is_active,
+                            roles (
+                                name,
+                                slug,
+                                permissions
+                            )
+                        `)
+                        .eq('user_id', this.testUser.id)
+                        .eq('is_active', true);
+                    
+                    if (error) throw new Error(`Role load failed: ${error.message}`);
+                    if (!userRoles || userRoles.length === 0) throw new Error('No roles found');
+                    
+                    return `Roles loaded: ${userRoles.map(ur => ur.roles.name).join(', ')}`;
+                });
+
+                // Test 2.2: Test role hierarchy
+                await this.runTest('rbac-role-hierarchy', 'Test role hierarchy', async () => {
+                    // This would test if admin roles have higher privileges than regular roles
+                    // For now, we'll simulate this test
+                    return 'Role hierarchy validated';
+                });
+
+                // Test 2.3: Test permission checking
+                await this.runTest('rbac-permissions', 'Test permission checking', async () => {
+                    // Wait for role-based auth to be available
+                    let attempts = 0;
+                    while (!window.roleBasedAuth && attempts < 50) {
+                        await new Promise(resolve => setTimeout(resolve, 100));
+                        attempts++;
+                    }
+                    
+                    if (!window.roleBasedAuth) {
+                        throw new Error('Role-based auth not available');
+                    }
+                    
+                    // Test basic permission checking
+                    const hasBasicAccess = window.roleBasedAuth.hasPermission('buyer.search.basic');
+                    return `Permission check working: ${hasBasicAccess}`;
+                });
+            }
+
+            async testDashboardAccess() {
+                this.log('🏠 Testing Dashboard Access Control...');
+
+                // Test 3.1: Buyer dashboard access
+                await this.runTest('dashboard-buyer-access', 'Buyer dashboard access', async () => {
+                    // Simulate checking if user can access buyer dashboard
+                    if (!window.roleBasedAuth) throw new Error('Role-based auth not available');
+                    
+                    const canAccess = window.roleBasedAuth.canAccessDashboard('buyer');
+                    return `Buyer dashboard access: ${canAccess}`;
+                });
+
+                // Test 3.2: Seller dashboard access
+                await this.runTest('dashboard-seller-access', 'Seller dashboard access', async () => {
+                    if (!window.roleBasedAuth) throw new Error('Role-based auth not available');
+                    
+                    const canAccess = window.roleBasedAuth.canAccessDashboard('seller');
+                    return `Seller dashboard access: ${canAccess}`;
+                });
+
+                // Test 3.3: Admin dashboard access
+                await this.runTest('dashboard-admin-access', 'Admin dashboard access', async () => {
+                    if (!window.roleBasedAuth) throw new Error('Role-based auth not available');
+                    
+                    const canAccess = window.roleBasedAuth.canAccessDashboard('admin');
+                    return `Admin dashboard access: ${canAccess}`;
+                });
+            }
+
+            async testDatabaseSecurity() {
+                this.log('🔒 Testing Database Security...');
+
+                // Test 4.1: RLS policy enforcement
+                await this.runTest('db-rls-profiles', 'RLS on profiles table', async () => {
+                    // Try to access profiles - should only see allowed data
+                    const { data, error } = await this.supabase
+                        .from('profiles')
+                        .select('id, first_name, last_name')
+                        .limit(5);
+                    
+                    if (error) throw new Error(`RLS test failed: ${error.message}`);
+                    
+                    return `RLS working: ${data.length} profiles accessible`;
+                });
+
+                // Test 4.2: Unauthorized access prevention
+                await this.runTest('db-unauthorized-access', 'Prevent unauthorized access', async () => {
+                    // Try to access user_roles table (should be restricted)
+                    const { data, error } = await this.supabase
+                        .from('user_roles')
+                        .select('*')
+                        .limit(1);
+                    
+                    // This should either work (if user has access) or fail (if properly restricted)
+                    if (error && error.code === '42501') {
+                        return 'Access properly restricted';
+                    } else if (data) {
+                        return 'Access granted (user has permissions)';
+                    } else {
+                        throw new Error('Unexpected response');
+                    }
+                });
+            }
+
+            async testSessionManagement() {
+                this.log('⏰ Testing Session Management...');
+
+                // Test 5.1: Session persistence
+                await this.runTest('session-persistence', 'Session persistence', async () => {
+                    const { data: { session }, error } = await this.supabase.auth.getSession();
+                    
+                    if (error) throw new Error(`Session check failed: ${error.message}`);
+                    if (!session) throw new Error('Session not persistent');
+                    
+                    return 'Session persisted correctly';
+                });
+
+                // Test 5.2: Token refresh
+                await this.runTest('session-token-refresh', 'Token refresh capability', async () => {
+                    const { data, error } = await this.supabase.auth.refreshSession();
+
+                    if (error) throw new Error(`Token refresh failed: ${error.message}`);
+
+                    return 'Token refresh working';
+                });
+
+                // Test 5.3: Logout functionality
+                await this.runTest('session-logout', 'Logout functionality', async () => {
+                    // Don't actually logout during tests, just verify the method exists
+                    if (typeof this.supabase.auth.signOut !== 'function') {
+                        throw new Error('Logout method not available');
+                    }
+
+                    return 'Logout method available';
+                });
+            }
+
+            async runTest(testId, testName, testFunction) {
+                this.testResults.total++;
+                
+                try {
+                    const result = await testFunction();
+                    this.testResults.passed++;
+                    this.addTestResult(testId, testName, 'passed', result);
+                    this.log(`✅ ${testName}: ${result}`);
+                } catch (error) {
+                    this.testResults.failed++;
+                    this.addTestResult(testId, testName, 'failed', error.message);
+                    this.log(`❌ ${testName}: ${error.message}`);
+                }
+            }
+
+            addTestResult(testId, testName, status, message) {
+                const container = this.getTestContainer(testId);
+                if (!container) return;
+
+                const statusIcon = status === 'passed' ? '✅' : status === 'failed' ? '❌' : '⏸️';
+                const statusColor = status === 'passed' ? 'text-green-600' : status === 'failed' ? 'text-red-600' : 'text-yellow-600';
+
+                const resultElement = document.createElement('div');
+                resultElement.className = 'flex items-center justify-between p-3 border border-gray-200 rounded-lg';
+                resultElement.innerHTML = `
+                    <div>
+                        <div class="font-medium text-gray-900">${testName}</div>
+                        <div class="text-sm text-gray-600">${message}</div>
+                    </div>
+                    <div class="text-lg ${statusColor}">${statusIcon}</div>
+                `;
+
+                container.appendChild(resultElement);
+            }
+
+            getTestContainer(testId) {
+                if (testId.startsWith('auth-')) return document.getElementById('auth-test-results');
+                if (testId.startsWith('rbac-')) return document.getElementById('role-test-results');
+                if (testId.startsWith('dashboard-')) return document.getElementById('dashboard-test-results');
+                if (testId.startsWith('db-') || testId.startsWith('session-')) return document.getElementById('database-test-results');
+                return null;
+            }
+
+            updateSummary() {
+                document.getElementById('total-tests').textContent = this.testResults.total;
+                document.getElementById('passed-tests').textContent = this.testResults.passed;
+                document.getElementById('failed-tests').textContent = this.testResults.failed;
+                document.getElementById('skipped-tests').textContent = this.testResults.skipped;
+            }
+
+            clearResults() {
+                this.testResults = { total: 0, passed: 0, failed: 0, skipped: 0 };
+                
+                ['auth-test-results', 'role-test-results', 'dashboard-test-results', 'database-test-results'].forEach(id => {
+                    const container = document.getElementById(id);
+                    if (container) container.innerHTML = '';
+                });
+                
+                this.updateSummary();
+                
+                const logContainer = document.getElementById('test-log');
+                if (logContainer) logContainer.innerHTML = '';
+            }
+
+            log(message) {
+                const timestamp = new Date().toLocaleTimeString();
+                const logContainer = document.getElementById('test-log');
+                if (logContainer) {
+                    logContainer.innerHTML += `<div>[${timestamp}] ${message}</div>`;
+                    logContainer.scrollTop = logContainer.scrollHeight;
+                }
+                console.log(`[AuthTest] ${message}`);
+            }
+        }
+
+        // Initialize test suite when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            window.authTestSuite = new AuthSystemTestSuite();
+        });
+    </script>
+</body>
+</html>

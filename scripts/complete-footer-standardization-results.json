@@ -1,0 +1,758 @@
+{
+  "totalPages": 106,
+  "pagesUpdated": 106,
+  "pagesFailed": 0,
+  "pagesSkipped": 0,
+  "pageDetails": [
+    {
+      "file": "about.html",
+      "directory": ".",
+      "success": true,
+      "action": "Replaced existing footer with standardized version",
+      "issues": []
+    },
+    {
+      "file": "assets/components/shadcn/badge.html",
+      "directory": "assets/components/shadcn",
+      "success": true,
+      "action": "Added standardized footer to page",
+      "issues": []
+    },
+    {
+      "file": "assets/components/shadcn/button.html",
+      "directory": "assets/components/shadcn",
+      "success": true,
+      "action": "Added standardized footer to page",
+      "issues": []
+    },
+    {
+      "file": "assets/components/shadcn/card.html",
+      "directory": "assets/components/shadcn",
+      "success": true,
+      "action": "Added standardized footer to page",
+      "issues": []
+    },
+    {
+      "file": "assets/images/dashboard-placeholder.html",
+      "directory": "assets/images",
+      "success": true,
+      "action": "Added standardized footer to page",
+      "issues": []
+    },
+    {
+      "file": "auth/login.html",
+      "directory": "auth",
+      "success": true,
+      "action": "Replaced existing footer with standardized version",
+      "issues": []
+    },
+    {
+      "file": "auth/register.html",
+      "directory": "auth",
+      "success": true,
+      "action": "Replaced existing footer with standardized version",
+      "issues": []
+    },
+    {
+      "file": "blog/auto-shop-valuation-factors.html",
+      "directory": "blog",
+      "success": true,
+      "action": "Replaced existing footer with standardized version",
+      "issues": []
+    },
+    {
+      "file": "blog/dfw-market-trends-2024.html",
+      "directory": "blog",
+      "success": true,
+      "action": "Replaced existing footer with standardized version",
+      "issues": []
+    },
+    {
+      "file": "blog/due-diligence-checklist.html",
+      "directory": "blog",
+      "success": true,
+      "action": "Replaced existing footer with standardized version",
+      "issues": []
+    },
+    {
+      "file": "blog/express-deal-success-stories.html",
+      "directory": "blog",
+      "success": true,
+      "action": "Replaced existing footer with standardized version",
+      "issues": []
+    },
+    {
+      "file": "blog/financing-options-auto-shops.html",
+      "directory": "blog",
+      "success": true,
+      "action": "Replaced existing footer with standardized version",
+      "issues": []
+    },
+    {
+      "file": "blog/index.html",
+      "directory": "blog",
+      "success": true,
+      "action": "Replaced existing footer with standardized version",
+      "issues": []
+    },
+    {
+      "file": "blog/preparing-auto-shop-for-sale.html",
+      "directory": "blog",
+      "success": true,
+      "action": "Replaced existing footer with standardized version",
+      "issues": []
+    },
+    {
+      "file": "blog.html",
+      "directory": ".",
+      "success": true,
+      "action": "Replaced existing footer with standardized version",
+      "issues": []
+    },
+    {
+      "file": "careers.html",
+      "directory": ".",
+      "success": true,
+      "action": "Replaced existing footer with standardized version",
+      "issues": []
+    },
+    {
+      "file": "components/head.html",
+      "directory": "components",
+      "success": true,
+      "action": "Added standardized footer to page",
+      "issues": []
+    },
+    {
+      "file": "components/header.html",
+      "directory": "components",
+      "success": true,
+      "action": "Added standardized footer to page",
+      "issues": []
+    },
+    {
+      "file": "components/navigation.html",
+      "directory": "components",
+      "success": true,
+      "action": "Added standardized footer to page",
+      "issues": []
+    },
+    {
+      "file": "contact.html",
+      "directory": ".",
+      "success": true,
+      "action": "Replaced existing footer with standardized version",
+      "issues": []
+    },
+    {
+      "file": "cookie-policy.html",
+      "directory": ".",
+      "success": true,
+      "action": "Replaced existing footer with standardized version",
+      "issues": []
+    },
+    {
+      "file": "dashboard/buyer-dashboard-backup.html",
+      "directory": "dashboard",
+      "success": true,
+      "action": "Removed dynamic loading, added standardized footer",
+      "issues": []
+    },
+    {
+      "file": "dashboard/buyer-dashboard.html",
+      "directory": "dashboard",
+      "success": true,
+      "action": "Replaced existing footer with standardized version",
+      "issues": []
+    },
+    {
+      "file": "dashboard/seller-dashboard.html",
+      "directory": "dashboard",
+      "success": true,
+      "action": "Replaced existing footer with standardized version",
+      "issues": []
+    },
+    {
+      "file": "documents/business-plan.html",
+      "directory": "documents",
+      "success": true,
+      "action": "Replaced existing footer with standardized version",
+      "issues": []
+    },
+    {
+      "file": "documents/company-strategy.html",
+      "directory": "documents",
+      "success": true,
+      "action": "Replaced existing footer with standardized version",
+      "issues": []
+    },
+    {
+      "file": "documents/financial-projections.html",
+      "directory": "documents",
+      "success": true,
+      "action": "Replaced existing footer with standardized version",
+      "issues": []
+    },
+    {
+      "file": "documents/founding-member.html",
+      "directory": "documents",
+      "success": true,
+      "action": "Replaced existing footer with standardized version",
+      "issues": []
+    },
+    {
+      "file": "documents/marketing-plan.html",
+      "directory": "documents",
+      "success": true,
+      "action": "Replaced existing footer with standardized version",
+      "issues": []
+    },
+    {
+      "file": "documents/nda.html",
+      "directory": "documents",
+      "success": true,
+      "action": "Added standardized footer to page",
+      "issues": []
+    },
+    {
+      "file": "documents/one-page-pitch.html",
+      "directory": "documents",
+      "success": true,
+      "action": "Replaced existing footer with standardized version",
+      "issues": []
+    },
+    {
+      "file": "documents/pitch-deck-fi.html",
+      "directory": "documents",
+      "success": true,
+      "action": "Removed dynamic loading, added standardized footer",
+      "issues": []
+    },
+    {
+      "file": "documents/pitch-deck-legal.html",
+      "directory": "documents",
+      "success": true,
+      "action": "Replaced existing footer with standardized version",
+      "issues": []
+    },
+    {
+      "file": "documents/vendor-accounting.html",
+      "directory": "documents",
+      "success": true,
+      "action": "Replaced existing footer with standardized version",
+      "issues": []
+    },
+    {
+      "file": "documents/vendor-financial.html",
+      "directory": "documents",
+      "success": true,
+      "action": "Replaced existing footer with standardized version",
+      "issues": []
+    },
+    {
+      "file": "documents/vendor-legal.html",
+      "directory": "documents",
+      "success": true,
+      "action": "Replaced existing footer with standardized version",
+      "issues": []
+    },
+    {
+      "file": "education/guides.html",
+      "directory": "education",
+      "success": true,
+      "action": "Removed dynamic loading, added standardized footer",
+      "issues": []
+    },
+    {
+      "file": "enhanced-comparison-section.html",
+      "directory": ".",
+      "success": true,
+      "action": "Added standardized footer to page",
+      "issues": []
+    },
+    {
+      "file": "enhanced-for-buyers-section.html",
+      "directory": ".",
+      "success": true,
+      "action": "Added standardized footer to page",
+      "issues": []
+    },
+    {
+      "file": "enhanced-for-sellers-section.html",
+      "directory": ".",
+      "success": true,
+      "action": "Added standardized footer to page",
+      "issues": []
+    },
+    {
+      "file": "enhanced-matches-page.html",
+      "directory": ".",
+      "success": true,
+      "action": "Replaced existing footer with standardized version",
+      "issues": []
+    },
+    {
+      "file": "enhanced-partner-cards-section.html",
+      "directory": ".",
+      "success": true,
+      "action": "Added standardized footer to page",
+      "issues": []
+    },
+    {
+      "file": "express-deal.html",
+      "directory": ".",
+      "success": true,
+      "action": "Replaced existing footer with standardized version",
+      "issues": []
+    },
+    {
+      "file": "for-buyers.html",
+      "directory": ".",
+      "success": true,
+      "action": "Replaced existing footer with standardized version",
+      "issues": []
+    },
+    {
+      "file": "for-sellers.html",
+      "directory": ".",
+      "success": true,
+      "action": "Replaced existing footer with standardized version",
+      "issues": []
+    },
+    {
+      "file": "funding/loan-calculator.html",
+      "directory": "funding",
+      "success": true,
+      "action": "Replaced existing footer with standardized version",
+      "issues": []
+    },
+    {
+      "file": "how-it-works.html",
+      "directory": ".",
+      "success": true,
+      "action": "Replaced existing footer with standardized version",
+      "issues": []
+    },
+    {
+      "file": "index.html",
+      "directory": ".",
+      "success": true,
+      "action": "Replaced existing footer with standardized version",
+      "issues": []
+    },
+    {
+      "file": "marketplace/listings.html",
+      "directory": "marketplace",
+      "success": true,
+      "action": "Replaced existing footer with standardized version",
+      "issues": []
+    },
+    {
+      "file": "matchmaking/matches.html",
+      "directory": "matchmaking",
+      "success": true,
+      "action": "Replaced existing footer with standardized version",
+      "issues": []
+    },
+    {
+      "file": "partner-with-us.html",
+      "directory": ".",
+      "success": true,
+      "action": "Replaced existing footer with standardized version",
+      "issues": []
+    },
+    {
+      "file": "portals/accountant-portal.html",
+      "directory": "portals",
+      "success": true,
+      "action": "Added standardized footer to page",
+      "issues": []
+    },
+    {
+      "file": "portals/appraiser-portal.html",
+      "directory": "portals",
+      "success": true,
+      "action": "Replaced existing footer with standardized version",
+      "issues": []
+    },
+    {
+      "file": "portals/attorney-portal.html",
+      "directory": "portals",
+      "success": true,
+      "action": "Replaced existing footer with standardized version",
+      "issues": []
+    },
+    {
+      "file": "portals/buyer-portal.html",
+      "directory": "portals",
+      "success": true,
+      "action": "Added standardized footer to page",
+      "issues": []
+    },
+    {
+      "file": "portals/components/portal-head.html",
+      "directory": "portals/components",
+      "success": true,
+      "action": "Added standardized footer to page",
+      "issues": []
+    },
+    {
+      "file": "portals/components/portal-header.html",
+      "directory": "portals/components",
+      "success": true,
+      "action": "Added standardized footer to page",
+      "issues": []
+    },
+    {
+      "file": "portals/insurance-portal.html",
+      "directory": "portals",
+      "success": true,
+      "action": "Replaced existing footer with standardized version",
+      "issues": []
+    },
+    {
+      "file": "portals/lender-portal.html",
+      "directory": "portals",
+      "success": true,
+      "action": "Added standardized footer to page",
+      "issues": []
+    },
+    {
+      "file": "portals/ma-consultant-portal.html",
+      "directory": "portals",
+      "success": true,
+      "action": "Replaced existing footer with standardized version",
+      "issues": []
+    },
+    {
+      "file": "portals/sections/buyer/active-deals.html",
+      "directory": "portals/sections/buyer",
+      "success": true,
+      "action": "Added standardized footer to page",
+      "issues": []
+    },
+    {
+      "file": "portals/sections/buyer/browse-listings.html",
+      "directory": "portals/sections/buyer",
+      "success": true,
+      "action": "Added standardized footer to page",
+      "issues": []
+    },
+    {
+      "file": "portals/sections/buyer/dashboard.html",
+      "directory": "portals/sections/buyer",
+      "success": true,
+      "action": "Added standardized footer to page",
+      "issues": []
+    },
+    {
+      "file": "portals/sections/buyer/express-listings.html",
+      "directory": "portals/sections/buyer",
+      "success": true,
+      "action": "Added standardized footer to page",
+      "issues": []
+    },
+    {
+      "file": "portals/sections/buyer/financing.html",
+      "directory": "portals/sections/buyer",
+      "success": true,
+      "action": "Added standardized footer to page",
+      "issues": []
+    },
+    {
+      "file": "portals/sections/buyer/funding-tools.html",
+      "directory": "portals/sections/buyer",
+      "success": true,
+      "action": "Added standardized footer to page",
+      "issues": []
+    },
+    {
+      "file": "portals/sections/buyer/learning-center.html",
+      "directory": "portals/sections/buyer",
+      "success": true,
+      "action": "Added standardized footer to page",
+      "issues": []
+    },
+    {
+      "file": "portals/sections/buyer/my-matches.html",
+      "directory": "portals/sections/buyer",
+      "success": true,
+      "action": "Added standardized footer to page",
+      "issues": []
+    },
+    {
+      "file": "portals/sections/seller/buyer-interest.html",
+      "directory": "portals/sections/seller",
+      "success": true,
+      "action": "Added standardized footer to page",
+      "issues": []
+    },
+    {
+      "file": "portals/sections/seller/dashboard.html",
+      "directory": "portals/sections/seller",
+      "success": true,
+      "action": "Added standardized footer to page",
+      "issues": []
+    },
+    {
+      "file": "portals/sections/seller/express-status.html",
+      "directory": "portals/sections/seller",
+      "success": true,
+      "action": "Added standardized footer to page",
+      "issues": []
+    },
+    {
+      "file": "portals/sections/seller/listing-management.html",
+      "directory": "portals/sections/seller",
+      "success": true,
+      "action": "Added standardized footer to page",
+      "issues": []
+    },
+    {
+      "file": "portals/seller-portal.html",
+      "directory": "portals",
+      "success": true,
+      "action": "Added standardized footer to page",
+      "issues": []
+    },
+    {
+      "file": "prelaunch-express.html",
+      "directory": ".",
+      "success": true,
+      "action": "Replaced existing footer with standardized version",
+      "issues": []
+    },
+    {
+      "file": "privacy-policy.html",
+      "directory": ".",
+      "success": true,
+      "action": "Replaced existing footer with standardized version",
+      "issues": []
+    },
+    {
+      "file": "sections/featured-listings.html",
+      "directory": "sections",
+      "success": true,
+      "action": "Added standardized footer to page",
+      "issues": []
+    },
+    {
+      "file": "sections/features.html",
+      "directory": "sections",
+      "success": true,
+      "action": "Added standardized footer to page",
+      "issues": []
+    },
+    {
+      "file": "sections/hero/atoms/badge-arrow.html",
+      "directory": "sections/hero/atoms",
+      "success": true,
+      "action": "Added standardized footer to page",
+      "issues": []
+    },
+    {
+      "file": "sections/hero/atoms/badge-new.html",
+      "directory": "sections/hero/atoms",
+      "success": true,
+      "action": "Added standardized footer to page",
+      "issues": []
+    },
+    {
+      "file": "sections/hero/atoms/badge-text.html",
+      "directory": "sections/hero/atoms",
+      "success": true,
+      "action": "Added standardized footer to page",
+      "issues": []
+    },
+    {
+      "file": "sections/hero/atoms/button-primary.html",
+      "directory": "sections/hero/atoms",
+      "success": true,
+      "action": "Added standardized footer to page",
+      "issues": []
+    },
+    {
+      "file": "sections/hero/atoms/button-secondary.html",
+      "directory": "sections/hero/atoms",
+      "success": true,
+      "action": "Added standardized footer to page",
+      "issues": []
+    },
+    {
+      "file": "sections/hero/atoms/dashboard-image.html",
+      "directory": "sections/hero/atoms",
+      "success": true,
+      "action": "Added standardized footer to page",
+      "issues": []
+    },
+    {
+      "file": "sections/hero/atoms/description.html",
+      "directory": "sections/hero/atoms",
+      "success": true,
+      "action": "Added standardized footer to page",
+      "issues": []
+    },
+    {
+      "file": "sections/hero/atoms/headline.html",
+      "directory": "sections/hero/atoms",
+      "success": true,
+      "action": "Added standardized footer to page",
+      "issues": []
+    },
+    {
+      "file": "sections/hero/hero-badge.html",
+      "directory": "sections/hero",
+      "success": true,
+      "action": "Added standardized footer to page",
+      "issues": []
+    },
+    {
+      "file": "sections/hero/hero-content.html",
+      "directory": "sections/hero",
+      "success": true,
+      "action": "Added standardized footer to page",
+      "issues": []
+    },
+    {
+      "file": "sections/hero/hero-cta-buttons.html",
+      "directory": "sections/hero",
+      "success": true,
+      "action": "Added standardized footer to page",
+      "issues": []
+    },
+    {
+      "file": "sections/hero/hero-dashboard-preview.html",
+      "directory": "sections/hero",
+      "success": true,
+      "action": "Added standardized footer to page",
+      "issues": []
+    },
+    {
+      "file": "sections/hero-consolidated.html",
+      "directory": "sections",
+      "success": true,
+      "action": "Added standardized footer to page",
+      "issues": []
+    },
+    {
+      "file": "sections/hero.html",
+      "directory": "sections",
+      "success": true,
+      "action": "Added standardized footer to page",
+      "issues": []
+    },
+    {
+      "file": "sections/process-timeline.html",
+      "directory": "sections",
+      "success": true,
+      "action": "Added standardized footer to page",
+      "issues": []
+    },
+    {
+      "file": "sections/testimonials.html",
+      "directory": "sections",
+      "success": true,
+      "action": "Added standardized footer to page",
+      "issues": []
+    },
+    {
+      "file": "simple-swiper-js-example/dist/index.html",
+      "directory": "simple-swiper-js-example/dist",
+      "success": true,
+      "action": "Added standardized footer to page",
+      "issues": []
+    },
+    {
+      "file": "simple-swiper-js-example/src/index.html",
+      "directory": "simple-swiper-js-example/src",
+      "success": true,
+      "action": "Added standardized footer to page",
+      "issues": []
+    },
+    {
+      "file": "src/features/authentication/pages/login.html",
+      "directory": "src/features/authentication/pages",
+      "success": true,
+      "action": "Added standardized footer to page",
+      "issues": []
+    },
+    {
+      "file": "terms-of-service.html",
+      "directory": ".",
+      "success": true,
+      "action": "Replaced existing footer with standardized version",
+      "issues": []
+    },
+    {
+      "file": "test-dashboard-fixes.html",
+      "directory": ".",
+      "success": true,
+      "action": "Added standardized footer to page",
+      "issues": []
+    },
+    {
+      "file": "test-hero.html",
+      "directory": ".",
+      "success": true,
+      "action": "Added standardized footer to page",
+      "issues": []
+    },
+    {
+      "file": "test-portal-sections.html",
+      "directory": ".",
+      "success": true,
+      "action": "Added standardized footer to page",
+      "issues": []
+    },
+    {
+      "file": "test-spacing-fixes.html",
+      "directory": ".",
+      "success": true,
+      "action": "Added standardized footer to page",
+      "issues": []
+    },
+    {
+      "file": "tools/due-diligence-checklist.html",
+      "directory": "tools",
+      "success": true,
+      "action": "Replaced existing footer with standardized version",
+      "issues": []
+    },
+    {
+      "file": "tools/valuation.html",
+      "directory": "tools",
+      "success": true,
+      "action": "Removed dynamic loading, added standardized footer",
+      "issues": []
+    },
+    {
+      "file": "vendor-portal/accounting-firms.html",
+      "directory": "vendor-portal",
+      "success": true,
+      "action": "Replaced existing footer with standardized version",
+      "issues": []
+    },
+    {
+      "file": "vendor-portal/financial-institutions.html",
+      "directory": "vendor-portal",
+      "success": true,
+      "action": "Replaced existing footer with standardized version",
+      "issues": []
+    },
+    {
+      "file": "vendor-portal/legal-firms.html",
+      "directory": "vendor-portal",
+      "success": true,
+      "action": "Replaced existing footer with standardized version",
+      "issues": []
+    }
+  ],
+  "summary": {
+    "rootPages": 23,
+    "subdirectoryPages": 50,
+    "deepSubdirectoryPages": 33,
+    "dynamicLoadingRemoved": 4,
+    "customFootersReplaced": 47,
+    "missingFootersAdded": 55
+  }
+}

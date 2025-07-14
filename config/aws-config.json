@@ -1,0 +1,219 @@
+{
+  "deployment": {
+    "excludePatterns": [
+      "node_modules/*",
+      ".git/*",
+      "*.md",
+      "setupDocs/*",
+      "deploy.sh",
+      "aws-config.json",
+      "*.log",
+      ".DS_Store",
+      "Thumbs.db",
+      "*.tmp",
+      "*.bak",
+      ".env*",
+      "*.zip",
+      "*.tar.gz"
+    ],
+    "includePatterns": [
+      "*.html",
+      "*.css",
+      "*.js",
+      "*.json",
+      "*.png",
+      "*.jpg",
+      "*.jpeg",
+      "*.gif",
+      "*.svg",
+      "*.ico",
+      "*.woff",
+      "*.woff2",
+      "*.ttf",
+      "*.eot"
+    ],
+    "contentTypes": {
+      ".html": "text/html",
+      ".css": "text/css",
+      ".js": "application/javascript",
+      ".json": "application/json",
+      ".png": "image/png",
+      ".jpg": "image/jpeg",
+      ".jpeg": "image/jpeg",
+      ".gif": "image/gif",
+      ".svg": "image/svg+xml",
+      ".ico": "image/x-icon",
+      ".woff": "font/woff",
+      ".woff2": "font/woff2",
+      ".ttf": "font/ttf",
+      ".eot": "application/vnd.ms-fontobject"
+    }
+  },
+  "aws": {
+    "region": "us-west-2",
+    "s3": {
+      "bucketName": "ardonie-capital-ws",
+      "websiteConfiguration": {
+        "indexDocument": "index.html",
+        "errorDocument": "error.html"
+      },
+      "corsConfiguration": {
+        "corsRules": [
+          {
+            "allowedHeaders": [
+              "*"
+            ],
+            "allowedMethods": [
+              "GET",
+              "HEAD"
+            ],
+            "allowedOrigins": [
+              "*"
+            ],
+            "maxAgeSeconds": 3600
+          }
+        ]
+      },
+      "cacheControl": {
+        "html": "public, max-age=3600",
+        "css": "public, max-age=31536000",
+        "js": "public, max-age=31536000",
+        "images": "public, max-age=31536000",
+        "fonts": "public, max-age=31536000"
+      },
+      "blockPublicAccess": true,
+      "blockPublicAcls": true,
+      "ignorePublicAcls": true,
+      "blockPublicPolicy": true,
+      "restrictPublicBuckets": true
+    },
+    "cloudfront": {
+      "enabled": true,
+      "priceClass": "PriceClass_100",
+      "defaultCacheBehavior": {
+        "targetOriginId": "S3-ardonie-capital-ws",
+        "viewerProtocolPolicy": "redirect-to-https",
+        "cachePolicyId": "4135ea2d-6df8-44a3-9df3-4b5a84be39ad",
+        "compress": true
+      },
+      "customErrorResponses": [
+        {
+          "errorCode": 404,
+          "responseCode": 200,
+          "responsePagePath": "/index.html",
+          "errorCachingMinTtl": 300
+        },
+        {
+          "errorCode": 403,
+          "responseCode": 200,
+          "responsePagePath": "/index.html",
+          "errorCachingMinTtl": 300
+        }
+      ],
+      "viewerProtocolPolicy": "redirect-to-https"
+    },
+    "route53": {
+      "enabled": false,
+      "domainName": "ardoniecapital.com",
+      "hostedZoneId": "",
+      "recordType": "A",
+      "alias": true
+    }
+  },
+  "security": {
+    "bucketPolicy": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "PublicReadGetObject",
+          "Effect": "Allow",
+          "Principal": "*",
+          "Action": "s3:GetObject",
+          "Resource": "arn:aws:s3:::ardonie-capital-ws/*"
+        }
+      ]
+    },
+    "headers": {
+      "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+      "X-Content-Type-Options": "nosniff",
+      "X-Frame-Options": "DENY",
+      "X-XSS-Protection": "1; mode=block",
+      "Referrer-Policy": "strict-origin-when-cross-origin",
+      "Content-Security-Policy": "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'"
+    }
+  },
+  "monitoring": {
+    "cloudwatch": {
+      "enabled": true,
+      "logRetentionDays": 30
+    },
+    "s3AccessLogging": {
+      "enabled": true,
+      "targetBucket": "ardonie-capital-logs",
+      "targetPrefix": "access-logs/"
+    }
+  },
+  "backup": {
+    "enabled": true,
+    "retentionDays": 30,
+    "schedule": "daily"
+  },
+  "performance": {
+    "compression": {
+      "enabled": true,
+      "types": [
+        "text/html",
+        "text/css",
+        "application/javascript",
+        "application/json",
+        "image/svg+xml"
+      ]
+    },
+    "minification": {
+      "enabled": false,
+      "note": "Minification handled by build process if needed"
+    }
+  },
+  "environments": {
+    "development": {
+      "bucketName": "ardonie-capital-dev",
+      "cloudfrontEnabled": false,
+      "customDomain": false
+    },
+    "staging": {
+      "bucketName": "ardonie-capital-staging",
+      "cloudfrontEnabled": true,
+      "customDomain": false
+    },
+    "production": {
+      "bucketName": "ardonie-capital-ws",
+      "cloudfrontEnabled": true,
+      "customDomain": true
+    }
+  },
+  "scripts": {
+    "preDeploy": [
+      "echo 'Starting pre-deployment checks...'",
+      "echo 'Validating HTML files...'",
+      "echo 'Checking asset references...'"
+    ],
+    "postDeploy": [
+      "echo 'Deployment completed successfully!'",
+      "echo 'Running post-deployment tests...'",
+      "echo 'Sending deployment notification...'"
+    ]
+  },
+  "notifications": {
+    "slack": {
+      "enabled": false,
+      "webhookUrl": "",
+      "channel": "#deployments"
+    },
+    "email": {
+      "enabled": false,
+      "recipients": [
+        "admin@ardoniecapital.com"
+      ]
+    }
+  }
+}

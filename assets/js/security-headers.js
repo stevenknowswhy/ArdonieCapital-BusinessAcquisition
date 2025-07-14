@@ -16,7 +16,9 @@
             'script-src': [
                 "'self'",
                 "'unsafe-inline'", // Required for inline scripts
-                "https://fonts.googleapis.com"
+                "https://fonts.googleapis.com",
+                "https://cpwebassets.codepen.io",
+                "https://cdn.tailwindcss.com"
             ],
             'style-src': [
                 "'self'",

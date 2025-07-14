@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'">
-    <link rel="dns-prefetch" href="//cdn.tailwindcss.com">
     <link rel="dns-prefetch" href="//fonts.googleapis.com">
     <link rel="dns-prefetch" href="//images.unsplash.com">
-    <link rel="preload" href="https://cdn.tailwindcss.com" as="script">
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style">
     <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DFW Auto Repair Market Trends 2024 - Ardonie Capital Blog</title>
     <meta name="description" content="The Dallas-Fort Worth auto repair market continues to show strong growth. Here's what buyers and sellers need to know about current trends and opportunities.">
-    <script src="https://cdn.tailwindcss.com" defer></script>
+
+    <!-- Tailwind CSS -->
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
@@ -32,6 +33,22 @@
             }
         }
     </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+        // Apply saved theme preference immediately to prevent flash
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" media="print" onload="this.media='all'" href="../assets/css/common.css">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
@@ -44,42 +61,17 @@
             document.head.appendChild(script);
         }
     </script>
+
+    <!-- Navigation Styles -->
+    <link rel="stylesheet" href="../components/navigation-styles.css">
+    <link rel="stylesheet" href="../assets/css/admin-navigation.css">
+    <link rel="stylesheet" href="../assets/css/accessibility-fixes.css">
+    <link rel="stylesheet" href="../assets/css/mobile-responsiveness.css">
 </head>
 <body class="bg-white dark:bg-slate-900 text-slate-900 dark:text-white">
-    <header role="banner">
-    <!-- Header -->
-    <header class="bg-white dark:bg-slate-900 shadow-sm border-b border-slate-200 dark:border-slate-800">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <!-- Logo -->
-                <div class="flex items-center">
-                    <a href="../index.html" class="flex items-center">
-                        <span class="text-2xl font-bold text-primary-dark dark:text-primary-light">Ardonie Capital</span>
-                    </a>
-                </div>
-
-                <!-- Desktop Navigation -->
-                <nav class="hidden md:flex space-x-8">
-                    <a href="../express-deal.html" class="text-accent-dark hover:text-accent dark:text-accent-light font-medium">🚖 Express Deal</a>
-                    <a href="../marketplace/listings.html" class="text-slate-600 hover:text-primary-dark dark:text-slate-300 dark:hover:text-primary-light">Browse Listings</a>
-                    <a href="../for-sellers.html" class="text-slate-600 hover:text-primary-dark dark:text-slate-300 dark:hover:text-primary-light">For Sellers</a>
-                    <a href="../for-buyers.html" class="text-slate-600 hover:text-primary-dark dark:text-slate-300 dark:hover:text-primary-light">For Buyers</a>
-                    <a href="../blog.html" class="text-primary-dark dark:text-primary-light font-medium">Blog</a>
-                    <a href="../contact.html" class="text-slate-600 hover:text-primary-dark dark:text-slate-300 dark:hover:text-primary-light">Contact</a>
-                    <a href="../auth/register.html" class="text-white bg-primary-dark hover:bg-primary rounded-md px-4 py-2">Get Started</a>
-                </nav>
-
-                <!-- Mobile menu button -->
-                <div class="md:hidden">
-                    <button type="button" id="mobile-menu-button" class="text-slate-600 hover:text-primary-dark dark:text-slate-300 dark:hover:text-primary-light" aria-label="Open mobile menu">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </header>
+    <!-- Navigation -->
+    <div id="main-navigation-container"></div>
+    <div id="admin-navigation-container"></div>
 
     <main>
         <!-- Breadcrumb -->
@@ -88,7 +80,7 @@
                 <div class="flex items-center space-x-2 text-sm">
                     <a href="../index.html" class="text-slate-600 dark:text-slate-300 hover:text-primary-dark">Home</a>
                     <span class="text-slate-400">/</span>
-                    <a href="../blog.html" class="text-slate-600 dark:text-slate-300 hover:text-primary-dark">Blog</a>
+                    <a href="index.html" class="text-slate-600 dark:text-slate-300 hover:text-primary-dark">Blog</a>
                     <span class="text-slate-400">/</span>
                     <span class="text-slate-900 dark:text-white">DFW Auto Repair Market Trends 2024</span>
                 </div>
@@ -299,7 +291,7 @@
 
                     <!-- Back to Blog -->
                     <div class="mt-12 text-center">
-                        <a href="../blog.html" class="inline-flex items-center px-6 py-3 border border-primary-dark text-primary-dark hover:bg-primary-dark hover:text-white rounded-md transition-colors">
+                        <a href="index.html" class="inline-flex items-center px-6 py-3 border border-primary-dark text-primary-dark hover:bg-primary-dark hover:text-white rounded-md transition-colors">
                             ← Back to Blog
                         </a>
                     </div>
@@ -311,14 +303,8 @@
     <!-- Footer -->
     
 
-    <script>
-
-        // Mobile menu toggle
-        document.getElementById('mobile-menu-button').addEventListener('click', function() {
-            const mobileMenu = document.getElementById('mobile-menu');
-            mobileMenu.classList.toggle('hidden');
-        });
-    </script>
+    <!-- Load Navigation Component -->
+    <script src="../components/main-navigation.js"></script>
 
     <!-- Footer -->
     <footer class="bg-slate-900 text-white py-10">
@@ -477,5 +463,7 @@
         </div>
     </footer>
     </header>
+    <script src="../components/admin-navigation.js"></script>
+    <script src="../assets/js/security-enhanced.js" defer></script>
 </body>
 </html>

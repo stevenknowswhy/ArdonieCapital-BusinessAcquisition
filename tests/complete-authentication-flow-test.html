@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Authentication Flow Test - Fixed Schema</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-6xl mx-auto">
+        <h1 class="text-3xl font-bold mb-6">Complete Authentication Flow Test</h1>
+        <p class="text-gray-600 mb-6">Testing the complete authentication and profile flow with fixed schema</p>
+        
+        <!-- Schema Fix Status -->
+        <div class="bg-green-50 border-l-4 border-green-400 p-4 mb-6">
+            <h2 class="text-lg font-semibold text-green-800">Schema Fixes Applied ✅</h2>
+            <ul class="text-green-700 mt-2 space-y-1">
+                <li>• Fixed RLS policy infinite recursion</li>
+                <li>• Updated profile queries to use user_id relationship</li>
+                <li>• Removed non-existent email column references</li>
+                <li>• Enhanced auth service with automatic profile creation</li>
+            </ul>
+        </div>
+
+        <!-- Test Controls -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+            <h2 class="text-xl font-semibold mb-4">Test Controls</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <button onclick="testNewUserRegistration()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                    Test New User Registration
+                </button>
+                <button onclick="testExistingUserLogin()" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+                    Test Existing User Login
+                </button>
+                <button onclick="testCompleteFlow()" class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600">
+                    Test Complete Flow
+                </button>
+            </div>
+        </div>
+
+        <!-- Test Results -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+            <!-- Registration Test -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h3 class="text-lg font-semibold mb-4">Registration Test</h3>
+                <form id="registration-form" class="space-y-3" data-secure="true">
+                    <div>
+                        <input type="text" id="reg-firstName" placeholder="First Name" value="Test"
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm">
+                    </div>
+                    <div>
+                        <input type="text" id="reg-lastName" placeholder="Last Name" value="User"
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm">
+                    </div>
+                    <div>
+                        <input type="email" id="reg-email" placeholder="Email" value=""
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm">
+                    </div>
+                    <div>
+                        <input type="password" id="reg-password" placeholder="Password" value="TestPass123!"
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm">
+                    </div>
+                    <div>
+                        <input type="password" id="reg-confirmPassword" placeholder="Confirm Password" value="TestPass123!"
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm">
+                    </div>
+                    <div>
+                        <select id="reg-userType" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm">
+                            <option value="buyer">Buyer</option>
+                            <option value="seller">Seller</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 text-sm">
+                        Register
+                    </button>
+                </form>
+                <div id="registration-results" class="mt-4 space-y-2"></div>
+            </div>
+
+            <!-- Login Test -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h3 class="text-lg font-semibold mb-4">Login Test</h3>
+                <form id="login-form" class="space-y-3" data-secure="true">
+                    <div>
+                        <input type="email" id="login-email" placeholder="Email" value="reforiy538@iamtile.com"
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm">
+                    </div>
+                    <div>
+                        <input type="password" id="login-password" placeholder="Password" value=""
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm">
+                    </div>
+                    <button type="submit" class="w-full bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 text-sm">
+                        Login
+                    </button>
+                </form>
+                <div id="login-results" class="mt-4 space-y-2"></div>
+            </div>
+        </div>
+
+        <!-- Flow Status -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+            <h2 class="text-xl font-semibold mb-4">Authentication Flow Status</h2>
+            <div id="flow-status" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div class="p-3 rounded bg-gray-100">
+                    <h4 class="font-semibold text-sm">Auth Service</h4>
+                    <p id="auth-service-status" class="text-sm">Ready</p>
+                </div>
+                <div class="p-3 rounded bg-gray-100">
+                    <h4 class="font-semibold text-sm">Database</h4>
+                    <p id="database-status" class="text-sm">Connected</p>
+                </div>
+                <div class="p-3 rounded bg-gray-100">
+                    <h4 class="font-semibold text-sm">RLS Policies</h4>
+                    <p id="rls-status" class="text-sm">Fixed</p>
+                </div>
+                <div class="p-3 rounded bg-gray-100">
+                    <h4 class="font-semibold text-sm">Profile System</h4>
+                    <p id="profile-system-status" class="text-sm">Enhanced</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Debug Log -->
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-xl font-semibold mb-4">Debug Log</h2>
+            <div id="debug-log" class="bg-gray-100 p-4 rounded text-sm font-mono max-h-64 overflow-y-auto"></div>
+            <button onclick="clearLog()" class="mt-2 bg-gray-500 text-white px-3 py-1 rounded text-sm">Clear Log</button>
+        </div>
+    </div>
+
+    <!-- Supabase CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- Load Auth Service -->
+    <script src="assets/js/auth-service.js"></script>
+    
+    <script>
+        let supabase;
+        let authService;
+
+        function log(message, type = 'info') {
+            const debugLog = document.getElementById('debug-log');
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = document.createElement('div');
+            logEntry.className = type === 'error' ? 'text-red-600' : type === 'success' ? 'text-green-600' : 'text-gray-800';
+            logEntry.textContent = `[${timestamp}] ${message}`;
+            debugLog.appendChild(logEntry);
+            debugLog.scrollTop = debugLog.scrollHeight;
+        }
+
+        function clearLog() {
+            document.getElementById('debug-log').innerHTML = '';
+        }
+
+        function addResult(containerId, content, type = 'info') {
+            const container = document.getElementById(containerId);
+            const resultDiv = document.createElement('div');
+            resultDiv.className = `p-2 rounded text-sm ${
+                type === 'error' ? 'bg-red-100 text-red-800' : 
+                type === 'success' ? 'bg-green-100 text-green-800' : 
+                type === 'warning' ? 'bg-yellow-100 text-yellow-800' : 
+                'bg-blue-100 text-blue-800'
+            }`;
+            resultDiv.innerHTML = content;
+            container.appendChild(resultDiv);
+        }
+
+        function updateStatus(elementId, content, type = 'info') {
+            const element = document.getElementById(elementId);
+            element.className = `text-sm ${type === 'error' ? 'text-red-600' : type === 'success' ? 'text-green-600' : 'text-gray-600'}`;
+            element.textContent = content;
+        }
+
+        async function initSupabase() {
+            try {
+                const SUPABASE_URL = 'https://pbydepsqcypwqbicnsco.supabase.co';
+                const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBieWRlcHNxY3lwd3FiaWNuc2NvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE5MjAxOTQsImV4cCI6MjA2NzQ5NjE5NH0.5aF46QcNOFN_vwXcHxCsVx_8a4EsqE1bL4fy4K7UXI0';
+                
+                supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                log('Supabase client initialized', 'success');
+                updateStatus('database-status', 'Connected', 'success');
+                return true;
+            } catch (error) {
+                log(`Failed to initialize Supabase: ${error.message}`, 'error');
+                updateStatus('database-status', 'Error', 'error');
+                return false;
+            }
+        }
+
+        function waitForAuthService() {
+            return new Promise((resolve) => {
+                if (window.AuthService) {
+                    resolve(window.AuthService);
+                } else {
+                    setTimeout(() => waitForAuthService().then(resolve), 100);
+                }
+            });
+        }
+
+        function generateRandomEmail() {
+            const timestamp = Date.now();
+            const randomNum = Math.floor(Math.random() * 1000);
+            return `test.user.${timestamp}.${randomNum}@example.com`;
+        }
+
+        async function testNewUserRegistration() {
+            try {
+                log('Testing new user registration...');
+                document.getElementById('registration-results').innerHTML = '';
+                
+                // Generate random email
+                const email = generateRandomEmail();
+                document.getElementById('reg-email').value = email;
+                
+                const authService = await waitForAuthService();
+                updateStatus('auth-service-status', 'Loaded', 'success');
+                
+                const userData = {
+                    firstName: document.getElementById('reg-firstName').value,
+                    lastName: document.getElementById('reg-lastName').value,
+                    email: email,
+                    password: document.getElementById('reg-password').value,
+                    confirmPassword: document.getElementById('reg-confirmPassword').value,
+                    userType: document.getElementById('reg-userType').value,
+                    userTypes: [document.getElementById('reg-userType').value]
+                };
+                
+                log(`Registering user: ${userData.email}`);
+                
+                const result = await authService.register(userData);
+                
+                if (result.success) {
+                    log('Registration successful!', 'success');
+                    addResult('registration-results', '✅ Registration successful!', 'success');
+                    addResult('registration-results', `Email: ${userData.email}`, 'info');
+                    
+                    // Auto-fill login form
+                    document.getElementById('login-email').value = userData.email;
+                    document.getElementById('login-password').value = userData.password;
+                    
+                    updateStatus('profile-system-status', 'Working', 'success');
+                } else {
+                    log(`Registration failed: ${result.error}`, 'error');
+                    addResult('registration-results', `❌ Registration failed: ${result.error}`, 'error');
+                    updateStatus('profile-system-status', 'Error', 'error');
+                }
+            } catch (error) {
+                log(`Registration exception: ${error.message}`, 'error');
+                addResult('registration-results', `❌ Exception: ${error.message}`, 'error');
+                updateStatus('profile-system-status', 'Error', 'error');
+            }
+        }
+
+        async function testExistingUserLogin() {
+            try {
+                log('Testing existing user login...');
+                document.getElementById('login-results').innerHTML = '';
+                
+                const email = document.getElementById('login-email').value;
+                const password = document.getElementById('login-password').value;
+                
+                if (!email || !password) {
+                    addResult('login-results', '❌ Please enter email and password', 'error');
+                    return;
+                }
+                
+                const authService = await waitForAuthService();
+                
+                log(`Logging in user: ${email}`);
+                
+                const result = await authService.login(email, password);
+                
+                if (result.success) {
+                    log('Login successful!', 'success');
+                    addResult('login-results', '✅ Login successful!', 'success');
+                    addResult('login-results', `User: ${result.user.firstName} ${result.user.lastName}`, 'info');
+                    addResult('login-results', `Role: ${result.user.userTypes.join(', ')}`, 'info');
+                    
+                    updateStatus('rls-status', 'Working', 'success');
+                } else {
+                    log(`Login failed: ${result.error}`, 'error');
+                    addResult('login-results', `❌ Login failed: ${result.error}`, 'error');
+                    
+                    if (result.error.includes('Invalid login credentials')) {
+                        addResult('login-results', 'ℹ️ Try password reset or check credentials', 'info');
+                    }
+                }
+            } catch (error) {
+                log(`Login exception: ${error.message}`, 'error');
+                addResult('login-results', `❌ Exception: ${error.message}`, 'error');
+            }
+        }
+
+        async function testCompleteFlow() {
+            log('Testing complete authentication flow...');
+            
+            // Clear previous results
+            document.getElementById('registration-results').innerHTML = '';
+            document.getElementById('login-results').innerHTML = '';
+            
+            // Test registration
+            await testNewUserRegistration();
+            
+            // Wait a moment
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            
+            // Test login with the registered user
+            await testExistingUserLogin();
+            
+            log('Complete flow test finished');
+        }
+
+        // Form handlers
+        document.getElementById('registration-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            await testNewUserRegistration();
+        });
+
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            await testExistingUserLogin();
+        });
+
+        // Initialize
+        window.addEventListener('load', async () => {
+            log('Complete Authentication Flow Test loaded');
+            const initialized = await initSupabase();
+            if (initialized) {
+                log('Ready to test complete authentication flow', 'success');
+                
+                // Wait for auth service
+                const authService = await waitForAuthService();
+                updateStatus('auth-service-status', 'Ready', 'success');
+                log('Auth service loaded and ready', 'success');
+            }
+        });
+    </script>
+</body>
+</html>

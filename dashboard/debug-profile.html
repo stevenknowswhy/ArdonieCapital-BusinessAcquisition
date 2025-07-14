@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Debug - BuyMartV1</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 p-8">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6">Profile Page Debug</h1>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Service Status -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <h2 class="text-lg font-semibold mb-4">Service Status</h2>
+                <div id="service-status" class="space-y-2">
+                    <div>Loading...</div>
+                </div>
+            </div>
+
+            <!-- Console Log -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <h2 class="text-lg font-semibold mb-4">Console Log</h2>
+                <div id="console-log" class="bg-slate-100 p-4 rounded text-sm font-mono h-64 overflow-y-auto">
+                    <div>Initializing...</div>
+                </div>
+            </div>
+
+            <!-- Test Actions -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <h2 class="text-lg font-semibold mb-4">Test Actions</h2>
+                <div class="space-y-2">
+                    <button id="test-supabase" class="w-full px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+                        Test Supabase Connection
+                    </button>
+                    <button id="test-profile-service" class="w-full px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">
+                        Test Profile Service
+                    </button>
+                    <button id="test-validation" class="w-full px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-600">
+                        Test Validation
+                    </button>
+                    <button id="test-profile-loading" class="w-full px-4 py-2 bg-indigo-500 text-white rounded hover:bg-indigo-600">
+                        Test Profile Loading
+                    </button>
+                    <button id="load-profile-page" class="w-full px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-600">
+                        Load Profile Page
+                    </button>
+                </div>
+            </div>
+
+            <!-- Results -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <h2 class="text-lg font-semibold mb-4">Test Results</h2>
+                <div id="test-results" class="space-y-2">
+                    <div class="text-slate-500">No tests run yet</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script type="module">
+        const log = (message, type = 'info') => {
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = `[${timestamp}] ${message}`;
+            
+            const logElement = document.getElementById('console-log');
+            const div = document.createElement('div');
+            div.className = type === 'error' ? 'text-red-600' : type === 'success' ? 'text-green-600' : 'text-slate-700';
+            div.textContent = logEntry;
+            logElement.appendChild(div);
+            logElement.scrollTop = logElement.scrollHeight;
+            
+            console.log(logEntry);
+        };
+
+        const updateStatus = (service, status, message = '') => {
+            const statusElement = document.getElementById('service-status');
+            const existing = statusElement.querySelector(`[data-service="${service}"]`);
+            
+            if (existing) {
+                existing.remove();
+            }
+            
+            const div = document.createElement('div');
+            div.setAttribute('data-service', service);
+            div.className = `flex items-center justify-between p-2 rounded ${
+                status === 'success' ? 'bg-green-100 text-green-800' :
+                status === 'error' ? 'bg-red-100 text-red-800' :
+                'bg-yellow-100 text-yellow-800'
+            }`;
+            div.innerHTML = `
+                <span>${service}</span>
+                <span class="text-sm">${status} ${message}</span>
+            `;
+            statusElement.appendChild(div);
+        };
+
+        const addResult = (test, result, details = '') => {
+            const resultsElement = document.getElementById('test-results');
+            const div = document.createElement('div');
+            div.className = `p-2 rounded ${
+                result === 'pass' ? 'bg-green-100 text-green-800' :
+                result === 'fail' ? 'bg-red-100 text-red-800' :
+                'bg-yellow-100 text-yellow-800'
+            }`;
+            div.innerHTML = `
+                <div class="font-medium">${test}</div>
+                <div class="text-sm">${result.toUpperCase()}: ${details}</div>
+            `;
+            resultsElement.appendChild(div);
+        };
+
+        // Initialize Supabase
+        let supabaseClient = null;
+        let profileService = null;
+        let profileValidator = null;
+
+        const initializeSupabase = () => {
+            try {
+                log('Initializing Supabase...');
+                
+                if (typeof window.supabase === 'undefined') {
+                    throw new Error('Supabase CDN not loaded');
+                }
+
+                const supabaseUrl = 'https://pbydepsqcypwqbicnsco.supabase.co';
+                const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBieWRlcHNxY3lwd3FiaWNuc2NvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE5MjAxOTQsImV4cCI6MjA2NzQ5NjE5NH0.5aF46QcNOFN_vwXcHxCsVx_8a4EsqE1bL4fy4K7UXI0';
+
+                supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+                
+                updateStatus('Supabase', 'success', 'Connected');
+                log('✅ Supabase initialized successfully', 'success');
+                
+                return supabaseClient;
+            } catch (error) {
+                updateStatus('Supabase', 'error', error.message);
+                log(`❌ Supabase initialization failed: ${error.message}`, 'error');
+                throw error;
+            }
+        };
+
+        const loadServices = async () => {
+            try {
+                log('Loading profile services...');
+                
+                const [
+                    profileModule,
+                    validationModule
+                ] = await Promise.all([
+                    import('../src/features/user-profile/services/profile.service.js'),
+                    import('../src/features/user-profile/utils/validation.js')
+                ]);
+
+                profileService = profileModule.profileService;
+                profileValidator = validationModule.profileValidator;
+
+                updateStatus('Profile Service', 'success', 'Loaded');
+                updateStatus('Validation Service', 'success', 'Loaded');
+                log('✅ Services loaded successfully', 'success');
+
+            } catch (error) {
+                updateStatus('Services', 'error', error.message);
+                log(`❌ Failed to load services: ${error.message}`, 'error');
+                throw error;
+            }
+        };
+
+        // Test functions
+        const testSupabase = async () => {
+            try {
+                log('Testing Supabase connection...');
+                
+                if (!supabaseClient) {
+                    throw new Error('Supabase not initialized');
+                }
+
+                const { data, error } = await supabaseClient
+                    .from('profiles')
+                    .select('id')
+                    .limit(1);
+
+                if (error) throw error;
+
+                addResult('Supabase Connection', 'pass', 'Database accessible');
+                log('✅ Supabase connection test passed', 'success');
+
+            } catch (error) {
+                addResult('Supabase Connection', 'fail', error.message);
+                log(`❌ Supabase connection test failed: ${error.message}`, 'error');
+            }
+        };
+
+        const testProfileService = async () => {
+            try {
+                log('Testing profile service...');
+                
+                if (!profileService) {
+                    throw new Error('Profile service not loaded');
+                }
+
+                // Test service methods exist
+                const methods = ['getCurrentUserProfile', 'updateProfile', 'uploadAvatar'];
+                const missingMethods = methods.filter(method => typeof profileService[method] !== 'function');
+                
+                if (missingMethods.length > 0) {
+                    throw new Error(`Missing methods: ${missingMethods.join(', ')}`);
+                }
+
+                addResult('Profile Service', 'pass', 'All methods available');
+                log('✅ Profile service test passed', 'success');
+
+            } catch (error) {
+                addResult('Profile Service', 'fail', error.message);
+                log(`❌ Profile service test failed: ${error.message}`, 'error');
+            }
+        };
+
+        const testValidation = async () => {
+            try {
+                log('Testing validation service...');
+
+                if (!profileValidator) {
+                    throw new Error('Validation service not loaded');
+                }
+
+                // Test validation
+                const result = profileValidator.validateField('firstName', 'John');
+
+                if (!result.isValid) {
+                    throw new Error('Validation failed for valid input');
+                }
+
+                addResult('Validation Service', 'pass', 'Validation working');
+                log('✅ Validation service test passed', 'success');
+
+            } catch (error) {
+                addResult('Validation Service', 'fail', error.message);
+                log(`❌ Validation service test failed: ${error.message}`, 'error');
+            }
+        };
+
+        const testProfileLoading = async () => {
+            try {
+                log('Testing profile loading...');
+
+                if (!profileService) {
+                    throw new Error('Profile service not loaded');
+                }
+
+                // Test profile loading
+                const result = await profileService.getCurrentUserProfile();
+                log(`Profile loading result: ${JSON.stringify(result)}`);
+
+                if (result.success) {
+                    addResult('Profile Loading', 'pass', 'Profile loaded successfully');
+                    log('✅ Profile loading test passed', 'success');
+                } else {
+                    addResult('Profile Loading', 'warning', `Profile loading failed: ${result.error}`);
+                    log(`⚠️ Profile loading test warning: ${result.error}`, 'warning');
+                }
+
+            } catch (error) {
+                addResult('Profile Loading', 'fail', error.message);
+                log(`❌ Profile loading test failed: ${error.message}`, 'error');
+            }
+        };
+
+        // Event listeners
+        document.getElementById('test-supabase').addEventListener('click', testSupabase);
+        document.getElementById('test-profile-service').addEventListener('click', testProfileService);
+        document.getElementById('test-validation').addEventListener('click', testValidation);
+        document.getElementById('test-profile-loading').addEventListener('click', testProfileLoading);
+        document.getElementById('load-profile-page').addEventListener('click', () => {
+            window.open('./user-profile.html', '_blank');
+        });
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', async () => {
+            log('🔄 Debug page loaded');
+            
+            try {
+                initializeSupabase();
+                await loadServices();
+                log('✅ All services initialized', 'success');
+            } catch (error) {
+                log(`❌ Initialization failed: ${error.message}`, 'error');
+            }
+        });
+    </script>
+</body>
+</html>

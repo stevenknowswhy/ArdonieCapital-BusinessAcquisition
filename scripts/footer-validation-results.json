@@ -1,0 +1,1918 @@
+{
+  "totalPages": 114,
+  "validPages": 106,
+  "invalidPages": 8,
+  "pageDetails": [
+    {
+      "file": "about.html",
+      "directory": ".",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "assets/components/shadcn/badge.html",
+      "directory": "assets/components/shadcn",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "assets/components/shadcn/button.html",
+      "directory": "assets/components/shadcn",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "assets/components/shadcn/card.html",
+      "directory": "assets/components/shadcn",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "assets/images/dashboard-placeholder.html",
+      "directory": "assets/images",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "auth/login.html",
+      "directory": "auth",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "auth/register.html",
+      "directory": "auth",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "auth-footer-standardized.html",
+      "directory": ".",
+      "valid": false,
+      "issues": [
+        "Social media links point to \"#\" instead of actual URLs",
+        "Footer links have incorrect relative paths for directory level"
+      ],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": false,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": false
+      }
+    },
+    {
+      "file": "blog/auto-shop-valuation-factors.html",
+      "directory": "blog",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "blog/dfw-market-trends-2024.html",
+      "directory": "blog",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "blog/due-diligence-checklist.html",
+      "directory": "blog",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "blog/express-deal-success-stories.html",
+      "directory": "blog",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "blog/financing-options-auto-shops.html",
+      "directory": "blog",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "blog/index.html",
+      "directory": "blog",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "blog/preparing-auto-shop-for-sale.html",
+      "directory": "blog",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "blog.html",
+      "directory": ".",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "careers.html",
+      "directory": ".",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "components/head.html",
+      "directory": "components",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "components/header.html",
+      "directory": "components",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "components/navigation.html",
+      "directory": "components",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "contact.html",
+      "directory": ".",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "cookie-policy.html",
+      "directory": ".",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "dashboard/buyer-dashboard-backup.html",
+      "directory": "dashboard",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "dashboard/buyer-dashboard.html",
+      "directory": "dashboard",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "dashboard/seller-dashboard.html",
+      "directory": "dashboard",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "documents/business-plan.html",
+      "directory": "documents",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "documents/company-strategy.html",
+      "directory": "documents",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "documents/financial-projections.html",
+      "directory": "documents",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "documents/founding-member.html",
+      "directory": "documents",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "documents/marketing-plan.html",
+      "directory": "documents",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "documents/nda.html",
+      "directory": "documents",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "documents/one-page-pitch.html",
+      "directory": "documents",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "documents/pitch-deck-fi.html",
+      "directory": "documents",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "documents/pitch-deck-legal.html",
+      "directory": "documents",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "documents/templates.html",
+      "directory": "documents",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "documents/vendor-accounting.html",
+      "directory": "documents",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "documents/vendor-financial.html",
+      "directory": "documents",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "documents/vendor-legal.html",
+      "directory": "documents",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "documents-footer-standardized.html",
+      "directory": ".",
+      "valid": false,
+      "issues": [
+        "Social media links point to \"#\" instead of actual URLs",
+        "Footer links have incorrect relative paths for directory level"
+      ],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": false,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": false
+      }
+    },
+    {
+      "file": "education/guides.html",
+      "directory": "education",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "enhanced-comparison-section.html",
+      "directory": ".",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "enhanced-for-buyers-section.html",
+      "directory": ".",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "enhanced-for-sellers-section.html",
+      "directory": ".",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "enhanced-matches-page.html",
+      "directory": ".",
+      "valid": false,
+      "issues": [
+        "Footer links have incorrect relative paths for directory level"
+      ],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": false
+      }
+    },
+    {
+      "file": "enhanced-partner-cards-section.html",
+      "directory": ".",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "express-deal.html",
+      "directory": ".",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "footer-embedded-subdirectory.html",
+      "directory": ".",
+      "valid": false,
+      "issues": [
+        "Social media links point to \"#\" instead of actual URLs",
+        "Footer links have incorrect relative paths for directory level"
+      ],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": false,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": false
+      }
+    },
+    {
+      "file": "footer-embedded.html",
+      "directory": ".",
+      "valid": false,
+      "issues": [
+        "Social media links point to \"#\" instead of actual URLs"
+      ],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": false,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "for-buyers.html",
+      "directory": ".",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "for-sellers.html",
+      "directory": ".",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "funding/loan-calculator.html",
+      "directory": "funding",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "how-it-works.html",
+      "directory": ".",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "index.html",
+      "directory": ".",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "marketplace/listings.html",
+      "directory": "marketplace",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "matchmaking/matches.html",
+      "directory": "matchmaking",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "partner-with-us.html",
+      "directory": ".",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "portals/accountant-portal.html",
+      "directory": "portals",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "portals/appraiser-portal.html",
+      "directory": "portals",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "portals/attorney-portal.html",
+      "directory": "portals",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "portals/buyer-portal.html",
+      "directory": "portals",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "portals/components/portal-footer.html",
+      "directory": "portals/components",
+      "valid": false,
+      "issues": [
+        "Social media links point to \"#\" instead of actual URLs",
+        "Footer links have incorrect relative paths for directory level"
+      ],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": false,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": false
+      }
+    },
+    {
+      "file": "portals/components/portal-head.html",
+      "directory": "portals/components",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "portals/components/portal-header.html",
+      "directory": "portals/components",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "portals/insurance-portal.html",
+      "directory": "portals",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "portals/lender-portal.html",
+      "directory": "portals",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "portals/ma-consultant-portal.html",
+      "directory": "portals",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "portals/sections/buyer/active-deals.html",
+      "directory": "portals/sections/buyer",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "portals/sections/buyer/browse-listings.html",
+      "directory": "portals/sections/buyer",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "portals/sections/buyer/dashboard.html",
+      "directory": "portals/sections/buyer",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "portals/sections/buyer/express-listings.html",
+      "directory": "portals/sections/buyer",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "portals/sections/buyer/financing.html",
+      "directory": "portals/sections/buyer",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "portals/sections/buyer/funding-tools.html",
+      "directory": "portals/sections/buyer",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "portals/sections/buyer/learning-center.html",
+      "directory": "portals/sections/buyer",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "portals/sections/buyer/my-matches.html",
+      "directory": "portals/sections/buyer",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "portals/sections/seller/buyer-interest.html",
+      "directory": "portals/sections/seller",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "portals/sections/seller/dashboard.html",
+      "directory": "portals/sections/seller",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "portals/sections/seller/express-status.html",
+      "directory": "portals/sections/seller",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "portals/sections/seller/listing-management.html",
+      "directory": "portals/sections/seller",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "portals/seller-portal.html",
+      "directory": "portals",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "portals-footer-standardized.html",
+      "directory": ".",
+      "valid": false,
+      "issues": [
+        "Social media links point to \"#\" instead of actual URLs",
+        "Footer links have incorrect relative paths for directory level"
+      ],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": false,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": false
+      }
+    },
+    {
+      "file": "prelaunch-express.html",
+      "directory": ".",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "privacy-policy.html",
+      "directory": ".",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "sections/featured-listings.html",
+      "directory": "sections",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "sections/features.html",
+      "directory": "sections",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "sections/hero/atoms/badge-arrow.html",
+      "directory": "sections/hero/atoms",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "sections/hero/atoms/badge-new.html",
+      "directory": "sections/hero/atoms",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "sections/hero/atoms/badge-text.html",
+      "directory": "sections/hero/atoms",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "sections/hero/atoms/button-primary.html",
+      "directory": "sections/hero/atoms",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "sections/hero/atoms/button-secondary.html",
+      "directory": "sections/hero/atoms",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "sections/hero/atoms/dashboard-image.html",
+      "directory": "sections/hero/atoms",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "sections/hero/atoms/description.html",
+      "directory": "sections/hero/atoms",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "sections/hero/atoms/headline.html",
+      "directory": "sections/hero/atoms",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "sections/hero/hero-badge.html",
+      "directory": "sections/hero",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "sections/hero/hero-content.html",
+      "directory": "sections/hero",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "sections/hero/hero-cta-buttons.html",
+      "directory": "sections/hero",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "sections/hero/hero-dashboard-preview.html",
+      "directory": "sections/hero",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "sections/hero-consolidated.html",
+      "directory": "sections",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "sections/hero.html",
+      "directory": "sections",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "sections/process-timeline.html",
+      "directory": "sections",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "sections/testimonials.html",
+      "directory": "sections",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "simple-swiper-js-example/dist/index.html",
+      "directory": "simple-swiper-js-example/dist",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "simple-swiper-js-example/src/index.html",
+      "directory": "simple-swiper-js-example/src",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "src/features/authentication/pages/login.html",
+      "directory": "src/features/authentication/pages",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "terms-of-service.html",
+      "directory": ".",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "test-dashboard-fixes.html",
+      "directory": ".",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "test-hero.html",
+      "directory": ".",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "test-portal-sections.html",
+      "directory": ".",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "test-spacing-fixes.html",
+      "directory": ".",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "tools/due-diligence-checklist.html",
+      "directory": "tools",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "tools/valuation.html",
+      "directory": "tools",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "vendor-portal/accounting-firms.html",
+      "directory": "vendor-portal",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "vendor-portal/financial-institutions.html",
+      "directory": "vendor-portal",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "vendor-portal/legal-firms.html",
+      "directory": "vendor-portal",
+      "valid": true,
+      "issues": [],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": true,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": true
+      }
+    },
+    {
+      "file": "vendor-portal-footer-standardized.html",
+      "directory": ".",
+      "valid": false,
+      "issues": [
+        "Social media links point to \"#\" instead of actual URLs",
+        "Footer links have incorrect relative paths for directory level"
+      ],
+      "checks": {
+        "fileExists": true,
+        "hasStandardizedFooter": true,
+        "hasCorrectSocialLinks": false,
+        "hasCompanyBranding": true,
+        "hasNavigationSections": true,
+        "hasBottomBar": true,
+        "noDynamicLoading": true,
+        "pathsCorrectForDirectory": false
+      }
+    }
+  ],
+  "linkValidation": {
+    "totalLinks": 274,
+    "validLinks": 264,
+    "brokenLinks": 10,
+    "brokenLinkDetails": [
+      {
+        "page": "index.html",
+        "link": "assets/images/favicon.ico",
+        "resolvedPath": "assets/images/favicon.ico"
+      },
+      {
+        "page": "index.html",
+        "link": "marketplace/listing-details.html?id=1",
+        "resolvedPath": "marketplace/listing-details.html?id=1"
+      },
+      {
+        "page": "index.html",
+        "link": "marketplace/listing-details.html?id=2",
+        "resolvedPath": "marketplace/listing-details.html?id=2"
+      },
+      {
+        "page": "index.html",
+        "link": "marketplace/listing-details.html?id=3",
+        "resolvedPath": "marketplace/listing-details.html?id=3"
+      },
+      {
+        "page": "index.html",
+        "link": "accounting-firms.html",
+        "resolvedPath": "accounting-firms.html"
+      },
+      {
+        "page": "index.html",
+        "link": "financial-institutions.html",
+        "resolvedPath": "financial-institutions.html"
+      },
+      {
+        "page": "index.html",
+        "link": "legal-firms.html",
+        "resolvedPath": "legal-firms.html"
+      },
+      {
+        "page": "portals/buyer-portal.html",
+        "link": "accounting-firms.html",
+        "resolvedPath": "portals/accounting-firms.html"
+      },
+      {
+        "page": "portals/buyer-portal.html",
+        "link": "financial-institutions.html",
+        "resolvedPath": "portals/financial-institutions.html"
+      },
+      {
+        "page": "portals/buyer-portal.html",
+        "link": "legal-firms.html",
+        "resolvedPath": "portals/legal-firms.html"
+      }
+    ]
+  },
+  "standardizationMetrics": {
+    "hasStandardizedStructure": 114,
+    "hasCorrectSocialLinks": 107,
+    "hasCompanyBranding": 114,
+    "hasNavigationSections": 114,
+    "hasBottomBar": 114,
+    "noDynamicLoading": 114
+  }
+}

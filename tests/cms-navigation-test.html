@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CMS Navigation Test - Ardonie Capital</title>
+    
+    <!-- Tailwind CSS -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#3b82f6',
+                        'primary-dark': '#2563eb',
+                        'primary-light': '#60a5fa',
+                        'secondary': '#64748b',
+                        'secondary-light': '#f1f5f9',
+                        'accent': '#10b981',
+                        'accent-dark': '#059669'
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation Container -->
+    <div id="main-navigation-container"></div>
+    <div id="admin-navigation-container"></div>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-3xl font-bold text-gray-900 mb-8">CMS Navigation Test Page</h1>
+            
+            <!-- Test Controls -->
+            <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <h2 class="text-xl font-semibold mb-4">Test User Roles</h2>
+                <p class="text-gray-600 mb-4">Click the buttons below to simulate different user roles and test CMS navigation visibility:</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <button onclick="simulateUser('blog_editor')" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                        Blog Editor
+                    </button>
+                    <button onclick="simulateUser('blog_contributor')" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+                        Blog Contributor
+                    </button>
+                    <button onclick="simulateUser('admin')" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
+                        Admin User
+                    </button>
+                    <button onclick="simulateUser('buyer')" class="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700">
+                        Regular User
+                    </button>
+                </div>
+                
+                <div class="mt-4">
+                    <button onclick="logout()" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">
+                        Logout
+                    </button>
+                </div>
+            </div>
+
+            <!-- Current User Status -->
+            <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <h2 class="text-xl font-semibold mb-4">Current User Status</h2>
+                <div id="user-status" class="text-gray-600">
+                    Not authenticated
+                </div>
+            </div>
+
+            <!-- Expected Behavior -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-semibold mb-4">Expected Behavior</h2>
+                <ul class="space-y-2 text-gray-600">
+                    <li><strong>Blog Editor:</strong> Should see "Content Management" in main navigation and footer</li>
+                    <li><strong>Blog Contributor:</strong> Should see "Content Management" in main navigation and footer</li>
+                    <li><strong>Admin User:</strong> Should NOT see CMS navigation (uses admin dashboard instead)</li>
+                    <li><strong>Regular User:</strong> Should NOT see CMS navigation</li>
+                    <li><strong>Not Authenticated:</strong> Should NOT see CMS navigation</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Container -->
+    <div id="footer-container"></div>
+
+    <!-- Scripts -->
+    <script src="../components/main-navigation.js"></script>
+    <script src="../components/main-footer.js"></script>
+
+    <script>
+        // Test functions to simulate different user roles
+        function simulateUser(role) {
+            const userData = {
+                id: 'test-user-123',
+                email: 'test@example.com',
+                firstName: 'Test',
+                lastName: 'User',
+                userTypes: [role]
+            };
+
+            // Set authentication data
+            localStorage.setItem('ardonie_user_session', JSON.stringify(userData));
+            localStorage.setItem('ardonie_auth_status', 'authenticated');
+
+            // Update navigation and footer
+            if (window.ArdonieNavigation) {
+                window.ArdonieNavigation.updateAuthState();
+            }
+            if (window.ArdonieFooter) {
+                window.ArdonieFooter.updateCMSFooterVisibility();
+            }
+
+            // Update status display
+            updateUserStatus(userData);
+            
+            console.log('🧪 Test: Simulated user with role:', role);
+        }
+
+        function logout() {
+            // Clear authentication data
+            localStorage.removeItem('ardonie_user_session');
+            localStorage.removeItem('ardonie_auth_status');
+
+            // Update navigation and footer
+            if (window.ArdonieNavigation) {
+                window.ArdonieNavigation.updateAuthState();
+            }
+            if (window.ArdonieFooter) {
+                window.ArdonieFooter.updateCMSFooterVisibility();
+            }
+
+            // Update status display
+            updateUserStatus(null);
+            
+            console.log('🧪 Test: User logged out');
+        }
+
+        function updateUserStatus(userData) {
+            const statusEl = document.getElementById('user-status');
+            if (userData) {
+                const roles = Array.isArray(userData.userTypes) ? userData.userTypes.join(', ') : userData.userTypes;
+                statusEl.innerHTML = `
+                    <div><strong>Name:</strong> ${userData.firstName} ${userData.lastName}</div>
+                    <div><strong>Email:</strong> ${userData.email}</div>
+                    <div><strong>Roles:</strong> ${roles}</div>
+                    <div><strong>Status:</strong> <span class="text-green-600">Authenticated</span></div>
+                `;
+            } else {
+                statusEl.innerHTML = '<div class="text-gray-500">Not authenticated</div>';
+            }
+        }
+
+        // Initialize components when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🧪 Test: CMS Navigation Test Page loaded');
+            
+            // Initialize navigation
+            if (window.ArdonieNavigation) {
+                window.ArdonieNavigation.init();
+            }
+            
+            // Initialize footer
+            if (window.ArdonieFooter) {
+                window.ArdonieFooter.init();
+            }
+
+            // Show initial status
+            updateUserStatus(null);
+        });
+
+        // Monitor for CMS navigation visibility changes
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                    const target = mutation.target;
+                    if (target.id === 'cms-navigation' || target.id === 'mobile-cms-navigation' || target.id === 'footer-cms-section') {
+                        const isVisible = !target.classList.contains('hidden');
+                        console.log(`🔍 Test: ${target.id} visibility changed to:`, isVisible ? 'VISIBLE' : 'HIDDEN');
+                    }
+                }
+            });
+        });
+
+        // Start observing
+        document.addEventListener('DOMContentLoaded', function() {
+            const elementsToObserve = ['cms-navigation', 'mobile-cms-navigation', 'footer-cms-section'];
+            elementsToObserve.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    observer.observe(element, { attributes: true, attributeFilter: ['class'] });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

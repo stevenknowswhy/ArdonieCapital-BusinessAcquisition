@@ -1,0 +1,69 @@
+{
+  "summary": {
+    "totalPages": 5,
+    "cleanPages": 5,
+    "issuesFound": 0
+  },
+  "pageDetails": [
+    {
+      "page": "portals/buyer-portal.html",
+      "isClean": true,
+      "issues": [],
+      "checks": {
+        "hasOnlyOneFooter": true,
+        "noDynamicFooterDiv": true,
+        "noFooterConfigCode": true,
+        "noPortalFooterReferences": true,
+        "footerAtBottom": true
+      }
+    },
+    {
+      "page": "portals/seller-portal.html",
+      "isClean": true,
+      "issues": [],
+      "checks": {
+        "hasOnlyOneFooter": true,
+        "noDynamicFooterDiv": true,
+        "noFooterConfigCode": true,
+        "noPortalFooterReferences": true,
+        "footerAtBottom": true
+      }
+    },
+    {
+      "page": "portals/attorney-portal.html",
+      "isClean": true,
+      "issues": [],
+      "checks": {
+        "hasOnlyOneFooter": true,
+        "noDynamicFooterDiv": true,
+        "noFooterConfigCode": true,
+        "noPortalFooterReferences": true,
+        "footerAtBottom": true
+      }
+    },
+    {
+      "page": "portals/accountant-portal.html",
+      "isClean": true,
+      "issues": [],
+      "checks": {
+        "hasOnlyOneFooter": true,
+        "noDynamicFooterDiv": true,
+        "noFooterConfigCode": true,
+        "noPortalFooterReferences": true,
+        "footerAtBottom": true
+      }
+    },
+    {
+      "page": "portals/lender-portal.html",
+      "isClean": true,
+      "issues": [],
+      "checks": {
+        "hasOnlyOneFooter": true,
+        "noDynamicFooterDiv": true,
+        "noFooterConfigCode": true,
+        "noPortalFooterReferences": true,
+        "footerAtBottom": true
+      }
+    }
+  ]
+}

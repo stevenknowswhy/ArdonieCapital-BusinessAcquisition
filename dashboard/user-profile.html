@@ -1,0 +1,2144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile - Ardonie Capital</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style">
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            light: '#3B82F6',
+                            DEFAULT: '#2563EB',
+                            dark: '#1D4ED8'
+                        },
+                        secondary: {
+                            light: '#F8FAFC',
+                            DEFAULT: '#E2E8F0',
+                            dark: '#64748B'
+                        },
+                        accent: {
+                            light: '#10B981',
+                            DEFAULT: '#059669',
+                            dark: '#047857'
+                        }
+                    }
+                }
+            }
+        };
+
+        // Apply saved theme immediately to prevent flash
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Shadcn Components CSS -->
+    <link rel="stylesheet" href="../assets/css/shadcn-components.css">
+    
+    <!-- Navigation Styles -->
+    <link rel="stylesheet" href="../components/navigation-styles.css">
+    
+    <!-- Custom Profile Styles -->
+    <style>
+        .profile-section {
+            transition: all 0.3s ease-in-out;
+        }
+        
+        .profile-avatar-upload {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .profile-avatar-upload:hover .avatar-overlay {
+            opacity: 1;
+        }
+        
+        .avatar-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #374151;
+        }
+        
+        .dark .form-label {
+            color: #d1d5db;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            background: white;
+            transition: all 0.2s ease;
+        }
+        
+        .dark .form-input {
+            background: #1f2937;
+            border-color: #374151;
+            color: #f9fafb;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+        
+        .profile-card {
+            background: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5e7eb;
+        }
+        
+        .dark .profile-card {
+            background: #1f2937;
+            border-color: #374151;
+        }
+    </style>
+    <link rel="stylesheet" href="../assets/css/admin-navigation.css">
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100" data-required-role="buyer,seller,vendor,admin">
+    <!-- Authentication Loading Overlay -->
+    <div id="auth-loading" class="fixed inset-0 bg-white dark:bg-slate-900 z-50 flex items-center justify-center">
+        <div class="text-center">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+            <p class="text-slate-600 dark:text-slate-400">Loading profile...</p>
+        </div>
+    </div>
+
+    <!-- Main Site Navigation Header -->
+    <div id="main-navigation-container"></div>
+    <div id="admin-navigation-container"></div>
+
+    <!-- Profile Page Layout -->
+    <div class="min-h-screen pt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <!-- Page Header -->
+            <div class="mb-8">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h1 class="text-3xl font-bold text-slate-900 dark:text-white">User Profile</h1>
+                        <p class="mt-2 text-slate-600 dark:text-slate-400">Manage your account information and preferences</p>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <button id="back-to-dashboard" class="inline-flex items-center px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                            </svg>
+                            Back to Dashboard
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Content Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Left Column - Profile Overview -->
+                <div class="lg:col-span-1">
+                    <div class="profile-card p-6">
+                        <!-- Avatar Section -->
+                        <div class="text-center mb-6">
+                            <div class="profile-avatar-upload inline-block relative group cursor-pointer">
+                                <div class="w-32 h-32 bg-gradient-to-r from-primary to-primary-dark rounded-full flex items-center justify-center mx-auto mb-4 border-4 border-white dark:border-slate-800 shadow-lg transition-all duration-200 group-hover:shadow-xl">
+                                    <img id="user-avatar" class="w-32 h-32 rounded-full object-cover hidden" alt="User Avatar">
+                                    <svg id="default-avatar" class="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                    </svg>
+                                </div>
+                                <div class="avatar-overlay rounded-full bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                                    <div class="text-center">
+                                        <svg class="w-8 h-8 text-white mx-auto mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                        </svg>
+                                        <div class="text-xs text-white font-medium">Change Photo</div>
+                                    </div>
+                                </div>
+                                <input type="file" id="avatar-upload" class="hidden" accept="image/jpeg,image/jpg,image/png,image/webp">
+                            </div>
+
+                            <!-- Avatar Management Buttons -->
+                            <div class="flex justify-center space-x-2 mb-4">
+                                <button onclick="document.getElementById('avatar-upload').click()"
+                                        class="px-3 py-1 text-xs bg-primary text-white rounded-full hover:bg-primary-dark transition-colors">
+                                    Upload Photo
+                                </button>
+                                <button onclick="deleteAvatar()"
+                                        class="px-3 py-1 text-xs bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors">
+                                    Remove
+                                </button>
+                            </div>
+
+                            <h3 id="profile-display-name" class="text-xl font-semibold text-slate-900 dark:text-white mb-2">Loading...</h3>
+                            <p id="profile-role-badge" class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-primary/10 text-primary">Loading...</p>
+
+                            <!-- Upload Instructions -->
+                            <div class="mt-4 text-xs text-slate-500 dark:text-slate-400">
+                                <p>Click or drag & drop to upload</p>
+                                <p>JPEG, PNG, WebP • Max 5MB</p>
+                            </div>
+                        </div>
+
+                        <!-- Quick Stats -->
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between py-2 border-b border-slate-200 dark:border-slate-700">
+                                <span class="text-sm text-slate-600 dark:text-slate-400">Member Since</span>
+                                <span id="member-since" class="text-sm font-medium">Loading...</span>
+                            </div>
+                            <div class="flex items-center justify-between py-2 border-b border-slate-200 dark:border-slate-700">
+                                <span class="text-sm text-slate-600 dark:text-slate-400">Email Verified</span>
+                                <span id="email-verified" class="text-sm font-medium">Loading...</span>
+                            </div>
+                            <div class="flex items-center justify-between py-2">
+                                <span class="text-sm text-slate-600 dark:text-slate-400">Last Login</span>
+                                <span id="last-login" class="text-sm font-medium">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column - Profile Forms -->
+                <div class="lg:col-span-2">
+                    <!-- Profile Tabs -->
+                    <div class="mb-6">
+                        <nav class="flex space-x-8" aria-label="Profile sections">
+                            <button class="profile-tab active border-b-2 border-primary text-primary pb-2 text-sm font-medium" data-tab="personal">
+                                Personal Information
+                            </button>
+                            <button class="profile-tab border-b-2 border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 pb-2 text-sm font-medium" data-tab="security">
+                                Security
+                            </button>
+                            <button class="profile-tab border-b-2 border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 pb-2 text-sm font-medium" data-tab="preferences">
+                                Preferences
+                            </button>
+                            <button class="profile-tab border-b-2 border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 pb-2 text-sm font-medium" data-tab="subscription">
+                                Upgrade Subscription
+                            </button>
+                        </nav>
+                    </div>
+
+                    <!-- Tab Content -->
+                    <div id="profile-tab-content">
+                        <!-- Personal Information Tab -->
+                        <div id="personal-tab" class="profile-section">
+                            <div class="profile-card p-6">
+                                <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-6">Personal Information</h3>
+                                <form id="personal-info-form" class="space-y-6" data-secure="true">
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <div class="form-group">
+                                            <label for="first-name" class="form-label">First Name</label>
+                                            <input type="text" id="first-name" name="firstName" class="form-input" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="last-name" class="form-label">Last Name</label>
+                                            <input type="text" id="last-name" name="lastName" class="form-input" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="email" class="form-label">Email Address</label>
+                                        <input type="email" id="email" name="email" class="form-input" readonly>
+                                        <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">Email cannot be changed. Contact support if needed.</p>
+                                    </div>
+
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <div class="form-group">
+                                            <label for="phone" class="form-label">Phone Number</label>
+                                            <input type="tel" id="phone" name="phone" class="form-input">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="location" class="form-label">Location</label>
+                                            <input type="text" id="location" name="location" class="form-input" placeholder="City, State">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="company" class="form-label">Company</label>
+                                        <input type="text" id="company" name="company" class="form-input">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="bio" class="form-label">Bio</label>
+                                        <textarea id="bio" name="bio" rows="4" class="form-input" placeholder="Tell us about yourself..."></textarea>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="website" class="form-label">Website</label>
+                                        <input type="url" id="website" name="website" class="form-input" placeholder="https://example.com">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="linkedin" class="form-label">LinkedIn Profile</label>
+                                        <input type="url" id="linkedin" name="linkedinUrl" class="form-input" placeholder="https://linkedin.com/in/username">
+                                    </div>
+
+                                    <div class="flex justify-end space-x-4">
+                                        <button type="button" id="cancel-personal" class="px-6 py-2 border border-slate-300 dark:border-slate-600 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
+                                            Cancel
+                                        </button>
+                                        <button type="submit" class="px-6 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary-dark transition-colors">
+                                            Save Changes
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Security Tab -->
+                        <div id="security-tab" class="profile-section hidden">
+                            <div class="space-y-6">
+                                <!-- Password Change -->
+                                <div class="profile-card p-6">
+                                    <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-6">Change Password</h3>
+                                    <form id="password-form" class="space-y-6" data-secure="true">
+                                        <div class="form-group">
+                                            <label for="current-password" class="form-label">Current Password</label>
+                                            <input type="password" id="current-password" name="currentPassword" class="form-input" required>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="new-password" class="form-label">New Password</label>
+                                            <input type="password" id="new-password" name="newPassword" class="form-input" required>
+                                            <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">Password must be at least 6 characters long</p>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="confirm-password" class="form-label">Confirm New Password</label>
+                                            <input type="password" id="confirm-password" name="confirmPassword" class="form-input" required>
+                                        </div>
+
+                                        <div class="flex justify-end">
+                                            <button type="submit" class="px-6 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary-dark transition-colors">
+                                                Update Password
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <!-- Email Verification -->
+                                <div class="profile-card p-6">
+                                    <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-4">Email Verification</h3>
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <p class="text-sm text-slate-600 dark:text-slate-400">Your email verification status</p>
+                                            <p id="verification-status" class="text-sm font-medium mt-1">Loading...</p>
+                                        </div>
+                                        <button id="resend-verification" class="px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors hidden">
+                                            Resend Verification
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Account Deletion -->
+                                <div class="profile-card p-6 border-red-200 dark:border-red-800">
+                                    <h3 class="text-lg font-semibold text-red-600 dark:text-red-400 mb-4">Danger Zone</h3>
+                                    <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4">
+                                        <h4 class="text-sm font-medium text-red-800 dark:text-red-200 mb-2">Delete Account</h4>
+                                        <p class="text-sm text-red-600 dark:text-red-300 mb-4">
+                                            Once you delete your account, there is no going back. Please be certain.
+                                        </p>
+                                        <button id="delete-account" class="px-4 py-2 bg-red-600 text-white rounded-lg text-sm font-medium hover:bg-red-700 transition-colors">
+                                            Delete Account
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Preferences Tab -->
+                        <div id="preferences-tab" class="profile-section hidden">
+                            <div class="space-y-6">
+                                <!-- Notification Preferences -->
+                                <div class="profile-card p-6">
+                                    <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-6">Notification Preferences</h3>
+                                    <div class="space-y-4">
+                                        <div class="flex items-center justify-between">
+                                            <div>
+                                                <label class="text-sm font-medium text-slate-900 dark:text-white">Email Notifications</label>
+                                                <p class="text-sm text-slate-500 dark:text-slate-400">Receive email updates about your account</p>
+                                            </div>
+                                            <label class="relative inline-flex items-center cursor-pointer">
+                                                <input type="checkbox" id="email-notifications" class="sr-only peer">
+                                                <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 dark:peer-focus:ring-primary/20 rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-slate-600 peer-checked:bg-primary"></div>
+                                            </label>
+                                        </div>
+
+                                        <div class="flex items-center justify-between">
+                                            <div>
+                                                <label class="text-sm font-medium text-slate-900 dark:text-white">New Listing Alerts</label>
+                                                <p class="text-sm text-slate-500 dark:text-slate-400">Get notified when new listings match your criteria</p>
+                                            </div>
+                                            <label class="relative inline-flex items-center cursor-pointer">
+                                                <input type="checkbox" id="listing-alerts" class="sr-only peer">
+                                                <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 dark:peer-focus:ring-primary/20 rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-slate-600 peer-checked:bg-primary"></div>
+                                            </label>
+                                        </div>
+
+                                        <div class="flex items-center justify-between">
+                                            <div>
+                                                <label class="text-sm font-medium text-slate-900 dark:text-white">Message Notifications</label>
+                                                <p class="text-sm text-slate-500 dark:text-slate-400">Receive notifications for new messages</p>
+                                            </div>
+                                            <label class="relative inline-flex items-center cursor-pointer">
+                                                <input type="checkbox" id="message-notifications" class="sr-only peer">
+                                                <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 dark:peer-focus:ring-primary/20 rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-slate-600 peer-checked:bg-primary"></div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Theme Preferences -->
+                                <div class="profile-card p-6">
+                                    <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-6">Appearance</h3>
+                                    <div class="space-y-4">
+                                        <div>
+                                            <label class="text-sm font-medium text-slate-900 dark:text-white mb-3 block">Theme</label>
+                                            <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Choose how BuyMartV1 looks to you. Select a single theme, or sync with your system and automatically switch between day and night themes.</p>
+
+                                            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                                                <!-- Light Theme -->
+                                                <label class="cursor-pointer group">
+                                                    <input type="radio" name="theme" value="light" class="sr-only peer">
+                                                    <div class="p-4 border-2 border-slate-200 dark:border-slate-700 rounded-lg peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:shadow-md transition-all duration-200 hover:border-slate-300 dark:hover:border-slate-600 group-hover:shadow-sm">
+                                                        <div class="flex flex-col items-center space-y-3">
+                                                            <!-- Light theme preview -->
+                                                            <div class="w-12 h-8 bg-white border-2 border-slate-300 rounded-md shadow-sm relative overflow-hidden">
+                                                                <div class="absolute top-1 left-1 right-1 h-1 bg-slate-200 rounded"></div>
+                                                                <div class="absolute top-3 left-1 w-3 h-1 bg-slate-300 rounded"></div>
+                                                                <div class="absolute top-5 left-1 w-4 h-1 bg-slate-200 rounded"></div>
+                                                            </div>
+                                                            <div class="text-center">
+                                                                <div class="text-sm font-medium text-slate-900 dark:text-white">Light</div>
+                                                                <div class="text-xs text-slate-500 dark:text-slate-400">Clean and bright</div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Selection indicator -->
+                                                        <div class="mt-3 flex justify-center">
+                                                            <div class="w-4 h-4 border-2 border-slate-300 dark:border-slate-600 rounded-full peer-checked:border-primary peer-checked:bg-primary relative">
+                                                                <div class="absolute inset-1 bg-white rounded-full opacity-0 peer-checked:opacity-100 transition-opacity"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </label>
+
+                                                <!-- Dark Theme -->
+                                                <label class="cursor-pointer group">
+                                                    <input type="radio" name="theme" value="dark" class="sr-only peer">
+                                                    <div class="p-4 border-2 border-slate-200 dark:border-slate-700 rounded-lg peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:shadow-md transition-all duration-200 hover:border-slate-300 dark:hover:border-slate-600 group-hover:shadow-sm">
+                                                        <div class="flex flex-col items-center space-y-3">
+                                                            <!-- Dark theme preview -->
+                                                            <div class="w-12 h-8 bg-slate-800 border-2 border-slate-600 rounded-md shadow-sm relative overflow-hidden">
+                                                                <div class="absolute top-1 left-1 right-1 h-1 bg-slate-600 rounded"></div>
+                                                                <div class="absolute top-3 left-1 w-3 h-1 bg-slate-500 rounded"></div>
+                                                                <div class="absolute top-5 left-1 w-4 h-1 bg-slate-600 rounded"></div>
+                                                            </div>
+                                                            <div class="text-center">
+                                                                <div class="text-sm font-medium text-slate-900 dark:text-white">Dark</div>
+                                                                <div class="text-xs text-slate-500 dark:text-slate-400">Easy on the eyes</div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Selection indicator -->
+                                                        <div class="mt-3 flex justify-center">
+                                                            <div class="w-4 h-4 border-2 border-slate-300 dark:border-slate-600 rounded-full peer-checked:border-primary peer-checked:bg-primary relative">
+                                                                <div class="absolute inset-1 bg-white rounded-full opacity-0 peer-checked:opacity-100 transition-opacity"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </label>
+
+                                                <!-- System Theme -->
+                                                <label class="cursor-pointer group">
+                                                    <input type="radio" name="theme" value="system" class="sr-only peer">
+                                                    <div class="p-4 border-2 border-slate-200 dark:border-slate-700 rounded-lg peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:shadow-md transition-all duration-200 hover:border-slate-300 dark:hover:border-slate-600 group-hover:shadow-sm">
+                                                        <div class="flex flex-col items-center space-y-3">
+                                                            <!-- System theme preview -->
+                                                            <div class="w-12 h-8 rounded-md shadow-sm relative overflow-hidden border-2 border-slate-300">
+                                                                <div class="absolute inset-0 bg-gradient-to-r from-white via-slate-200 to-slate-800"></div>
+                                                                <div class="absolute top-1 left-1 w-4 h-1 bg-slate-400 rounded"></div>
+                                                                <div class="absolute top-3 left-1 w-2 h-1 bg-slate-500 rounded"></div>
+                                                                <div class="absolute top-5 left-1 w-3 h-1 bg-slate-400 rounded"></div>
+                                                                <div class="absolute top-1 right-1 w-4 h-1 bg-slate-600 rounded"></div>
+                                                                <div class="absolute top-3 right-1 w-2 h-1 bg-slate-500 rounded"></div>
+                                                                <div class="absolute top-5 right-1 w-3 h-1 bg-slate-600 rounded"></div>
+                                                            </div>
+                                                            <div class="text-center">
+                                                                <div class="text-sm font-medium text-slate-900 dark:text-white">System</div>
+                                                                <div class="text-xs text-slate-500 dark:text-slate-400">Matches your device</div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Selection indicator -->
+                                                        <div class="mt-3 flex justify-center">
+                                                            <div class="w-4 h-4 border-2 border-slate-300 dark:border-slate-600 rounded-full peer-checked:border-primary peer-checked:bg-primary relative">
+                                                                <div class="absolute inset-1 bg-white rounded-full opacity-0 peer-checked:opacity-100 transition-opacity"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </label>
+                                            </div>
+
+                                            <!-- Current theme status -->
+                                            <div class="mt-4 p-3 bg-slate-50 dark:bg-slate-800 rounded-lg">
+                                                <div class="flex items-center justify-between">
+                                                    <span class="text-sm text-slate-600 dark:text-slate-400">Current theme:</span>
+                                                    <span id="current-theme-display" class="text-sm font-medium text-slate-900 dark:text-white">System</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Save Preferences -->
+                                <div class="flex justify-end">
+                                    <button id="save-preferences" class="px-6 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary-dark transition-colors">
+                                        Save Preferences
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Subscription Tab -->
+                        <div id="subscription-tab" class="profile-section hidden">
+                            <div class="space-y-6">
+                                <!-- Current Subscription Status -->
+                                <div class="profile-card p-6">
+                                    <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-6">Current Subscription</h3>
+                                    <div class="flex items-center justify-between mb-6">
+                                        <div>
+                                            <div class="flex items-center space-x-3">
+                                                <div id="subscription-status-badge" class="px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+                                                    Free Plan
+                                                </div>
+                                                <span id="subscription-status-text" class="text-sm text-slate-600 dark:text-slate-400">Active</span>
+                                            </div>
+                                            <p class="text-sm text-slate-500 dark:text-slate-400 mt-2">
+                                                <span id="subscription-description">Basic access to platform features</span>
+                                            </p>
+                                        </div>
+                                        <div class="text-right">
+                                            <div class="text-2xl font-bold text-slate-900 dark:text-white">
+                                                <span id="subscription-price">$0</span>
+                                                <span class="text-sm font-normal text-slate-500">/month</span>
+                                            </div>
+                                            <p class="text-sm text-slate-500 dark:text-slate-400">
+                                                Next billing: <span id="next-billing-date">N/A</span>
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Usage Stats -->
+                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                                        <div class="bg-slate-50 dark:bg-slate-700 rounded-lg p-4">
+                                            <div class="text-sm text-slate-600 dark:text-slate-400">Listings Created</div>
+                                            <div class="text-xl font-semibold text-slate-900 dark:text-white">
+                                                <span id="listings-count">0</span>
+                                                <span class="text-sm font-normal text-slate-500">/ 5 limit</span>
+                                            </div>
+                                        </div>
+                                        <div class="bg-slate-50 dark:bg-slate-700 rounded-lg p-4">
+                                            <div class="text-sm text-slate-600 dark:text-slate-400">Messages Sent</div>
+                                            <div class="text-xl font-semibold text-slate-900 dark:text-white">
+                                                <span id="messages-count">0</span>
+                                                <span class="text-sm font-normal text-slate-500">/ 50 limit</span>
+                                            </div>
+                                        </div>
+                                        <div class="bg-slate-50 dark:bg-slate-700 rounded-lg p-4">
+                                            <div class="text-sm text-slate-600 dark:text-slate-400">Premium Features</div>
+                                            <div class="text-xl font-semibold text-slate-900 dark:text-white">
+                                                <span id="premium-features">0</span>
+                                                <span class="text-sm font-normal text-slate-500">/ 0 available</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Current Plan Features -->
+                                    <div class="border-t border-slate-200 dark:border-slate-700 pt-6">
+                                        <h4 class="text-sm font-medium text-slate-900 dark:text-white mb-3">Current Plan Features</h4>
+                                        <ul id="current-plan-features" class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+                                            <li class="flex items-center">
+                                                <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                                </svg>
+                                                Basic listing creation (up to 5)
+                                            </li>
+                                            <li class="flex items-center">
+                                                <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                                </svg>
+                                                Standard messaging (up to 50/month)
+                                            </li>
+                                            <li class="flex items-center">
+                                                <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                                </svg>
+                                                Basic search and filtering
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <!-- Upgrade Plans -->
+                                <div class="profile-card p-6">
+                                    <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-6">Upgrade Your Plan</h3>
+
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <!-- Professional Plan -->
+                                        <div class="border border-slate-200 dark:border-slate-700 rounded-lg p-6 hover:border-primary transition-colors">
+                                            <div class="flex items-center justify-between mb-4">
+                                                <h4 class="text-lg font-semibold text-slate-900 dark:text-white">Professional</h4>
+                                                <div class="text-right">
+                                                    <div class="text-2xl font-bold text-slate-900 dark:text-white">$29</div>
+                                                    <div class="text-sm text-slate-500">/month</div>
+                                                </div>
+                                            </div>
+
+                                            <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400 mb-6">
+                                                <li class="flex items-center">
+                                                    <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                                    </svg>
+                                                    Unlimited listings
+                                                </li>
+                                                <li class="flex items-center">
+                                                    <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                                    </svg>
+                                                    Unlimited messaging
+                                                </li>
+                                                <li class="flex items-center">
+                                                    <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                                    </svg>
+                                                    Advanced search filters
+                                                </li>
+                                                <li class="flex items-center">
+                                                    <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                                    </svg>
+                                                    Priority support
+                                                </li>
+                                                <li class="flex items-center">
+                                                    <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                                    </svg>
+                                                    Analytics dashboard
+                                                </li>
+                                            </ul>
+
+                                            <button class="w-full px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors" onclick="upgradeToPlan('professional')">
+                                                Upgrade to Professional
+                                            </button>
+                                        </div>
+
+                                        <!-- Enterprise Plan -->
+                                        <div class="border border-slate-200 dark:border-slate-700 rounded-lg p-6 hover:border-primary transition-colors relative">
+                                            <div class="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                                                <span class="bg-primary text-white px-3 py-1 rounded-full text-xs font-medium">Most Popular</span>
+                                            </div>
+
+                                            <div class="flex items-center justify-between mb-4">
+                                                <h4 class="text-lg font-semibold text-slate-900 dark:text-white">Enterprise</h4>
+                                                <div class="text-right">
+                                                    <div class="text-2xl font-bold text-slate-900 dark:text-white">$99</div>
+                                                    <div class="text-sm text-slate-500">/month</div>
+                                                </div>
+                                            </div>
+
+                                            <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400 mb-6">
+                                                <li class="flex items-center">
+                                                    <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                                    </svg>
+                                                    Everything in Professional
+                                                </li>
+                                                <li class="flex items-center">
+                                                    <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                                    </svg>
+                                                    White-label solutions
+                                                </li>
+                                                <li class="flex items-center">
+                                                    <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                                    </svg>
+                                                    API access
+                                                </li>
+                                                <li class="flex items-center">
+                                                    <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                                    </svg>
+                                                    Dedicated account manager
+                                                </li>
+                                                <li class="flex items-center">
+                                                    <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                                    </svg>
+                                                    Custom integrations
+                                                </li>
+                                            </ul>
+
+                                            <button class="w-full px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors" onclick="upgradeToPlan('enterprise')">
+                                                Upgrade to Enterprise
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Billing Information -->
+                                <div class="profile-card p-6">
+                                    <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-6">Billing Information</h3>
+
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <div>
+                                            <h4 class="text-sm font-medium text-slate-900 dark:text-white mb-3">Payment Method</h4>
+                                            <div id="payment-method-info" class="bg-slate-50 dark:bg-slate-700 rounded-lg p-4">
+                                                <div class="flex items-center space-x-3">
+                                                    <div class="w-8 h-8 bg-slate-200 dark:bg-slate-600 rounded flex items-center justify-center">
+                                                        <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
+                                                        </svg>
+                                                    </div>
+                                                    <div>
+                                                        <div class="text-sm font-medium text-slate-900 dark:text-white">No payment method</div>
+                                                        <div class="text-xs text-slate-500 dark:text-slate-400">Add a payment method to upgrade</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button id="add-payment-method" class="mt-3 text-sm text-primary hover:text-primary-dark">
+                                                Add Payment Method
+                                            </button>
+                                        </div>
+
+                                        <div>
+                                            <h4 class="text-sm font-medium text-slate-900 dark:text-white mb-3">Billing History</h4>
+                                            <div id="billing-history" class="space-y-2">
+                                                <div class="text-sm text-slate-500 dark:text-slate-400">No billing history available</div>
+                                            </div>
+                                            <button id="view-billing-history" class="mt-3 text-sm text-primary hover:text-primary-dark">
+                                                View Full History
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Account Management -->
+                                <div class="profile-card p-6 border-red-200 dark:border-red-800">
+                                    <h3 class="text-lg font-semibold text-red-600 dark:text-red-400 mb-4">Account Management</h3>
+
+                                    <div class="space-y-4">
+                                        <div class="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4">
+                                            <h4 class="text-sm font-medium text-yellow-800 dark:text-yellow-200 mb-2">Cancel Subscription</h4>
+                                            <p class="text-sm text-yellow-600 dark:text-yellow-300 mb-3">
+                                                You can cancel your subscription at any time. You'll continue to have access until the end of your billing period.
+                                            </p>
+                                            <button id="cancel-subscription" class="px-4 py-2 bg-yellow-600 text-white rounded-lg text-sm font-medium hover:bg-yellow-700 transition-colors">
+                                                Cancel Subscription
+                                            </button>
+                                        </div>
+
+                                        <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4">
+                                            <h4 class="text-sm font-medium text-red-800 dark:text-red-200 mb-2">Close Account</h4>
+                                            <p class="text-sm text-red-600 dark:text-red-300 mb-3">
+                                                Permanently close your account and delete all data. This action cannot be undone.
+                                            </p>
+                                            <button id="close-account" class="px-4 py-2 bg-red-600 text-white rounded-lg text-sm font-medium hover:bg-red-700 transition-colors">
+                                                Close Account
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success/Error Toast -->
+    <div id="toast-container" class="fixed top-20 right-4 z-50"></div>
+
+    <!-- Avatar Upload Modal -->
+    <div id="avatar-modal" class="fixed inset-0 bg-black/50 z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white dark:bg-slate-800 rounded-lg shadow-xl max-w-md w-full">
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Upload Profile Picture</h3>
+                    <button id="close-avatar-modal" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Upload Area -->
+                <div id="avatar-upload-area" class="border-2 border-dashed border-slate-300 dark:border-slate-600 rounded-lg p-8 text-center hover:border-primary transition-colors cursor-pointer">
+                    <svg class="w-12 h-12 text-slate-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                    </svg>
+                    <p class="text-slate-600 dark:text-slate-400 mb-2">Click to upload or drag and drop</p>
+                    <p class="text-sm text-slate-500 dark:text-slate-500">JPEG, PNG, WebP up to 5MB</p>
+                </div>
+
+                <!-- Preview Area -->
+                <div id="avatar-preview-area" class="hidden mt-4">
+                    <div class="text-center">
+                        <img id="avatar-preview" class="w-32 h-32 rounded-full object-cover mx-auto mb-4 border-4 border-white dark:border-slate-700 shadow-lg" alt="Avatar Preview">
+                        <p class="text-sm text-slate-600 dark:text-slate-400 mb-4">Preview of your new profile picture</p>
+                    </div>
+                </div>
+
+                <!-- Upload Progress -->
+                <div id="upload-progress" class="hidden mt-4">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-sm text-slate-600 dark:text-slate-400">Uploading...</span>
+                        <span id="upload-percentage" class="text-sm text-slate-600 dark:text-slate-400">0%</span>
+                    </div>
+                    <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
+                        <div id="upload-progress-bar" class="bg-primary h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex justify-end space-x-3 mt-6">
+                    <button id="cancel-avatar-upload" class="px-4 py-2 text-slate-600 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 transition-colors">
+                        Cancel
+                    </button>
+                    <button id="confirm-avatar-upload" class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                        Upload
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../components/main-navigation.js"></script>
+    <script src="../assets/js/protected-page.js"></script>
+    <script src="../assets/js/theme-manager.js"></script>
+    <script src="../assets/js/global-avatar-manager.js"></script>
+    <!-- Load UploadThing Service -->
+    <script src="../src/features/user-profile/services/uploadthing.service.js"></script>
+    <!-- Load Supabase from CDN first -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Profile Page Initialization Script -->
+    <script>
+        console.log('🔄 Starting profile page initialization...');
+
+        // Simple tab switching functionality
+        function initializeTabs() {
+            console.log('🔄 Initializing tabs...');
+
+            const tabs = document.querySelectorAll('.profile-tab');
+            const sections = document.querySelectorAll('.profile-section');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const tabName = tab.dataset.tab;
+                    console.log(`🔄 Switching to tab: ${tabName}`);
+
+                    // Update active tab
+                    tabs.forEach(t => {
+                        t.classList.remove('active', 'border-primary', 'text-primary');
+                        t.classList.add('border-transparent', 'text-slate-500');
+                    });
+
+                    tab.classList.add('active', 'border-primary', 'text-primary');
+                    tab.classList.remove('border-transparent', 'text-slate-500');
+
+                    // Show/hide sections
+                    sections.forEach(section => {
+                        section.classList.add('hidden');
+                    });
+
+                    const activeSection = document.getElementById(`${tabName}-tab`);
+                    if (activeSection) {
+                        activeSection.classList.remove('hidden');
+                        console.log(`✅ Tab switched to: ${tabName}`);
+                    } else {
+                        console.error(`❌ Section not found: ${tabName}-tab`);
+                    }
+                });
+            });
+
+            console.log('✅ Tabs initialized');
+        }
+
+        // Initialize Supabase client
+        const initializeSupabase = () => {
+            console.log('🔄 Initializing Supabase...');
+
+            if (typeof window.supabase === 'undefined') {
+                throw new Error('Supabase CDN not loaded');
+            }
+
+            const supabaseUrl = 'https://pbydepsqcypwqbicnsco.supabase.co';
+            const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBieWRlcHNxY3lwd3FiaWNuc2NvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE5MjAxOTQsImV4cCI6MjA2NzQ5NjE5NH0.5aF46QcNOFN_vwXcHxCsVx_8a4EsqE1bL4fy4K7UXI0';
+
+            const client = window.supabase.createClient(supabaseUrl, supabaseKey, {
+                auth: {
+                    autoRefreshToken: true,
+                    persistSession: true,
+                    detectSessionInUrl: true
+                }
+            });
+
+            console.log('✅ Supabase initialized');
+            return client;
+        };
+
+        // Simple profile data loading
+        async function loadProfileData() {
+            try {
+                console.log('🔄 Loading profile data...');
+                const supabaseClient = initializeSupabase();
+
+                // Get current user
+                const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
+
+                if (userError) {
+                    console.error('❌ User error:', userError);
+                    throw userError;
+                }
+
+                if (!user) {
+                    console.log('⚠️ No user found, redirecting to login...');
+                    window.location.href = '../auth/login.html';
+                    return;
+                }
+
+                console.log('✅ User found:', user.email);
+
+                // Update basic user info immediately
+                document.getElementById('profile-display-name').textContent = user.email || 'User';
+                document.getElementById('email').value = user.email || '';
+                document.getElementById('email-verified').textContent = user.email_confirmed_at ? '✅ Verified' : '❌ Not Verified';
+                document.getElementById('member-since').textContent = formatDate(user.created_at);
+                document.getElementById('last-login').textContent = formatDate(user.last_sign_in_at);
+                document.getElementById('verification-status').textContent = user.email_confirmed_at ? 'Your email is verified' : 'Please verify your email address';
+
+                // Show/hide resend verification button
+                const resendBtn = document.getElementById('resend-verification');
+                if (resendBtn) {
+                    resendBtn.style.display = user.email_confirmed_at ? 'none' : 'block';
+                }
+
+                // Try to load profile from database
+                try {
+                    const { data: profiles, error: profileError } = await supabaseClient
+                        .from('profiles')
+                        .select('*')
+                        .eq('user_id', user.id);
+
+                    if (profileError) {
+                        console.error('❌ Profile error:', profileError);
+                    } else if (profiles && profiles.length > 0) {
+                        const profile = profiles[0];
+                        console.log('✅ Profile loaded:', profile);
+
+                        // Update profile fields
+                        document.getElementById('first-name').value = profile.first_name || '';
+                        document.getElementById('last-name').value = profile.last_name || '';
+                        document.getElementById('phone').value = profile.phone || '';
+                        document.getElementById('location').value = profile.location || '';
+                        document.getElementById('company').value = profile.company || '';
+                        document.getElementById('bio').value = profile.bio || '';
+                        document.getElementById('website').value = profile.website || '';
+                        document.getElementById('linkedin').value = profile.linkedin_url || '';
+
+                        // Update display name
+                        const displayName = profile.first_name && profile.last_name ?
+                            `${profile.first_name} ${profile.last_name}` :
+                            user.email;
+                        document.getElementById('profile-display-name').textContent = displayName;
+
+                        // Update role badge
+                        const roleText = profile.role ? profile.role.charAt(0).toUpperCase() + profile.role.slice(1) : 'User';
+                        document.getElementById('profile-role-badge').textContent = roleText;
+
+                    } else {
+                        console.log('⚠️ No profile found in database');
+                    }
+                } catch (dbError) {
+                    console.error('❌ Database error:', dbError);
+                }
+
+                // Initialize avatar manager
+                if (window.avatarManager) {
+                    await window.avatarManager.init(supabaseClient, user);
+                }
+
+                console.log('✅ Profile data loaded successfully');
+
+            } catch (error) {
+                console.error('❌ Failed to load profile data:', error);
+
+                // Show default data
+                document.getElementById('profile-display-name').textContent = 'Profile Error';
+                document.getElementById('profile-role-badge').textContent = 'User';
+                document.getElementById('member-since').textContent = 'Unknown';
+                document.getElementById('email-verified').textContent = '❌ Error';
+                document.getElementById('last-login').textContent = 'Unknown';
+            }
+        }
+
+        // Save profile data to Supabase
+        async function saveProfileData(profileData) {
+            try {
+                console.log('💾 Saving profile data...');
+                const supabaseClient = initializeSupabase();
+
+                // Get current user
+                const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
+
+                if (userError || !user) {
+                    throw new Error('User not authenticated');
+                }
+
+                console.log('👤 Saving profile for user:', user.id);
+                console.log('📋 Profile data:', profileData);
+
+                // Check if profile exists
+                const { data: existingProfiles, error: checkError } = await supabaseClient
+                    .from('profiles')
+                    .select('id')
+                    .eq('user_id', user.id);
+
+                if (checkError) {
+                    console.error('❌ Error checking existing profile:', checkError);
+                    console.error('Check error details:', {
+                        message: checkError.message,
+                        details: checkError.details,
+                        hint: checkError.hint,
+                        code: checkError.code
+                    });
+                    throw new Error(`Database check error: ${checkError.message}`);
+                }
+
+                let result;
+
+                if (existingProfiles && existingProfiles.length > 0) {
+                    // Update existing profile
+                    console.log('🔄 Updating existing profile...');
+                    const { data, error } = await supabaseClient
+                        .from('profiles')
+                        .update(profileData)
+                        .eq('user_id', user.id)
+                        .select();
+
+                    if (error) {
+                        console.error('❌ Update error:', error);
+                        console.error('Update error details:', {
+                            message: error.message,
+                            details: error.details,
+                            hint: error.hint,
+                            code: error.code
+                        });
+                        throw new Error(`Update failed: ${error.message}`);
+                    }
+
+                    result = { data, error: null };
+                    console.log('✅ Profile updated successfully:', data);
+
+                } else {
+                    // Create new profile
+                    console.log('➕ Creating new profile...');
+                    const newProfileData = {
+                        user_id: user.id,
+                        email: user.email,
+                        ...profileData,
+                        created_at: new Date().toISOString()
+                    };
+
+                    const { data, error } = await supabaseClient
+                        .from('profiles')
+                        .insert([newProfileData])
+                        .select();
+
+                    if (error) {
+                        console.error('❌ Insert error:', error);
+                        console.error('Insert error details:', {
+                            message: error.message,
+                            details: error.details,
+                            hint: error.hint,
+                            code: error.code
+                        });
+                        throw new Error(`Insert failed: ${error.message}`);
+                    }
+
+                    result = { data, error: null };
+                    console.log('✅ Profile created successfully:', data);
+                }
+
+                return { success: true, data: result.data };
+
+            } catch (error) {
+                console.error('❌ Save profile error:', error);
+                return {
+                    success: false,
+                    error: error.message,
+                    details: error
+                };
+            }
+        }
+
+        // Format date helper
+        function formatDate(dateString) {
+            if (!dateString) return 'Unknown';
+            try {
+                return new Date(dateString).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+            } catch {
+                return 'Unknown';
+            }
+        }
+
+        // Simple form handlers
+        function setupFormHandlers() {
+            console.log('🔄 Setting up form handlers...');
+
+            // Debug: Check if form elements exist
+            const personalForm = document.getElementById('personal-info-form');
+            console.log('🔍 Personal form element:', personalForm);
+
+            if (personalForm) {
+                console.log('✅ Personal form found, setting up event listener...');
+                personalForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    console.log('📝 Personal info form submitted');
+                    console.log('🎯 Form submission event triggered successfully');
+
+                    try {
+                        // Show loading state
+                        const submitBtn = personalForm.querySelector('button[type="submit"]') ||
+                                         document.getElementById('save-personal-info');
+                        const originalText = submitBtn ? submitBtn.textContent : '';
+                        if (submitBtn) {
+                            submitBtn.disabled = true;
+                            submitBtn.textContent = 'Saving...';
+                        }
+
+                        // Get form data
+                        console.log('📊 Collecting form data from elements...');
+
+                        // Debug: Check each form element
+                        const firstNameEl = document.getElementById('first-name');
+                        const lastNameEl = document.getElementById('last-name');
+                        const phoneEl = document.getElementById('phone');
+                        const locationEl = document.getElementById('location');
+                        const companyEl = document.getElementById('company');
+                        const bioEl = document.getElementById('bio');
+                        const websiteEl = document.getElementById('website');
+                        const linkedinEl = document.getElementById('linkedin');
+
+                        console.log('🔍 Form elements found:', {
+                            'first-name': !!firstNameEl,
+                            'last-name': !!lastNameEl,
+                            'phone': !!phoneEl,
+                            'location': !!locationEl,
+                            'company': !!companyEl,
+                            'bio': !!bioEl,
+                            'website': !!websiteEl,
+                            'linkedin': !!linkedinEl
+                        });
+
+                        const formData = {
+                            first_name: firstNameEl ? firstNameEl.value.trim() : '',
+                            last_name: lastNameEl ? lastNameEl.value.trim() : '',
+                            phone: phoneEl ? phoneEl.value.trim() : '',
+                            location: locationEl ? locationEl.value.trim() : '',
+                            company: companyEl ? companyEl.value.trim() : '',
+                            bio: bioEl ? bioEl.value.trim() : '',
+                            website: websiteEl ? websiteEl.value.trim() : '',
+                            linkedin_url: linkedinEl ? linkedinEl.value.trim() : '',
+                            updated_at: new Date().toISOString()
+                        };
+
+                        console.log('📋 Form data to save:', formData);
+                        console.log('📊 Form data values:', {
+                            first_name: formData.first_name,
+                            last_name: formData.last_name,
+                            phone: formData.phone,
+                            location: formData.location,
+                            company: formData.company,
+                            bio: formData.bio ? formData.bio.substring(0, 50) + '...' : '',
+                            website: formData.website,
+                            linkedin_url: formData.linkedin_url
+                        });
+
+                        // Validate required fields
+                        if (!formData.first_name && !formData.last_name) {
+                            throw new Error('At least first name or last name is required');
+                        }
+
+                        // Save to database
+                        const result = await saveProfileData(formData);
+
+                        console.log('💾 Save result:', result);
+
+                        if (result.success) {
+                            // Update display name in profile
+                            const displayName = formData.first_name && formData.last_name ?
+                                `${formData.first_name} ${formData.last_name}` :
+                                'User';
+                            document.getElementById('profile-display-name').textContent = displayName;
+
+                            // Dispatch profile update event for navigation
+                            const event = new CustomEvent('profileUpdated', {
+                                detail: {
+                                    type: 'personal_info',
+                                    data: formData
+                                }
+                            });
+                            document.dispatchEvent(event);
+
+                            showToast('Profile updated successfully!', 'success');
+                            console.log('✅ Profile saved successfully');
+                        } else {
+                            throw new Error(result.error || 'Failed to save profile');
+                        }
+
+                    } catch (error) {
+                        console.error('❌ Profile save error:', error);
+                        showToast(`Failed to save profile: ${error.message}`, 'error');
+                    } finally {
+                        // Restore button state
+                        const submitBtn = personalForm.querySelector('button[type="submit"]') ||
+                                         document.getElementById('save-personal-info');
+                        if (submitBtn) {
+                            submitBtn.disabled = false;
+                            submitBtn.textContent = originalText || 'Save Changes';
+                        }
+                    }
+                });
+            }
+
+            // Password form
+            const passwordForm = document.getElementById('password-form');
+            if (passwordForm) {
+                passwordForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    console.log('🔒 Password form submitted');
+
+                    const currentPassword = document.getElementById('current-password').value;
+                    const newPassword = document.getElementById('new-password').value;
+                    const confirmPassword = document.getElementById('confirm-password').value;
+
+                    if (newPassword !== confirmPassword) {
+                        showToast('Passwords do not match', 'error');
+                        return;
+                    }
+
+                    if (newPassword.length < 6) {
+                        showToast('Password must be at least 6 characters', 'error');
+                        return;
+                    }
+
+                    showToast('Password updated successfully!', 'success');
+                    passwordForm.reset();
+                });
+            }
+
+            // Preferences form
+            const savePreferencesBtn = document.getElementById('save-preferences');
+            if (savePreferencesBtn) {
+                savePreferencesBtn.addEventListener('click', () => {
+                    console.log('⚙️ Preferences saved');
+
+                    // Save notification preferences
+                    const emailNotifications = document.getElementById('email-notifications').checked;
+                    const listingAlerts = document.getElementById('listing-alerts').checked;
+                    const messageNotifications = document.getElementById('message-notifications').checked;
+
+                    // Store preferences in localStorage
+                    const preferences = {
+                        emailNotifications,
+                        listingAlerts,
+                        messageNotifications,
+                        savedAt: new Date().toISOString()
+                    };
+
+                    try {
+                        localStorage.setItem('buymart-preferences', JSON.stringify(preferences));
+                        showToast('Preferences saved successfully!', 'success');
+                    } catch (error) {
+                        console.error('Failed to save preferences:', error);
+                        showToast('Failed to save preferences', 'error');
+                    }
+                });
+            }
+
+            console.log('✅ Form handlers set up');
+        }
+
+        // Theme integration functions
+        function setupThemeIntegration() {
+            console.log('🎨 Setting up theme integration...');
+
+            // Listen for theme changes
+            window.addEventListener('themeChanged', (event) => {
+                const { theme, isDark } = event.detail;
+                console.log(`🎨 Theme changed to: ${theme} (isDark: ${isDark})`);
+
+                // Update current theme display
+                updateCurrentThemeDisplay(theme);
+            });
+
+            // Update theme display when theme manager is ready
+            setTimeout(() => {
+                if (window.themeManager) {
+                    const currentTheme = window.themeManager.getCurrentTheme();
+                    updateCurrentThemeDisplay(currentTheme);
+                }
+            }, 100);
+        }
+
+        function updateCurrentThemeDisplay(theme) {
+            const display = document.getElementById('current-theme-display');
+            if (display) {
+                const themeNames = {
+                    light: 'Light',
+                    dark: 'Dark',
+                    system: 'System'
+                };
+                display.textContent = themeNames[theme] || 'Unknown';
+            }
+        }
+
+        function loadPreferences() {
+            console.log('📋 Loading saved preferences...');
+
+            try {
+                const saved = localStorage.getItem('buymart-preferences');
+                if (saved) {
+                    const preferences = JSON.parse(saved);
+
+                    // Apply notification preferences
+                    if (preferences.emailNotifications !== undefined) {
+                        document.getElementById('email-notifications').checked = preferences.emailNotifications;
+                    }
+                    if (preferences.listingAlerts !== undefined) {
+                        document.getElementById('listing-alerts').checked = preferences.listingAlerts;
+                    }
+                    if (preferences.messageNotifications !== undefined) {
+                        document.getElementById('message-notifications').checked = preferences.messageNotifications;
+                    }
+
+                    console.log('✅ Preferences loaded');
+                }
+            } catch (error) {
+                console.error('Failed to load preferences:', error);
+            }
+        }
+
+        // Simple toast notification
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            if (!container) return;
+
+            const toast = document.createElement('div');
+            toast.className = `mb-4 p-4 rounded-lg shadow-lg transition-all duration-300 transform translate-x-full`;
+
+            if (type === 'success') {
+                toast.className += ' bg-green-500 text-white';
+            } else if (type === 'error') {
+                toast.className += ' bg-red-500 text-white';
+            } else {
+                toast.className += ' bg-blue-500 text-white';
+            }
+
+            toast.innerHTML = `
+                <div class="flex items-center justify-between">
+                    <span>${message}</span>
+                    <button class="ml-4 text-white hover:text-gray-200" onclick="this.parentElement.parentElement.remove()">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+            `;
+
+            container.appendChild(toast);
+
+            // Animate in
+            setTimeout(() => {
+                toast.classList.remove('translate-x-full');
+            }, 100);
+
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                toast.classList.add('translate-x-full');
+                setTimeout(() => {
+                    if (toast.parentElement) {
+                        toast.remove();
+                    }
+                }, 300);
+            }, 5000);
+        }
+
+        // Avatar Management Functions
+        class AvatarManager {
+            constructor() {
+                this.maxFileSize = 5 * 1024 * 1024; // 5MB
+                this.allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+                this.bucketName = 'avatars';
+                this.currentUser = null;
+                this.supabaseClient = null;
+                this.uploadProvider = 'supabase'; // 'supabase' or 'uploadthing'
+                this.uploadThingClient = null;
+                this.debugMode = true; // Enable detailed logging
+            }
+
+            async init(supabaseClient, user) {
+                this.supabaseClient = supabaseClient;
+                this.currentUser = user;
+
+                // Initialize UploadThing client
+                this.uploadThingClient = new SimpleUploadThingClient();
+
+                // Test Supabase Storage and fallback to UploadThing if needed
+                await this.detectBestUploadProvider();
+
+                this.setupEventListeners();
+                await this.loadCurrentAvatar();
+
+                console.log(`✅ Avatar Manager initialized with ${this.uploadProvider} provider`);
+            }
+
+            async detectBestUploadProvider() {
+                try {
+                    console.log('🔍 Testing Supabase Storage availability...');
+
+                    // Test Supabase Storage by listing buckets
+                    const { data, error } = await this.supabaseClient.storage.listBuckets();
+
+                    if (error) {
+                        console.warn('⚠️ Supabase Storage error:', error);
+                        this.uploadProvider = 'uploadthing';
+                        console.log('🔄 Falling back to UploadThing');
+                        return;
+                    }
+
+                    // Check if avatars bucket exists
+                    const avatarBucket = data.find(bucket => bucket.name === this.bucketName);
+                    if (!avatarBucket) {
+                        console.warn('⚠️ Avatars bucket not found, falling back to UploadThing');
+                        this.uploadProvider = 'uploadthing';
+                        return;
+                    }
+
+                    console.log('✅ Supabase Storage available');
+                    this.uploadProvider = 'supabase';
+
+                } catch (error) {
+                    console.error('❌ Supabase Storage test failed:', error);
+                    this.uploadProvider = 'uploadthing';
+                    console.log('🔄 Using UploadThing as primary provider');
+                }
+            }
+
+            setupEventListeners() {
+                const avatarUpload = document.getElementById('avatar-upload');
+                const avatarContainer = document.querySelector('.profile-avatar-upload');
+                const modal = document.getElementById('avatar-modal');
+                const uploadArea = document.getElementById('avatar-upload-area');
+                const closeModal = document.getElementById('close-avatar-modal');
+                const cancelUpload = document.getElementById('cancel-avatar-upload');
+                const confirmUpload = document.getElementById('confirm-avatar-upload');
+
+                // Main avatar click - open modal
+                if (avatarContainer) {
+                    avatarContainer.addEventListener('click', () => {
+                        this.openModal();
+                    });
+                }
+
+                // Modal upload area
+                if (uploadArea) {
+                    uploadArea.addEventListener('click', () => {
+                        avatarUpload.click();
+                    });
+
+                    // Drag and drop on modal
+                    uploadArea.addEventListener('dragover', (e) => {
+                        e.preventDefault();
+                        uploadArea.classList.add('border-primary', 'bg-primary/5');
+                    });
+
+                    uploadArea.addEventListener('dragleave', (e) => {
+                        e.preventDefault();
+                        uploadArea.classList.remove('border-primary', 'bg-primary/5');
+                    });
+
+                    uploadArea.addEventListener('drop', (e) => {
+                        e.preventDefault();
+                        uploadArea.classList.remove('border-primary', 'bg-primary/5');
+
+                        const file = e.dataTransfer.files[0];
+                        if (file) {
+                            this.handleFileSelection(file);
+                        }
+                    });
+                }
+
+                // File selection
+                if (avatarUpload) {
+                    avatarUpload.addEventListener('change', (e) => {
+                        const file = e.target.files[0];
+                        if (file) {
+                            this.handleFileSelection(file);
+                        }
+                    });
+                }
+
+                // Modal controls
+                if (closeModal) {
+                    closeModal.addEventListener('click', () => {
+                        this.closeModal();
+                    });
+                }
+
+                if (cancelUpload) {
+                    cancelUpload.addEventListener('click', () => {
+                        this.closeModal();
+                    });
+                }
+
+                if (confirmUpload) {
+                    confirmUpload.addEventListener('click', () => {
+                        this.confirmUpload();
+                    });
+                }
+
+                // Close modal on backdrop click
+                if (modal) {
+                    modal.addEventListener('click', (e) => {
+                        if (e.target === modal) {
+                            this.closeModal();
+                        }
+                    });
+                }
+            }
+
+            openModal() {
+                const modal = document.getElementById('avatar-modal');
+                if (modal) {
+                    modal.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden';
+                }
+            }
+
+            closeModal() {
+                const modal = document.getElementById('avatar-modal');
+                const previewArea = document.getElementById('avatar-preview-area');
+                const uploadArea = document.getElementById('avatar-upload-area');
+                const confirmBtn = document.getElementById('confirm-avatar-upload');
+
+                if (modal) {
+                    modal.classList.add('hidden');
+                    document.body.style.overflow = '';
+                }
+
+                // Reset modal state
+                if (previewArea) previewArea.classList.add('hidden');
+                if (uploadArea) uploadArea.classList.remove('hidden');
+                if (confirmBtn) confirmBtn.disabled = true;
+
+                this.selectedFile = null;
+            }
+
+            async handleFileSelection(file) {
+                try {
+                    console.log('🔄 Processing avatar selection...');
+
+                    // Validate file
+                    const validation = this.validateFile(file);
+                    if (!validation.isValid) {
+                        showToast(validation.error, 'error');
+                        return;
+                    }
+
+                    // Store selected file and show preview
+                    this.selectedFile = file;
+                    await this.showPreview(file);
+
+                } catch (error) {
+                    console.error('❌ Avatar selection error:', error);
+                    showToast('Failed to process image', 'error');
+                }
+            }
+
+            async showPreview(file) {
+                const previewUrl = await this.createPreview(file);
+                const previewImg = document.getElementById('avatar-preview');
+                const previewArea = document.getElementById('avatar-preview-area');
+                const uploadArea = document.getElementById('avatar-upload-area');
+                const confirmBtn = document.getElementById('confirm-avatar-upload');
+
+                if (previewImg && previewArea && uploadArea && confirmBtn) {
+                    previewImg.src = previewUrl;
+                    uploadArea.classList.add('hidden');
+                    previewArea.classList.remove('hidden');
+                    confirmBtn.disabled = false;
+                }
+            }
+
+            async confirmUpload() {
+                if (!this.selectedFile) return;
+
+                try {
+                    // Show upload progress
+                    this.showUploadProgress();
+
+                    // Process and upload
+                    const processedFile = await this.processImage(this.selectedFile);
+                    await this.uploadAvatar(processedFile);
+
+                    // Close modal on success
+                    this.closeModal();
+
+                } catch (error) {
+                    console.error('❌ Avatar upload error:', error);
+                    showToast('Failed to upload avatar', 'error');
+                    this.hideUploadProgress();
+                }
+            }
+
+            showUploadProgress() {
+                const progressDiv = document.getElementById('upload-progress');
+                const previewArea = document.getElementById('avatar-preview-area');
+
+                if (progressDiv && previewArea) {
+                    previewArea.classList.add('hidden');
+                    progressDiv.classList.remove('hidden');
+
+                    // Simulate progress
+                    let progress = 0;
+                    const interval = setInterval(() => {
+                        progress += Math.random() * 30;
+                        if (progress > 90) progress = 90;
+
+                        const progressBar = document.getElementById('upload-progress-bar');
+                        const progressText = document.getElementById('upload-percentage');
+
+                        if (progressBar) progressBar.style.width = `${progress}%`;
+                        if (progressText) progressText.textContent = `${Math.round(progress)}%`;
+
+                        if (progress >= 90) {
+                            clearInterval(interval);
+                        }
+                    }, 200);
+
+                    this.uploadInterval = interval;
+                }
+            }
+
+            hideUploadProgress() {
+                const progressDiv = document.getElementById('upload-progress');
+                const previewArea = document.getElementById('avatar-preview-area');
+
+                if (this.uploadInterval) {
+                    clearInterval(this.uploadInterval);
+                    this.uploadInterval = null;
+                }
+
+                if (progressDiv && previewArea) {
+                    progressDiv.classList.add('hidden');
+                    previewArea.classList.remove('hidden');
+                }
+            }
+
+            validateFile(file) {
+                if (!file) {
+                    return { isValid: false, error: 'No file selected' };
+                }
+
+                if (file.size > this.maxFileSize) {
+                    return {
+                        isValid: false,
+                        error: `File size must be less than ${this.maxFileSize / 1024 / 1024}MB`
+                    };
+                }
+
+                if (!this.allowedTypes.includes(file.type)) {
+                    return {
+                        isValid: false,
+                        error: 'File type must be JPEG, PNG, or WebP'
+                    };
+                }
+
+                return { isValid: true };
+            }
+
+            async showPreviewAndUpload(file) {
+                // Create preview
+                const previewUrl = await this.createPreview(file);
+                this.updateAvatarDisplay(previewUrl);
+
+                // Show upload confirmation
+                const confirmed = confirm('Upload this image as your profile avatar?');
+                if (!confirmed) {
+                    await this.loadCurrentAvatar(); // Restore previous avatar
+                    return;
+                }
+
+                // Process and upload
+                const processedFile = await this.processImage(file);
+                await this.uploadAvatar(processedFile);
+            }
+
+            async createPreview(file) {
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = (e) => resolve(e.target.result);
+                    reader.onerror = () => reject(new Error('Failed to read file'));
+                    reader.readAsDataURL(file);
+                });
+            }
+
+            async processImage(file) {
+                return new Promise((resolve, reject) => {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    const img = new Image();
+
+                    img.onload = () => {
+                        // Set target dimensions (square, max 400x400)
+                        const maxSize = 400;
+                        const size = Math.min(img.width, img.height, maxSize);
+
+                        canvas.width = size;
+                        canvas.height = size;
+
+                        // Calculate crop position for center crop
+                        const cropX = (img.width - size) / 2;
+                        const cropY = (img.height - size) / 2;
+
+                        // Draw cropped and resized image
+                        ctx.drawImage(img, cropX, cropY, size, size, 0, 0, size, size);
+
+                        // Convert to blob with compression
+                        canvas.toBlob(
+                            (blob) => {
+                                if (blob) {
+                                    const processedFile = new File([blob], file.name, {
+                                        type: 'image/jpeg',
+                                        lastModified: Date.now()
+                                    });
+                                    resolve(processedFile);
+                                } else {
+                                    reject(new Error('Failed to process image'));
+                                }
+                            },
+                            'image/jpeg',
+                            0.85 // 85% quality
+                        );
+                    };
+
+                    img.onerror = () => reject(new Error('Failed to load image'));
+                    img.src = URL.createObjectURL(file);
+                });
+            }
+
+            async uploadAvatar(file) {
+                try {
+                    console.log(`🔄 Uploading avatar using ${this.uploadProvider} provider...`);
+
+                    let avatarUrl;
+
+                    if (this.uploadProvider === 'supabase') {
+                        avatarUrl = await this.uploadToSupabase(file);
+                    } else {
+                        avatarUrl = await this.uploadToUploadThing(file);
+                    }
+
+                    // Complete progress
+                    const progressBar = document.getElementById('upload-progress-bar');
+                    const progressText = document.getElementById('upload-percentage');
+                    if (progressBar) progressBar.style.width = '100%';
+                    if (progressText) progressText.textContent = '100%';
+
+                    console.log('💾 Updating profile avatar in database...');
+                    // Update user profile
+                    await this.updateProfileAvatar(avatarUrl);
+                    console.log('✅ Profile avatar updated in database');
+
+                    console.log('🖼️ Updating avatar display in UI...');
+                    // Update main avatar display
+                    this.updateAvatarDisplay(avatarUrl);
+
+                    console.log('📡 Dispatching avatar update event...');
+                    // Dispatch avatar update event for navigation
+                    this.dispatchAvatarUpdateEvent(avatarUrl);
+
+                    console.log('✅ Avatar uploaded successfully');
+                    showToast('Profile picture updated successfully!', 'success');
+
+                } catch (error) {
+                    console.error('❌ Avatar upload failed:', error);
+
+                    // Try fallback provider if primary fails
+                    if (this.uploadProvider === 'supabase') {
+                        console.log('🔄 Trying UploadThing fallback...');
+                        try {
+                            const avatarUrl = await this.uploadToUploadThing(file);
+                            await this.updateProfileAvatar(avatarUrl);
+                            this.updateAvatarDisplay(avatarUrl);
+                            showToast('Profile picture updated successfully! (using backup service)', 'success');
+                            return;
+                        } catch (fallbackError) {
+                            console.error('❌ Fallback upload also failed:', fallbackError);
+                        }
+                    }
+
+                    showToast('Failed to upload avatar: ' + error.message, 'error');
+                    throw error;
+                }
+            }
+
+            async uploadToSupabase(file) {
+                try {
+                    console.log('📤 Uploading to Supabase Storage...');
+
+                    // Generate unique filename
+                    const fileName = this.generateFileName(file.type);
+
+                    if (this.debugMode) {
+                        console.log('📋 Upload details:', {
+                            fileName,
+                            fileSize: file.size,
+                            fileType: file.type,
+                            bucketName: this.bucketName,
+                            userId: this.currentUser.id
+                        });
+                    }
+
+                    // Upload to Supabase Storage
+                    const { data, error } = await this.supabaseClient.storage
+                        .from(this.bucketName)
+                        .upload(fileName, file, {
+                            cacheControl: '3600',
+                            upsert: true
+                        });
+
+                    if (error) {
+                        console.error('❌ Supabase Storage error details:', {
+                            error,
+                            message: error.message,
+                            statusCode: error.statusCode,
+                            details: error.details
+                        });
+                        throw new Error(`Supabase Storage error: ${error.message}`);
+                    }
+
+                    // Get public URL
+                    const { data: urlData } = this.supabaseClient.storage
+                        .from(this.bucketName)
+                        .getPublicUrl(fileName);
+
+                    if (!urlData.publicUrl) {
+                        throw new Error('Failed to get public URL from Supabase');
+                    }
+
+                    console.log('✅ Supabase upload successful:', urlData.publicUrl);
+                    return urlData.publicUrl;
+
+                } catch (error) {
+                    console.error('❌ Supabase upload failed:', error);
+                    throw error;
+                }
+            }
+
+            async uploadToUploadThing(file) {
+                try {
+                    console.log('📤 Uploading to UploadThing...');
+
+                    if (!this.uploadThingClient) {
+                        throw new Error('UploadThing client not initialized');
+                    }
+
+                    const result = await this.uploadThingClient.uploadFile(file);
+
+                    if (!result.success) {
+                        throw new Error(result.error);
+                    }
+
+                    console.log('✅ UploadThing upload successful:', result.url);
+                    return result.url;
+
+                } catch (error) {
+                    console.error('❌ UploadThing upload failed:', error);
+                    throw error;
+                }
+            }
+
+            generateFileName(fileType) {
+                const timestamp = Date.now();
+                const extension = fileType.split('/')[1] || 'jpg';
+                return `${this.currentUser.id}/avatar_${timestamp}.${extension}`;
+            }
+
+            async updateProfileAvatar(avatarUrl) {
+                console.log('💾 Updating avatar URL in database...');
+                console.log('🔗 Avatar URL to save:', avatarUrl);
+                console.log('👤 User ID:', this.currentUser.id);
+
+                const { data, error } = await this.supabaseClient
+                    .from('profiles')
+                    .update({
+                        avatar_url: avatarUrl,
+                        updated_at: new Date().toISOString()
+                    })
+                    .eq('user_id', this.currentUser.id)
+                    .select();
+
+                if (error) {
+                    console.error('❌ Database update error:', error);
+                    throw error;
+                }
+
+                console.log('✅ Avatar URL saved to database:', data);
+            }
+
+            async loadCurrentAvatar() {
+                try {
+                    const { data, error } = await this.supabaseClient
+                        .from('profiles')
+                        .select('avatar_url')
+                        .eq('user_id', this.currentUser.id)
+                        .single();
+
+                    if (error && error.code !== 'PGRST116') { // PGRST116 = no rows returned
+                        console.error('Failed to load avatar:', error);
+                        return;
+                    }
+
+                    const avatarUrl = data?.avatar_url;
+                    this.updateAvatarDisplay(avatarUrl);
+
+                } catch (error) {
+                    console.error('Failed to load current avatar:', error);
+                }
+            }
+
+            updateAvatarDisplay(avatarUrl) {
+                console.log('🖼️ Updating avatar display with URL:', avatarUrl);
+
+                const userAvatar = document.getElementById('user-avatar');
+                const defaultAvatar = document.getElementById('default-avatar');
+
+                console.log('🔍 Avatar elements found:', {
+                    userAvatar: !!userAvatar,
+                    defaultAvatar: !!defaultAvatar
+                });
+
+                if (avatarUrl && userAvatar && defaultAvatar) {
+                    // Add cache-busting parameter
+                    const cacheBustedUrl = `${avatarUrl}?t=${Date.now()}`;
+                    console.log('🔄 Setting avatar src to:', cacheBustedUrl);
+
+                    userAvatar.src = cacheBustedUrl;
+                    userAvatar.classList.remove('hidden');
+                    defaultAvatar.classList.add('hidden');
+
+                    console.log('✅ Avatar display updated - user avatar shown');
+                } else if (userAvatar && defaultAvatar) {
+                    console.log('🔄 Hiding user avatar, showing default');
+                    userAvatar.classList.add('hidden');
+                    defaultAvatar.classList.remove('hidden');
+                    console.log('✅ Avatar display updated - default avatar shown');
+                } else {
+                    console.error('❌ Avatar elements not found:', {
+                        userAvatar: !!userAvatar,
+                        defaultAvatar: !!defaultAvatar,
+                        avatarUrl: avatarUrl
+                    });
+                }
+            }
+
+            dispatchAvatarUpdateEvent(avatarUrl) {
+                console.log('📡 Dispatching avatar update event');
+
+                // Dispatch custom event for navigation and other components
+                const event = new CustomEvent('avatarUpdated', {
+                    detail: {
+                        avatarUrl: avatarUrl,
+                        timestamp: Date.now(),
+                        userId: this.currentUser?.id
+                    }
+                });
+
+                document.dispatchEvent(event);
+
+                // Also dispatch a general profile update event
+                const profileEvent = new CustomEvent('profileUpdated', {
+                    detail: {
+                        type: 'avatar',
+                        avatarUrl: avatarUrl,
+                        userId: this.currentUser?.id
+                    }
+                });
+
+                document.dispatchEvent(profileEvent);
+            }
+
+            async deleteAvatar() {
+                try {
+                    const confirmed = confirm('Are you sure you want to remove your profile picture?');
+                    if (!confirmed) return;
+
+                    console.log('🔄 Deleting avatar...');
+
+                    // Update profile to remove avatar URL
+                    const { error } = await this.supabaseClient
+                        .from('profiles')
+                        .update({
+                            avatar_url: null,
+                            updated_at: new Date().toISOString()
+                        })
+                        .eq('user_id', this.currentUser.id);
+
+                    if (error) throw error;
+
+                    // Update display
+                    this.updateAvatarDisplay(null);
+
+                    // Dispatch avatar removal event
+                    this.dispatchAvatarUpdateEvent(null);
+
+                    console.log('✅ Avatar deleted successfully');
+                    showToast('Profile picture removed', 'success');
+
+                } catch (error) {
+                    console.error('❌ Avatar deletion failed:', error);
+                    showToast('Failed to remove profile picture', 'error');
+                }
+            }
+        }
+
+        // Global avatar manager instance
+        window.avatarManager = new AvatarManager();
+
+        // Global upgrade function
+        window.upgradeToPlan = function(planType) {
+            console.log(`Upgrading to ${planType} plan...`);
+            showToast(`${planType.charAt(0).toUpperCase() + planType.slice(1)} plan upgrade will be available soon. Please contact support.`, 'info');
+        };
+
+        // Global avatar delete function
+        window.deleteAvatar = function() {
+            if (window.avatarManager) {
+                window.avatarManager.deleteAvatar();
+            }
+        };
+
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', async () => {
+            console.log('🔄 DOM loaded, initializing profile page...');
+
+            try {
+                // Initialize tabs first
+                initializeTabs();
+
+                // Set up form handlers
+                setupFormHandlers();
+
+                // Set up theme integration
+                setupThemeIntegration();
+
+                // Load saved preferences
+                loadPreferences();
+
+                // Load profile data
+                await loadProfileData();
+
+                // Hide loading overlay
+                const authLoading = document.getElementById('auth-loading');
+                if (authLoading) {
+                    authLoading.style.display = 'none';
+                }
+
+                console.log('✅ Profile page initialized successfully');
+
+            } catch (error) {
+                console.error('❌ Failed to initialize profile page:', error);
+
+                // Hide loading overlay even on error
+                const authLoading = document.getElementById('auth-loading');
+                if (authLoading) {
+                    authLoading.style.display = 'none';
+                }
+
+                // Show error message
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'fixed top-20 right-4 bg-red-500 text-white p-4 rounded-lg shadow-lg z-50 max-w-md';
+                errorDiv.innerHTML = `
+                    <div class="flex items-start">
+                        <svg class="w-5 h-5 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <div>
+                            <div class="font-medium">Failed to initialize profile page</div>
+                            <div class="text-sm mt-1">${error.message}</div>
+                            <button onclick="location.reload()" class="mt-2 text-sm underline hover:no-underline">
+                                Refresh Page
+                            </button>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(errorDiv);
+            }
+        });
+    </script>
+    <script src="../components/admin-navigation.js"></script>
+</body>
+</html>

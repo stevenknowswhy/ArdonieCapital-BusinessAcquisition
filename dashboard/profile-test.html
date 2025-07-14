@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Test - BuyMartV1</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 p-8">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6">Profile Page Test</h1>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Test Results -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <h2 class="text-lg font-semibold mb-4">Test Results</h2>
+                <div id="test-results" class="space-y-2">
+                    <div>Loading tests...</div>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <h2 class="text-lg font-semibold mb-4">Actions</h2>
+                <div class="space-y-2">
+                    <button id="test-auth" class="w-full px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+                        Test Authentication
+                    </button>
+                    <button id="test-tabs" class="w-full px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">
+                        Test Tab Functionality
+                    </button>
+                    <button id="test-profile-data" class="w-full px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-600">
+                        Test Profile Data Loading
+                    </button>
+                    <button id="open-profile" class="w-full px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-600">
+                        Open Profile Page
+                    </button>
+                    <button id="login-test-user" class="w-full px-4 py-2 bg-indigo-500 text-white rounded hover:bg-indigo-600">
+                        Login Test User
+                    </button>
+                </div>
+            </div>
+
+            <!-- Console Log -->
+            <div class="bg-white rounded-lg shadow p-6 md:col-span-2">
+                <h2 class="text-lg font-semibold mb-4">Console Log</h2>
+                <div id="console-log" class="bg-slate-100 p-4 rounded text-sm font-mono h-64 overflow-y-auto">
+                    <div>Test console initialized...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script>
+        const log = (message, type = 'info') => {
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = `[${timestamp}] ${message}`;
+            
+            const logElement = document.getElementById('console-log');
+            const div = document.createElement('div');
+            div.className = type === 'error' ? 'text-red-600' : type === 'success' ? 'text-green-600' : 'text-slate-700';
+            div.textContent = logEntry;
+            logElement.appendChild(div);
+            logElement.scrollTop = logElement.scrollHeight;
+            
+            console.log(logEntry);
+        };
+
+        const addResult = (test, result, details = '') => {
+            const resultsElement = document.getElementById('test-results');
+            const div = document.createElement('div');
+            div.className = `p-2 rounded ${
+                result === 'pass' ? 'bg-green-100 text-green-800' :
+                result === 'fail' ? 'bg-red-100 text-red-800' :
+                'bg-yellow-100 text-yellow-800'
+            }`;
+            div.innerHTML = `
+                <div class="font-medium">${test}</div>
+                <div class="text-sm">${result.toUpperCase()}: ${details}</div>
+            `;
+            resultsElement.appendChild(div);
+        };
+
+        // Initialize Supabase
+        let supabaseClient = null;
+
+        const initializeSupabase = () => {
+            try {
+                log('Initializing Supabase...');
+                
+                if (typeof window.supabase === 'undefined') {
+                    throw new Error('Supabase CDN not loaded');
+                }
+
+                const supabaseUrl = 'https://pbydepsqcypwqbicnsco.supabase.co';
+                const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBieWRlcHNxY3lwd3FiaWNuc2NvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE5MjAxOTQsImV4cCI6MjA2NzQ5NjE5NH0.5aF46QcNOFN_vwXcHxCsVx_8a4EsqE1bL4fy4K7UXI0';
+
+                supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+                
+                log('✅ Supabase initialized successfully', 'success');
+                return supabaseClient;
+            } catch (error) {
+                log(`❌ Supabase initialization failed: ${error.message}`, 'error');
+                throw error;
+            }
+        };
+
+        // Test functions
+        const testAuth = async () => {
+            try {
+                log('Testing authentication...');
+                
+                if (!supabaseClient) {
+                    supabaseClient = initializeSupabase();
+                }
+
+                const { data: { user }, error } = await supabaseClient.auth.getUser();
+
+                if (error) {
+                    addResult('Authentication', 'fail', error.message);
+                    log(`❌ Auth test failed: ${error.message}`, 'error');
+                } else if (user) {
+                    addResult('Authentication', 'pass', `Logged in as ${user.email}`);
+                    log(`✅ Auth test passed: ${user.email}`, 'success');
+                } else {
+                    addResult('Authentication', 'warning', 'No user logged in');
+                    log('⚠️ No user logged in', 'warning');
+                }
+
+            } catch (error) {
+                addResult('Authentication', 'fail', error.message);
+                log(`❌ Auth test failed: ${error.message}`, 'error');
+            }
+        };
+
+        const testTabs = async () => {
+            try {
+                log('Testing tab functionality...');
+                
+                // Open profile page in new window and test tabs
+                const profileWindow = window.open('./user-profile.html', '_blank');
+                
+                setTimeout(() => {
+                    try {
+                        const tabs = profileWindow.document.querySelectorAll('.profile-tab');
+                        if (tabs.length > 0) {
+                            addResult('Tab Functionality', 'pass', `Found ${tabs.length} tabs`);
+                            log(`✅ Tab test passed: ${tabs.length} tabs found`, 'success');
+                        } else {
+                            addResult('Tab Functionality', 'fail', 'No tabs found');
+                            log('❌ Tab test failed: No tabs found', 'error');
+                        }
+                    } catch (error) {
+                        addResult('Tab Functionality', 'warning', 'Cannot access profile window (CORS)');
+                        log('⚠️ Tab test warning: Cannot access profile window', 'warning');
+                    }
+                }, 2000);
+
+            } catch (error) {
+                addResult('Tab Functionality', 'fail', error.message);
+                log(`❌ Tab test failed: ${error.message}`, 'error');
+            }
+        };
+
+        const testProfileData = async () => {
+            try {
+                log('Testing profile data loading...');
+                
+                if (!supabaseClient) {
+                    supabaseClient = initializeSupabase();
+                }
+
+                const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
+                
+                if (userError || !user) {
+                    addResult('Profile Data', 'warning', 'No user logged in');
+                    log('⚠️ Profile data test: No user logged in', 'warning');
+                    return;
+                }
+
+                // Test profile table access
+                const { data: profiles, error: profileError } = await supabaseClient
+                    .from('profiles')
+                    .select('*')
+                    .eq('user_id', user.id);
+
+                if (profileError) {
+                    addResult('Profile Data', 'fail', profileError.message);
+                    log(`❌ Profile data test failed: ${profileError.message}`, 'error');
+                } else if (profiles && profiles.length > 0) {
+                    addResult('Profile Data', 'pass', 'Profile data found');
+                    log(`✅ Profile data test passed: Profile found`, 'success');
+                } else {
+                    addResult('Profile Data', 'warning', 'No profile data found');
+                    log('⚠️ Profile data test: No profile found', 'warning');
+                }
+
+            } catch (error) {
+                addResult('Profile Data', 'fail', error.message);
+                log(`❌ Profile data test failed: ${error.message}`, 'error');
+            }
+        };
+
+        const loginTestUser = async () => {
+            try {
+                log('Logging in test user...');
+                
+                if (!supabaseClient) {
+                    supabaseClient = initializeSupabase();
+                }
+
+                const { data, error } = await supabaseClient.auth.signInWithPassword({
+                    email: 'reforiy538@iamtile.com',
+                    password: 'gK9.t1|ROnQ52U['
+                });
+
+                if (error) {
+                    addResult('Test User Login', 'fail', error.message);
+                    log(`❌ Test user login failed: ${error.message}`, 'error');
+                } else {
+                    addResult('Test User Login', 'pass', 'Test user logged in successfully');
+                    log('✅ Test user logged in successfully', 'success');
+                    
+                    // Run other tests after login
+                    setTimeout(() => {
+                        testAuth();
+                        testProfileData();
+                    }, 1000);
+                }
+
+            } catch (error) {
+                addResult('Test User Login', 'fail', error.message);
+                log(`❌ Test user login failed: ${error.message}`, 'error');
+            }
+        };
+
+        // Event listeners
+        document.getElementById('test-auth').addEventListener('click', testAuth);
+        document.getElementById('test-tabs').addEventListener('click', testTabs);
+        document.getElementById('test-profile-data').addEventListener('click', testProfileData);
+        document.getElementById('login-test-user').addEventListener('click', loginTestUser);
+        document.getElementById('open-profile').addEventListener('click', () => {
+            window.open('./user-profile.html', '_blank');
+        });
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', async () => {
+            log('🔄 Profile test page loaded');
+            
+            try {
+                initializeSupabase();
+                
+                // Run initial tests
+                await testAuth();
+                
+                log('✅ Initial tests completed', 'success');
+            } catch (error) {
+                log(`❌ Initialization failed: ${error.message}`, 'error');
+            }
+        });
+    </script>
+</body>
+</html>

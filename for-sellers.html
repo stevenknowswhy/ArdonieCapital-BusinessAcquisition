@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta charset="UTF-8">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
 
@@ -55,10 +56,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/admin-navigation.css">
 </head>
 <body class="bg-white dark:bg-slate-900 text-slate-900 dark:text-white">
     <!-- Navigation Component -->
     <div id="main-navigation-container"></div>
+    <div id="admin-navigation-container"></div>
 
     <main>
         <!-- Hero Section -->
@@ -329,7 +332,7 @@
                     <!-- Application Form -->
                     <div class="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-8">
                         <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-6 text-center">Apply for Express Seller Badge</h3>
-                        <form class="space-y-6">
+                        <form class="space-y-6" data-secure="true">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
                                     <label for="owner-name" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Owner Name</label>
@@ -626,8 +629,9 @@
                 </p>
                 <div class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-6 mt-4 md:mt-0">
                     <a href="terms-of-service.html" class="text-slate-400 hover:text-white transition-colors text-sm">Terms of Service</a>
-                    <a href="cookie-policy.html" class="text-slate-400 hover:text-white transition-colors text-sm">Cookie Policy</a>
                     <a href="privacy-policy.html" class="text-slate-400 hover:text-white transition-colors text-sm">Privacy Policy</a>
+                    <a href="cookie-policy.html" class="text-slate-400 hover:text-white transition-colors text-sm">Cookie Policy</a>
+                    <a href="non-broker-disclaimer.html" class="text-slate-400 hover:text-white transition-colors text-sm">Non-Broker Disclaimer</a>
                 </div>
             </div>
         </div>
@@ -635,5 +639,6 @@
 
     <!-- Load Navigation Component -->
     <script src="components/main-navigation.js"></script>
+    <script src="components/admin-navigation.js"></script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Role Management - Ardonie Capital</title>
@@ -43,6 +44,7 @@
 <body class="bg-slate-50 dark:bg-slate-900">
     <!-- Navigation -->
     <div id="main-navigation-container"></div>
+    <div id="admin-navigation-container"></div>
 
     <main class="pt-20 min-h-screen">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -209,7 +211,7 @@
                     <h3 id="modalTitle" class="text-lg font-semibold text-slate-900 dark:text-white">Add User Role</h3>
                 </div>
                 
-                <form id="userRoleForm" class="px-6 py-4">
+                <form id="userRoleForm" class="px-6 py-4" data-secure="true">
                     <div class="space-y-4">
                         <div>
                             <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">User</label>
@@ -595,5 +597,6 @@
             };
         }
     </script>
+    <script src="../components/admin-navigation.js"></script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     
     <link rel="dns-prefetch" href="//fonts.googleapis.com">
     <link rel="dns-prefetch" href="//images.unsplash.com">
@@ -861,10 +862,12 @@
     
     <!-- Navigation Styles -->
     <link rel="stylesheet" href="../components/navigation-styles.css">
+    <link rel="stylesheet" href="../assets/css/admin-navigation.css">
 </head>
 <body class="bg-slate-50 dark:bg-slate-900 font-sans">
     <!-- Header Navigation -->
     <div id="main-navigation-container"></div>
+    <div id="admin-navigation-container"></div>
 
     <!-- Load Auth Service -->
     <script src="../assets/js/auth-service-fixed.js"></script>
@@ -1184,7 +1187,7 @@
 
                             <!-- Dropdown Menu -->
                             <div id="user-menu" class="hidden absolute right-0 mt-2 w-48 bg-white dark:bg-slate-800 rounded-md shadow-lg py-1 z-50 border border-slate-200 dark:border-slate-700">
-                                <a href="#" class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700">
+                                <a href="./user-profile.html" class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                                     </svg>
@@ -2233,7 +2236,7 @@
 
                             <!-- Valuation Form -->
                             <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 p-6 mb-8">
-                                <form id="valuationForm" class="space-y-6">
+                                <form id="valuationForm" class="space-y-6" data-secure="true">
                                     <!-- Business Information -->
                                     <div>
                                         <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-4">Business Information</h3>
@@ -3827,5 +3830,6 @@
             }
         });
     </script>
+    <script src="../components/admin-navigation.js"></script>
 </body>
 </html>

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Diagnostic - BuyMartV1</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 p-8">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6">Profile Form Diagnostic</h1>
+        
+        <div class="bg-white rounded-lg shadow p-6 mb-6">
+            <h2 class="text-lg font-semibold mb-4">Diagnostic Results</h2>
+            <div id="diagnostic-results" class="space-y-2">
+                <div class="text-slate-500">Running diagnostics...</div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow p-6">
+            <h2 class="text-lg font-semibold mb-4">Console Log</h2>
+            <div id="console-log" class="bg-slate-100 p-4 rounded text-sm font-mono h-64 overflow-y-auto">
+                <div class="text-slate-700">Form diagnostic initialized...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const log = (message, type = 'info') => {
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = `[${timestamp}] ${message}`;
+            
+            const logElement = document.getElementById('console-log');
+            const div = document.createElement('div');
+            div.className = type === 'error' ? 'text-red-600' : type === 'success' ? 'text-green-600' : 'text-slate-700';
+            div.textContent = logEntry;
+            logElement.appendChild(div);
+            logElement.scrollTop = logElement.scrollHeight;
+            
+            console.log(logEntry);
+        };
+
+        const addResult = (test, result, details = '') => {
+            const resultsElement = document.getElementById('diagnostic-results');
+            const div = document.createElement('div');
+            div.className = `p-3 rounded border ${
+                result === 'pass' ? 'bg-green-50 border-green-200 text-green-800' :
+                result === 'fail' ? 'bg-red-50 border-red-200 text-red-800' :
+                'bg-yellow-50 border-yellow-200 text-yellow-800'
+            }`;
+            div.innerHTML = `
+                <div class="font-medium">${test}</div>
+                <div class="text-sm mt-1">${result.toUpperCase()}: ${details}</div>
+            `;
+            resultsElement.appendChild(div);
+        };
+
+        const runDiagnostics = () => {
+            log('🔍 Starting form diagnostics...');
+
+            // Clear previous results
+            document.getElementById('diagnostic-results').innerHTML = '';
+
+            // Test 1: Check if we can access the profile page in an iframe
+            try {
+                log('📄 Testing profile page accessibility...');
+                
+                const iframe = document.createElement('iframe');
+                iframe.src = './user-profile.html';
+                iframe.style.display = 'none';
+                document.body.appendChild(iframe);
+
+                iframe.onload = () => {
+                    try {
+                        const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                        
+                        // Test form element access
+                        const personalForm = iframeDoc.getElementById('personal-info-form');
+                        if (personalForm) {
+                            addResult('Profile Form Element', 'pass', 'personal-info-form found');
+                            log('✅ personal-info-form element found', 'success');
+
+                            // Test individual form fields
+                            const fields = [
+                                'first-name', 'last-name', 'phone', 'location', 
+                                'company', 'bio', 'website', 'linkedin'
+                            ];
+
+                            let fieldsFound = 0;
+                            fields.forEach(fieldId => {
+                                const field = iframeDoc.getElementById(fieldId);
+                                if (field) {
+                                    fieldsFound++;
+                                    log(`✅ Field ${fieldId} found`, 'success');
+                                } else {
+                                    log(`❌ Field ${fieldId} NOT found`, 'error');
+                                }
+                            });
+
+                            addResult('Form Fields', fieldsFound === fields.length ? 'pass' : 'warning', 
+                                `${fieldsFound}/${fields.length} fields found`);
+
+                            // Test submit button
+                            const submitBtn = personalForm.querySelector('button[type="submit"]');
+                            if (submitBtn) {
+                                addResult('Submit Button', 'pass', 'Submit button found');
+                                log('✅ Submit button found', 'success');
+                            } else {
+                                addResult('Submit Button', 'fail', 'Submit button NOT found');
+                                log('❌ Submit button NOT found', 'error');
+                            }
+
+                            // Test form event listeners
+                            const hasEventListeners = personalForm.onsubmit !== null || 
+                                                    personalForm.addEventListener !== undefined;
+                            
+                            if (hasEventListeners) {
+                                addResult('Event Listener Support', 'pass', 'Form supports event listeners');
+                                log('✅ Form supports event listeners', 'success');
+                            } else {
+                                addResult('Event Listener Support', 'fail', 'Form does not support event listeners');
+                                log('❌ Form does not support event listeners', 'error');
+                            }
+
+                        } else {
+                            addResult('Profile Form Element', 'fail', 'personal-info-form NOT found');
+                            log('❌ personal-info-form element NOT found', 'error');
+                        }
+
+                        // Test JavaScript execution
+                        try {
+                            const scriptTags = iframeDoc.querySelectorAll('script');
+                            addResult('Script Tags', 'info', `${scriptTags.length} script tags found`);
+                            log(`ℹ️ ${scriptTags.length} script tags found in profile page`, 'info');
+
+                            // Check for Supabase
+                            const supabaseAvailable = iframe.contentWindow.supabase !== undefined;
+                            if (supabaseAvailable) {
+                                addResult('Supabase Availability', 'pass', 'Supabase is available');
+                                log('✅ Supabase is available in profile page', 'success');
+                            } else {
+                                addResult('Supabase Availability', 'warning', 'Supabase not yet loaded');
+                                log('⚠️ Supabase not yet loaded in profile page', 'warning');
+                            }
+
+                        } catch (scriptError) {
+                            addResult('JavaScript Execution', 'warning', 'Cannot access iframe scripts');
+                            log('⚠️ Cannot access iframe scripts due to security restrictions', 'warning');
+                        }
+
+                        // Clean up
+                        setTimeout(() => {
+                            document.body.removeChild(iframe);
+                        }, 1000);
+
+                    } catch (accessError) {
+                        addResult('Profile Page Access', 'fail', 'Cannot access iframe content');
+                        log('❌ Cannot access iframe content: ' + accessError.message, 'error');
+                    }
+                };
+
+                iframe.onerror = () => {
+                    addResult('Profile Page Load', 'fail', 'Failed to load profile page');
+                    log('❌ Failed to load profile page in iframe', 'error');
+                };
+
+            } catch (error) {
+                addResult('Profile Page Test', 'fail', error.message);
+                log('❌ Profile page test failed: ' + error.message, 'error');
+            }
+
+            // Test 2: Direct form element creation and testing
+            try {
+                log('🧪 Testing form element creation...');
+
+                const testForm = document.createElement('form');
+                testForm.id = 'test-form';
+                
+                const testInput = document.createElement('input');
+                testInput.type = 'text';
+                testInput.id = 'test-input';
+                testInput.value = 'test value';
+                
+                const testButton = document.createElement('button');
+                testButton.type = 'submit';
+                testButton.textContent = 'Test Submit';
+                
+                testForm.appendChild(testInput);
+                testForm.appendChild(testButton);
+                document.body.appendChild(testForm);
+
+                // Test event listener
+                let eventFired = false;
+                testForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    eventFired = true;
+                    log('✅ Test form submit event fired', 'success');
+                });
+
+                // Simulate form submission
+                testForm.dispatchEvent(new Event('submit'));
+
+                if (eventFired) {
+                    addResult('Form Event Test', 'pass', 'Form submit event works correctly');
+                } else {
+                    addResult('Form Event Test', 'fail', 'Form submit event did not fire');
+                    log('❌ Test form submit event did not fire', 'error');
+                }
+
+                // Clean up
+                document.body.removeChild(testForm);
+
+            } catch (error) {
+                addResult('Form Event Test', 'fail', error.message);
+                log('❌ Form event test failed: ' + error.message, 'error');
+            }
+
+            // Test 3: Check browser compatibility
+            try {
+                log('🌐 Testing browser compatibility...');
+
+                const features = {
+                    'addEventListener': typeof document.addEventListener === 'function',
+                    'querySelector': typeof document.querySelector === 'function',
+                    'getElementById': typeof document.getElementById === 'function',
+                    'fetch': typeof fetch === 'function',
+                    'Promise': typeof Promise === 'function',
+                    'async/await': (async () => true)() instanceof Promise,
+                    'localStorage': typeof localStorage === 'object',
+                    'sessionStorage': typeof sessionStorage === 'object'
+                };
+
+                let supportedFeatures = 0;
+                const totalFeatures = Object.keys(features).length;
+
+                for (const [feature, supported] of Object.entries(features)) {
+                    if (supported) {
+                        supportedFeatures++;
+                        log(`✅ ${feature} supported`, 'success');
+                    } else {
+                        log(`❌ ${feature} NOT supported`, 'error');
+                    }
+                }
+
+                if (supportedFeatures === totalFeatures) {
+                    addResult('Browser Compatibility', 'pass', 'All required features supported');
+                } else {
+                    addResult('Browser Compatibility', 'warning', 
+                        `${supportedFeatures}/${totalFeatures} features supported`);
+                }
+
+            } catch (error) {
+                addResult('Browser Compatibility', 'fail', error.message);
+                log('❌ Browser compatibility test failed: ' + error.message, 'error');
+            }
+
+            log('🏁 Diagnostics completed');
+        };
+
+        // Run diagnostics when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            log('🔄 Form diagnostic page loaded');
+            setTimeout(runDiagnostics, 500);
+        });
+    </script>
+</body>
+</html>

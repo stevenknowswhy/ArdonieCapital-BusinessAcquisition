@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     
     <link rel="dns-prefetch" href="//fonts.googleapis.com">
     <link rel="dns-prefetch" href="//images.unsplash.com">
@@ -59,11 +60,13 @@
     
     <!-- Navigation Styles -->
     <link rel="stylesheet" href="components/navigation-styles.css">
+    <link rel="stylesheet" href="assets/css/admin-navigation.css">
 </head>
 <body class="font-sans text-slate-800 bg-white dark:bg-slate-900 dark:text-slate-200">
     <!-- Header -->
         <!-- Navigation Component -->
     <div id="main-navigation-container"></div>
+    <div id="admin-navigation-container"></div>
 
     <main class="min-h-screen bg-slate-50 dark:bg-slate-900">
         <!-- Hero Section -->
@@ -368,7 +371,7 @@
                         </button>
                     </div>
 
-                    <form id="express-buyer-form" class="space-y-6">
+                    <form id="express-buyer-form" class="space-y-6" data-secure="true">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                                 <label for="buyer-first-name" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">First Name *</label>
@@ -465,7 +468,7 @@
                         </button>
                     </div>
 
-                    <form id="express-seller-form" class="space-y-6">
+                    <form id="express-seller-form" class="space-y-6" data-secure="true">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                                 <label for="seller-first-name" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">First Name *</label>
@@ -943,8 +946,9 @@
                 </p>
                 <div class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-6 mt-4 md:mt-0">
                     <a href="terms-of-service.html" class="text-slate-400 hover:text-white transition-colors text-sm">Terms of Service</a>
-                    <a href="cookie-policy.html" class="text-slate-400 hover:text-white transition-colors text-sm">Cookie Policy</a>
                     <a href="privacy-policy.html" class="text-slate-400 hover:text-white transition-colors text-sm">Privacy Policy</a>
+                    <a href="cookie-policy.html" class="text-slate-400 hover:text-white transition-colors text-sm">Cookie Policy</a>
+                    <a href="non-broker-disclaimer.html" class="text-slate-400 hover:text-white transition-colors text-sm">Non-Broker Disclaimer</a>
                 </div>
             </div>
         </div>
@@ -952,5 +956,6 @@
     
     <!-- Load Navigation Component -->
     <script src="components/main-navigation.js"></script>
+    <script src="components/admin-navigation.js"></script>
 </body>
 </html>

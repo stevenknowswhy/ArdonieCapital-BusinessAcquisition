@@ -1,0 +1,72 @@
+{
+  "authPages": [
+    {
+      "page": "auth/login.html",
+      "directory": "auth",
+      "exists": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasProperNavigation": true,
+      "hasCompanyInfo": true,
+      "hasSocialLinks": true,
+      "hasBottomBar": true,
+      "issues": []
+    },
+    {
+      "page": "auth/register.html",
+      "directory": "auth",
+      "exists": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasProperNavigation": true,
+      "hasCompanyInfo": true,
+      "hasSocialLinks": true,
+      "hasBottomBar": true,
+      "issues": []
+    }
+  ],
+  "vendorPortalPages": [
+    {
+      "page": "vendor-portal/legal-firms.html",
+      "directory": "vendor-portal",
+      "exists": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasProperNavigation": true,
+      "hasCompanyInfo": true,
+      "hasSocialLinks": true,
+      "hasBottomBar": true,
+      "issues": []
+    },
+    {
+      "page": "vendor-portal/financial-institutions.html",
+      "directory": "vendor-portal",
+      "exists": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasProperNavigation": true,
+      "hasCompanyInfo": true,
+      "hasSocialLinks": true,
+      "hasBottomBar": true,
+      "issues": []
+    },
+    {
+      "page": "vendor-portal/accounting-firms.html",
+      "directory": "vendor-portal",
+      "exists": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasProperNavigation": true,
+      "hasCompanyInfo": true,
+      "hasSocialLinks": true,
+      "hasBottomBar": true,
+      "issues": []
+    }
+  ],
+  "summary": {
+    "totalPagesChecked": 5,
+    "pagesWithStandardizedFooter": 5,
+    "pagesWithDynamicLoading": 0,
+    "pagesWithIssues": 0
+  }
+}

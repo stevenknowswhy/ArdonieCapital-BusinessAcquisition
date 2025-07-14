@@ -181,110 +181,124 @@ class SimpleAuthService {
     }
 
     /**
-     * Login user with email and password
+     * Wait for Supabase to be initialized
+     */
+    async waitForSupabase(maxWait = 5000) {
+        const startTime = Date.now();
+        while (!this.supabase && (Date.now() - startTime) < maxWait) {
+            await new Promise(resolve => setTimeout(resolve, 100));
+        }
+        if (!this.supabase) {
+            throw new Error('Supabase initialization timeout');
+        }
+    }
+
+    /**
+     * Login user with email and password using Supabase
      */
     async login(email, password, rememberMe = false) {
         try {
-            console.log(`🔑 Attempting login for: ${email}`);
-            
-            // Demo users for testing (matching login.html credentials)
-            const demoUsers = [
-                {
-                    id: 1,
-                    email: 'buyer@ardonie.com',
-                    password: 'SecurePass123!',
-                    firstName: 'John',
-                    lastName: 'Buyer',
-                    userTypes: ['buyer']
-                },
-                {
-                    id: 2,
-                    email: 'seller@ardonie.com',
-                    password: 'SecurePass123!',
-                    firstName: 'Jane',
-                    lastName: 'Seller',
-                    userTypes: ['seller']
-                },
-                {
-                    id: 3,
-                    email: 'admin@ardonie.com',
-                    password: 'AdminPass123!',
-                    firstName: 'Admin',
-                    lastName: 'User',
-                    userTypes: ['admin']
-                },
-                {
-                    id: 4,
-                    email: 'reforiy538@iamtile.com',
-                    password: 'gK9.t1|ROnQ52U[',
-                    firstName: 'Test',
-                    lastName: 'User',
-                    userTypes: ['buyer']
-                },
-                {
-                    id: 5,
-                    email: 'multirole@ardonie.com',
-                    password: 'MultiRole123!',
-                    firstName: 'Multi',
-                    lastName: 'Role',
-                    userTypes: ['buyer', 'seller']
-                },
-                {
-                    id: 6,
-                    email: 'accountant@ardonie.com',
-                    password: 'AccountPass123!',
-                    firstName: 'Account',
-                    lastName: 'Manager',
-                    userTypes: ['accountant']
-                },
-                {
-                    id: 7,
-                    email: 'firmadmin@ardonie.com',
-                    password: 'FirmAdmin123!',
-                    firstName: 'Firm',
-                    lastName: 'Admin',
-                    userTypes: ['admin']
-                }
-            ];
+            console.log(`🔑 Attempting Supabase login for: ${email}`);
 
-            const user = demoUsers.find(u => u.email === email && u.password === password);
-            
-            if (user) {
-                const sessionData = {
-                    id: user.id,
-                    email: user.email,
-                    firstName: user.firstName,
-                    lastName: user.lastName,
-                    userTypes: user.userTypes,
-                    loginTime: new Date().toISOString(),
-                    rememberMe: rememberMe,
-                    isAuthenticated: true
-                };
+            // Wait for Supabase to be initialized
+            if (!this.supabase) {
+                console.log('⏳ Waiting for Supabase initialization...');
+                await this.waitForSupabase();
+            }
 
-                // Store session data
-                localStorage.setItem('ardonie_user_session', JSON.stringify(sessionData));
-                sessionStorage.setItem('ardonie_current_user', JSON.stringify(sessionData));
-                localStorage.setItem('ardonie_auth_status', 'authenticated');
-                sessionStorage.setItem('ardonie_auth_status', 'authenticated');
+            // Attempt Supabase authentication
+            const { data, error } = await this.supabase.auth.signInWithPassword({
+                email: email,
+                password: password
+            });
 
-                console.log('✅ Login successful');
-
-                // Generate redirect URL based on user types
-                const redirectUrl = this.getRedirectUrlForUserTypes(sessionData.userTypes);
-                console.log('🔀 Generated redirect URL:', redirectUrl);
-
-                return {
-                    success: true,
-                    user: sessionData,
-                    redirectUrl: redirectUrl
-                };
-            } else {
-                console.log('❌ Invalid credentials');
+            if (error) {
+                console.error('❌ Supabase auth error:', error);
                 return {
                     success: false,
-                    error: 'Invalid email or password'
+                    error: error.message
                 };
             }
+
+            console.log('✅ Supabase authentication successful');
+            console.log('👤 User ID:', data.user.id);
+
+            // Get user profile from database
+            const { data: profile, error: profileError } = await this.supabase
+                .from('profiles')
+                .select('*')
+                .eq('user_id', data.user.id)
+                .single();
+
+            if (profileError) {
+                console.error('❌ Profile fetch error:', profileError);
+                return {
+                    success: false,
+                    error: 'Failed to load user profile'
+                };
+            }
+
+            console.log('✅ User profile loaded:', profile);
+
+            // Get user roles
+            const { data: userRoles, error: rolesError } = await this.supabase
+                .from('user_roles')
+                .select(`
+                    role_id,
+                    roles (
+                        name,
+                        slug
+                    )
+                `)
+                .eq('user_id', data.user.id)
+                .eq('is_active', true);
+
+            if (rolesError) {
+                console.warn('⚠️ Roles fetch error:', rolesError);
+            }
+
+            // Determine user types from roles
+            let userTypes = [];
+            if (userRoles && userRoles.length > 0) {
+                userTypes = userRoles.map(ur => ur.roles.slug);
+            } else {
+                // Fallback to legacy role
+                userTypes = [profile.role || 'buyer'];
+            }
+
+            console.log('🎭 User roles:', userTypes);
+
+            // Create session data
+            const sessionData = {
+                id: data.user.id,
+                email: data.user.email,
+                firstName: profile.first_name,
+                lastName: profile.last_name,
+                userTypes: userTypes,
+                loginTime: new Date().toISOString(),
+                rememberMe: rememberMe,
+                isAuthenticated: true,
+                profile: profile,
+                supabaseUser: data.user
+            };
+
+            // Store session data
+            localStorage.setItem('ardonie_user_session', JSON.stringify(sessionData));
+            sessionStorage.setItem('ardonie_current_user', JSON.stringify(sessionData));
+            localStorage.setItem('ardonie_auth_status', 'authenticated');
+            sessionStorage.setItem('ardonie_auth_status', 'authenticated');
+
+            console.log('✅ Login successful with Supabase');
+
+            // Generate redirect URL based on user types
+            const redirectUrl = this.getRedirectUrlForUserTypes(sessionData.userTypes);
+            console.log('🔀 Generated redirect URL:', redirectUrl);
+
+            return {
+                success: true,
+                user: sessionData,
+                redirectUrl: redirectUrl
+            };
         } catch (error) {
             console.error('❌ Login error:', error);
             return {

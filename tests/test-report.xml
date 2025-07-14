@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testExecutions version="1">
+  <file path="/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/tests/features/authentication/auth.service.test.js">
+    <testCase name="AuthService Login should login successfully with valid credentials" duration="128">
+      <failure message="Error: Auth session or user missing"><![CDATA[Error: Auth session or user missing
+    at AuthService.login (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/src/features/authentication/services/auth.service.js:167:23)
+    at Object.<anonymous> (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/tests/features/authentication/auth.service.test.js:38:28)]]></failure>
+    </testCase>
+    <testCase name="AuthService Login should fail login with invalid credentials" duration="5">
+      <failure message="Error: Auth session or user missing"><![CDATA[Error: Auth session or user missing
+    at AuthService.login (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/src/features/authentication/services/auth.service.js:167:23)
+    at Object.<anonymous> (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/tests/features/authentication/auth.service.test.js:55:28)]]></failure>
+    </testCase>
+    <testCase name="AuthService Login should handle network errors during login" duration="4">
+      <failure message="Error: Auth session or user missing"><![CDATA[Error: Auth session or user missing
+    at AuthService.login (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/src/features/authentication/services/auth.service.js:167:23)
+    at Object.<anonymous> (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/tests/features/authentication/auth.service.test.js:66:28)]]></failure>
+    </testCase>
+    <testCase name="AuthService Login should validate email format before login" duration="5">
+      <failure message="Error: Please enter a valid email address"><![CDATA[Error: Please enter a valid email address
+    at AuthService.login (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/src/features/authentication/services/auth.service.js:109:23)
+    at Object.login (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/tests/features/authentication/auth.service.test.js:74:46)
+    at Promise.then.completed (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/utils.js:298:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/utils.js:231:10)
+    at _callCircusTest (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:316:40)
+    at _runTest (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:252:3)
+    at _runTestsForDescribeBlock (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:126:9)
+    at _runTestsForDescribeBlock (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:121:9)
+    at _runTestsForDescribeBlock (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:121:9)
+    at run (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:71:3)
+    at runAndTransformResultsToJestFormat (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+    at jestAdapter (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+    at runTestInternal (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-runner/build/runTest.js:367:16)
+    at runTest (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-runner/build/runTest.js:444:34)]]></failure>
+    </testCase>
+    <testCase name="AuthService Login should validate password requirements before login" duration="4">
+      <failure message="Error: Auth session or user missing"><![CDATA[Error: Auth session or user missing
+    at AuthService.login (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/src/features/authentication/services/auth.service.js:167:23)
+    at Object.<anonymous> (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/tests/features/authentication/auth.service.test.js:82:28)]]></failure>
+    </testCase>
+    <testCase name="AuthService Login should handle remember me option" duration="3">
+      <failure message="Error: Auth session or user missing"><![CDATA[Error: Auth session or user missing
+    at AuthService.login (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/src/features/authentication/services/auth.service.js:167:23)
+    at Object.<anonymous> (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/tests/features/authentication/auth.service.test.js:98:13)]]></failure>
+    </testCase>
+    <testCase name="AuthService Register should register successfully with valid data" duration="3">
+      <failure message="Error: Password must be at least 12 characters long"><![CDATA[Error: Password must be at least 12 characters long
+    at AuthService.register (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/src/features/authentication/services/auth.service.js:198:23)
+    at Object.register (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/tests/features/authentication/auth.service.test.js:123:46)
+    at Promise.then.completed (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/utils.js:298:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/utils.js:231:10)
+    at _callCircusTest (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:316:40)
+    at _runTest (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:252:3)
+    at _runTestsForDescribeBlock (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:126:9)
+    at _runTestsForDescribeBlock (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:121:9)
+    at _runTestsForDescribeBlock (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:121:9)
+    at run (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:71:3)
+    at runAndTransformResultsToJestFormat (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+    at jestAdapter (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+    at runTestInternal (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-runner/build/runTest.js:367:16)
+    at runTest (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-runner/build/runTest.js:444:34)]]></failure>
+    </testCase>
+    <testCase name="AuthService Register should fail registration with mismatched passwords" duration="2">
+      <failure message="Error: Password must be at least 12 characters long"><![CDATA[Error: Password must be at least 12 characters long
+    at AuthService.register (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/src/features/authentication/services/auth.service.js:198:23)
+    at Object.register (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/tests/features/authentication/auth.service.test.js:139:46)
+    at Promise.then.completed (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/utils.js:298:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/utils.js:231:10)
+    at _callCircusTest (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:316:40)
+    at _runTest (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:252:3)
+    at _runTestsForDescribeBlock (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:126:9)
+    at _runTestsForDescribeBlock (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:121:9)
+    at _runTestsForDescribeBlock (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:121:9)
+    at run (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:71:3)
+    at runAndTransformResultsToJestFormat (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+    at jestAdapter (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+    at runTestInternal (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-runner/build/runTest.js:367:16)
+    at runTest (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-runner/build/runTest.js:444:34)]]></failure>
+    </testCase>
+    <testCase name="AuthService Register should fail registration with existing email" duration="3">
+      <failure message="Error: Password must be at least 12 characters long"><![CDATA[Error: Password must be at least 12 characters long
+    at AuthService.register (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/src/features/authentication/services/auth.service.js:198:23)
+    at Object.register (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/tests/features/authentication/auth.service.test.js:162:46)
+    at Promise.then.completed (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/utils.js:298:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/utils.js:231:10)
+    at _callCircusTest (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:316:40)
+    at _runTest (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:252:3)
+    at _runTestsForDescribeBlock (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:126:9)
+    at _runTestsForDescribeBlock (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:121:9)
+    at _runTestsForDescribeBlock (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:121:9)
+    at run (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:71:3)
+    at runAndTransformResultsToJestFormat (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+    at jestAdapter (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+    at runTestInternal (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-runner/build/runTest.js:367:16)
+    at runTest (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-runner/build/runTest.js:444:34)]]></failure>
+    </testCase>
+    <testCase name="AuthService Register should validate required fields during registration" duration="3">
+      <failure message="Error: firstName is required"><![CDATA[Error: firstName is required
+    at AuthService.register (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/src/features/authentication/services/auth.service.js:186:27)
+    at Object.register (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/tests/features/authentication/auth.service.test.js:175:46)
+    at Promise.then.completed (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/utils.js:298:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/utils.js:231:10)
+    at _callCircusTest (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:316:40)
+    at _runTest (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:252:3)
+    at _runTestsForDescribeBlock (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:126:9)
+    at _runTestsForDescribeBlock (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:121:9)
+    at _runTestsForDescribeBlock (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:121:9)
+    at run (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:71:3)
+    at runAndTransformResultsToJestFormat (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+    at jestAdapter (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+    at runTestInternal (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-runner/build/runTest.js:367:16)
+    at runTest (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-runner/build/runTest.js:444:34)]]></failure>
+    </testCase>
+    <testCase name="AuthService Logout should logout successfully" duration="3">
+      <failure message="TypeError: Cannot read properties of undefined (reading &apos;success&apos;)"><![CDATA[TypeError: Cannot read properties of undefined (reading 'success')
+    at Object.success (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/tests/features/authentication/auth.service.test.js:195:27)]]></failure>
+    </testCase>
+    <testCase name="AuthService Logout should handle logout when not authenticated" duration="1">
+      <failure message="TypeError: Cannot read properties of undefined (reading &apos;success&apos;)"><![CDATA[TypeError: Cannot read properties of undefined (reading 'success')
+    at Object.success (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/tests/features/authentication/auth.service.test.js:204:27)]]></failure>
+    </testCase>
+    <testCase name="AuthService Logout should clear all auth-related storage on logout" duration="2">
+      <failure message="Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)"><![CDATA[Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+Expected: "auth_token"
+Received
+       1: "sb-pbydepsqcypwqbicnsco-auth-token"
+       2: "sb-pbydepsqcypwqbicnsco-auth-token-code-verifier"
+       3: "ardonie_session"
+
+Number of calls: 6
+    at Object.toHaveBeenCalledWith (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/tests/features/authentication/auth.service.test.js:215:49)]]></failure>
+    </testCase>
+    <testCase name="AuthService Token Management should refresh token when expired" duration="0">
+      <failure message="TypeError: _authService.authService.refreshToken is not a function"><![CDATA[TypeError: _authService.authService.refreshToken is not a function
+    at Object.refreshToken (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/tests/features/authentication/auth.service.test.js:232:46)
+    at Promise.then.completed (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/utils.js:298:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/utils.js:231:10)
+    at _callCircusTest (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:316:40)
+    at _runTest (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:252:3)
+    at _runTestsForDescribeBlock (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:126:9)
+    at _runTestsForDescribeBlock (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:121:9)
+    at _runTestsForDescribeBlock (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:121:9)
+    at run (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:71:3)
+    at runAndTransformResultsToJestFormat (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+    at jestAdapter (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+    at runTestInternal (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-runner/build/runTest.js:367:16)
+    at runTest (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-runner/build/runTest.js:444:34)]]></failure>
+    </testCase>
+    <testCase name="AuthService Token Management should handle refresh token failure" duration="1">
+      <failure message="TypeError: _authService.authService.refreshToken is not a function"><![CDATA[TypeError: _authService.authService.refreshToken is not a function
+    at Object.refreshToken (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/tests/features/authentication/auth.service.test.js:246:46)
+    at Promise.then.completed (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/utils.js:298:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/utils.js:231:10)
+    at _callCircusTest (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:316:40)
+    at _runTest (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:252:3)
+    at _runTestsForDescribeBlock (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:126:9)
+    at _runTestsForDescribeBlock (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:121:9)
+    at _runTestsForDescribeBlock (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:121:9)
+    at run (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:71:3)
+    at runAndTransformResultsToJestFormat (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+    at jestAdapter (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+    at runTestInternal (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-runner/build/runTest.js:367:16)
+    at runTest (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-runner/build/runTest.js:444:34)]]></failure>
+    </testCase>
+    <testCase name="AuthService Token Management should validate token format" duration="1">
+      <failure message="TypeError: _authService.authService.isValidToken is not a function"><![CDATA[TypeError: _authService.authService.isValidToken is not a function
+    at Object.isValidToken (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/tests/features/authentication/auth.service.test.js:253:32)
+    at Promise.then.completed (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/utils.js:298:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/utils.js:231:10)
+    at _callCircusTest (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:316:40)
+    at _runTest (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:252:3)
+    at _runTestsForDescribeBlock (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:126:9)
+    at _runTestsForDescribeBlock (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:121:9)
+    at _runTestsForDescribeBlock (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:121:9)
+    at run (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:71:3)
+    at runAndTransformResultsToJestFormat (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+    at jestAdapter (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+    at runTestInternal (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-runner/build/runTest.js:367:16)
+    at runTest (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-runner/build/runTest.js:444:34)]]></failure>
+    </testCase>
+    <testCase name="AuthService Token Management should check token expiration" duration="0">
+      <failure message="TypeError: _authService.authService.isTokenExpired is not a function"><![CDATA[TypeError: _authService.authService.isTokenExpired is not a function
+    at Object.isTokenExpired (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/tests/features/authentication/auth.service.test.js:266:32)
+    at Promise.then.completed (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/utils.js:298:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/utils.js:231:10)
+    at _callCircusTest (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:316:40)
+    at _runTest (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:252:3)
+    at _runTestsForDescribeBlock (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:126:9)
+    at _runTestsForDescribeBlock (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:121:9)
+    at _runTestsForDescribeBlock (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:121:9)
+    at run (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:71:3)
+    at runAndTransformResultsToJestFormat (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+    at jestAdapter (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+    at runTestInternal (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-runner/build/runTest.js:367:16)
+    at runTest (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-runner/build/runTest.js:444:34)]]></failure>
+    </testCase>
+    <testCase name="AuthService User Profile should get current user profile" duration="2">
+      <failure message="Error: expect(received).toEqual(expected) // deep equality"><![CDATA[Error: expect(received).toEqual(expected) // deep equality
+
+- Expected  - 7
++ Received  + 3
+
+- Object {
+-   "createdAt": "2025-07-10T17:21:49.972Z",
+-   "email": "test@example.com",
+-   "id": "123",
+-   "name": "Test User",
+-   "role": "buyer",
+-   "verified": true,
++ Promise {
++   Symbol(async_id_symbol): 13246,
++   Symbol(trigger_async_id_symbol): 13233,
+  }
+    at Object.toEqual (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/tests/features/authentication/auth.service.test.js:279:26)
+    at Promise.then.completed (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/utils.js:298:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/utils.js:231:10)
+    at _callCircusTest (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:316:40)
+    at _runTest (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:252:3)
+    at _runTestsForDescribeBlock (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:126:9)
+    at _runTestsForDescribeBlock (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:121:9)
+    at _runTestsForDescribeBlock (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:121:9)
+    at run (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:71:3)
+    at runAndTransformResultsToJestFormat (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+    at jestAdapter (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+    at runTestInternal (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-runner/build/runTest.js:367:16)
+    at runTest (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-runner/build/runTest.js:444:34)]]></failure>
+    </testCase>
+    <testCase name="AuthService User Profile should update user profile" duration="1004">
+      <failure message="TypeError: Cannot read properties of null (reading &apos;firstName&apos;)"><![CDATA[TypeError: Cannot read properties of null (reading 'firstName')
+    at Object.firstName (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/tests/features/authentication/auth.service.test.js:299:44)]]></failure>
+    </testCase>
+    <testCase name="AuthService User Profile should change password" duration="4">
+      <failure message="Error: Current and new passwords are required"><![CDATA[Error: Current and new passwords are required
+    at AuthService.changePassword (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/src/features/authentication/services/auth.service.js:642:23)
+    at Object.changePassword (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/tests/features/authentication/auth.service.test.js:312:46)
+    at Promise.then.completed (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/utils.js:298:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/utils.js:231:10)
+    at _callCircusTest (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:316:40)
+    at _runTest (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:252:3)
+    at _runTestsForDescribeBlock (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:126:9)
+    at _runTestsForDescribeBlock (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:121:9)
+    at _runTestsForDescribeBlock (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:121:9)
+    at run (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:71:3)
+    at runAndTransformResultsToJestFormat (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+    at jestAdapter (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+    at runTestInternal (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-runner/build/runTest.js:367:16)
+    at runTest (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-runner/build/runTest.js:444:34)]]></failure>
+    </testCase>
+    <testCase name="AuthService User Profile should validate password change data" duration="3">
+      <failure message="Error: Current and new passwords are required"><![CDATA[Error: Current and new passwords are required
+    at AuthService.changePassword (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/src/features/authentication/services/auth.service.js:642:23)
+    at Object.changePassword (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/tests/features/authentication/auth.service.test.js:324:46)
+    at Promise.then.completed (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/utils.js:298:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/utils.js:231:10)
+    at _callCircusTest (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:316:40)
+    at _runTest (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:252:3)
+    at _runTestsForDescribeBlock (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:126:9)
+    at _runTestsForDescribeBlock (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:121:9)
+    at _runTestsForDescribeBlock (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:121:9)
+    at run (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:71:3)
+    at runAndTransformResultsToJestFormat (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+    at jestAdapter (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+    at runTestInternal (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-runner/build/runTest.js:367:16)
+    at runTest (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-runner/build/runTest.js:444:34)]]></failure>
+    </testCase>
+    <testCase name="AuthService Password Reset should request password reset" duration="1008">
+      <failure message="Error: expect(received).toBe(expected) // Object.is equality"><![CDATA[Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: "Reset email sent"
+Received: "Password reset instructions have been sent to your email"
+    at Object.toBe (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/tests/features/authentication/auth.service.test.js:340:36)]]></failure>
+    </testCase>
+    <testCase name="AuthService Password Reset should reset password with token" duration="1">
+      <failure message="TypeError: _authService.authService.resetPassword is not a function"><![CDATA[TypeError: _authService.authService.resetPassword is not a function
+    at Object.resetPassword (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/tests/features/authentication/auth.service.test.js:353:46)
+    at Promise.then.completed (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/utils.js:298:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/utils.js:231:10)
+    at _callCircusTest (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:316:40)
+    at _runTest (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:252:3)
+    at _runTestsForDescribeBlock (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:126:9)
+    at _runTestsForDescribeBlock (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:121:9)
+    at _runTestsForDescribeBlock (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:121:9)
+    at run (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:71:3)
+    at runAndTransformResultsToJestFormat (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+    at jestAdapter (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+    at runTestInternal (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-runner/build/runTest.js:367:16)
+    at runTest (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-runner/build/runTest.js:444:34)]]></failure>
+    </testCase>
+    <testCase name="AuthService Password Reset should validate reset password data" duration="1">
+      <failure message="TypeError: _authService.authService.resetPassword is not a function"><![CDATA[TypeError: _authService.authService.resetPassword is not a function
+    at Object.resetPassword (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/tests/features/authentication/auth.service.test.js:365:46)
+    at Promise.then.completed (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/utils.js:298:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/utils.js:231:10)
+    at _callCircusTest (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:316:40)
+    at _runTest (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:252:3)
+    at _runTestsForDescribeBlock (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:126:9)
+    at _runTestsForDescribeBlock (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:121:9)
+    at _runTestsForDescribeBlock (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:121:9)
+    at run (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:71:3)
+    at runAndTransformResultsToJestFormat (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+    at jestAdapter (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+    at runTestInternal (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-runner/build/runTest.js:367:16)
+    at runTest (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-runner/build/runTest.js:444:34)]]></failure>
+    </testCase>
+    <testCase name="AuthService Session Management should check authentication status" duration="1">
+      <failure message="TypeError: _authService.authService.isLoggedIn is not a function"><![CDATA[TypeError: _authService.authService.isLoggedIn is not a function
+    at Object.isLoggedIn (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/tests/features/authentication/auth.service.test.js:375:32)
+    at Promise.then.completed (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/utils.js:298:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/utils.js:231:10)
+    at _callCircusTest (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:316:40)
+    at _runTest (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:252:3)
+    at _runTestsForDescribeBlock (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:126:9)
+    at _runTestsForDescribeBlock (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:121:9)
+    at _runTestsForDescribeBlock (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:121:9)
+    at run (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:71:3)
+    at runAndTransformResultsToJestFormat (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+    at jestAdapter (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+    at runTestInternal (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-runner/build/runTest.js:367:16)
+    at runTest (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-runner/build/runTest.js:444:34)]]></failure>
+    </testCase>
+    <testCase name="AuthService Session Management should initialize from stored token" duration="2">
+      <failure message="TypeError: _authService.authService.initializeFromStorage is not a function"><![CDATA[TypeError: _authService.authService.initializeFromStorage is not a function
+    at Object.initializeFromStorage (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/tests/features/authentication/auth.service.test.js:388:31)
+    at Promise.then.completed (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/utils.js:298:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/utils.js:231:10)
+    at _callCircusTest (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:316:40)
+    at _runTest (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:252:3)
+    at _runTestsForDescribeBlock (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:126:9)
+    at _runTestsForDescribeBlock (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:121:9)
+    at _runTestsForDescribeBlock (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:121:9)
+    at run (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:71:3)
+    at runAndTransformResultsToJestFormat (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+    at jestAdapter (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+    at runTestInternal (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-runner/build/runTest.js:367:16)
+    at runTest (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-runner/build/runTest.js:444:34)]]></failure>
+    </testCase>
+    <testCase name="AuthService Session Management should handle invalid stored token" duration="1">
+      <failure message="TypeError: _authService.authService.initializeFromStorage is not a function"><![CDATA[TypeError: _authService.authService.initializeFromStorage is not a function
+    at Object.initializeFromStorage (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/tests/features/authentication/auth.service.test.js:397:31)
+    at Promise.then.completed (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/utils.js:298:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/utils.js:231:10)
+    at _callCircusTest (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:316:40)
+    at _runTest (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:252:3)
+    at _runTestsForDescribeBlock (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:126:9)
+    at _runTestsForDescribeBlock (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:121:9)
+    at _runTestsForDescribeBlock (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:121:9)
+    at run (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/run.js:71:3)
+    at runAndTransformResultsToJestFormat (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+    at jestAdapter (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+    at runTestInternal (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-runner/build/runTest.js:367:16)
+    at runTest (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/node_modules/jest-runner/build/runTest.js:444:34)]]></failure>
+    </testCase>
+    <testCase name="AuthService Error Handling should handle network errors gracefully" duration="7">
+      <failure message="Error: Auth session or user missing"><![CDATA[Error: Auth session or user missing
+    at AuthService.login (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/src/features/authentication/services/auth.service.js:167:23)
+    at Object.<anonymous> (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/tests/features/authentication/auth.service.test.js:408:28)]]></failure>
+    </testCase>
+    <testCase name="AuthService Error Handling should handle server errors" duration="5">
+      <failure message="Error: Auth session or user missing"><![CDATA[Error: Auth session or user missing
+    at AuthService.login (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/src/features/authentication/services/auth.service.js:167:23)
+    at Object.<anonymous> (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/tests/features/authentication/auth.service.test.js:417:28)]]></failure>
+    </testCase>
+    <testCase name="AuthService Error Handling should handle malformed responses" duration="7">
+      <failure message="Error: Auth session or user missing"><![CDATA[Error: Auth session or user missing
+    at AuthService.login (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/src/features/authentication/services/auth.service.js:167:23)
+    at Object.<anonymous> (/Users/stephenstokes/Downloads/Projects/5 May2025 Projects/BuyMartV1/tests/features/authentication/auth.service.test.js:429:28)]]></failure>
+    </testCase>
+  </file>
+</testExecutions>

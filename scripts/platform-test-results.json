@@ -1,0 +1,305 @@
+{
+  "serverStatus": {
+    "running": true,
+    "accessible": true,
+    "timestamp": "2025-07-07T13:58:35.907Z"
+  },
+  "pageTests": [
+    {
+      "name": "Home Page",
+      "file": "index.html",
+      "success": true,
+      "critical": true,
+      "hasTitle": true,
+      "hasFooter": true,
+      "hasNavigation": true,
+      "fileSize": 43304,
+      "issues": []
+    },
+    {
+      "name": "About Page",
+      "file": "about.html",
+      "success": true,
+      "critical": true,
+      "hasTitle": true,
+      "hasFooter": true,
+      "hasNavigation": true,
+      "fileSize": 45368,
+      "issues": []
+    },
+    {
+      "name": "Marketplace",
+      "file": "marketplace/listings.html",
+      "success": true,
+      "critical": true,
+      "hasTitle": true,
+      "hasFooter": true,
+      "hasNavigation": true,
+      "fileSize": 38030,
+      "issues": []
+    },
+    {
+      "name": "Login Page",
+      "file": "auth/login.html",
+      "success": true,
+      "critical": true,
+      "hasTitle": true,
+      "hasFooter": true,
+      "hasNavigation": true,
+      "fileSize": 36732,
+      "issues": []
+    },
+    {
+      "name": "Register Page",
+      "file": "auth/register.html",
+      "success": true,
+      "critical": true,
+      "hasTitle": true,
+      "hasFooter": true,
+      "hasNavigation": true,
+      "fileSize": 43077,
+      "issues": []
+    },
+    {
+      "name": "Buyer Dashboard",
+      "file": "dashboard/buyer-dashboard.html",
+      "success": true,
+      "critical": true,
+      "hasTitle": true,
+      "hasFooter": true,
+      "hasNavigation": true,
+      "fileSize": 125460,
+      "issues": []
+    },
+    {
+      "name": "Seller Dashboard",
+      "file": "dashboard/seller-dashboard.html",
+      "success": true,
+      "critical": true,
+      "hasTitle": true,
+      "hasFooter": true,
+      "hasNavigation": true,
+      "fileSize": 208300,
+      "issues": []
+    },
+    {
+      "name": "Buyer Portal",
+      "file": "portals/buyer-portal.html",
+      "success": true,
+      "critical": false,
+      "hasTitle": true,
+      "hasFooter": true,
+      "hasNavigation": true,
+      "fileSize": 19850,
+      "issues": []
+    },
+    {
+      "name": "Seller Portal",
+      "file": "portals/seller-portal.html",
+      "success": true,
+      "critical": false,
+      "hasTitle": true,
+      "hasFooter": true,
+      "hasNavigation": true,
+      "fileSize": 19933,
+      "issues": []
+    },
+    {
+      "name": "Contact Page",
+      "file": "contact.html",
+      "success": true,
+      "critical": false,
+      "hasTitle": true,
+      "hasFooter": true,
+      "hasNavigation": true,
+      "fileSize": 44446,
+      "issues": []
+    },
+    {
+      "name": "How It Works",
+      "file": "how-it-works.html",
+      "success": true,
+      "critical": false,
+      "hasTitle": true,
+      "hasFooter": true,
+      "hasNavigation": true,
+      "fileSize": 44381,
+      "issues": []
+    },
+    {
+      "name": "For Buyers",
+      "file": "for-buyers.html",
+      "success": true,
+      "critical": false,
+      "hasTitle": true,
+      "hasFooter": true,
+      "hasNavigation": true,
+      "fileSize": 54254,
+      "issues": []
+    },
+    {
+      "name": "For Sellers",
+      "file": "for-sellers.html",
+      "success": true,
+      "critical": false,
+      "hasTitle": true,
+      "hasFooter": true,
+      "hasNavigation": true,
+      "fileSize": 52361,
+      "issues": []
+    },
+    {
+      "name": "Careers",
+      "file": "careers.html",
+      "success": true,
+      "critical": false,
+      "hasTitle": true,
+      "hasFooter": true,
+      "hasNavigation": true,
+      "fileSize": 33848,
+      "issues": []
+    },
+    {
+      "name": "Blog Index",
+      "file": "blog/index.html",
+      "success": true,
+      "critical": false,
+      "hasTitle": true,
+      "hasFooter": true,
+      "hasNavigation": true,
+      "fileSize": 35095,
+      "issues": []
+    }
+  ],
+  "footerTests": [
+    {
+      "page": "auth/login.html",
+      "success": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": true,
+      "hasSocialLinks": true,
+      "hasNavigation": true,
+      "hasBottomBar": true,
+      "issues": []
+    },
+    {
+      "page": "auth/register.html",
+      "success": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": true,
+      "hasSocialLinks": true,
+      "hasNavigation": true,
+      "hasBottomBar": true,
+      "issues": []
+    },
+    {
+      "page": "vendor-portal/legal-firms.html",
+      "success": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": true,
+      "hasSocialLinks": true,
+      "hasNavigation": true,
+      "hasBottomBar": true,
+      "issues": []
+    },
+    {
+      "page": "vendor-portal/financial-institutions.html",
+      "success": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": true,
+      "hasSocialLinks": true,
+      "hasNavigation": true,
+      "hasBottomBar": true,
+      "issues": []
+    },
+    {
+      "page": "vendor-portal/accounting-firms.html",
+      "success": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": true,
+      "hasSocialLinks": true,
+      "hasNavigation": true,
+      "hasBottomBar": true,
+      "issues": []
+    },
+    {
+      "page": "index.html",
+      "success": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": true,
+      "hasSocialLinks": true,
+      "hasNavigation": true,
+      "hasBottomBar": true,
+      "issues": []
+    },
+    {
+      "page": "about.html",
+      "success": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": true,
+      "hasSocialLinks": true,
+      "hasNavigation": true,
+      "hasBottomBar": true,
+      "issues": []
+    },
+    {
+      "page": "contact.html",
+      "success": true,
+      "hasStandardizedFooter": true,
+      "hasDynamicLoading": false,
+      "hasCompanyInfo": true,
+      "hasSocialLinks": true,
+      "hasNavigation": true,
+      "hasBottomBar": true,
+      "issues": []
+    }
+  ],
+  "navigationTests": [
+    {
+      "hasMainNav": true,
+      "hasHomeLink": true,
+      "hasAboutLink": true,
+      "hasMarketplaceLink": true,
+      "hasAuthLinks": true,
+      "success": true,
+      "issues": []
+    }
+  ],
+  "authTests": [
+    {
+      "file": "auth/login.html",
+      "exists": true
+    },
+    {
+      "file": "auth/register.html",
+      "exists": true
+    },
+    {
+      "file": "assets/js/auth-service.js",
+      "exists": true
+    },
+    {
+      "file": "assets/js/route-guard.js",
+      "exists": true
+    },
+    {
+      "file": "assets/js/security-headers.js",
+      "exists": true
+    }
+  ],
+  "responsiveTests": [],
+  "performanceTests": [],
+  "summary": {
+    "totalTests": 27,
+    "passedTests": 27,
+    "failedTests": 0,
+    "warnings": []
+  }
+}

@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avatar Management Test - BuyMartV1</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            DEFAULT: '#3B82F6',
+                            dark: '#2563EB'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 p-8">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6 text-slate-900 dark:text-white">Avatar Management Test</h1>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Test Results -->
+            <div class="bg-white dark:bg-slate-800 rounded-lg shadow p-6">
+                <h2 class="text-lg font-semibold mb-4 text-slate-900 dark:text-white">Test Results</h2>
+                <div id="test-results" class="space-y-2">
+                    <div class="text-slate-500 dark:text-slate-400">Loading tests...</div>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="bg-white dark:bg-slate-800 rounded-lg shadow p-6">
+                <h2 class="text-lg font-semibold mb-4 text-slate-900 dark:text-white">Actions</h2>
+                <div class="space-y-2">
+                    <button id="test-auth" class="w-full px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+                        Test Authentication
+                    </button>
+                    <button id="test-storage" class="w-full px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">
+                        Test Storage Access
+                    </button>
+                    <button id="test-avatar-upload" class="w-full px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-600">
+                        Test Avatar Upload
+                    </button>
+                    <button id="open-profile" class="w-full px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-600">
+                        Open Profile Page
+                    </button>
+                    <button id="login-test-user" class="w-full px-4 py-2 bg-indigo-500 text-white rounded hover:bg-indigo-600">
+                        Login Test User
+                    </button>
+                </div>
+            </div>
+
+            <!-- Avatar Preview -->
+            <div class="bg-white dark:bg-slate-800 rounded-lg shadow p-6">
+                <h2 class="text-lg font-semibold mb-4 text-slate-900 dark:text-white">Avatar Preview</h2>
+                <div class="text-center">
+                    <div class="w-32 h-32 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <img id="test-avatar" class="w-32 h-32 rounded-full object-cover hidden" alt="Test Avatar">
+                        <svg id="test-default-avatar" class="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                        </svg>
+                    </div>
+                    <input type="file" id="test-file-input" class="hidden" accept="image/*">
+                    <button onclick="document.getElementById('test-file-input').click()" 
+                            class="px-4 py-2 bg-primary text-white rounded hover:bg-primary-dark">
+                        Select Test Image
+                    </button>
+                </div>
+            </div>
+
+            <!-- Console Log -->
+            <div class="bg-white dark:bg-slate-800 rounded-lg shadow p-6">
+                <h2 class="text-lg font-semibold mb-4 text-slate-900 dark:text-white">Console Log</h2>
+                <div id="console-log" class="bg-slate-100 dark:bg-slate-700 p-4 rounded text-sm font-mono h-64 overflow-y-auto">
+                    <div class="text-slate-700 dark:text-slate-300">Avatar test console initialized...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load UploadThing Service -->
+    <script src="../src/features/user-profile/services/uploadthing.service.js"></script>
+    <!-- Load Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script>
+        const log = (message, type = 'info') => {
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = `[${timestamp}] ${message}`;
+            
+            const logElement = document.getElementById('console-log');
+            const div = document.createElement('div');
+            div.className = type === 'error' ? 'text-red-600' : type === 'success' ? 'text-green-600' : 'text-slate-700 dark:text-slate-300';
+            div.textContent = logEntry;
+            logElement.appendChild(div);
+            logElement.scrollTop = logElement.scrollHeight;
+            
+            console.log(logEntry);
+        };
+
+        const addResult = (test, result, details = '') => {
+            const resultsElement = document.getElementById('test-results');
+            const div = document.createElement('div');
+            div.className = `p-2 rounded ${
+                result === 'pass' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' :
+                result === 'fail' ? 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200' :
+                'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
+            }`;
+            div.innerHTML = `
+                <div class="font-medium">${test}</div>
+                <div class="text-sm">${result.toUpperCase()}: ${details}</div>
+            `;
+            resultsElement.appendChild(div);
+        };
+
+        // Initialize Supabase
+        let supabaseClient = null;
+
+        const initializeSupabase = () => {
+            try {
+                log('Initializing Supabase...');
+                
+                if (typeof window.supabase === 'undefined') {
+                    throw new Error('Supabase CDN not loaded');
+                }
+
+                const supabaseUrl = 'https://pbydepsqcypwqbicnsco.supabase.co';
+                const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBieWRlcHNxY3lwd3FiaWNuc2NvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE5MjAxOTQsImV4cCI6MjA2NzQ5NjE5NH0.5aF46QcNOFN_vwXcHxCsVx_8a4EsqE1bL4fy4K7UXI0';
+
+                supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+                
+                log('✅ Supabase initialized successfully', 'success');
+                return supabaseClient;
+            } catch (error) {
+                log(`❌ Supabase initialization failed: ${error.message}`, 'error');
+                throw error;
+            }
+        };
+
+        // Test functions
+        const testAuth = async () => {
+            try {
+                log('Testing authentication...');
+                
+                if (!supabaseClient) {
+                    supabaseClient = initializeSupabase();
+                }
+
+                const { data: { user }, error } = await supabaseClient.auth.getUser();
+
+                if (error) {
+                    addResult('Authentication', 'fail', error.message);
+                    log(`❌ Auth test failed: ${error.message}`, 'error');
+                } else if (user) {
+                    addResult('Authentication', 'pass', `Logged in as ${user.email}`);
+                    log(`✅ Auth test passed: ${user.email}`, 'success');
+                } else {
+                    addResult('Authentication', 'warning', 'No user logged in');
+                    log('⚠️ No user logged in', 'warning');
+                }
+
+            } catch (error) {
+                addResult('Authentication', 'fail', error.message);
+                log(`❌ Auth test failed: ${error.message}`, 'error');
+            }
+        };
+
+        const testStorage = async () => {
+            try {
+                log('Testing storage access...');
+
+                if (!supabaseClient) {
+                    supabaseClient = initializeSupabase();
+                }
+
+                // Test bucket access
+                const { data, error } = await supabaseClient.storage.listBuckets();
+
+                if (error) {
+                    addResult('Storage Access', 'fail', error.message);
+                    log(`❌ Storage test failed: ${error.message}`, 'error');
+
+                    // Log detailed error information
+                    log(`Error details: ${JSON.stringify(error)}`, 'error');
+
+                    // Test UploadThing as fallback
+                    await testUploadThingFallback();
+                } else {
+                    const avatarBucket = data.find(bucket => bucket.name === 'avatars');
+                    if (avatarBucket) {
+                        addResult('Storage Access', 'pass', 'Avatar bucket accessible');
+                        log('✅ Storage test passed: Avatar bucket found', 'success');
+
+                        // Test upload permissions
+                        await testUploadPermissions();
+                    } else {
+                        addResult('Storage Access', 'warning', 'Avatar bucket not found - will create or use UploadThing');
+                        log('⚠️ Storage test warning: Avatar bucket not found', 'warning');
+                        await testUploadThingFallback();
+                    }
+                }
+
+            } catch (error) {
+                addResult('Storage Access', 'fail', error.message);
+                log(`❌ Storage test failed: ${error.message}`, 'error');
+                await testUploadThingFallback();
+            }
+        };
+
+        const testUploadPermissions = async () => {
+            try {
+                log('Testing upload permissions...');
+
+                // Create a small test file
+                const testBlob = new Blob(['test'], { type: 'text/plain' });
+                const testFile = new File([testBlob], 'test.txt', { type: 'text/plain' });
+
+                const { data: { user } } = await supabaseClient.auth.getUser();
+                if (!user) {
+                    addResult('Upload Permissions', 'warning', 'No user logged in');
+                    return;
+                }
+
+                const testFileName = `${user.id}/test_${Date.now()}.txt`;
+
+                const { data, error } = await supabaseClient.storage
+                    .from('avatars')
+                    .upload(testFileName, testFile);
+
+                if (error) {
+                    addResult('Upload Permissions', 'fail', `Upload test failed: ${error.message}`);
+                    log(`❌ Upload permission test failed: ${error.message}`, 'error');
+                    log(`Error details: ${JSON.stringify(error)}`, 'error');
+                } else {
+                    addResult('Upload Permissions', 'pass', 'Upload permissions working');
+                    log('✅ Upload permission test passed', 'success');
+
+                    // Clean up test file
+                    await supabaseClient.storage
+                        .from('avatars')
+                        .remove([testFileName]);
+                }
+
+            } catch (error) {
+                addResult('Upload Permissions', 'fail', error.message);
+                log(`❌ Upload permission test error: ${error.message}`, 'error');
+            }
+        };
+
+        const testUploadThingFallback = async () => {
+            try {
+                log('Testing UploadThing fallback...');
+
+                // Test UploadThing client
+                const uploadThingClient = new SimpleUploadThingClient();
+
+                // Create a test image
+                const canvas = document.createElement('canvas');
+                canvas.width = 100;
+                canvas.height = 100;
+                const ctx = canvas.getContext('2d');
+                ctx.fillStyle = '#3B82F6';
+                ctx.fillRect(0, 0, 100, 100);
+
+                canvas.toBlob(async (blob) => {
+                    if (blob) {
+                        const testFile = new File([blob], 'test-avatar.png', { type: 'image/png' });
+
+                        const result = await uploadThingClient.uploadFile(testFile);
+
+                        if (result.success) {
+                            addResult('UploadThing Fallback', 'pass', 'UploadThing working as fallback');
+                            log('✅ UploadThing fallback test passed', 'success');
+                        } else {
+                            addResult('UploadThing Fallback', 'fail', result.error);
+                            log(`❌ UploadThing fallback test failed: ${result.error}`, 'error');
+                        }
+                    }
+                }, 'image/png');
+
+            } catch (error) {
+                addResult('UploadThing Fallback', 'fail', error.message);
+                log(`❌ UploadThing fallback test error: ${error.message}`, 'error');
+            }
+        };
+
+        const testAvatarUpload = async () => {
+            try {
+                log('Testing avatar upload functionality...');
+                
+                // Create a test canvas image
+                const canvas = document.createElement('canvas');
+                canvas.width = 100;
+                canvas.height = 100;
+                const ctx = canvas.getContext('2d');
+                
+                // Draw a simple test pattern
+                ctx.fillStyle = '#3B82F6';
+                ctx.fillRect(0, 0, 100, 100);
+                ctx.fillStyle = '#FFFFFF';
+                ctx.font = '20px Arial';
+                ctx.fillText('TEST', 25, 55);
+
+                canvas.toBlob(async (blob) => {
+                    if (blob) {
+                        const testFile = new File([blob], 'test-avatar.png', { type: 'image/png' });
+                        
+                        // Show in preview
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            const testAvatar = document.getElementById('test-avatar');
+                            const defaultAvatar = document.getElementById('test-default-avatar');
+                            
+                            if (testAvatar && defaultAvatar) {
+                                testAvatar.src = e.target.result;
+                                testAvatar.classList.remove('hidden');
+                                defaultAvatar.classList.add('hidden');
+                            }
+                        };
+                        reader.readAsDataURL(testFile);
+                        
+                        addResult('Avatar Upload Test', 'pass', 'Test image generated and displayed');
+                        log('✅ Avatar upload test passed: Test image created', 'success');
+                    } else {
+                        addResult('Avatar Upload Test', 'fail', 'Failed to create test image');
+                        log('❌ Avatar upload test failed: Could not create test image', 'error');
+                    }
+                }, 'image/png');
+
+            } catch (error) {
+                addResult('Avatar Upload Test', 'fail', error.message);
+                log(`❌ Avatar upload test failed: ${error.message}`, 'error');
+            }
+        };
+
+        const loginTestUser = async () => {
+            try {
+                log('Logging in test user...');
+                
+                if (!supabaseClient) {
+                    supabaseClient = initializeSupabase();
+                }
+
+                const { data, error } = await supabaseClient.auth.signInWithPassword({
+                    email: 'reforiy538@iamtile.com',
+                    password: 'gK9.t1|ROnQ52U['
+                });
+
+                if (error) {
+                    addResult('Test User Login', 'fail', error.message);
+                    log(`❌ Test user login failed: ${error.message}`, 'error');
+                } else {
+                    addResult('Test User Login', 'pass', 'Test user logged in successfully');
+                    log('✅ Test user logged in successfully', 'success');
+                    
+                    // Run other tests after login
+                    setTimeout(() => {
+                        testAuth();
+                        testStorage();
+                    }, 1000);
+                }
+
+            } catch (error) {
+                addResult('Test User Login', 'fail', error.message);
+                log(`❌ Test user login failed: ${error.message}`, 'error');
+            }
+        };
+
+        // File input handler
+        document.getElementById('test-file-input').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const testAvatar = document.getElementById('test-avatar');
+                    const defaultAvatar = document.getElementById('test-default-avatar');
+                    
+                    if (testAvatar && defaultAvatar) {
+                        testAvatar.src = e.target.result;
+                        testAvatar.classList.remove('hidden');
+                        defaultAvatar.classList.add('hidden');
+                    }
+                };
+                reader.readAsDataURL(file);
+                log(`File selected: ${file.name} (${(file.size / 1024).toFixed(1)}KB)`, 'success');
+            }
+        });
+
+        // Event listeners
+        document.getElementById('test-auth').addEventListener('click', testAuth);
+        document.getElementById('test-storage').addEventListener('click', testStorage);
+        document.getElementById('test-avatar-upload').addEventListener('click', testAvatarUpload);
+        document.getElementById('login-test-user').addEventListener('click', loginTestUser);
+        document.getElementById('open-profile').addEventListener('click', () => {
+            window.open('./user-profile.html', '_blank');
+        });
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', async () => {
+            log('🔄 Avatar test page loaded');
+            
+            try {
+                initializeSupabase();
+                await testAuth();
+                log('✅ Initial tests completed', 'success');
+            } catch (error) {
+                log(`❌ Initialization failed: ${error.message}`, 'error');
+            }
+        });
+    </script>
+</body>
+</html>
