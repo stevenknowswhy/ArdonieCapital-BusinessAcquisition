@@ -1,0 +1,154 @@
+/**
+ * BizBuySell-Style Hero Section Background Images
+ * Reliable CSS implementation for background images
+ */
+
+/* Primary Hero Background Image */
+.hero-bg-image {
+    background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+/* Fallback Images */
+.hero-bg-image-alt1 {
+    background-image: url('https://images.unsplash.com/photo-1449824913935-59a10b8d2000?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.hero-bg-image-alt2 {
+    background-image: url('https://images.unsplash.com/photo-1486754735734-325b5831c3ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+/* High-resolution displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .hero-bg-image {
+        background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=4140&q=80');
+    }
+    
+    .hero-bg-image-alt1 {
+        background-image: url('https://images.unsplash.com/photo-1449824913935-59a10b8d2000?ixlib=rb-4.0.3&auto=format&fit=crop&w=4140&q=80');
+    }
+    
+    .hero-bg-image-alt2 {
+        background-image: url('https://images.unsplash.com/photo-1486754735734-325b5831c3ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=4140&q=80');
+    }
+}
+
+/* Mobile optimization */
+@media (max-width: 768px) {
+    .hero-bg-image,
+    .hero-bg-image-alt1,
+    .hero-bg-image-alt2 {
+        background-attachment: scroll;
+        background-size: cover;
+        background-position: center;
+    }
+}
+
+/* Tablet optimization */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .hero-bg-image,
+    .hero-bg-image-alt1,
+    .hero-bg-image-alt2 {
+        background-attachment: scroll;
+        background-size: cover;
+        background-position: center;
+    }
+}
+
+/* Desktop optimization */
+@media (min-width: 1025px) {
+    .hero-bg-image,
+    .hero-bg-image-alt1,
+    .hero-bg-image-alt2 {
+        background-attachment: fixed;
+        background-size: cover;
+        background-position: center;
+    }
+}
+
+/* Preload critical images */
+.hero-bg-preload::before {
+    content: '';
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    background-image: 
+        url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80'),
+        url('https://images.unsplash.com/photo-1449824913935-59a10b8d2000?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80'),
+        url('https://images.unsplash.com/photo-1486754735734-325b5831c3ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+}
+
+/* Enhanced overlay for better text readability */
+.hero-overlay {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4));
+    -webkit-backdrop-filter: blur(0.5px);
+    backdrop-filter: blur(0.5px);
+}
+
+/* Loading state for background images */
+.hero-bg-loading {
+    background: linear-gradient(135deg, #1e293b, #1e40af, #1e293b);
+    background-size: 400% 400%;
+    animation: gradientShift 3s ease infinite;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Error state fallback */
+.hero-bg-error {
+    background: linear-gradient(135deg, #1e293b, #dc2626, #1e293b);
+    position: relative;
+}
+
+.hero-bg-error::after {
+    content: '⚠️ Background image failed to load';
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 12px;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+    .hero-bg-image,
+    .hero-bg-image-alt1,
+    .hero-bg-image-alt2 {
+        background-attachment: scroll;
+    }
+    
+    .hero-bg-loading {
+        animation: none;
+        background: #1e293b;
+    }
+}
+
+/* Print styles */
+@media print {
+    .hero-bg-image,
+    .hero-bg-image-alt1,
+    .hero-bg-image-alt2 {
+        background: #1e293b !important;
+        /* Removed unsupported print-color-adjust properties for better browser compatibility */
+    }
+}

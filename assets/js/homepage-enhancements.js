@@ -16,7 +16,7 @@ class HomepageEnhancements {
         this.addLoadingStates();
     }
 
-    // Add scroll-triggered animations
+    // Add scroll-triggered animations (excluding hero section to prevent conflicts)
     addScrollAnimations() {
         const observerOptions = {
             threshold: 0.1,
@@ -25,9 +25,14 @@ class HomepageEnhancements {
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
+                // CRITICAL FIX: Skip hero section to prevent conflicts
+                if (entry.target.id === 'hero-section' || entry.target.closest('#hero-section')) {
+                    return;
+                }
+
                 if (entry.isIntersecting) {
                     entry.target.classList.add('fade-in');
-                    
+
                     // Add staggered animation for child elements
                     const children = entry.target.querySelectorAll('.role-card-enhanced, .feature-card-enhanced, .testimonial-enhanced');
                     children.forEach((child, index) => {

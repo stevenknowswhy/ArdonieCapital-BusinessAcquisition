@@ -378,6 +378,200 @@ class SimpleAuthService {
 
         return dashboardMap[userType] || '../dashboard/buyer-dashboard.html';
     }
+
+    /**
+     * Sign in with Google OAuth
+     */
+    async signInWithGoogle(userType = 'buyer') {
+        try {
+            console.log(`🔑 Attempting Google OAuth sign-in for user type: ${userType}`);
+
+            // Wait for Supabase to be initialized
+            if (!this.supabase) {
+                console.log('⏳ Waiting for Supabase initialization...');
+                await this.waitForSupabase();
+            }
+
+            // Attempt Google OAuth with Supabase
+            const { data, error } = await this.supabase.auth.signInWithOAuth({
+                provider: 'google',
+                options: {
+                    redirectTo: `${window.location.origin}/auth/oauth-callback.html`,
+                    queryParams: {
+                        access_type: 'offline',
+                        prompt: 'consent',
+                        user_type: userType
+                    }
+                }
+            });
+
+            if (error) {
+                console.error('❌ Google OAuth error:', error);
+                return {
+                    success: false,
+                    error: error.message
+                };
+            }
+
+            console.log('✅ Google OAuth initiated successfully');
+            return {
+                success: true,
+                data: data
+            };
+
+        } catch (error) {
+            console.error('❌ Google sign-in error:', error);
+            return {
+                success: false,
+                error: error.message || 'Google sign-in failed'
+            };
+        }
+    }
+
+    /**
+     * Handle OAuth callback (for use in oauth-callback.html)
+     */
+    async handleOAuthCallback() {
+        try {
+            console.log('🔄 Handling OAuth callback...');
+
+            // Wait for Supabase to be initialized
+            if (!this.supabase) {
+                console.log('⏳ Waiting for Supabase initialization...');
+                await this.waitForSupabase();
+            }
+
+            // Get session from URL hash or current session
+            let sessionData, sessionError;
+
+            // First try to get session from URL (for OAuth callback)
+            try {
+                const urlSessionResult = await this.supabase.auth.getSessionFromUrl();
+                sessionData = urlSessionResult.data;
+                sessionError = urlSessionResult.error;
+                console.log('🔄 Attempted to get session from URL:', !!sessionData.session);
+            } catch (urlError) {
+                console.log('⚠️ Could not get session from URL, trying current session:', urlError.message);
+                // Fallback to current session
+                const currentSessionResult = await this.supabase.auth.getSession();
+                sessionData = currentSessionResult.data;
+                sessionError = currentSessionResult.error;
+            }
+
+            if (sessionError) {
+                console.error('❌ OAuth callback error:', sessionError);
+                return {
+                    success: false,
+                    error: sessionError.message
+                };
+            }
+
+            if (!sessionData.session) {
+                console.error('❌ No session found in OAuth callback');
+                console.log('🔍 URL params:', window.location.href);
+                console.log('🔍 Hash:', window.location.hash);
+                return {
+                    success: false,
+                    error: 'No session found'
+                };
+            }
+
+            const user = sessionData.session.user;
+            console.log('✅ OAuth session retrieved:', user.email);
+
+            // Get or create user profile
+            let { data: profile, error: profileError } = await this.supabase
+                .from('profiles')
+                .select('*')
+                .eq('user_id', user.id)
+                .single();
+
+            if (profileError && profileError.code !== 'PGRST116') {
+                console.error('❌ Profile fetch error:', profileError);
+                return {
+                    success: false,
+                    error: 'Failed to load user profile'
+                };
+            }
+
+            // Create profile if it doesn't exist
+            if (!profile) {
+                console.log('🔄 Creating new profile for OAuth user...');
+
+                // Extract user type from URL params if available
+                const urlParams = new URLSearchParams(window.location.search);
+                const userType = urlParams.get('user_type') || 'buyer';
+
+                // Prepare profile data with proper field mapping
+                const firstName = user.user_metadata.full_name?.split(' ')[0] || user.user_metadata.name?.split(' ')[0] || 'User';
+                const lastName = user.user_metadata.full_name?.split(' ').slice(1).join(' ') || user.user_metadata.name?.split(' ').slice(1).join(' ') || '';
+
+                console.log('🔄 Profile data being inserted:', {
+                    user_id: user.id,
+                    first_name: firstName,
+                    last_name: lastName,
+                    role: userType,
+                    avatar_url: user.user_metadata.avatar_url
+                });
+
+                const { data: newProfile, error: createError } = await this.supabase
+                    .from('profiles')
+                    .insert([{
+                        user_id: user.id,
+                        first_name: firstName,
+                        last_name: lastName,
+                        role: userType,
+                        avatar_url: user.user_metadata.avatar_url
+                        // Note: email is in auth.users, not profiles
+                        // Note: created_at is auto-generated by the database
+                    }])
+                    .select()
+                    .single();
+
+                if (createError) {
+                    console.error('❌ Profile creation error:', createError);
+                    return {
+                        success: false,
+                        error: 'Failed to create user profile'
+                    };
+                }
+
+                profile = newProfile;
+                console.log('✅ New profile created for OAuth user');
+            }
+
+            // Create session data
+            const userSessionData = {
+                id: user.id,
+                email: user.email,
+                firstName: profile.first_name || user.user_metadata.full_name?.split(' ')[0] || '',
+                lastName: profile.last_name || user.user_metadata.full_name?.split(' ').slice(1).join(' ') || '',
+                userTypes: [profile.role || 'buyer'],
+                isAuthenticated: true,
+                loginTime: new Date().toISOString(),
+                rememberMe: true,
+                authMethod: 'google_oauth'
+            };
+
+            // Store session data
+            localStorage.setItem('ardonie_user_session', JSON.stringify(userSessionData));
+            localStorage.setItem('ardonie_auth_status', 'authenticated');
+
+            console.log('✅ OAuth callback completed successfully');
+            return {
+                success: true,
+                user: userSessionData,
+                redirectUrl: this.getRedirectUrlForUserTypes(userSessionData.userTypes)
+            };
+
+        } catch (error) {
+            console.error('❌ OAuth callback error:', error);
+            return {
+                success: false,
+                error: error.message || 'OAuth callback failed'
+            };
+        }
+    }
 }
 
 // Global initialization
@@ -395,12 +589,46 @@ try {
         console.log('🏗️ Creating global instance...');
         window.simpleAuthService = new SimpleAuthService();
         console.log('✅ Global simpleAuthService instance created');
-        
-        // Also expose as AuthService for compatibility
-        window.AuthService = SimpleAuthService;
+
+        // Verify instance has signInWithGoogle method
+        if (typeof window.simpleAuthService.signInWithGoogle === 'function') {
+            console.log('✅ signInWithGoogle method verified on instance');
+        } else {
+            console.error('❌ CRITICAL: signInWithGoogle method missing on instance');
+        }
+
+        // Also expose as AuthService for compatibility (must be instance, not class)
+        window.AuthService = window.simpleAuthService;
         window.authService = window.simpleAuthService;
         console.log('✅ Compatibility aliases created');
-        
+
+        // Verify the fix worked
+        console.log('🔍 Verifying AuthService setup...');
+        console.log(`   window.AuthService type: ${typeof window.AuthService}`);
+        console.log(`   window.AuthService.signInWithGoogle type: ${typeof window.AuthService?.signInWithGoogle}`);
+        console.log(`   window.AuthService === window.authService: ${window.AuthService === window.authService}`);
+
+        if (typeof window.AuthService.signInWithGoogle === 'function') {
+            console.log('🎉 SUCCESS: window.AuthService.signInWithGoogle is accessible!');
+        } else {
+            console.error('❌ CRITICAL FAILURE: window.AuthService.signInWithGoogle is not accessible');
+            console.error('   Attempting emergency fix...');
+
+            // Emergency fallback fix
+            try {
+                window.AuthService = window.simpleAuthService;
+                window.authService = window.simpleAuthService;
+
+                if (typeof window.AuthService.signInWithGoogle === 'function') {
+                    console.log('✅ Emergency fix successful');
+                } else {
+                    console.error('❌ Emergency fix failed');
+                }
+            } catch (emergencyError) {
+                console.error('❌ Emergency fix error:', emergencyError);
+            }
+        }
+
         console.log('🎉 Fixed auth service initialization complete!');
     } else {
         console.log('📦 Node.js environment detected');
@@ -411,3 +639,33 @@ try {
 }
 
 console.log('✅ Fixed auth service script execution completed');
+
+// Post-load verification and correction (runs after DOM is ready)
+if (typeof window !== 'undefined') {
+    // Use setTimeout to ensure this runs after all synchronous code
+    setTimeout(() => {
+        console.log('🔍 Post-load AuthService verification...');
+
+        // Check if the fix worked
+        if (typeof window.AuthService?.signInWithGoogle !== 'function') {
+            console.warn('⚠️ Post-load fix required for AuthService');
+
+            // Apply corrective fix
+            if (window.simpleAuthService && typeof window.simpleAuthService.signInWithGoogle === 'function') {
+                console.log('🔧 Applying post-load corrective fix...');
+                window.AuthService = window.simpleAuthService;
+                window.authService = window.simpleAuthService;
+
+                if (typeof window.AuthService.signInWithGoogle === 'function') {
+                    console.log('✅ Post-load fix successful!');
+                } else {
+                    console.error('❌ Post-load fix failed');
+                }
+            } else {
+                console.error('❌ Cannot apply post-load fix - simpleAuthService unavailable');
+            }
+        } else {
+            console.log('✅ AuthService verification passed - no post-load fix needed');
+        }
+    }, 100);
+}

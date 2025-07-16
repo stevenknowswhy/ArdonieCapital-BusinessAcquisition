@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//images.unsplash.com">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Resources - Ardonie Capital</title>
+    <meta name="description" content="Access free tools, guides, and resources for buying and selling auto repair shops. Due diligence checklists, valuation tools, loan calculators, and educational content.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+    <!-- Tailwind CSS -->
+    <link rel="stylesheet" href="assets/css/tailwind.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" media="print" onload="this.media='all'" href="assets/css/common.css">
+
+    <!-- Navigation Styles -->
+    <link rel="stylesheet" href="components/navigation-styles.css">
+
+    <!-- Security Headers -->
+    <script src="assets/js/security-headers.js" defer></script>
+
+    <!-- Theme System -->
+    <script>
+        // Initialize tailwind config with theme support
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            light: '#3B82F6',
+                            DEFAULT: '#2563EB',
+                            dark: '#1D4ED8'
+                        },
+                        secondary: {
+                            light: '#F8FAFC',
+                            DEFAULT: '#E2E8F0',
+                            dark: '#64748B'
+                        },
+                        accent: {
+                            light: '#10B981',
+                            DEFAULT: '#059669',
+                            dark: '#047857'
+                        }
+                    }
+                }
+            }
+        };
+
+        // Apply saved theme preference immediately to prevent flash
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+</head>
+
+<body class="bg-white dark:bg-slate-900 text-slate-900 dark:text-white">
+    <!-- Navigation Component -->
+    <div id="main-navigation-container"></div>
+
+    <!-- Main Content -->
+    <main class="pt-16">
+        <!-- Hero Section -->
+        <section class="bg-gradient-to-br from-primary/10 to-accent/10 dark:from-primary/20 dark:to-accent/20 py-16">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <h1 class="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">
+                        Free Resources
+                    </h1>
+                    <p class="text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto mb-8">
+                        Access our comprehensive collection of free tools, guides, and resources to help you successfully buy or sell auto repair shops.
+                    </p>
+                    <div class="flex flex-wrap justify-center gap-4">
+                        <span class="bg-primary/10 dark:bg-primary/20 text-primary-dark dark:text-primary-light px-4 py-2 rounded-full text-sm font-medium">
+                            📊 Valuation Tools
+                        </span>
+                        <span class="bg-accent/10 dark:bg-accent/20 text-accent-dark dark:text-accent-light px-4 py-2 rounded-full text-sm font-medium">
+                            📋 Due Diligence
+                        </span>
+                        <span class="bg-secondary/10 dark:bg-secondary/20 text-slate-700 dark:text-slate-300 px-4 py-2 rounded-full text-sm font-medium">
+                            💰 Financial Tools
+                        </span>
+                        <span class="bg-primary/10 dark:bg-primary/20 text-primary-dark dark:text-primary-light px-4 py-2 rounded-full text-sm font-medium">
+                            📚 Educational Guides
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resources Grid -->
+        <section class="py-16">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <!-- Due Diligence Checklist -->
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg border border-slate-200 dark:border-slate-700 hover:shadow-xl transition-all duration-300">
+                        <div class="w-12 h-12 bg-accent/10 dark:bg-accent/20 rounded-xl flex items-center justify-center mb-4">
+                            <span class="text-2xl">📋</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Due Diligence Checklist</h3>
+                        <p class="text-slate-600 dark:text-slate-400 mb-4">
+                            Comprehensive checklist covering financial records, legal documents, operational assessments, and key questions to ask before purchasing an auto repair shop.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-accent/10 dark:bg-accent/20 text-accent-dark dark:text-accent-light px-2 py-1 rounded text-xs">Financial Review</span>
+                            <span class="bg-accent/10 dark:bg-accent/20 text-accent-dark dark:text-accent-light px-2 py-1 rounded text-xs">Legal Check</span>
+                            <span class="bg-accent/10 dark:bg-accent/20 text-accent-dark dark:text-accent-light px-2 py-1 rounded text-xs">Operations</span>
+                        </div>
+                        <a href="tools/due-diligence-checklist.html" class="inline-flex items-center text-primary-dark dark:text-primary-light hover:text-primary font-medium">
+                            Access Checklist
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                    </div>
+
+                    <!-- Business Valuation Tool -->
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg border border-slate-200 dark:border-slate-700 hover:shadow-xl transition-all duration-300">
+                        <div class="w-12 h-12 bg-primary/10 dark:bg-primary/20 rounded-xl flex items-center justify-center mb-4">
+                            <span class="text-2xl">📊</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Business Valuation Tool</h3>
+                        <p class="text-slate-600 dark:text-slate-400 mb-4">
+                            Calculate the estimated value of an auto repair shop using multiple valuation methods including asset-based, income-based, and market comparisons.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-primary/10 dark:bg-primary/20 text-primary-dark dark:text-primary-light px-2 py-1 rounded text-xs">Asset Method</span>
+                            <span class="bg-primary/10 dark:bg-primary/20 text-primary-dark dark:text-primary-light px-2 py-1 rounded text-xs">Income Method</span>
+                            <span class="bg-primary/10 dark:bg-primary/20 text-primary-dark dark:text-primary-light px-2 py-1 rounded text-xs">Market Comp</span>
+                        </div>
+                        <a href="tools/valuation.html" class="inline-flex items-center text-primary-dark dark:text-primary-light hover:text-primary font-medium">
+                            Use Valuation Tool
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                    </div>
+
+                    <!-- Loan Calculator -->
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg border border-slate-200 dark:border-slate-700 hover:shadow-xl transition-all duration-300">
+                        <div class="w-12 h-12 bg-secondary/10 dark:bg-secondary/20 rounded-xl flex items-center justify-center mb-4">
+                            <span class="text-2xl">💰</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">SBA Loan Calculator</h3>
+                        <p class="text-slate-600 dark:text-slate-400 mb-4">
+                            Calculate monthly payments, total interest, and loan terms for SBA loans commonly used in auto repair shop acquisitions.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-secondary/10 dark:bg-secondary/20 text-slate-700 dark:text-slate-300 px-2 py-1 rounded text-xs">SBA 7(a)</span>
+                            <span class="bg-secondary/10 dark:bg-secondary/20 text-slate-700 dark:text-slate-300 px-2 py-1 rounded text-xs">504 Loans</span>
+                            <span class="bg-secondary/10 dark:bg-secondary/20 text-slate-700 dark:text-slate-300 px-2 py-1 rounded text-xs">Conventional</span>
+                        </div>
+                        <a href="funding/loan-calculator.html" class="inline-flex items-center text-primary-dark dark:text-primary-light hover:text-primary font-medium">
+                            Calculate Payments
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                    </div>
+
+                    <!-- Learning Center -->
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg border border-slate-200 dark:border-slate-700 hover:shadow-xl transition-all duration-300">
+                        <div class="w-12 h-12 bg-accent/10 dark:bg-accent/20 rounded-xl flex items-center justify-center mb-4">
+                            <span class="text-2xl">📚</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Learning Center</h3>
+                        <p class="text-slate-600 dark:text-slate-400 mb-4">
+                            Educational guides, articles, and resources covering all aspects of buying and selling auto repair businesses, from initial research to closing.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-accent/10 dark:bg-accent/20 text-accent-dark dark:text-accent-light px-2 py-1 rounded text-xs">Buyer Guides</span>
+                            <span class="bg-accent/10 dark:bg-accent/20 text-accent-dark dark:text-accent-light px-2 py-1 rounded text-xs">Seller Tips</span>
+                            <span class="bg-accent/10 dark:bg-accent/20 text-accent-dark dark:text-accent-light px-2 py-1 rounded text-xs">Case Studies</span>
+                        </div>
+                        <a href="education/guides.html" class="inline-flex items-center text-primary-dark dark:text-primary-light hover:text-primary font-medium">
+                            Browse Guides
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="bg-slate-50 dark:bg-slate-800 py-16">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-4">
+                    Need Personalized Assistance?
+                </h2>
+                <p class="text-lg text-slate-600 dark:text-slate-300 mb-8 max-w-2xl mx-auto">
+                    While our free resources provide valuable insights, every business transaction is unique. Get expert guidance tailored to your specific situation.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="contact.html" class="bg-primary hover:bg-primary-dark text-white px-8 py-3 rounded-lg font-medium transition-colors">
+                        Schedule Consultation
+                    </a>
+                    <a href="express-deal.html" class="border border-primary text-primary hover:bg-primary hover:text-white px-8 py-3 rounded-lg font-medium transition-colors">
+                        Learn About Express Deal
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer-container"></div>
+
+    <!-- Scripts -->
+    <script src="components/main-navigation.js"></script>
+    <script>
+        // Initialize navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof ArdonieNavigation !== 'undefined') {
+                ArdonieNavigation.init();
+            }
+        });
+
+        // Load footer
+        fetch('components/main-footer.js')
+            .then(response => response.text())
+            .then(script => {
+                eval(script);
+                if (typeof ArdonieFooter !== 'undefined') {
+                    ArdonieFooter.init();
+                }
+            })
+            .catch(error => {
+                console.error('Error loading footer:', error);
+            });
+    </script>
+</body>
+</html>

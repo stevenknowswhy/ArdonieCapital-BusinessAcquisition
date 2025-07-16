@@ -134,6 +134,7 @@
 /* Responsive adjustments */
 @media (max-width: 1023px) {
     .mobile-menu {
+        -webkit-backdrop-filter: blur(8px);
         backdrop-filter: blur(8px);
         background-color: rgba(255, 255, 255, 0.95);
     }
@@ -159,6 +160,7 @@
 
 /* Sticky navigation enhancement */
 .sticky {
+    -webkit-backdrop-filter: blur(8px);
     backdrop-filter: blur(8px);
     background-color: rgba(255, 255, 255, 0.95);
 }
@@ -195,6 +197,51 @@
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
+    }
+}
+
+/* Dark mode enhancements */
+.dark .main-navigation {
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    background-color: rgba(30, 41, 59, 0.95);
+}
+
+.dark .mobile-menu {
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    background-color: rgba(30, 41, 59, 0.95);
+}
+
+/* Theme toggle icon styling */
+#theme-toggle-light-icon {
+    color: #eab308; /* yellow-500 */
+}
+
+#mobile-theme-toggle-light-icon {
+    color: #eab308; /* yellow-500 */
+}
+
+/* Enhanced focus styles for dark mode */
+.dark .main-navigation a:focus,
+.dark .main-navigation button:focus {
+    outline: 2px solid #60a5fa;
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* Dropdown shadow enhancement for dark mode */
+.dark .group:hover .shadow-lg {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+}
+
+/* Mobile menu backdrop for dark mode */
+@media (max-width: 1023px) {
+    .dark .mobile-menu {
+        -webkit-backdrop-filter: blur(8px);
+        backdrop-filter: blur(8px);
+        background-color: rgba(30, 41, 59, 0.95);
+        border-color: rgba(71, 85, 105, 0.5);
     }
 }
 

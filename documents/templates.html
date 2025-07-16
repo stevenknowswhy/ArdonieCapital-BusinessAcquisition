@@ -1,41 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="dns-prefetch" href="//cdn.tailwindcss.com">
+    <meta charset="UTF-8">
+
     <link rel="dns-prefetch" href="//fonts.googleapis.com">
     <link rel="dns-prefetch" href="//images.unsplash.com">
-    <link rel="preload" href="https://cdn.tailwindcss.com" as="script">
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style">
-    <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document Templates - Ardonie Capital</title>
-    <script src="https://cdn.tailwindcss.com" defer></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <meta name="description" content="Professional document templates for business acquisition transactions with BuyMartV1.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+
+    <!-- Tailwind CSS -->
+    <link rel="stylesheet" href="../assets/css/tailwind.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" media="print" onload="this.media='all'" href="../assets/css/common.css">
+
+    <!-- Navigation Styles -->
+    <link rel="stylesheet" href="../components/navigation-styles.css">
+
+    <!-- Security Headers -->
+    <script src="../assets/js/security-headers.js" defer></script>
+    <!-- Theme System -->
     <script>
+        // Initialize tailwind config with theme support
         tailwind.config = {
             darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
                         primary: {
-                            DEFAULT: '#3b82f6',
-                            dark: '#2563eb',
-                            light: '#93c5fd',
+                            light: '#3B82F6',
+                            DEFAULT: '#2563EB',
+                            dark: '#1D4ED8'
                         },
                         secondary: {
-                            DEFAULT: '#64748b',
-                            light: '#f1f5f9',
+                            light: '#F8FAFC',
+                            DEFAULT: '#E2E8F0',
+                            dark: '#64748B'
                         },
                         accent: {
-                            DEFAULT: '#10b981',
-                            dark: '#059669',
+                            light: '#10B981',
+                            DEFAULT: '#059669',
+                            dark: '#047857'
                         }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
+                    }
                 }
             }
+        };
+
+        // Apply saved theme preference immediately to prevent flash
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
         }
     </script>
 
@@ -48,26 +72,9 @@
         }
     </script>
 </head>
-<body class="font-sans text-slate-800 bg-slate-50 dark:bg-slate-900 dark:text-slate-200">
-    <!-- Header -->
-    <header class="bg-white dark:bg-slate-800 shadow-sm border-b border-slate-200 dark:border-slate-700">
-        <div class="px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <div class="flex items-center">
-                    <a href="../index.html" class="flex items-center">
-                        <span class="text-xl font-bold text-primary-dark dark:text-primary-light">Ardonie Capital</span>
-                    </a>
-                </div>
-                <div class="flex items-center space-x-4">
-                    <a href="../dashboard/buyer-dashboard.html" class="text-slate-600 dark:text-slate-300 hover:text-primary-dark">Dashboard</a>
-                    <div class="flex items-center space-x-3">
-                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=32&h=32&q=80" alt="Profile" class="w-8 h-8 rounded-full" loading="lazy">
-                        <span class="text-sm font-medium text-slate-700 dark:text-slate-300">John Doe</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
+<body class="bg-white dark:bg-slate-900 text-slate-900 dark:text-white">
+    <!-- Navigation Component -->
+    <div id="main-navigation-container"></div>
 
     <div class="max-w-6xl mx-auto p-6">
         <!-- Page Header -->
@@ -423,5 +430,16 @@
             </div>
         </div>
     </footer>
+
+    <!-- Scripts -->
+    <script src="../components/main-navigation.js"></script>
+    <script>
+        // Initialize navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof ArdonieNavigation !== 'undefined') {
+                ArdonieNavigation.init();
+            }
+        });
+    </script>
 </body>
 </html>

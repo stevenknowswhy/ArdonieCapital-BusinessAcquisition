@@ -1,4 +1,4 @@
-/* Homepage UI/UX Enhancements */
+/* Homepage UI/UX Enhancements - Blue Theme Consistency & WCAG AA Compliance */
 
 /* Enhanced Typography and Visual Hierarchy */
 .hero-title-enhanced {
@@ -16,18 +16,19 @@
 .hero-subtitle-enhanced {
     font-size: clamp(1.125rem, 2.5vw, 1.5rem);
     line-height: 1.6;
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(255, 255, 255, 0.95); /* Improved contrast */
     margin-bottom: 2rem;
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
 }
 
-/* Enhanced Role Selection Cards */
+/* Enhanced Role Selection Cards with Blue Theme */
 .role-card-enhanced {
     background: rgba(255, 255, 255, 0.1);
+    -webkit-backdrop-filter: blur(20px);
     backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(59, 130, 246, 0.3); /* Blue border */
     border-radius: 20px;
     padding: 2rem;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -42,7 +43,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(37, 99, 235, 0.05) 100%);
     opacity: 0;
     transition: opacity 0.3s ease;
 }
@@ -53,8 +54,8 @@
 
 .role-card-enhanced:hover {
     transform: translateY(-8px) scale(1.02);
-    border-color: rgba(255, 255, 255, 0.4);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    border-color: rgba(59, 130, 246, 0.6);
+    box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
 }
 
 .role-icon-enhanced {
@@ -67,15 +68,17 @@
     margin: 0 auto 1.5rem;
     transition: all 0.3s ease;
     position: relative;
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); /* Blue gradient */
 }
 
 .role-card-enhanced:hover .role-icon-enhanced {
     transform: scale(1.1);
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
 }
 
-/* Enhanced CTA Buttons */
+/* Enhanced CTA Buttons with Blue Theme & WCAG AA Compliance */
 .cta-primary-enhanced {
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); /* Blue gradient */
     color: white;
     padding: 1rem 2rem;
     border-radius: 50px;
@@ -86,59 +89,80 @@
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3); /* Blue shadow */
+    min-height: 44px; /* Touch target accessibility */
 }
 
 .cta-primary-enhanced:hover {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+}
+
+.cta-primary-enhanced:focus {
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
 }
 
 .cta-secondary-enhanced {
     background: rgba(255, 255, 255, 0.1);
     color: white;
-    border: 2px solid rgba(255, 255, 255, 0.3);
+    border: 2px solid rgba(59, 130, 246, 0.5); /* Blue border */
     padding: 1rem 2rem;
     border-radius: 50px;
     font-weight: 600;
     font-size: 1.1rem;
     cursor: pointer;
     transition: all 0.3s ease;
+    -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
+    min-height: 44px; /* Touch target accessibility */
 }
 
 .cta-secondary-enhanced:hover {
-    background: rgba(255, 255, 255, 0.2);
-    border-color: rgba(255, 255, 255, 0.5);
+    background: rgba(59, 130, 246, 0.2); /* Blue hover background */
+    border-color: rgba(59, 130, 246, 0.7);
     transform: translateY(-1px);
 }
 
-/* Enhanced Trust Badges */
+.cta-secondary-enhanced:focus {
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
+}
+
+/* Enhanced Trust Badges with Blue Theme */
 .trust-badge-enhanced {
     display: flex;
     align-items: center;
     gap: 0.75rem;
     padding: 1rem 1.5rem;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(59, 130, 246, 0.1); /* Blue background */
     border-radius: 50px;
+    -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(59, 130, 246, 0.3); /* Blue border */
     transition: all 0.3s ease;
 }
 
 .trust-badge-enhanced:hover {
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(59, 130, 246, 0.2);
+    border-color: rgba(59, 130, 246, 0.5);
     transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2);
 }
 
-/* Enhanced Features Section */
+.trust-badge-enhanced svg {
+    color: #3b82f6; /* Blue icons */
+}
+
+/* Enhanced Features Section with Blue Theme */
 .feature-card-enhanced {
     background: white;
     border-radius: 16px;
     padding: 2rem;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.08); /* Blue-tinted shadow */
     transition: all 0.3s ease;
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(59, 130, 246, 0.1); /* Blue border */
     position: relative;
     overflow: hidden;
 }
@@ -150,7 +174,7 @@
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, #3b82f6, #10b981);
+    background: linear-gradient(90deg, #3b82f6, #2563eb); /* Blue gradient */
     transform: scaleX(0);
     transition: transform 0.3s ease;
 }
@@ -161,7 +185,8 @@
 
 .feature-card-enhanced:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 12px 30px rgba(59, 130, 246, 0.15); /* Blue shadow */
+    border-color: rgba(59, 130, 246, 0.2);
 }
 
 .feature-icon-enhanced {
@@ -173,25 +198,33 @@
     justify-content: center;
     margin-bottom: 1.5rem;
     transition: all 0.3s ease;
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); /* Blue gradient */
 }
 
 .feature-card-enhanced:hover .feature-icon-enhanced {
     transform: scale(1.1);
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
 }
 
-/* Enhanced Testimonials */
+.feature-icon-enhanced svg {
+    color: white; /* White icons on blue background */
+}
+
+/* Enhanced Testimonials with Blue Theme */
 .testimonial-enhanced {
     background: white;
     border-radius: 20px;
     padding: 2rem;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 30px rgba(59, 130, 246, 0.1); /* Blue-tinted shadow */
     transition: all 0.3s ease;
     position: relative;
+    border: 1px solid rgba(59, 130, 246, 0.1); /* Blue border */
 }
 
 .testimonial-enhanced:hover {
     transform: translateY(-4px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 15px 40px rgba(59, 130, 246, 0.15);
+    border-color: rgba(59, 130, 246, 0.2);
 }
 
 .testimonial-enhanced::before {
@@ -200,12 +233,12 @@
     top: -10px;
     left: 20px;
     font-size: 4rem;
-    color: #10b981;
+    color: #3b82f6; /* Blue quote mark */
     font-family: serif;
     line-height: 1;
 }
 
-/* Enhanced Stats */
+/* Enhanced Stats with Blue Theme */
 .stat-enhanced {
     text-align: center;
     padding: 1.5rem;
@@ -217,7 +250,7 @@
     font-weight: 800;
     line-height: 1;
     margin-bottom: 0.5rem;
-    background: linear-gradient(135deg, #3b82f6 0%, #10b981 100%);
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); /* Blue gradient */
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -278,7 +311,7 @@
     }
 }
 
-/* Enhanced Hover Effects */
+/* Enhanced Hover Effects with Blue Theme */
 .hover-lift {
     transition: transform 0.3s ease;
 }
@@ -292,5 +325,2688 @@
 }
 
 .hover-glow:hover {
-    box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3); /* Blue glow */
+}
+
+/* Accessibility Enhancements */
+.focus-visible {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+    .cta-primary-enhanced,
+    .feature-icon-enhanced,
+    .role-icon-enhanced {
+        border: 2px solid #000000;
+    }
+
+    .trust-badge-enhanced,
+    .feature-card-enhanced,
+    .testimonial-enhanced {
+        border: 2px solid #000000;
+        background: #ffffff;
+        color: #000000;
+    }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Light Mode Specific Styles for Sections with Light Backgrounds */
+.light-section .role-card-enhanced {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    color: #1e293b;
+}
+
+.light-section .role-card-enhanced h3 {
+    color: #1e293b;
+}
+
+.light-section .role-card-enhanced p {
+    color: #64748b;
+}
+
+.light-section .role-card-enhanced .role-cta {
+    color: #3b82f6;
+}
+
+.light-section .role-card-enhanced:hover .role-cta {
+    color: #2563eb;
+}
+
+/* Light mode text colors for feature cards */
+.light-section .feature-text-dark {
+    color: #1e293b;
+}
+
+.light-section .feature-text-muted {
+    color: #64748b;
+}
+
+/* Light mode button text */
+.light-section .btn-text-dark {
+    color: #1e293b;
+}
+
+/* Dark Mode Enhancements */
+.dark .feature-card-enhanced {
+    background: #1e293b;
+    border-color: rgba(59, 130, 246, 0.2);
+    color: #f1f5f9;
+}
+
+.dark .testimonial-enhanced {
+    background: #1e293b;
+    border-color: rgba(59, 130, 246, 0.2);
+    color: #f1f5f9;
+}
+
+.dark .trust-badge-enhanced {
+    background: rgba(59, 130, 246, 0.2);
+    border-color: rgba(59, 130, 246, 0.4);
+    color: #f1f5f9;
+}
+
+/* Social Media Icons & Interactive Elements Blue Theme */
+.social-icon,
+.interactive-icon {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color: white;
+    transition: all 0.3s ease;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+}
+
+.social-icon:hover,
+.interactive-icon:hover {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+}
+
+/* Navigation Button Consistency */
+.nav-button,
+.menu-button {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    min-height: 44px;
+}
+
+.nav-button:hover,
+.menu-button:hover {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+/* Form Elements Blue Theme */
+.form-input,
+.form-select,
+.form-textarea {
+    border: 2px solid rgba(59, 130, 246, 0.2);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    outline: none;
+}
+
+.dark .form-input,
+.dark .form-select,
+.dark .form-textarea {
+    background: #1e293b;
+    border-color: rgba(59, 130, 246, 0.3);
+    color: #f1f5f9;
+}
+
+/* Badge and Tag Elements */
+.badge,
+.tag {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.badge-outline,
+.tag-outline {
+    background: transparent;
+    border: 2px solid #3b82f6;
+    color: #3b82f6;
+}
+
+.dark .badge-outline,
+.dark .tag-outline {
+    color: #93c5fd;
+    border-color: #93c5fd;
+}
+
+/* Progress Indicators */
+.progress-bar {
+    background: #e5e7eb;
+    border-radius: 9999px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    height: 100%;
+    transition: width 0.5s ease;
+}
+
+/* Loading States */
+.loading-spinner {
+    border: 3px solid rgba(59, 130, 246, 0.2);
+    border-top: 3px solid #3b82f6;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ========================================
+   HOW IT WORKS SECTION - COMPREHENSIVE ENHANCEMENT
+   ======================================== */
+
+/* Connection Line - Blue Theme Consistency */
+#how-it-works-section .bg-gradient-to-r {
+    background: linear-gradient(to right,
+        rgba(59, 130, 246, 0.3) 0%,
+        rgba(59, 130, 246, 0.5) 50%,
+        rgba(59, 130, 246, 0.3) 100%) !important;
+}
+
+/* Step Icon Containers - Unified Blue Theme */
+#how-it-works-section .bg-gradient-to-br.from-blue-500,
+#how-it-works-section .bg-gradient-to-br.from-emerald-400,
+#how-it-works-section .bg-gradient-to-br.from-purple-500,
+#how-it-works-section .bg-gradient-to-br.from-orange-500 {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3) !important;
+}
+
+/* Enhanced Hover States for Step Icons */
+#how-it-works-section .group:hover .bg-gradient-to-br.from-blue-500,
+#how-it-works-section .group:hover .bg-gradient-to-br.from-emerald-400,
+#how-it-works-section .group:hover .bg-gradient-to-br.from-purple-500,
+#how-it-works-section .group:hover .bg-gradient-to-br.from-orange-500 {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4) !important;
+}
+
+/* Step 2 Special Container - Convert to Blue Theme */
+#how-it-works-section .bg-gradient-to-br.from-emerald-400.via-emerald-500.to-teal-600 {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+    box-shadow: 0 8px 30px rgba(59, 130, 246, 0.3) !important;
+}
+
+#how-it-works-section .group:hover .bg-gradient-to-br.from-emerald-400.via-emerald-500.to-teal-600 {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+    box-shadow: 0 12px 40px rgba(59, 130, 246, 0.4) !important;
+}
+
+/* Step Number Badges - Unified Blue Theme */
+#how-it-works-section .bg-blue-100,
+#how-it-works-section .bg-emerald-100,
+#how-it-works-section .bg-purple-100,
+#how-it-works-section .bg-orange-100 {
+    background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%) !important;
+    border: 2px solid rgba(59, 130, 246, 0.2) !important;
+}
+
+/* Step Number Text - Blue Theme */
+#how-it-works-section .text-blue-600,
+#how-it-works-section .text-emerald-700,
+#how-it-works-section .text-purple-600,
+#how-it-works-section .text-orange-600 {
+    color: #2563eb !important;
+    font-weight: 700 !important;
+}
+
+/* Dark Mode Step Number Badges */
+.dark #how-it-works-section .bg-blue-100,
+.dark #how-it-works-section .bg-emerald-100,
+.dark #how-it-works-section .bg-purple-100,
+.dark #how-it-works-section .bg-orange-100 {
+    background: linear-gradient(135deg, #1e40af 0%, #1d4ed8 100%) !important;
+    border: 2px solid rgba(59, 130, 246, 0.4) !important;
+}
+
+/* Dark Mode Step Number Text */
+.dark #how-it-works-section .text-blue-600,
+.dark #how-it-works-section .text-emerald-700,
+.dark #how-it-works-section .text-purple-600,
+.dark #how-it-works-section .text-orange-600 {
+    color: #ffffff !important;
+    font-weight: 700 !important;
+}
+
+/* Step 2 Enhanced Badge - Blue Theme */
+#how-it-works-section .from-emerald-100.to-emerald-200 {
+    background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%) !important;
+    border: 2px solid rgba(59, 130, 246, 0.2) !important;
+}
+
+.dark #how-it-works-section .from-emerald-100.to-emerald-200 {
+    background: linear-gradient(135deg, #1e40af 0%, #1d4ed8 100%) !important;
+    border: 2px solid rgba(59, 130, 246, 0.4) !important;
+}
+
+#how-it-works-section .text-emerald-700.dark\:text-emerald-200 {
+    color: #2563eb !important;
+    font-weight: 700 !important;
+}
+
+.dark #how-it-works-section .text-emerald-700.dark\:text-emerald-200 {
+    color: #ffffff !important;
+    font-weight: 700 !important;
+}
+
+/* Interactive Elements - Blue Theme Consistency */
+
+/* Step 2 Title and Text - Blue Theme */
+#how-it-works-section .group-hover\:text-emerald-600 {
+    transition: color 0.3s ease !important;
+}
+
+#how-it-works-section .group:hover .group-hover\:text-emerald-600 {
+    color: #3b82f6 !important;
+}
+
+.dark #how-it-works-section .group:hover .group-hover\:text-emerald-600 {
+    color: #60a5fa !important;
+}
+
+/* Step 2 Text Highlights - Blue Theme */
+#how-it-works-section .text-emerald-600 {
+    color: #3b82f6 !important;
+}
+
+.dark #how-it-works-section .text-emerald-600 {
+    color: #60a5fa !important;
+}
+
+/* Start Matching Button - Blue Theme */
+#how-it-works-section .bg-gradient-to-r.from-emerald-500.to-teal-600 {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3) !important;
+}
+
+#how-it-works-section .bg-gradient-to-r.from-emerald-500.to-teal-600:hover {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4) !important;
+}
+
+/* AI Powered Badge - Enhanced Visibility */
+#how-it-works-section .bg-gradient-to-r.from-purple-500.to-pink-500 {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Enhanced Icon Visibility */
+#how-it-works-section svg {
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1)) !important;
+}
+
+/* Hover Effects for All Steps */
+#how-it-works-section .group:hover h3 {
+    color: #3b82f6 !important;
+    transition: color 0.3s ease !important;
+}
+
+.dark #how-it-works-section .group:hover h3 {
+    color: #60a5fa !important;
+}
+
+/* Enhanced Shadow Effects */
+#how-it-works-section .group:hover .shadow-lg {
+    box-shadow: 0 20px 40px rgba(59, 130, 246, 0.3) !important;
+}
+
+#how-it-works-section .group:hover .shadow-xl {
+    box-shadow: 0 25px 50px rgba(59, 130, 246, 0.4) !important;
+}
+
+/* Step Number Badge Hover Effects */
+#how-it-works-section .group:hover .bg-blue-100,
+#how-it-works-section .group:hover .bg-emerald-100,
+#how-it-works-section .group:hover .bg-purple-100,
+#how-it-works-section .group:hover .bg-orange-100 {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+    transform: scale(1.1) !important;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4) !important;
+}
+
+#how-it-works-section .group:hover .text-blue-600,
+#how-it-works-section .group:hover .text-emerald-700,
+#how-it-works-section .group:hover .text-purple-600,
+#how-it-works-section .group:hover .text-orange-600 {
+    color: #ffffff !important;
+}
+
+/* CTA Section Enhancements */
+#how-it-works-section .bg-gradient-to-r.from-blue-50.to-emerald-50 {
+    background: linear-gradient(135deg,
+        rgba(59, 130, 246, 0.05) 0%,
+        rgba(59, 130, 246, 0.1) 100%) !important;
+    border: 1px solid rgba(59, 130, 246, 0.2) !important;
+}
+
+.dark #how-it-works-section .bg-gradient-to-r.from-blue-50.to-emerald-50 {
+    background: linear-gradient(135deg,
+        rgba(59, 130, 246, 0.1) 0%,
+        rgba(59, 130, 246, 0.15) 100%) !important;
+    border: 1px solid rgba(59, 130, 246, 0.3) !important;
+}
+
+/* Social Proof Icons - Blue Theme */
+#how-it-works-section .text-emerald-500 {
+    color: #3b82f6 !important;
+}
+
+/* Accessibility Enhancements */
+#how-it-works-section .group {
+    outline-offset: 2px !important;
+}
+
+#how-it-works-section .group:focus-visible {
+    outline: 2px solid #3b82f6 !important;
+    border-radius: 8px !important;
+}
+
+/* ========================================
+   WHY CHOOSE SECTION - COMPREHENSIVE ENHANCEMENT
+   ======================================== */
+
+/* CRITICAL FIX: Make All Buttons Always Visible */
+#why-choose-section .opacity-0 {
+    opacity: 0.8 !important; /* Always visible with subtle transparency */
+    transform: translateY(0) !important; /* Remove hidden transform */
+}
+
+#why-choose-section .group:hover .opacity-0 {
+    opacity: 1 !important; /* Full opacity on hover */
+    transform: translateY(0) !important;
+}
+
+/* Blue Theme Consistency - Icon Containers */
+#why-choose-section .bg-gradient-to-br.from-blue-400.via-blue-500.to-cyan-600,
+#why-choose-section .bg-gradient-to-br.from-emerald-400.via-emerald-500.to-teal-600,
+#why-choose-section .bg-gradient-to-br.from-purple-400.via-purple-500.to-pink-600 {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3) !important;
+}
+
+#why-choose-section .group:hover .bg-gradient-to-br.from-blue-400.via-blue-500.to-cyan-600,
+#why-choose-section .group:hover .bg-gradient-to-br.from-emerald-400.via-emerald-500.to-teal-600,
+#why-choose-section .group:hover .bg-gradient-to-br.from-purple-400.via-purple-500.to-pink-600 {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4) !important;
+}
+
+/* Blue Theme - All CTA Buttons */
+#why-choose-section .bg-gradient-to-r.from-blue-500.to-cyan-600,
+#why-choose-section .bg-gradient-to-r.from-emerald-500.to-teal-600,
+#why-choose-section .bg-gradient-to-r.from-purple-500.to-pink-600 {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3) !important;
+    border: 1px solid rgba(59, 130, 246, 0.2) !important;
+}
+
+#why-choose-section .bg-gradient-to-r.from-blue-500.to-cyan-600:hover,
+#why-choose-section .bg-gradient-to-r.from-emerald-500.to-teal-600:hover,
+#why-choose-section .bg-gradient-to-r.from-purple-500.to-pink-600:hover {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4) !important;
+    border: 1px solid rgba(59, 130, 246, 0.4) !important;
+}
+
+/* Blue Theme - Text Colors */
+#why-choose-section .group-hover\:text-blue-600,
+#why-choose-section .group-hover\:text-emerald-600,
+#why-choose-section .group-hover\:text-purple-600 {
+    transition: color 0.3s ease !important;
+}
+
+#why-choose-section .group:hover .group-hover\:text-blue-600,
+#why-choose-section .group:hover .group-hover\:text-emerald-600,
+#why-choose-section .group:hover .group-hover\:text-purple-600 {
+    color: #3b82f6 !important;
+}
+
+.dark #why-choose-section .group:hover .group-hover\:text-blue-600,
+.dark #why-choose-section .group:hover .group-hover\:text-emerald-600,
+.dark #why-choose-section .group:hover .group-hover\:text-purple-600 {
+    color: #60a5fa !important;
+}
+
+/* Blue Theme - Highlighted Text */
+#why-choose-section .text-blue-600,
+#why-choose-section .text-emerald-600,
+#why-choose-section .text-purple-600 {
+    color: #3b82f6 !important;
+}
+
+.dark #why-choose-section .text-blue-600,
+.dark #why-choose-section .text-emerald-600,
+.dark #why-choose-section .text-purple-600 {
+    color: #60a5fa !important;
+}
+
+/* Blue Theme - Checkmark Icons */
+#why-choose-section .text-emerald-500 {
+    color: #3b82f6 !important;
+}
+
+/* Social Proof Badge - Blue Theme */
+#why-choose-section .bg-emerald-100 {
+    background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%) !important;
+    border: 1px solid rgba(59, 130, 246, 0.2) !important;
+}
+
+.dark #why-choose-section .bg-emerald-100 {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(59, 130, 246, 0.3) 100%) !important;
+    border: 1px solid rgba(59, 130, 246, 0.4) !important;
+}
+
+#why-choose-section .text-emerald-600,
+#why-choose-section .text-emerald-700 {
+    color: #2563eb !important;
+}
+
+.dark #why-choose-section .text-emerald-600,
+.dark #why-choose-section .text-emerald-700 {
+    color: #60a5fa !important;
+}
+
+/* Animated Background Patterns - Blue Theme */
+#why-choose-section .from-blue-500\/10,
+#why-choose-section .from-emerald-500\/10,
+#why-choose-section .from-purple-500\/10 {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, transparent 100%) !important;
+}
+
+/* Accessibility Enhancements */
+#why-choose-section .group {
+    outline-offset: 2px !important;
+}
+
+#why-choose-section .group:focus-visible {
+    outline: 2px solid #3b82f6 !important;
+    border-radius: 8px !important;
+}
+
+#why-choose-section button:focus-visible {
+    outline: 2px solid #3b82f6 !important;
+    outline-offset: 2px !important;
+}
+
+/* Enhanced Button Visibility */
+#why-choose-section button {
+    min-height: 44px !important; /* WCAG AA touch target */
+    font-weight: 600 !important;
+    transition: all 0.3s ease !important;
+}
+
+/* Shared Benefits Section - Blue Theme Consistency */
+#why-choose-section .bg-gradient-to-br.from-emerald-500.to-emerald-600,
+#why-choose-section .bg-gradient-to-br.from-purple-500.to-purple-600,
+#why-choose-section .bg-gradient-to-br.from-orange-500.to-orange-600 {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3) !important;
+}
+
+/* Main CTA Button - Blue Theme */
+#why-choose-section .bg-gradient-to-r.from-emerald-500.to-blue-600 {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3) !important;
+    border: 1px solid rgba(59, 130, 246, 0.2) !important;
+}
+
+#why-choose-section .bg-gradient-to-r.from-emerald-500.to-blue-600:hover {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+    box-shadow: 0 8px 30px rgba(59, 130, 246, 0.4) !important;
+    border: 1px solid rgba(59, 130, 246, 0.4) !important;
+    transform: translateY(-2px) !important;
+}
+
+/* ========================================
+   TRUST & TESTIMONIALS SECTION - BLUE THEME
+   ======================================== */
+
+/* Trust Stats Icons - Blue Theme Consistency */
+.trust-stats .bg-gradient-to-br.from-emerald-400.via-emerald-500.to-teal-600,
+.trust-stats .bg-gradient-to-br.from-orange-400.via-orange-500.to-red-600,
+.trust-stats .bg-gradient-to-br.from-purple-400.via-purple-500.to-pink-600 {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3) !important;
+}
+
+/* Trust Stats Text - Blue Theme */
+.trust-stats .text-emerald-600,
+.trust-stats .text-orange-600,
+.trust-stats .text-purple-600 {
+    color: #3b82f6 !important;
+}
+
+.dark .trust-stats .text-emerald-600,
+.dark .trust-stats .text-orange-600,
+.dark .trust-stats .text-purple-600 {
+    color: #60a5fa !important;
+}
+
+.trust-stats .group-hover\:text-emerald-500,
+.trust-stats .group-hover\:text-orange-500,
+.trust-stats .group-hover\:text-purple-500 {
+    transition: color 0.3s ease !important;
+}
+
+.trust-stats .group:hover .group-hover\:text-emerald-500,
+.trust-stats .group:hover .group-hover\:text-orange-500,
+.trust-stats .group:hover .group-hover\:text-purple-500 {
+    color: #2563eb !important;
+}
+
+/* Testimonial Icons - Blue Theme */
+.testimonials .bg-gradient-to-br.from-emerald-400.via-emerald-500.to-teal-600,
+.testimonials .bg-gradient-to-br.from-purple-400.via-purple-500.to-pink-600 {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3) !important;
+}
+
+/* Testimonial Avatar Backgrounds - Blue Theme */
+.testimonials .bg-gradient-to-br.from-emerald-400.via-emerald-500.to-teal-600,
+.testimonials .bg-gradient-to-br.from-purple-400.via-purple-500.to-pink-600 {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+}
+
+/* Testimonial Text Highlights - Blue Theme */
+.testimonials .text-emerald-600,
+.testimonials .text-purple-600 {
+    color: #3b82f6 !important;
+}
+
+.dark .testimonials .text-emerald-600,
+.dark .testimonials .text-purple-600 {
+    color: #60a5fa !important;
+}
+
+.testimonials .group-hover\:text-emerald-600,
+.testimonials .group-hover\:text-purple-600 {
+    transition: color 0.3s ease !important;
+}
+
+.testimonials .group:hover .group-hover\:text-emerald-600,
+.testimonials .group:hover .group-hover\:text-purple-600 {
+    color: #3b82f6 !important;
+}
+
+.dark .testimonials .group:hover .group-hover\:text-emerald-600,
+.dark .testimonials .group:hover .group-hover\:text-purple-600 {
+    color: #60a5fa !important;
+}
+
+/* CRITICAL FIX: Make Testimonial Buttons Always Visible */
+.testimonials .opacity-0 {
+    opacity: 0.8 !important; /* Always visible with subtle transparency */
+    transform: translateY(0) !important; /* Remove hidden transform */
+}
+
+.testimonials .group:hover .opacity-0 {
+    opacity: 1 !important; /* Full opacity on hover */
+    transform: translateY(0) !important;
+}
+
+/* Testimonial CTA Buttons - Blue Theme */
+.testimonials .bg-gradient-to-r.from-emerald-500.to-teal-600,
+.testimonials .bg-gradient-to-r.from-purple-500.to-pink-600 {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3) !important;
+    border: 1px solid rgba(59, 130, 246, 0.2) !important;
+}
+
+.testimonials .bg-gradient-to-r.from-emerald-500.to-teal-600:hover,
+.testimonials .bg-gradient-to-r.from-purple-500.to-pink-600:hover {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4) !important;
+    border: 1px solid rgba(59, 130, 246, 0.4) !important;
+}
+
+/* Enhanced Accessibility for All Sections */
+.testimonials .group:focus-visible,
+.trust-stats .group:focus-visible {
+    outline: 2px solid #3b82f6 !important;
+    outline-offset: 2px !important;
+    border-radius: 8px !important;
+}
+
+.testimonials button:focus-visible,
+.trust-stats button:focus-visible {
+    outline: 2px solid #3b82f6 !important;
+    outline-offset: 2px !important;
+}
+
+/* Ensure All Buttons Meet Touch Target Requirements */
+.testimonials button,
+.trust-stats button {
+    min-height: 44px !important;
+    min-width: 44px !important;
+    font-weight: 600 !important;
+}
+
+/* Specific Section Targeting for Better Specificity */
+
+/* Why Choose Section Specific Targeting */
+section[id="why-choose-section"] .opacity-0,
+section.py-20.bg-slate-50 .opacity-0 {
+    opacity: 0.8 !important;
+    transform: translateY(0) !important;
+}
+
+section[id="why-choose-section"] .group:hover .opacity-0,
+section.py-20.bg-slate-50 .group:hover .opacity-0 {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+/* Trust & Testimonials Section Specific Targeting */
+section.py-16.bg-slate-50 .opacity-0 {
+    opacity: 0.8 !important;
+    transform: translateY(0) !important;
+}
+
+section.py-16.bg-slate-50 .group:hover .opacity-0 {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+    #why-choose-section .bg-gradient-to-br,
+    .testimonials .bg-gradient-to-br,
+    .trust-stats .bg-gradient-to-br {
+        background: #000000 !important;
+        border: 3px solid #ffffff !important;
+    }
+
+    #why-choose-section svg,
+    .testimonials svg,
+    .trust-stats svg {
+        color: #ffffff !important;
+    }
+
+    #why-choose-section button,
+    .testimonials button,
+    .trust-stats button {
+        background: #000000 !important;
+        color: #ffffff !important;
+        border: 3px solid #ffffff !important;
+    }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    #why-choose-section *,
+    .testimonials *,
+    .trust-stats * {
+        animation: none !important;
+        transition: none !important;
+    }
+
+    #why-choose-section .group:hover,
+    .testimonials .group:hover,
+    .trust-stats .group:hover {
+        transform: none !important;
+    }
+}
+
+/* Dark Mode Specific Enhancements */
+.dark #why-choose-section .bg-gradient-to-br.from-blue-400.via-blue-500.to-cyan-600,
+.dark #why-choose-section .bg-gradient-to-br.from-emerald-400.via-emerald-500.to-teal-600,
+.dark #why-choose-section .bg-gradient-to-br.from-purple-400.via-purple-500.to-pink-600 {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4) !important;
+    border: 1px solid rgba(59, 130, 246, 0.3) !important;
+}
+
+.dark .testimonials .bg-gradient-to-br.from-emerald-400.via-emerald-500.to-teal-600,
+.dark .testimonials .bg-gradient-to-br.from-purple-400.via-purple-500.to-pink-600 {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4) !important;
+    border: 1px solid rgba(59, 130, 246, 0.3) !important;
+}
+
+/* Enhanced Button States */
+#why-choose-section button:active,
+.testimonials button:active,
+.trust-stats button:active {
+    transform: translateY(1px) !important;
+    box-shadow: 0 2px 10px rgba(59, 130, 246, 0.3) !important;
+}
+
+/* Performance Optimizations */
+#why-choose-section *,
+.testimonials *,
+.trust-stats * {
+    will-change: transform, opacity, box-shadow !important;
+}
+
+#why-choose-section .group,
+.testimonials .group,
+.trust-stats .group {
+    transform: translateZ(0) !important; /* Force hardware acceleration */
+}
+
+/* Print Styles */
+@media print {
+    #why-choose-section .opacity-0,
+    .testimonials .opacity-0 {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    #why-choose-section button,
+    .testimonials button {
+        border: 2px solid #000000 !important;
+        background: transparent !important;
+        color: #000000 !important;
+    }
+}
+
+/* Dark Mode Specific Enhancements */
+
+/* Enhanced Dark Mode Icon Containers */
+.dark #how-it-works-section .bg-gradient-to-br.from-blue-500,
+.dark #how-it-works-section .bg-gradient-to-br.from-emerald-400,
+.dark #how-it-works-section .bg-gradient-to-br.from-purple-500,
+.dark #how-it-works-section .bg-gradient-to-br.from-orange-500 {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4) !important;
+    border: 1px solid rgba(59, 130, 246, 0.3) !important;
+}
+
+.dark #how-it-works-section .group:hover .bg-gradient-to-br.from-blue-500,
+.dark #how-it-works-section .group:hover .bg-gradient-to-br.from-emerald-400,
+.dark #how-it-works-section .group:hover .bg-gradient-to-br.from-purple-500,
+.dark #how-it-works-section .group:hover .bg-gradient-to-br.from-orange-500 {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+    box-shadow: 0 8px 30px rgba(59, 130, 246, 0.5) !important;
+    border: 1px solid rgba(59, 130, 246, 0.5) !important;
+}
+
+/* Dark Mode Step 2 Container */
+.dark #how-it-works-section .bg-gradient-to-br.from-emerald-400.via-emerald-500.to-teal-600 {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+    box-shadow: 0 8px 35px rgba(59, 130, 246, 0.4) !important;
+    border: 1px solid rgba(59, 130, 246, 0.3) !important;
+}
+
+.dark #how-it-works-section .group:hover .bg-gradient-to-br.from-emerald-400.via-emerald-500.to-teal-600 {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+    box-shadow: 0 12px 45px rgba(59, 130, 246, 0.5) !important;
+    border: 1px solid rgba(59, 130, 246, 0.5) !important;
+}
+
+/* Dark Mode Connection Line */
+.dark #how-it-works-section .bg-gradient-to-r {
+    background: linear-gradient(to right,
+        rgba(59, 130, 246, 0.4) 0%,
+        rgba(59, 130, 246, 0.6) 50%,
+        rgba(59, 130, 246, 0.4) 100%) !important;
+}
+
+/* Dark Mode Text Enhancements */
+.dark #how-it-works-section .text-emerald-600.dark\:text-emerald-400 {
+    color: #60a5fa !important;
+}
+
+.dark #how-it-works-section .group-hover\:text-emerald-400 {
+    color: #60a5fa !important;
+}
+
+/* Dark Mode Button Enhancements */
+.dark #how-it-works-section .bg-gradient-to-r.from-emerald-500.to-teal-600 {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4) !important;
+    border: 1px solid rgba(59, 130, 246, 0.3) !important;
+}
+
+.dark #how-it-works-section .bg-gradient-to-r.from-emerald-500.to-teal-600:hover {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+    box-shadow: 0 8px 30px rgba(59, 130, 246, 0.5) !important;
+    border: 1px solid rgba(59, 130, 246, 0.5) !important;
+}
+
+/* Dark Mode AI Badge */
+.dark #how-it-works-section .bg-gradient-to-r.from-purple-500.to-pink-500 {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.5) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+/* ========================================
+   COMPREHENSIVE DARK MODE ICON VISIBILITY FIXES
+   ======================================== */
+
+/* CRITICAL: Ensure ALL SVG icons are white in dark mode */
+.dark svg.text-white {
+    color: #ffffff !important;
+    fill: currentColor !important;
+}
+
+/* Dark Mode - All SVG icons on colored backgrounds should be white */
+.dark .bg-gradient-to-br svg,
+.dark .bg-gradient-to-r svg,
+.dark .bg-blue-500 svg,
+.dark .bg-emerald-500 svg,
+.dark .bg-purple-500 svg,
+.dark .bg-orange-500 svg {
+    color: #ffffff !important;
+    fill: currentColor !important;
+}
+
+/* Dark Mode - Trust badge icons */
+.dark .trust-badge-enhanced svg {
+    color: #ffffff !important;
+    fill: currentColor !important;
+}
+
+/* Dark Mode - Hero section icons */
+.dark #hero-section svg {
+    color: #ffffff !important;
+    fill: currentColor !important;
+}
+
+/* Dark Mode - How It Works section icons */
+.dark #how-it-works-section svg {
+    color: #ffffff !important;
+    fill: currentColor !important;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3)) !important;
+}
+
+/* Dark Mode - Why Choose section icons */
+.dark #why-choose-section svg.text-white {
+    color: #ffffff !important;
+    fill: currentColor !important;
+}
+
+/* Dark Mode - Testimonials section icons */
+.dark .testimonials svg.text-white {
+    color: #ffffff !important;
+    fill: currentColor !important;
+}
+
+/* Dark Mode - Trust stats section icons */
+.dark .trust-stats svg.text-white {
+    color: #ffffff !important;
+    fill: currentColor !important;
+}
+
+/* Dark Mode - Specific icon color overrides */
+.dark svg.text-emerald-400,
+.dark svg.text-emerald-500,
+.dark svg.text-emerald-600 {
+    color: #ffffff !important;
+    fill: currentColor !important;
+}
+
+.dark svg.text-blue-400,
+.dark svg.text-blue-500,
+.dark svg.text-blue-600 {
+    color: #ffffff !important;
+    fill: currentColor !important;
+}
+
+.dark svg.text-purple-400,
+.dark svg.text-purple-500,
+.dark svg.text-purple-600 {
+    color: #ffffff !important;
+    fill: currentColor !important;
+}
+
+.dark svg.text-orange-400,
+.dark svg.text-orange-500,
+.dark svg.text-orange-600 {
+    color: #ffffff !important;
+    fill: currentColor !important;
+}
+
+/* Dark Mode - Checkmark icons specifically (blue theme consistency) */
+.dark svg.text-emerald-500 {
+    color: #60a5fa !important; /* Blue theme for checkmarks in dark mode */
+    fill: currentColor !important;
+}
+
+/* Dark Mode - Social proof and badge icons */
+.dark .bg-emerald-100 svg,
+.dark .bg-blue-100 svg,
+.dark .bg-purple-100 svg,
+.dark .bg-orange-100 svg {
+    color: #ffffff !important;
+    fill: currentColor !important;
+}
+
+/* Dark Mode - Button icons */
+.dark button svg,
+.dark a svg {
+    color: inherit !important;
+    fill: currentColor !important;
+}
+
+/* Dark Mode - Navigation icons */
+.dark nav svg {
+    color: inherit !important;
+    fill: currentColor !important;
+}
+
+/* Dark Mode - Modal and overlay icons */
+.dark .modal svg,
+.dark .overlay svg {
+    color: inherit !important;
+    fill: currentColor !important;
+}
+
+/* Dark Mode - Star rating icons (keep yellow) */
+.dark svg.text-yellow-400 {
+    color: #fbbf24 !important;
+    fill: currentColor !important;
+}
+
+/* Dark Mode - Feature card icons on gradient backgrounds */
+.dark .bg-gradient-to-br.from-blue-400 svg,
+.dark .bg-gradient-to-br.from-emerald-400 svg,
+.dark .bg-gradient-to-br.from-purple-400 svg,
+.dark .bg-gradient-to-br.from-orange-400 svg {
+    color: #ffffff !important;
+    fill: currentColor !important;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3)) !important;
+}
+
+/* Dark Mode - CTA and action button icons */
+.dark .bg-gradient-to-r svg {
+    color: #ffffff !important;
+    fill: currentColor !important;
+}
+
+/* Dark Mode - Trust badge specific targeting */
+.dark .trust-badge-enhanced svg.text-emerald-400 {
+    color: #ffffff !important;
+    fill: currentColor !important;
+}
+
+/* Dark Mode - Section-specific icon containers */
+.dark section svg.text-white {
+    color: #ffffff !important;
+    fill: currentColor !important;
+}
+
+/* Dark Mode - Enhanced visibility for all icon containers */
+.dark .w-20.h-20 svg,
+.dark .w-16.h-16 svg,
+.dark .w-12.h-12 svg,
+.dark .w-10.h-10 svg,
+.dark .w-8.h-8 svg,
+.dark .w-6.h-6 svg {
+    color: #ffffff !important;
+    fill: currentColor !important;
+}
+
+/* Dark Mode - Specific section targeting for better specificity */
+.dark .py-20 svg.text-white,
+.dark .py-16 svg.text-white {
+    color: #ffffff !important;
+    fill: currentColor !important;
+}
+
+/* Dark Mode - Rounded container icons */
+.dark .rounded-full svg,
+.dark .rounded-lg svg,
+.dark .rounded-xl svg {
+    color: inherit !important;
+    fill: currentColor !important;
+}
+
+/* Dark Mode - Comprehensive icon visibility overrides */
+.dark svg[class*="text-emerald"],
+.dark svg[class*="text-blue"],
+.dark svg[class*="text-purple"],
+.dark svg[class*="text-orange"] {
+    color: #ffffff !important;
+    fill: currentColor !important;
+}
+
+/* Dark Mode - Preserve specific icon colors that should remain colored */
+.dark svg.text-yellow-400,
+.dark svg.text-yellow-500,
+.dark svg.text-red-500,
+.dark svg.text-red-600 {
+    color: inherit !important; /* Keep original colors for warning/error states */
+    fill: currentColor !important;
+}
+
+/* Dark Mode - Enhanced drop shadows for better visibility */
+.dark .bg-gradient-to-br svg,
+.dark .bg-gradient-to-r svg {
+    filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.4)) !important;
+}
+
+/* Dark Mode - Specific targeting for problematic icons */
+.dark .text-emerald-400 svg,
+.dark .text-emerald-500 svg,
+.dark .text-emerald-600 svg {
+    color: #60a5fa !important; /* Blue theme consistency */
+    fill: currentColor !important;
+}
+
+/* Dark Mode - Ensure icons in cards are visible */
+.dark .bg-white svg,
+.dark .bg-slate-50 svg,
+.dark .bg-gray-50 svg {
+    color: #1e293b !important; /* Dark color for light backgrounds in dark mode */
+    fill: currentColor !important;
+}
+
+/* Dark Mode - Override any remaining black icons */
+.dark svg[stroke="currentColor"] {
+    color: #ffffff !important;
+}
+
+.dark svg[fill="currentColor"] {
+    color: #ffffff !important;
+}
+
+/* Dark Mode - Testimonial and quote icons */
+.dark svg[fill="currentColor"][viewBox="0 0 24 24"] {
+    color: #ffffff !important;
+    fill: currentColor !important;
+}
+
+/* Dark Mode - Interactive element icons */
+.dark .group:hover svg {
+    color: inherit !important;
+    fill: currentColor !important;
+}
+
+/* Dark Mode - Focus states for accessibility */
+.dark .focus-visible svg,
+.dark :focus-visible svg {
+    color: inherit !important;
+    fill: currentColor !important;
+}
+
+/* Dark Mode - Ensure proper contrast for all icon states */
+.dark .hover\:text-red-500:hover svg,
+.dark .hover\:text-blue-500:hover svg {
+    color: inherit !important;
+    fill: currentColor !important;
+}
+
+/* Dark Mode - Final catch-all for any missed icons */
+.dark svg:not(.text-yellow-400):not(.text-yellow-500):not(.text-red-500):not(.text-red-600) {
+    color: #ffffff !important;
+    fill: currentColor !important;
+}
+
+/* Dark Mode - Performance optimization */
+.dark svg {
+    will-change: color, fill !important;
+}
+
+/* High Contrast Mode Support for Dark Mode */
+@media (prefers-contrast: high) {
+    .dark svg {
+        color: #ffffff !important;
+        fill: currentColor !important;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.8)) !important;
+    }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    .dark svg {
+        filter: none !important;
+    }
+}
+
+/* ========================================
+   REAL-TIME ANALYTICS SECTION - COMPREHENSIVE ENHANCEMENT
+   ======================================== */
+
+/* Real-Time Analytics Feature Icons - Blue Theme Consistency */
+.analytics-features .bg-blue-500\/20,
+.analytics-features .bg-emerald-500\/20,
+.analytics-features .bg-purple-500\/20 {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(37, 99, 235, 0.3) 100%) !important;
+    border: 1px solid rgba(59, 130, 246, 0.3) !important;
+}
+
+/* Real-Time Analytics Icons - Blue Theme */
+.analytics-features .text-blue-400,
+.analytics-features .text-emerald-400,
+.analytics-features .text-purple-400 {
+    color: #60a5fa !important;
+}
+
+.dark .analytics-features .text-blue-400,
+.dark .analytics-features .text-emerald-400,
+.dark .analytics-features .text-purple-400 {
+    color: #ffffff !important;
+}
+
+/* AI Matching Container - Convert to Blue Theme */
+.analytics-features .bg-gradient-to-br.from-purple-500 {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+    box-shadow: 0 8px 30px rgba(59, 130, 246, 0.3) !important;
+}
+
+.analytics-features .group:hover .bg-gradient-to-br.from-purple-500 {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+    box-shadow: 0 12px 40px rgba(59, 130, 246, 0.4) !important;
+}
+
+/* AI Matching Text - Blue Theme */
+.analytics-features .group-hover\:text-purple-200 {
+    transition: color 0.3s ease !important;
+}
+
+.analytics-features .group:hover .group-hover\:text-purple-200 {
+    color: #dbeafe !important;
+}
+
+.analytics-features .text-purple-300 {
+    color: #60a5fa !important;
+}
+
+.dark .analytics-features .text-purple-300 {
+    color: #93c5fd !important;
+}
+
+/* CTA Button - Blue Theme Consistency */
+.analytics-features .bg-gradient-to-r.from-emerald-500.to-blue-600 {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3) !important;
+}
+
+.analytics-features .bg-gradient-to-r.from-emerald-500.to-blue-600:hover {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+    box-shadow: 0 8px 30px rgba(59, 130, 246, 0.4) !important;
+}
+
+/* Advanced Analytics Feature Cards - Blue Theme */
+.analytics-features .bg-white\/10 {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0.15) 100%) !important;
+    border: 1px solid rgba(59, 130, 246, 0.2) !important;
+}
+
+.analytics-features .bg-white\/20 {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3) !important;
+}
+
+/* Dark Mode - Real-Time Analytics Section */
+.dark .analytics-features .bg-blue-500\/20,
+.dark .analytics-features .bg-emerald-500\/20,
+.dark .analytics-features .bg-purple-500\/20 {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.3) 0%, rgba(37, 99, 235, 0.4) 100%) !important;
+    border: 1px solid rgba(59, 130, 246, 0.4) !important;
+}
+
+.dark .analytics-features .bg-gradient-to-br.from-purple-500 {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+    box-shadow: 0 8px 35px rgba(59, 130, 246, 0.4) !important;
+    border: 1px solid rgba(59, 130, 246, 0.3) !important;
+}
+
+.dark .analytics-features .group:hover .bg-gradient-to-br.from-purple-500 {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+    box-shadow: 0 12px 45px rgba(59, 130, 246, 0.5) !important;
+    border: 1px solid rgba(59, 130, 246, 0.5) !important;
+}
+
+.dark .analytics-features .bg-white\/10 {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0.2) 100%) !important;
+    border: 1px solid rgba(59, 130, 246, 0.3) !important;
+}
+
+.dark .analytics-features .bg-white\/20 {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4) !important;
+    border: 1px solid rgba(59, 130, 246, 0.3) !important;
+}
+
+/* Dark Mode - Analytics Section SVG Icons */
+.dark .analytics-features svg {
+    color: #ffffff !important;
+    fill: currentColor !important;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3)) !important;
+}
+
+/* Specific Section Targeting for Better Specificity */
+
+/* Real-Time Analytics Feature Grid */
+.grid.grid-cols-1.md\:grid-cols-3 .bg-blue-500\/20,
+.grid.grid-cols-1.md\:grid-cols-3 .bg-emerald-500\/20 {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(37, 99, 235, 0.3) 100%) !important;
+    border: 1px solid rgba(59, 130, 246, 0.3) !important;
+}
+
+.grid.grid-cols-1.md\:grid-cols-3 .text-blue-400,
+.grid.grid-cols-1.md\:grid-cols-3 .text-emerald-400 {
+    color: #60a5fa !important;
+}
+
+.dark .grid.grid-cols-1.md\:grid-cols-3 .text-blue-400,
+.dark .grid.grid-cols-1.md\:grid-cols-3 .text-emerald-400 {
+    color: #ffffff !important;
+}
+
+/* AI Matching Enhanced Container */
+.grid.grid-cols-1.md\:grid-cols-3 .bg-gradient-to-br.from-purple-500.via-purple-600.to-indigo-600 {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+    box-shadow: 0 8px 30px rgba(59, 130, 246, 0.3) !important;
+    border: 1px solid rgba(59, 130, 246, 0.2) !important;
+}
+
+.grid.grid-cols-1.md\:grid-cols-3 .group:hover .bg-gradient-to-br.from-purple-500.via-purple-600.to-indigo-600 {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+    box-shadow: 0 12px 40px rgba(59, 130, 246, 0.4) !important;
+    border: 1px solid rgba(59, 130, 246, 0.4) !important;
+}
+
+/* AI Matching Text Elements */
+.grid.grid-cols-1.md\:grid-cols-3 .group:hover .group-hover\:text-purple-200 {
+    color: #dbeafe !important;
+}
+
+.grid.grid-cols-1.md\:grid-cols-3 .text-purple-300 {
+    color: #60a5fa !important;
+}
+
+.dark .grid.grid-cols-1.md\:grid-cols-3 .text-purple-300 {
+    color: #93c5fd !important;
+}
+
+/* Dashboard Preview Section Analytics Features */
+section .bg-white\/10.backdrop-blur-sm.rounded-xl .bg-white\/20 {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3) !important;
+}
+
+section .bg-white\/10.backdrop-blur-sm.rounded-xl svg {
+    color: #ffffff !important;
+    fill: currentColor !important;
+}
+
+/* Dark Mode - Dashboard Preview Analytics */
+.dark section .bg-white\/10.backdrop-blur-sm.rounded-xl .bg-white\/20 {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4) !important;
+    border: 1px solid rgba(59, 130, 246, 0.3) !important;
+}
+
+.dark section .bg-white\/10.backdrop-blur-sm.rounded-xl {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0.2) 100%) !important;
+    border: 1px solid rgba(59, 130, 246, 0.3) !important;
+}
+
+/* Enhanced Hover Effects for Analytics Features */
+.analytics-features .group:hover h3,
+.grid.grid-cols-1.md\:grid-cols-3 .group:hover h3 {
+    color: #60a5fa !important;
+    transition: color 0.3s ease !important;
+}
+
+.dark .analytics-features .group:hover h3,
+.dark .grid.grid-cols-1.md\:grid-cols-3 .group:hover h3 {
+    color: #dbeafe !important;
+}
+
+/* Analytics Icon Containers - Enhanced Visibility */
+.analytics-features .w-16.h-16,
+.analytics-features .w-20.h-20,
+.analytics-features .w-12.h-12 {
+    transition: all 0.3s ease !important;
+}
+
+.analytics-features .group:hover .w-16.h-16,
+.analytics-features .group:hover .w-20.h-20,
+.analytics-features .group:hover .w-12.h-12 {
+    transform: scale(1.1) !important;
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4) !important;
+}
+
+/* Accessibility Enhancements for Analytics Section */
+.analytics-features .group:focus-visible,
+.grid.grid-cols-1.md\:grid-cols-3 .group:focus-visible {
+    outline: 2px solid #3b82f6 !important;
+    outline-offset: 2px !important;
+    border-radius: 8px !important;
+}
+
+/* Performance Optimizations */
+.analytics-features *,
+.grid.grid-cols-1.md\:grid-cols-3 * {
+    will-change: transform, opacity, box-shadow !important;
+}
+
+.analytics-features .group,
+.grid.grid-cols-1.md\:grid-cols-3 .group {
+    transform: translateZ(0) !important; /* Force hardware acceleration */
+}
+
+/* High Contrast Mode Support for Analytics */
+@media (prefers-contrast: high) {
+    .analytics-features .bg-gradient-to-br,
+    .grid.grid-cols-1.md\:grid-cols-3 .bg-gradient-to-br {
+        background: #000000 !important;
+        border: 3px solid #ffffff !important;
+    }
+
+    .analytics-features svg,
+    .grid.grid-cols-1.md\:grid-cols-3 svg {
+        color: #ffffff !important;
+    }
+}
+
+/* ========================================
+   QUICK MATCH QUIZ SECTION - COMPREHENSIVE ENHANCEMENT
+   ======================================== */
+
+/* Quick Match Quiz Section Background - Blue Theme */
+.bg-gradient-to-r.from-blue-50.to-emerald-50 {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0.15) 100%) !important;
+    border: 1px solid rgba(59, 130, 246, 0.2) !important;
+}
+
+.dark .bg-gradient-to-r.from-blue-50.to-emerald-50 {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0.2) 100%) !important;
+    border: 1px solid rgba(59, 130, 246, 0.3) !important;
+}
+
+/* Quick Match Quiz Button - Pure Blue Theme */
+#start-quiz-btn.bg-gradient-to-r.from-emerald-500.to-blue-600 {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3) !important;
+    border: 1px solid rgba(59, 130, 246, 0.2) !important;
+}
+
+#start-quiz-btn.bg-gradient-to-r.from-emerald-500.to-blue-600:hover {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+    box-shadow: 0 8px 30px rgba(59, 130, 246, 0.4) !important;
+    border: 1px solid rgba(59, 130, 246, 0.4) !important;
+}
+
+/* Quick Match Quiz Button Text and Icon */
+#start-quiz-btn {
+    color: #ffffff !important;
+}
+
+#start-quiz-btn svg {
+    color: #ffffff !important;
+    fill: currentColor !important;
+}
+
+#start-quiz-btn .bg-white\/20 {
+    background: rgba(255, 255, 255, 0.2) !important;
+    color: #ffffff !important;
+}
+
+/* Dark Mode - Quick Match Quiz Button */
+.dark #start-quiz-btn.bg-gradient-to-r.from-emerald-500.to-blue-600 {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+    box-shadow: 0 4px 25px rgba(59, 130, 246, 0.4) !important;
+    border: 1px solid rgba(59, 130, 246, 0.3) !important;
+}
+
+.dark #start-quiz-btn.bg-gradient-to-r.from-emerald-500.to-blue-600:hover {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+    box-shadow: 0 8px 35px rgba(59, 130, 246, 0.5) !important;
+    border: 1px solid rgba(59, 130, 246, 0.5) !important;
+}
+
+.dark #start-quiz-btn {
+    color: #ffffff !important;
+}
+
+.dark #start-quiz-btn svg {
+    color: #ffffff !important;
+    fill: currentColor !important;
+}
+
+/* ========================================
+   PREMIUM RESOURCES SECTION - COMPREHENSIVE ENHANCEMENT
+   ======================================== */
+
+/* Premium Resources Section Background - Pure Blue Theme */
+.bg-gradient-to-r.from-blue-600.to-emerald-600 {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+    box-shadow: 0 8px 30px rgba(59, 130, 246, 0.3) !important;
+}
+
+/* Dark Mode - Premium Resources Section */
+.dark .bg-gradient-to-r.from-blue-600.to-emerald-600 {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+    box-shadow: 0 8px 35px rgba(59, 130, 246, 0.4) !important;
+    border: 1px solid rgba(59, 130, 246, 0.3) !important;
+}
+
+/* Premium Features Cards - Enhanced Styling */
+.bg-gradient-to-r.from-blue-600.to-emerald-600 .bg-white\/10 {
+    background: rgba(255, 255, 255, 0.15) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    backdrop-filter: blur(10px) !important;
+}
+
+.bg-gradient-to-r.from-blue-600.to-emerald-600 .bg-white\/20 {
+    background: rgba(255, 255, 255, 0.25) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Dark Mode - Premium Features Cards */
+.dark .bg-gradient-to-r.from-blue-600.to-emerald-600 .bg-white\/10 {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+}
+
+.dark .bg-gradient-to-r.from-blue-600.to-emerald-600 .bg-white\/20 {
+    background: rgba(255, 255, 255, 0.2) !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+}
+
+/* Premium Resources SVG Icons */
+.bg-gradient-to-r.from-blue-600.to-emerald-600 svg {
+    color: #ffffff !important;
+    fill: currentColor !important;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2)) !important;
+}
+
+/* Dark Mode - Premium Resources SVG Icons */
+.dark .bg-gradient-to-r.from-blue-600.to-emerald-600 svg {
+    color: #ffffff !important;
+    fill: currentColor !important;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3)) !important;
+}
+
+/* Premium Resources Email Form - Enhanced Styling */
+.bg-gradient-to-r.from-blue-600.to-emerald-600 input[type="email"] {
+    background: rgba(255, 255, 255, 0.2) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    color: #ffffff !important;
+}
+
+.bg-gradient-to-r.from-blue-600.to-emerald-600 input[type="email"]::placeholder {
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.bg-gradient-to-r.from-blue-600.to-emerald-600 input[type="email"]:focus {
+    outline: none !important;
+    ring: 2px solid rgba(255, 255, 255, 0.5) !important;
+    border-color: rgba(255, 255, 255, 0.5) !important;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Premium Resources Submit Button - Enhanced Styling */
+.bg-gradient-to-r.from-blue-600.to-emerald-600 button[type="submit"] {
+    background: #ffffff !important;
+    color: #3b82f6 !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease !important;
+}
+
+.bg-gradient-to-r.from-blue-600.to-emerald-600 button[type="submit"]:hover {
+    background: #f8fafc !important;
+    color: #2563eb !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Dark Mode - Premium Resources Form */
+.dark .bg-gradient-to-r.from-blue-600.to-emerald-600 input[type="email"] {
+    background: rgba(255, 255, 255, 0.15) !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    color: #ffffff !important;
+}
+
+.dark .bg-gradient-to-r.from-blue-600.to-emerald-600 input[type="email"]:focus {
+    border-color: rgba(255, 255, 255, 0.4) !important;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2) !important;
+}
+
+.dark .bg-gradient-to-r.from-blue-600.to-emerald-600 button[type="submit"] {
+    background: #ffffff !important;
+    color: #3b82f6 !important;
+}
+
+.dark .bg-gradient-to-r.from-blue-600.to-emerald-600 button[type="submit"]:hover {
+    background: #f1f5f9 !important;
+    color: #2563eb !important;
+    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.4) !important;
+}
+
+/* Premium Resources Text Elements */
+.bg-gradient-to-r.from-blue-600.to-emerald-600 h3,
+.bg-gradient-to-r.from-blue-600.to-emerald-600 h4 {
+    color: #ffffff !important;
+}
+
+.bg-gradient-to-r.from-blue-600.to-emerald-600 p {
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Dark Mode - Premium Resources Text */
+.dark .bg-gradient-to-r.from-blue-600.to-emerald-600 h3,
+.dark .bg-gradient-to-r.from-blue-600.to-emerald-600 h4 {
+    color: #ffffff !important;
+}
+
+.dark .bg-gradient-to-r.from-blue-600.to-emerald-600 p {
+    color: rgba(255, 255, 255, 0.85) !important;
+}
+
+/* Enhanced Hover Effects for Premium Features */
+.bg-gradient-to-r.from-blue-600.to-emerald-600 .bg-white\/10:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2) !important;
+}
+
+.dark .bg-gradient-to-r.from-blue-600.to-emerald-600 .bg-white\/10:hover {
+    background: rgba(255, 255, 255, 0.15) !important;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Accessibility Enhancements */
+.bg-gradient-to-r.from-blue-600.to-emerald-600 .bg-white\/10:focus-visible {
+    outline: 2px solid #ffffff !important;
+    outline-offset: 2px !important;
+}
+
+.bg-gradient-to-r.from-blue-600.to-emerald-600 button:focus-visible,
+.bg-gradient-to-r.from-blue-600.to-emerald-600 input:focus-visible {
+    outline: 2px solid #ffffff !important;
+    outline-offset: 2px !important;
+}
+
+/* Performance Optimizations */
+.bg-gradient-to-r.from-blue-600.to-emerald-600 * {
+    will-change: transform, opacity, box-shadow !important;
+}
+
+.bg-gradient-to-r.from-blue-600.to-emerald-600 .bg-white\/10 {
+    transform: translateZ(0) !important; /* Force hardware acceleration */
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+    .bg-gradient-to-r.from-blue-600.to-emerald-600 {
+        background: #000000 !important;
+        border: 3px solid #ffffff !important;
+    }
+
+    .bg-gradient-to-r.from-blue-600.to-emerald-600 .bg-white\/10 {
+        background: #ffffff !important;
+        color: #000000 !important;
+        border: 3px solid #000000 !important;
+    }
+
+    .bg-gradient-to-r.from-blue-600.to-emerald-600 svg {
+        color: #000000 !important;
+    }
+
+    .bg-gradient-to-r.from-blue-600.to-emerald-600 input {
+        background: #ffffff !important;
+        color: #000000 !important;
+        border: 3px solid #000000 !important;
+    }
+}
+
+/* ========================================
+   VIEW DETAILS BUTTONS - COMPREHENSIVE ENHANCEMENT
+   ======================================== */
+
+/* View Details Buttons - Blue Gradient Theme */
+.view-details-btn.bg-blue-600 {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3) !important;
+    border: 1px solid rgba(59, 130, 246, 0.2) !important;
+}
+
+.view-details-btn.bg-blue-600:hover {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4) !important;
+    border: 1px solid rgba(59, 130, 246, 0.4) !important;
+}
+
+/* Dark Mode - View Details Buttons */
+.dark .view-details-btn.bg-blue-600 {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4) !important;
+    border: 1px solid rgba(59, 130, 246, 0.3) !important;
+    color: #ffffff !important;
+}
+
+.dark .view-details-btn.bg-blue-600:hover {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+    box-shadow: 0 8px 30px rgba(59, 130, 246, 0.5) !important;
+    border: 1px solid rgba(59, 130, 246, 0.5) !important;
+}
+
+/* Quiz Modal View Details Buttons - Blue Theme */
+.bg-gradient-to-r.from-emerald-500.to-blue-600 {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3) !important;
+}
+
+.bg-gradient-to-r.from-emerald-500.to-blue-600:hover {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4) !important;
+}
+
+/* Dark Mode - Quiz Modal Buttons */
+.dark .bg-gradient-to-r.from-emerald-500.to-blue-600 {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4) !important;
+    color: #ffffff !important;
+}
+
+.dark .bg-gradient-to-r.from-emerald-500.to-blue-600:hover {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+    box-shadow: 0 8px 30px rgba(59, 130, 246, 0.5) !important;
+}
+
+/* ========================================
+   WANT TO SEE MORE OPPORTUNITIES SECTION - ENHANCEMENT
+   ======================================== */
+
+/* Browse All Listings Button - Blue Gradient Theme */
+a[href="/marketplace/listings.html"].bg-blue-600 {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3) !important;
+    border: 1px solid rgba(59, 130, 246, 0.2) !important;
+}
+
+a[href="/marketplace/listings.html"].bg-blue-600:hover {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+    box-shadow: 0 8px 30px rgba(59, 130, 246, 0.4) !important;
+    border: 1px solid rgba(59, 130, 246, 0.4) !important;
+}
+
+/* Dark Mode - Browse All Listings Button */
+.dark a[href="/marketplace/listings.html"].bg-blue-600 {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+    box-shadow: 0 4px 25px rgba(59, 130, 246, 0.4) !important;
+    border: 1px solid rgba(59, 130, 246, 0.3) !important;
+    color: #ffffff !important;
+}
+
+.dark a[href="/marketplace/listings.html"].bg-blue-600:hover {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+    box-shadow: 0 8px 35px rgba(59, 130, 246, 0.5) !important;
+    border: 1px solid rgba(59, 130, 246, 0.5) !important;
+}
+
+/* Get Started Free Button - Blue Theme */
+a[href="/auth/register.html"].bg-emerald-600 {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3) !important;
+    border: 1px solid rgba(59, 130, 246, 0.2) !important;
+}
+
+a[href="/auth/register.html"].bg-emerald-600:hover {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4) !important;
+    border: 1px solid rgba(59, 130, 246, 0.4) !important;
+}
+
+/* Dark Mode - Get Started Free Button */
+.dark a[href="/auth/register.html"].bg-emerald-600 {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4) !important;
+    border: 1px solid rgba(59, 130, 246, 0.3) !important;
+    color: #ffffff !important;
+}
+
+.dark a[href="/auth/register.html"].bg-emerald-600:hover {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+    box-shadow: 0 8px 30px rgba(59, 130, 246, 0.5) !important;
+    border: 1px solid rgba(59, 130, 246, 0.5) !important;
+}
+
+/* Unlock Premium Features Section - Blue Theme */
+#signup-prompt.bg-emerald-50 {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0.15) 100%) !important;
+    border-color: rgba(59, 130, 246, 0.3) !important;
+}
+
+.dark #signup-prompt.bg-emerald-50 {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0.2) 100%) !important;
+    border-color: rgba(59, 130, 246, 0.4) !important;
+}
+
+#signup-prompt .text-emerald-600,
+#signup-prompt .text-emerald-700,
+#signup-prompt .text-emerald-800 {
+    color: #3b82f6 !important;
+}
+
+.dark #signup-prompt .text-emerald-600,
+.dark #signup-prompt .text-emerald-700,
+.dark #signup-prompt .text-emerald-800 {
+    color: #60a5fa !important;
+}
+
+#signup-prompt .text-emerald-200,
+#signup-prompt .text-emerald-300 {
+    color: #60a5fa !important;
+}
+
+.dark #signup-prompt .text-emerald-200,
+.dark #signup-prompt .text-emerald-300 {
+    color: #93c5fd !important;
+}
+
+/* ========================================
+   BUSINESS TOOLS SECTION - COMPREHENSIVE ENHANCEMENT
+   ======================================== */
+
+/* Business Valuation Calculator - Blue Theme */
+.bg-gradient-to-r.from-blue-500.to-cyan-600 {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3) !important;
+}
+
+.bg-gradient-to-r.from-blue-500.to-cyan-600:hover {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+    box-shadow: 0 8px 30px rgba(59, 130, 246, 0.4) !important;
+}
+
+/* SBA Loan Calculator - Blue Theme */
+.bg-gradient-to-r.from-emerald-500.to-teal-600 {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3) !important;
+}
+
+.bg-gradient-to-r.from-emerald-500.to-teal-600:hover {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+    box-shadow: 0 8px 30px rgba(59, 130, 246, 0.4) !important;
+}
+
+/* DFW Market Report - Blue Theme */
+.bg-gradient-to-r.from-purple-500.to-pink-600 {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3) !important;
+}
+
+.bg-gradient-to-r.from-purple-500.to-pink-600:hover {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+    box-shadow: 0 8px 30px rgba(59, 130, 246, 0.4) !important;
+}
+
+/* Dark Mode - Business Tools Buttons */
+.dark .bg-gradient-to-r.from-blue-500.to-cyan-600,
+.dark .bg-gradient-to-r.from-emerald-500.to-teal-600,
+.dark .bg-gradient-to-r.from-purple-500.to-pink-600 {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+    box-shadow: 0 4px 25px rgba(59, 130, 246, 0.4) !important;
+    border: 1px solid rgba(59, 130, 246, 0.3) !important;
+    color: #ffffff !important;
+}
+
+.dark .bg-gradient-to-r.from-blue-500.to-cyan-600:hover,
+.dark .bg-gradient-to-r.from-emerald-500.to-teal-600:hover,
+.dark .bg-gradient-to-r.from-purple-500.to-pink-600:hover {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+    box-shadow: 0 8px 35px rgba(59, 130, 246, 0.5) !important;
+    border: 1px solid rgba(59, 130, 246, 0.5) !important;
+}
+
+/* Business Tools Icon Containers - Blue Theme */
+.bg-gradient-to-br.from-blue-400.via-blue-500.to-cyan-600,
+.bg-gradient-to-br.from-emerald-400.via-emerald-500.to-teal-600,
+.bg-gradient-to-br.from-purple-400.via-purple-500.to-pink-600 {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3) !important;
+}
+
+/* Dark Mode - Business Tools Icon Containers */
+.dark .bg-gradient-to-br.from-blue-400.via-blue-500.to-cyan-600,
+.dark .bg-gradient-to-br.from-emerald-400.via-emerald-500.to-teal-600,
+.dark .bg-gradient-to-br.from-purple-400.via-purple-500.to-pink-600 {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4) !important;
+    border: 1px solid rgba(59, 130, 246, 0.3) !important;
+}
+
+/* Business Tools SVG Icons */
+.bg-gradient-to-br.from-blue-400.via-blue-500.to-cyan-600 svg,
+.bg-gradient-to-br.from-emerald-400.via-emerald-500.to-teal-600 svg,
+.bg-gradient-to-br.from-purple-400.via-purple-500.to-pink-600 svg {
+    color: #ffffff !important;
+    fill: currentColor !important;
+}
+
+/* Dark Mode - Business Tools SVG Icons */
+.dark .bg-gradient-to-br.from-blue-400.via-blue-500.to-cyan-600 svg,
+.dark .bg-gradient-to-br.from-emerald-400.via-emerald-500.to-teal-600 svg,
+.dark .bg-gradient-to-br.from-purple-400.via-purple-500.to-pink-600 svg {
+    color: #ffffff !important;
+    fill: currentColor !important;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3)) !important;
+}
+
+/* Business Tools Checkmark Icons - Blue Theme */
+.text-emerald-500 {
+    color: #3b82f6 !important;
+}
+
+.dark .text-emerald-500 {
+    color: #60a5fa !important;
+}
+
+/* Business Tools Hover Text Colors - Blue Theme */
+.group-hover\:text-blue-600,
+.group-hover\:text-emerald-600,
+.group-hover\:text-purple-600 {
+    transition: color 0.3s ease !important;
+}
+
+.group:hover .group-hover\:text-blue-600,
+.group:hover .group-hover\:text-emerald-600,
+.group:hover .group-hover\:text-purple-600 {
+    color: #3b82f6 !important;
+}
+
+.dark .group:hover .group-hover\:text-blue-600,
+.dark .group:hover .group-hover\:text-emerald-600,
+.dark .group:hover .group-hover\:text-purple-600 {
+    color: #60a5fa !important;
+}
+
+/* Progressive Disclosure Buttons - Blue Theme */
+.border-2.border-blue-500,
+.border-2.border-emerald-500,
+.border-2.border-purple-500 {
+    border-color: #3b82f6 !important;
+}
+
+.text-blue-600.dark\:text-blue-400,
+.text-emerald-600.dark\:text-emerald-400,
+.text-purple-600.dark\:text-purple-400 {
+    color: #3b82f6 !important;
+}
+
+.dark .text-blue-600.dark\:text-blue-400,
+.dark .text-emerald-600.dark\:text-emerald-400,
+.dark .text-purple-600.dark\:text-purple-400 {
+    color: #60a5fa !important;
+}
+
+.hover\:bg-blue-50,
+.hover\:bg-emerald-50,
+.hover\:bg-purple-50 {
+    transition: background-color 0.3s ease !important;
+}
+
+.hover\:bg-blue-50:hover,
+.hover\:bg-emerald-50:hover,
+.hover\:bg-purple-50:hover {
+    background-color: rgba(59, 130, 246, 0.1) !important;
+}
+
+.dark .hover\:bg-blue-50:hover,
+.dark .hover\:bg-emerald-50:hover,
+.dark .hover\:bg-purple-50:hover {
+    background-color: rgba(59, 130, 246, 0.15) !important;
+}
+
+/* Free Resources Section Badge - Blue Theme */
+.bg-emerald-100.dark\:bg-emerald-900\/30 {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0.2) 100%) !important;
+    border: 1px solid rgba(59, 130, 246, 0.3) !important;
+}
+
+.dark .bg-emerald-100.dark\:bg-emerald-900\/30 {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(59, 130, 246, 0.25) 100%) !important;
+    border: 1px solid rgba(59, 130, 246, 0.4) !important;
+}
+
+.text-emerald-800.dark\:text-emerald-200 {
+    color: #2563eb !important;
+}
+
+.dark .text-emerald-800.dark\:text-emerald-200 {
+    color: #93c5fd !important;
+}
+
+/* Accessibility Enhancements */
+.view-details-btn:focus-visible,
+a[href="/marketplace/listings.html"]:focus-visible,
+a[href="/auth/register.html"]:focus-visible {
+    outline: 2px solid #3b82f6 !important;
+    outline-offset: 2px !important;
+}
+
+/* Performance Optimizations */
+.view-details-btn,
+.bg-gradient-to-r.from-blue-500.to-cyan-600,
+.bg-gradient-to-r.from-emerald-500.to-teal-600,
+.bg-gradient-to-r.from-purple-500.to-pink-600 {
+    will-change: transform, opacity, box-shadow !important;
+    transform: translateZ(0) !important; /* Force hardware acceleration */
+}
+
+/* ========================================
+   ICON WEIGHT STANDARDIZATION - COMPREHENSIVE ENHANCEMENT
+   ======================================== */
+
+/* Global SVG Icon Stroke Weight Optimization */
+svg[stroke="currentColor"] path[stroke-width="2"] {
+    stroke-width: 1.5 !important;
+}
+
+/* Specific Icon Size Optimizations */
+
+/* Small Icons (w-4 h-4) - Lighter stroke for better visibility */
+.w-4.h-4 svg path[stroke-width="2"] {
+    stroke-width: 1.25 !important;
+}
+
+/* Medium Icons (w-5 h-5, w-6 h-6) - Standard optimized stroke */
+.w-5.h-5 svg path[stroke-width="2"],
+.w-6.h-6 svg path[stroke-width="2"] {
+    stroke-width: 1.5 !important;
+}
+
+/* Large Icons (w-8 h-8, w-10 h-10, w-12 h-12) - Slightly heavier for clarity */
+.w-8.h-8 svg path[stroke-width="2"],
+.w-10.h-10 svg path[stroke-width="2"],
+.w-12.h-12 svg path[stroke-width="2"] {
+    stroke-width: 1.75 !important;
+}
+
+/* Extra Large Icons (w-16 h-16, w-20 h-20) - Maintain weight for impact */
+.w-16.h-16 svg path[stroke-width="2"],
+.w-20.h-20 svg path[stroke-width="2"] {
+    stroke-width: 2 !important;
+}
+
+/* Theme Toggle Icons - Maintain optimal weight */
+#theme-toggle svg path[stroke-width="2"],
+#mobile-theme-toggle svg path[stroke-width="2"],
+#theme-toggle-sun path[stroke-width="2"],
+#theme-toggle-moon path[stroke-width="2"] {
+    stroke-width: 1.5 !important;
+}
+
+/* Navigation Icons - Optimized for clarity */
+.main-navigation svg path[stroke-width="2"] {
+    stroke-width: 1.5 !important;
+}
+
+/* Button Icons - Enhanced visibility */
+button svg path[stroke-width="2"],
+a svg path[stroke-width="2"] {
+    stroke-width: 1.5 !important;
+}
+
+/* Hero Section Icons - Balanced visibility */
+.hero-section svg path[stroke-width="2"] {
+    stroke-width: 1.75 !important;
+}
+
+/* Feature Icons - Optimized for recognition */
+.feature-icon svg path[stroke-width="2"],
+.trust-badge-enhanced svg path[stroke-width="2"] {
+    stroke-width: 1.5 !important;
+}
+
+/* How It Works Section Icons - Clear and readable */
+.how-it-works svg path[stroke-width="2"] {
+    stroke-width: 1.75 !important;
+}
+
+/* Why Choose Section Icons - Professional appearance */
+.why-choose svg path[stroke-width="2"] {
+    stroke-width: 1.75 !important;
+}
+
+/* Featured Listings Icons - Functional clarity */
+.featured-listings svg path[stroke-width="2"] {
+    stroke-width: 1.5 !important;
+}
+
+/* Business Tools Icons - Technical precision */
+.business-tools svg path[stroke-width="2"] {
+    stroke-width: 1.75 !important;
+}
+
+/* Premium Resources Icons - Premium feel */
+.premium-resources svg path[stroke-width="2"] {
+    stroke-width: 1.5 !important;
+}
+
+/* Analytics Section Icons - Data clarity */
+.analytics-features svg path[stroke-width="2"] {
+    stroke-width: 1.5 !important;
+}
+
+/* Modal Icons - Clear interaction */
+.modal svg path[stroke-width="2"] {
+    stroke-width: 1.5 !important;
+}
+
+/* Footer Icons - Subtle but visible */
+footer svg path[stroke-width="2"] {
+    stroke-width: 1.25 !important;
+}
+
+/* Testimonial Navigation Icons - Clear controls */
+#testimonials-prev svg path[stroke-width="2"],
+#testimonials-next svg path[stroke-width="2"] {
+    stroke-width: 1.5 !important;
+}
+
+/* Dashboard Preview Icons - Professional clarity */
+.dashboard-preview svg path[stroke-width="2"] {
+    stroke-width: 1.5 !important;
+}
+
+/* Contact and Action Icons - Clear call-to-action */
+.contact-seller-btn svg path[stroke-width="2"],
+.save-favorite svg path[stroke-width="2"] {
+    stroke-width: 1.5 !important;
+}
+
+/* Checkmark Icons - Clear confirmation */
+svg path[d*="M5 13l4 4L19 7"] {
+    stroke-width: 1.5 !important;
+}
+
+/* Arrow Icons - Clear direction */
+svg path[d*="M13 7l5 5m0 0l-5 5m5-5H6"],
+svg path[d*="M15 19l-7-7 7-7"],
+svg path[d*="M9 5l7 7-7 7"] {
+    stroke-width: 1.5 !important;
+}
+
+/* Search Icons - Clear functionality */
+svg path[d*="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"] {
+    stroke-width: 1.5 !important;
+}
+
+/* Location Icons - Clear identification */
+svg path[d*="M17.657 16.657L13.414 20.9"] {
+    stroke-width: 1.5 !important;
+}
+
+/* Message/Chat Icons - Clear communication */
+svg path[d*="M8 12h.01M12 12h.01M16 12h.01"] {
+    stroke-width: 1.5 !important;
+}
+
+/* Heart/Favorite Icons - Clear emotion */
+svg path[d*="M4.318 6.318a4.5 4.5 0 000 6.364"] {
+    stroke-width: 1.5 !important;
+}
+
+/* Clock/Time Icons - Clear timing */
+svg path[d*="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"] {
+    stroke-width: 1.5 !important;
+}
+
+/* User/Profile Icons - Clear identity */
+svg path[d*="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"] {
+    stroke-width: 1.5 !important;
+}
+
+/* Chart/Analytics Icons - Clear data visualization */
+svg path[d*="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10"] {
+    stroke-width: 1.5 !important;
+}
+
+/* Lightbulb/Idea Icons - Clear innovation */
+svg path[d*="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707"] {
+    stroke-width: 1.5 !important;
+}
+
+/* Dollar/Money Icons - Clear financial */
+svg path[d*="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2"] {
+    stroke-width: 1.5 !important;
+}
+
+/* Lock/Security Icons - Clear protection */
+svg path[d*="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2-2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"] {
+    stroke-width: 1.5 !important;
+}
+
+/* Close/X Icons - Clear dismissal */
+svg path[d*="M6 18L18 6M6 6l12 12"] {
+    stroke-width: 1.5 !important;
+}
+
+/* Star Icons - Clear rating */
+svg path[d*="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674"] {
+    stroke-width: 1.5 !important;
+}
+
+/* Enhanced Icon Visibility in Dark Mode */
+.dark svg path {
+    stroke-width: inherit !important;
+}
+
+/* High Contrast Mode - Heavier strokes for accessibility */
+@media (prefers-contrast: high) {
+    svg path[stroke-width] {
+        stroke-width: 2.5 !important;
+    }
+}
+
+/* Reduced Motion - Maintain stroke weights */
+@media (prefers-reduced-motion: reduce) {
+    svg path {
+        stroke-width: inherit !important;
+    }
+}
+
+/* Dark Mode - Specific icon color overrides */
+.dark svg.text-emerald-400,
+.dark svg.text-emerald-500,
+.dark svg.text-emerald-600 {
+    color: #ffffff !important;
+    fill: currentColor !important;
+}
+
+.dark svg.text-blue-400,
+.dark svg.text-blue-500,
+.dark svg.text-blue-600 {
+    color: #ffffff !important;
+    fill: currentColor !important;
+}
+
+.dark svg.text-purple-400,
+.dark svg.text-purple-500,
+.dark svg.text-purple-600 {
+    color: #ffffff !important;
+    fill: currentColor !important;
+}
+
+.dark svg.text-orange-400,
+.dark svg.text-orange-500,
+.dark svg.text-orange-600 {
+    color: #ffffff !important;
+    fill: currentColor !important;
+}
+
+/* Dark Mode - Checkmark icons specifically */
+.dark svg.text-emerald-500 {
+    color: #60a5fa !important; /* Blue theme for checkmarks in dark mode */
+    fill: currentColor !important;
+}
+
+/* Dark Mode - Social proof and badge icons */
+.dark .bg-emerald-100 svg,
+.dark .bg-blue-100 svg,
+.dark .bg-purple-100 svg,
+.dark .bg-orange-100 svg {
+    color: #ffffff !important;
+    fill: currentColor !important;
+}
+
+/* Dark Mode - Button icons */
+.dark button svg,
+.dark a svg {
+    color: inherit !important;
+    fill: currentColor !important;
+}
+
+/* Dark Mode - Navigation icons */
+.dark nav svg {
+    color: inherit !important;
+    fill: currentColor !important;
+}
+
+/* Dark Mode - Modal and overlay icons */
+.dark .modal svg,
+.dark .overlay svg {
+    color: inherit !important;
+    fill: currentColor !important;
+}
+
+/* Dark Mode Social Proof */
+.dark #how-it-works-section .text-emerald-500 {
+    color: #60a5fa !important;
+}
+
+/* Performance Optimizations */
+#how-it-works-section * {
+    will-change: transform, opacity, box-shadow !important;
+}
+
+#how-it-works-section .group {
+    transform: translateZ(0) !important; /* Force hardware acceleration */
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+    #how-it-works-section .bg-gradient-to-br.from-blue-500,
+    #how-it-works-section .bg-gradient-to-br.from-emerald-400,
+    #how-it-works-section .bg-gradient-to-br.from-purple-500,
+    #how-it-works-section .bg-gradient-to-br.from-orange-500 {
+        background: #000000 !important;
+        border: 3px solid #ffffff !important;
+    }
+
+    #how-it-works-section svg {
+        color: #ffffff !important;
+    }
+
+    #how-it-works-section .bg-blue-100,
+    #how-it-works-section .bg-emerald-100,
+    #how-it-works-section .bg-purple-100,
+    #how-it-works-section .bg-orange-100 {
+        background: #ffffff !important;
+        border: 3px solid #000000 !important;
+    }
+
+    #how-it-works-section .text-blue-600,
+    #how-it-works-section .text-emerald-700,
+    #how-it-works-section .text-purple-600,
+    #how-it-works-section .text-orange-600 {
+        color: #000000 !important;
+    }
+}
+
+/* Comprehensive Light Mode Visibility Fixes */
+
+/* Light mode section backgrounds and text */
+.bg-white .text-white,
+.bg-slate-50 .text-white,
+.bg-gray-50 .text-white {
+    color: #1e293b !important; /* Dark text on light backgrounds */
+}
+
+.bg-white .text-slate-300,
+.bg-slate-50 .text-slate-300,
+.bg-gray-50 .text-slate-300 {
+    color: #64748b !important; /* Muted dark text on light backgrounds */
+}
+
+/* Light mode button and link visibility */
+.bg-white .text-blue-400,
+.bg-slate-50 .text-blue-400,
+.bg-gray-50 .text-blue-400 {
+    color: #3b82f6 !important; /* Darker blue for better contrast */
+}
+
+.bg-white .text-emerald-400,
+.bg-slate-50 .text-emerald-400,
+.bg-gray-50 .text-emerald-400 {
+    color: #059669 !important; /* Darker emerald for better contrast */
+}
+
+.bg-white .text-purple-400,
+.bg-slate-50 .text-purple-400,
+.bg-gray-50 .text-purple-400 {
+    color: #7c3aed !important; /* Darker purple for better contrast */
+}
+
+/* Light mode icon visibility in feature cards */
+.bg-white svg.text-emerald-500,
+.bg-slate-50 svg.text-emerald-500,
+.bg-gray-50 svg.text-emerald-500 {
+    color: #059669 !important; /* Ensure checkmark icons are visible */
+}
+
+/* Light mode step number badges */
+.bg-white .text-blue-600,
+.bg-slate-50 .text-blue-600,
+.bg-gray-50 .text-blue-600 {
+    color: #2563eb !important;
+}
+
+.bg-white .text-emerald-700,
+.bg-slate-50 .text-emerald-700,
+.bg-gray-50 .text-emerald-700 {
+    color: #047857 !important;
+}
+
+.bg-white .text-purple-600,
+.bg-slate-50 .text-purple-600,
+.bg-gray-50 .text-purple-600 {
+    color: #7c3aed !important;
+}
+
+.bg-white .text-orange-600,
+.bg-slate-50 .text-orange-600,
+.bg-gray-50 .text-orange-600 {
+    color: #ea580c !important;
+}
+
+/* Light mode hover states */
+.bg-white .group-hover\:text-blue-300,
+.bg-slate-50 .group-hover\:text-blue-300,
+.bg-gray-50 .group-hover\:text-blue-300 {
+    color: #1d4ed8 !important;
+}
+
+.bg-white .group-hover\:text-emerald-300,
+.bg-slate-50 .group-hover\:text-emerald-300,
+.bg-gray-50 .group-hover\:text-emerald-300 {
+    color: #047857 !important;
+}
+
+.bg-white .group-hover\:text-purple-300,
+.bg-slate-50 .group-hover\:text-purple-300,
+.bg-gray-50 .group-hover\:text-purple-300 {
+    color: #6d28d9 !important;
+}
+
+/* Ensure proper contrast for all interactive elements in light mode */
+.bg-white button,
+.bg-slate-50 button,
+.bg-gray-50 button {
+    color: #1e293b;
+}
+
+.bg-white a,
+.bg-slate-50 a,
+.bg-gray-50 a {
+    color: #3b82f6;
+}
+
+.bg-white a:hover,
+.bg-slate-50 a:hover,
+.bg-gray-50 a:hover {
+    color: #2563eb;
+}
+
+/* Trust badges in light sections */
+.bg-white .trust-badge-enhanced span,
+.bg-slate-50 .trust-badge-enhanced span,
+.bg-gray-50 .trust-badge-enhanced span {
+    color: #1e293b !important;
+}
+
+.bg-white .trust-badge-enhanced svg,
+.bg-slate-50 .trust-badge-enhanced svg,
+.bg-gray-50 .trust-badge-enhanced svg {
+    color: #3b82f6 !important;
+}
+
+/* Feature card buttons in light sections */
+.bg-white .feature-card-enhanced button,
+.bg-slate-50 .feature-card-enhanced button,
+.bg-gray-50 .feature-card-enhanced button {
+    color: white !important; /* Keep white text on blue gradient buttons */
+}
+
+/* CTA buttons should maintain white text on blue backgrounds */
+.cta-primary-enhanced,
+.cta-secondary-enhanced {
+    color: white !important;
+}
+
+/* Role selection cards - these are in hero section with dark background, so keep white text */
+.role-selection-card .text-white {
+    color: white !important;
+}
+
+/* But if role cards appear in light sections, override */
+.bg-white .role-selection-card .text-white,
+.bg-slate-50 .role-selection-card .text-white,
+.bg-gray-50 .role-selection-card .text-white {
+    color: #1e293b !important;
+}
+
+.bg-white .role-selection-card .text-slate-300,
+.bg-slate-50 .role-selection-card .text-slate-300,
+.bg-gray-50 .role-selection-card .text-slate-300 {
+    color: #64748b !important;
+}
+
+/* Ensure step number badges are visible in light mode */
+.bg-white .bg-blue-100,
+.bg-slate-50 .bg-blue-100,
+.bg-gray-50 .bg-blue-100 {
+    background-color: #dbeafe !important;
+}
+
+.bg-white .bg-emerald-100,
+.bg-slate-50 .bg-emerald-100,
+.bg-gray-50 .bg-emerald-100 {
+    background-color: #d1fae5 !important;
+}
+
+.bg-white .bg-purple-100,
+.bg-slate-50 .bg-purple-100,
+.bg-gray-50 .bg-purple-100 {
+    background-color: #ede9fe !important;
+}
+
+.bg-white .bg-orange-100,
+.bg-slate-50 .bg-orange-100,
+.bg-gray-50 .bg-orange-100 {
+    background-color: #fed7aa !important;
+}
+
+/* ===== HOMEPAGE HERO SECTION CRITICAL FIXES ===== */
+
+/* CRITICAL FIX: Enhanced Animated Hero Text Styling */
+#animated-hero-text {
+    /* Ensure element is always visible and properly transitioned */
+    opacity: 1 !important;
+    transform: translateY(0px) scale(1) !important;
+    filter: blur(0px) !important;
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* CRITICAL FIX: CSS-based animation classes to replace inline styles */
+#animated-hero-text.hero-text-fade-out {
+    opacity: 0 !important;
+    transform: translateY(30px) scale(0.9) !important;
+    filter: blur(2px) !important;
+}
+
+#animated-hero-text.hero-text-fade-in {
+    opacity: 1 !important;
+    transform: translateY(0px) scale(1) !important;
+    filter: blur(0px) !important;
+}
+
+#animated-hero-text h1 {
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.8), 0 2px 4px rgba(0, 0, 0, 0.6), 0 1px 2px rgba(0, 0, 0, 0.4) !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.025em !important;
+    color: #ffffff !important;
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* Enhanced Hero Section Background Overlay */
+#hero-section .bg-black\/85 {
+    background-color: rgba(0, 0, 0, 0.85) !important;
+}
+
+/* Enhanced Button Styling with Blue Gradient Theme */
+#hero-search-btn,
+#browse-businesses-btn {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+    border: none !important;
+    color: white !important;
+    font-weight: 600 !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+#hero-search-btn:hover,
+#browse-businesses-btn:hover {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+    transform: translateY(-2px) scale(1.02) !important;
+    box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3), 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+}
+
+#sell-business-btn {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+    border: none !important;
+    color: white !important;
+    font-weight: 600 !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+#sell-business-btn:hover {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
+    transform: translateY(-2px) scale(1.02) !important;
+    box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3), 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* CRITICAL FIX: Enhanced Search Form Visibility */
+#hero-section .bg-white {
+    background: rgba(255, 255, 255, 0.98) !important;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    /* Ensure search form is always visible */
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: block !important;
+}
+
+/* Enhanced Input Styling */
+#location-search,
+#industry-select {
+    background-color: rgba(255, 255, 255, 0.95) !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    color: #374151 !important;
+}
+
+#location-search:focus,
+#industry-select:focus {
+    outline: none !important;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2) !important;
+    border-color: #3b82f6 !important;
+    background-color: rgba(255, 255, 255, 1) !important;
+}
+
+#location-search::placeholder {
+    color: #6b7280 !important;
+}
+
+/* Enhanced Statistics Cards */
+#hero-section .bg-white\/10 {
+    background: rgba(255, 255, 255, 0.15) !important;
+    -webkit-backdrop-filter: blur(15px) !important;
+    backdrop-filter: blur(15px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+}
+
+#hero-section .bg-white\/10:hover {
+    background: rgba(255, 255, 255, 0.22) !important;
+    transform: translateY(-3px) !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Mobile Responsiveness Enhancements */
+@media (max-width: 768px) {
+    #animated-hero-text h1 {
+        font-size: 2rem !important;
+        line-height: 1.2 !important;
+    }
+
+    #hero-section .bg-white {
+        margin: 0 1rem !important;
+        padding: 1rem !important;
+    }
+
+    #location-search,
+    #industry-select,
+    #hero-search-btn,
+    #browse-businesses-btn,
+    #sell-business-btn {
+        padding: 1rem !important;
+        font-size: 1rem !important;
+        min-height: 44px !important;
+    }
+}
+
+/* Accessibility Improvements */
+@media (prefers-reduced-motion: reduce) {
+    #animated-hero-text {
+        transition: none !important;
+    }
+
+    #animated-hero-text h1 {
+        animation: none !important;
+    }
+}
+
+/* Focus Indicators for Accessibility */
+#hero-search-btn:focus-visible,
+#browse-businesses-btn:focus-visible,
+#sell-business-btn:focus-visible,
+#location-search:focus-visible,
+#industry-select:focus-visible {
+    outline: 2px solid #3b82f6 !important;
+    outline-offset: 2px !important;
+}
+
+/* CRITICAL FIX: Performance Optimization to Prevent Flash */
+#animated-hero-text {
+    /* Force hardware acceleration */
+    will-change: transform, opacity, filter !important;
+    transform: translateZ(0) !important;
+    /* Prevent layout shifts */
+    contain: layout style paint !important;
+}
+
+/* Prevent flash during page load */
+#hero-section {
+    /* Ensure hero section is immediately visible */
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Prevent any initial hiding that could cause flash */
+#animated-hero-text h1 {
+    /* Ensure text is immediately visible */
+    opacity: 1 !important;
+    visibility: visible !important;
 }

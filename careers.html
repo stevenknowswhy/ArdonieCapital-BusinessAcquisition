@@ -17,32 +17,6 @@
 
     <!-- Theme System -->
     <script>
-        // Initialize tailwind config with theme support
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        primary: {
-                            light: '#3B82F6',
-                            DEFAULT: '#2563EB',
-                            dark: '#1D4ED8'
-                        },
-                        secondary: {
-                            light: '#F8FAFC',
-                            DEFAULT: '#E2E8F0',
-                            dark: '#64748B'
-                        },
-                        accent: {
-                            light: '#10B981',
-                            DEFAULT: '#059669',
-                            dark: '#047857'
-                        }
-                    }
-                }
-            }
-        };
-
         // Apply saved theme preference immediately to prevent flash
         const savedTheme = localStorage.getItem('theme');
         const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -238,7 +212,7 @@
         </section>
 
         <!-- CTA Section -->
-        <section class="py-16 bg-gradient-to-br from-primary to-primary-dark dark:from-primary-dark to-primary">
+        <section class="py-16 bg-gradient-to-br from-primary to-primary-dark dark:from-primary-dark dark:to-primary">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="max-w-6xl mx-auto">
                     <div class="grid lg:grid-cols-2 gap-12 items-center">
@@ -246,9 +220,9 @@
                             <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Ready to Join Our Team?</h2>
                             <p class="text-xl text-blue-100 mb-8">Send us your resume and let's discuss how you can contribute to our mission of revolutionizing auto shop transactions.</p>
                             <div class="flex flex-col sm:flex-row gap-4">
-                                <a href="contact.html" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-primary-dark bg-white hover:bg-gray-50 shadow-sm hover:shadow transition-all">
+                                <button onclick="scrollToJobListings()" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-primary-dark bg-white hover:bg-gray-50 shadow-sm hover:shadow transition-all">
                                     Apply Now
-                                </a>
+                                </button>
                                 <a href="about.html" class="inline-flex items-center px-6 py-3 border border-white text-base font-medium rounded-md text-white hover:bg-white hover:text-primary-dark transition-all">
                                     Learn More About Us
                                 </a>
@@ -267,6 +241,13 @@
 
     <!-- Load common utilities and careers functionality -->
     <script src="assets/js/common.js" defer></script>
+
+    <!-- Security System -->
+    <script src="assets/js/security-manager.js" defer></script>
+    <script src="assets/js/security-audit.js" defer></script>
+
+    <!-- Job Management System -->
+    <script src="assets/js/job-management-supabase.js" defer></script>
     <script src="assets/js/careers.js" defer></script>
 
 

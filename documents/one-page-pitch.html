@@ -1,17 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="dns-prefetch" href="//cdn.tailwindcss.com">
+    <meta charset="UTF-8">
+
     <link rel="dns-prefetch" href="//fonts.googleapis.com">
     <link rel="dns-prefetch" href="//images.unsplash.com">
-    <link rel="preload" href="https://cdn.tailwindcss.com" as="script">
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style">
-    <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pilot Program - Ardonie Capital</title>
-    <script src="https://cdn.tailwindcss.com" defer></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-    <link href="../assets/css/common.css" rel="stylesheet" media="print" onload="this.media='all'">
+    <title>One-Page Pitch - Ardonie Capital</title>
+    <meta name="description" content="Professional one-page pitch presentation for BuyMartV1 business acquisition marketplace platform.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+
+    <!-- Tailwind CSS -->
+    <link rel="stylesheet" href="../assets/css/tailwind.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" media="print" onload="this.media='all'" href="../assets/css/common.css">
+
+    <!-- Navigation Styles -->
+    <link rel="stylesheet" href="../components/navigation-styles.css">
+
+    <!-- Security Headers -->
+    <script src="../assets/js/security-headers.js" defer></script>
     <!-- Updated Plotly.js to modern version -->
     <script src="https://cdn.plot.ly/plotly-2.35.2.min.js" defer></script>
     <!-- Theme System Integration -->
@@ -19,31 +31,42 @@
     <!-- AOS (Animate On Scroll) for animations -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" media="print" onload="this.media='all'">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
+    <!-- Theme System -->
     <script>
+        // Initialize tailwind config with theme support
         tailwind.config = {
             darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
                         primary: {
-                            DEFAULT: '#3b82f6',
-                            dark: '#2563eb',
-                            light: '#93c5fd',
+                            light: '#3B82F6',
+                            DEFAULT: '#2563EB',
+                            dark: '#1D4ED8'
                         },
                         secondary: {
-                            DEFAULT: '#64748b',
-                            light: '#f1f5f9',
+                            light: '#F8FAFC',
+                            DEFAULT: '#E2E8F0',
+                            dark: '#64748B'
                         },
                         accent: {
-                            DEFAULT: '#10b981',
-                            dark: '#059669',
+                            light: '#10B981',
+                            DEFAULT: '#059669',
+                            dark: '#047857'
                         }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
+                    }
                 }
             }
+        };
+
+        // Apply saved theme preference immediately to prevent flash
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
         }
     </script>
 
@@ -58,25 +81,9 @@
         .progress-100 { width: 100%; }
     </style>
 </head>
-<body class="font-sans text-slate-800 bg-white dark:bg-slate-900 dark:text-slate-200">
-
-    <!-- Header -->
-    <header class="sticky top-0 z-50 bg-white dark:bg-slate-900 shadow-sm">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center py-4">
-                <div class="flex-shrink-0">
-                    <a href="../index.html" class="flex items-center">
-                        <span class="text-2xl font-bold text-primary-dark dark:text-primary-light">Ardonie Capital</span>
-                    </a>
-                </div>
-                <nav class="hidden md:flex space-x-8">
-                    <a href="../index.html" class="text-slate-600 hover:text-primary-dark dark:text-slate-300 dark:hover:text-primary-light">Home</a>
-                    <a href="../marketplace/listings.html" class="text-slate-600 hover:text-primary-dark dark:text-slate-300 dark:hover:text-primary-light">Browse Listings</a>
-                    <a href="../auth/register.html" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary-dark hover:bg-primary shadow-sm hover:shadow transition-all">Get Started</a>
-                </nav>
-            </div>
-        </div>
-    </header>
+<body class="bg-white dark:bg-slate-900 text-slate-900 dark:text-white">
+    <!-- Navigation Component -->
+    <div id="main-navigation-container"></div>
 
     <main class="min-h-screen">
         <!-- Hero Section with Gradient Background -->
@@ -1184,5 +1191,16 @@
             </div>
         </div>
     </footer>
+
+    <!-- Scripts -->
+    <script src="../components/main-navigation.js"></script>
+    <script>
+        // Initialize navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof ArdonieNavigation !== 'undefined') {
+                ArdonieNavigation.init();
+            }
+        });
+    </script>
 </body>
 </html>

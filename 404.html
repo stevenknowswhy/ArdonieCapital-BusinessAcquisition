@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//images.unsplash.com">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found - Ardonie Capital</title>
+    <meta name="description" content="The page you're looking for doesn't exist. Find your way back to BuyMartV1's business acquisition marketplace.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+    <!-- Tailwind CSS -->
+    <link rel="stylesheet" href="assets/css/tailwind.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" media="print" onload="this.media='all'" href="assets/css/common.css">
+
+    <!-- Navigation Styles -->
+    <link rel="stylesheet" href="components/navigation-styles.css">
+
+    <!-- Security Headers -->
+    <script src="assets/js/security-headers.js" defer></script>
+
+    <!-- Theme System -->
+    <script>
+        // Initialize tailwind config with theme support
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            light: '#3B82F6',
+                            DEFAULT: '#2563EB',
+                            dark: '#1D4ED8'
+                        },
+                        secondary: {
+                            light: '#F8FAFC',
+                            DEFAULT: '#E2E8F0',
+                            dark: '#64748B'
+                        },
+                        accent: {
+                            light: '#10B981',
+                            DEFAULT: '#059669',
+                            dark: '#047857'
+                        }
+                    }
+                }
+            }
+        };
+
+        // Apply saved theme preference immediately to prevent flash
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+</head>
+
+<body class="bg-white dark:bg-slate-900 text-slate-900 dark:text-white">
+    <!-- Navigation Component -->
+    <div id="main-navigation-container"></div>
+
+    <!-- Main Content -->
+    <main class="pt-16 min-h-screen flex items-center justify-center">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div class="text-center max-w-4xl mx-auto">
+                
+                <!-- 404 Visual Element -->
+                <div class="mb-8">
+                    <div class="relative inline-block">
+                        <!-- Large 404 Text -->
+                        <h1 class="text-8xl md:text-9xl font-bold text-primary/20 dark:text-primary/30 select-none">
+                            404
+                        </h1>
+                        
+                        <!-- Business-themed illustration overlay -->
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="w-32 h-32 md:w-40 md:h-40 bg-gradient-to-br from-primary/10 to-accent/10 dark:from-primary/20 dark:to-accent/20 rounded-full flex items-center justify-center">
+                                <svg class="w-16 h-16 md:w-20 md:h-20 text-primary dark:text-primary-light" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Error Message -->
+                <div class="mb-8">
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+                        Oops! Page Not Found
+                    </h2>
+                    <p class="text-lg md:text-xl text-slate-600 dark:text-slate-300 mb-6 max-w-2xl mx-auto">
+                        The business opportunity you're looking for seems to have been acquired already! 
+                        Don't worry, we have plenty more deals waiting for you.
+                    </p>
+                    <p class="text-sm text-slate-500 dark:text-slate-400">
+                        Error Code: 404 - The requested page could not be found.
+                    </p>
+                </div>
+
+                <!-- Search Functionality -->
+                <div class="mb-8 max-w-md mx-auto">
+                    <div class="relative">
+                        <input 
+                            type="text" 
+                            id="search-input"
+                            placeholder="Search for businesses, resources, or pages..."
+                            class="w-full px-4 py-3 pl-12 pr-4 text-slate-900 dark:text-white bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+                        >
+                        <svg class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Navigation Options -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                    
+                    <!-- Return Home -->
+                    <a href="/" class="group bg-primary hover:bg-primary-dark text-white px-6 py-4 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
+                        <div class="flex items-center justify-center mb-2">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                            </svg>
+                        </div>
+                        <span class="text-sm">Return Home</span>
+                    </a>
+
+                    <!-- Marketplace -->
+                    <a href="/marketplace/listings.html" class="group bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white px-6 py-4 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
+                        <div class="flex items-center justify-center mb-2">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                            </svg>
+                        </div>
+                        <span class="text-sm">Browse Listings</span>
+                    </a>
+
+                    <!-- Dashboard -->
+                    <a href="/dashboard/" class="group bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white px-6 py-4 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
+                        <div class="flex items-center justify-center mb-2">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                            </svg>
+                        </div>
+                        <span class="text-sm">My Dashboard</span>
+                    </a>
+
+                    <!-- Contact -->
+                    <a href="/contact.html" class="group bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white px-6 py-4 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
+                        <div class="flex items-center justify-center mb-2">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                            </svg>
+                        </div>
+                        <span class="text-sm">Get Help</span>
+                    </a>
+                </div>
+
+                <!-- Additional Help -->
+                <div class="bg-slate-50 dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700">
+                    <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-3">
+                        Still can't find what you're looking for?
+                    </h3>
+                    <p class="text-slate-600 dark:text-slate-300 mb-4">
+                        Our team is here to help you navigate the business acquisition process.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                        <a href="/contact.html" class="bg-accent hover:bg-accent-dark text-white px-6 py-2 rounded-lg font-medium transition-colors">
+                            Contact Support
+                        </a>
+                        <a href="/free-resources.html" class="border border-accent text-accent hover:bg-accent hover:text-white px-6 py-2 rounded-lg font-medium transition-colors">
+                            Browse Resources
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer-container"></div>
+
+    <!-- Scripts -->
+    <script src="components/main-navigation.js"></script>
+    <script>
+        // Initialize navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof ArdonieNavigation !== 'undefined') {
+                ArdonieNavigation.init();
+            }
+
+            // Simple search functionality
+            const searchInput = document.getElementById('search-input');
+            if (searchInput) {
+                searchInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        const query = this.value.trim();
+                        if (query) {
+                            // Redirect to marketplace with search query
+                            window.location.href = `/marketplace/listings.html?search=${encodeURIComponent(query)}`;
+                        }
+                    }
+                });
+            }
+        });
+
+        // Load footer
+        fetch('components/main-footer.js')
+            .then(response => response.text())
+            .then(script => {
+                eval(script);
+                if (typeof ArdonieFooter !== 'undefined') {
+                    ArdonieFooter.init();
+                }
+            })
+            .catch(error => {
+                console.error('Error loading footer:', error);
+            });
+
+        // Analytics tracking for 404 errors
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'page_view', {
+                page_title: '404 Error',
+                page_location: window.location.href,
+                custom_map: {
+                    'custom_parameter_1': 'error_page'
+                }
+            });
+        }
+    </script>
+</body>
+</html>

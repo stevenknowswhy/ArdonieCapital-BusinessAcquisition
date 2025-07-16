@@ -3,123 +3,130 @@
 // JavaScript template to avoid CORS issues with local development
 
 window.ArdonieNavigation = {
+    // Auto-detect path depth for proper relative path resolution
+    getBasePath: function() {
+        const path = window.location.pathname;
+        const depth = (path.match(/\//g) || []).length - 1;
+        return depth > 0 ? '../'.repeat(depth) : './';
+    },
+
     template: `
-<nav class="bg-white shadow-sm border-b border-slate-200 sticky top-0 z-50" role="navigation" aria-label="Main navigation">
+<nav class="bg-white dark:bg-slate-800 shadow-sm border-b border-slate-200 dark:border-slate-700 sticky top-0 z-50" role="navigation" aria-label="Main navigation">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-16">
             <!-- Logo/Brand -->
             <div class="flex-shrink-0">
-                <a href="/" class="flex items-center space-x-2 text-2xl font-bold text-primary hover:text-primary-dark transition-colors duration-200" aria-label="Ardonie Capital Home">
-                    <span class="text-blue-600">Ardonie Capital</span>
+                <a href="{basePath}index.html" class="flex items-center space-x-2 text-2xl font-bold text-primary hover:text-primary-dark dark:text-primary-light dark:hover:text-primary transition-colors duration-200" aria-label="Ardonie Capital Home">
+                    <span class="text-blue-600 dark:text-blue-400">Ardonie Capital</span>
                 </a>
             </div>
 
             <!-- Desktop Navigation -->
             <div class="hidden lg:flex lg:items-center lg:space-x-8">
                 <!-- Main Navigation Links -->
-                <a href="/" class="text-slate-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors duration-200">Home</a>
+                <a href="{basePath}index.html" id="nav-home-link" class="text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 text-sm font-medium transition-colors duration-200">Home</a>
 
                 <!-- For Buyers -->
                 <div class="relative group">
-                    <button class="flex items-center space-x-1 text-slate-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors duration-200"
+                    <button class="flex items-center space-x-1 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 text-sm font-medium transition-colors duration-200"
                             aria-expanded="false" aria-haspopup="true">
                         <span>For Buyers</span>
                         <svg class="w-4 h-4 transition-transform duration-200 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                         </svg>
                     </button>
-                    <div class="absolute left-0 mt-2 w-56 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                    <div class="absolute left-0 mt-2 w-56 bg-white dark:bg-slate-800 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                         <div class="py-1" role="menu">
-                            <a href="/for-buyers.html" class="block px-4 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150" role="menuitem">Buyer Overview</a>
-                            <a href="/marketplace/listings.html" class="block px-4 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150" role="menuitem">Browse Listings</a>
-                            <a href="/express-deal.html" class="block px-4 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150" role="menuitem">Express Deal Program</a>
-                            <a href="/dashboard/buyer-dashboard.html" class="block px-4 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150" role="menuitem">Buyer Dashboard</a>
+                            <a href="{basePath}for-buyers.html" class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-150" role="menuitem">Buyer Overview</a>
+                            <a href="{basePath}marketplace/listings.html" class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-150" role="menuitem">Browse Listings</a>
+                            <a href="{basePath}express-deal.html" class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-150" role="menuitem">Express Deal Program</a>
+                            <a href="{basePath}dashboard/buyer-dashboard.html" class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-150" role="menuitem">Buyer Dashboard</a>
                         </div>
                     </div>
                 </div>
 
                 <!-- For Sellers -->
                 <div class="relative group">
-                    <button class="flex items-center space-x-1 text-slate-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors duration-200"
+                    <button class="flex items-center space-x-1 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 text-sm font-medium transition-colors duration-200"
                             aria-expanded="false" aria-haspopup="true">
                         <span>For Sellers</span>
                         <svg class="w-4 h-4 transition-transform duration-200 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                         </svg>
                     </button>
-                    <div class="absolute left-0 mt-2 w-56 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                    <div class="absolute left-0 mt-2 w-56 bg-white dark:bg-slate-800 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                         <div class="py-1" role="menu">
-                            <a href="/for-sellers.html" class="block px-4 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150" role="menuitem">Seller Overview</a>
-                            <a href="/marketplace/list-business.html" class="block px-4 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150" role="menuitem">List Your Business</a>
-                            <a href="/dashboard/seller-dashboard.html" class="block px-4 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150" role="menuitem">Seller Dashboard</a>
+                            <a href="{basePath}for-sellers.html" class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-150" role="menuitem">Seller Overview</a>
+                            <a href="{basePath}marketplace/list-business.html" class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-150" role="menuitem">List Your Business</a>
+                            <a href="{basePath}dashboard/seller-dashboard.html" class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-150" role="menuitem">Seller Dashboard</a>
                         </div>
                     </div>
                 </div>
 
                 <!-- For Vendors -->
                 <div class="relative group">
-                    <button class="flex items-center space-x-1 text-slate-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors duration-200"
+                    <button class="flex items-center space-x-1 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 text-sm font-medium transition-colors duration-200"
                             aria-expanded="false" aria-haspopup="true">
                         <span>For Vendors</span>
                         <svg class="w-4 h-4 transition-transform duration-200 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                         </svg>
                     </button>
-                    <div class="absolute left-0 mt-2 w-64 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                    <div class="absolute left-0 mt-2 w-64 bg-white dark:bg-slate-800 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                         <div class="py-1" role="menu">
-                            <a href="/vendor-portal/financial-institutions.html" class="block px-4 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150" role="menuitem">Financial Institutions</a>
-                            <a href="/vendor-portal/legal-firms.html" class="block px-4 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150" role="menuitem">Legal Firms</a>
-                            <a href="/vendor-portal/accounting-firms.html" class="block px-4 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150" role="menuitem">Accounting Firms</a>
-                            <a href="/portals/lender-portal.html" class="block px-4 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150" role="menuitem">Lender Portal</a>
+                            <a href="/vendor-portal/financial-institutions.html" class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-150" role="menuitem">Financial Institutions</a>
+                            <a href="/vendor-portal/legal-firms.html" class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-150" role="menuitem">Legal Firms</a>
+                            <a href="/vendor-portal/accounting-firms.html" class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-150" role="menuitem">Accounting Firms</a>
+                            <a href="/portals/lender-portal.html" class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-150" role="menuitem">Lender Portal</a>
                         </div>
                     </div>
                 </div>
 
                 <!-- Resources -->
                 <div class="relative group">
-                    <button class="flex items-center space-x-1 text-slate-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors duration-200"
+                    <button class="flex items-center space-x-1 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 text-sm font-medium transition-colors duration-200"
                             aria-expanded="false" aria-haspopup="true">
                         <span>Resources</span>
                         <svg class="w-4 h-4 transition-transform duration-200 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                         </svg>
                     </button>
-                    <div class="absolute left-0 mt-2 w-56 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                    <div class="absolute left-0 mt-2 w-56 bg-white dark:bg-slate-800 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                         <div class="py-1" role="menu">
-                            <a href="/free-resources.html" class="block px-4 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150" role="menuitem">Free Tools</a>
-                            <a href="/blog/" class="block px-4 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150" role="menuitem">Blog</a>
-                            <a href="/how-it-works.html" class="block px-4 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150" role="menuitem">How It Works</a>
-                            <a href="/about-us.html" class="block px-4 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150" role="menuitem">About Us</a>
+                            <a href="/free-resources.html" class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-150" role="menuitem">Free Tools</a>
+                            <a href="/blog/" class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-150" role="menuitem">Blog</a>
+                            <a href="/how-it-works.html" class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-150" role="menuitem">How It Works</a>
+                            <a href="/about.html" class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-150" role="menuitem">About Us</a>
                         </div>
                     </div>
                 </div>
 
                 <!-- Contact -->
-                <a href="/contact.html" class="text-slate-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors duration-200">Contact</a>
+                <a href="/contact.html" class="text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 text-sm font-medium transition-colors duration-200">Contact</a>
 
                 <!-- Content Management (Blog Editors/Contributors Only) -->
                 <div id="cms-navigation" class="relative group hidden">
-                    <button class="flex items-center space-x-1 text-slate-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors duration-200"
+                    <button class="flex items-center space-x-1 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 text-sm font-medium transition-colors duration-200"
                             aria-expanded="false" aria-haspopup="true">
                         <span>Content Management</span>
                         <svg class="w-4 h-4 transition-transform duration-200 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                         </svg>
                     </button>
-                    <div class="absolute left-0 mt-2 w-56 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                    <div class="absolute left-0 mt-2 w-56 bg-white dark:bg-slate-800 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                         <div class="py-1" role="menu">
-                            <a href="/dashboard/content-management.html" class="block px-4 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150" role="menuitem">Blog Dashboard</a>
-                            <a href="/dashboard/content-management.html#create" class="block px-4 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150" role="menuitem">Create New Post</a>
-                            <a href="/dashboard/content-management.html#manage" class="block px-4 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150" role="menuitem">Manage Content</a>
-                            <a href="/blog/content-guidelines.html" class="block px-4 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150" role="menuitem">Content Guidelines</a>
+                            <a href="/dashboard/content-management.html" class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-150" role="menuitem">Blog Dashboard</a>
+                            <a href="/dashboard/content-management.html#create" class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-150" role="menuitem">Create New Post</a>
+                            <a href="/dashboard/content-management.html#manage" class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-150" role="menuitem">Manage Content</a>
+                            <a href="/blog/content-guidelines.html" class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-150" role="menuitem">Content Guidelines</a>
                         </div>
                     </div>
                 </div>
 
                 <!-- Dark Mode Toggle -->
-                <button type="button" id="theme-toggle" class="text-slate-700 hover:text-blue-600 p-2 rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500" aria-label="Toggle dark mode">
-                    <!-- Sun Icon (shown in dark mode) -->
-                    <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <button type="button" id="theme-toggle" class="text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 p-2 rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500" aria-label="Toggle dark mode">
+                    <!-- Sun Icon (shown in dark mode) - Yellow color -->
+                    <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path>
                     </svg>
                     <!-- Moon Icon (shown in light mode) -->
@@ -131,11 +138,11 @@ window.ArdonieNavigation = {
                 <!-- Authentication Buttons -->
                 <div id="auth-buttons" class="flex items-center space-x-4">
                     <!-- Login Button (shown when not authenticated) -->
-                    <a href="/auth/login.html" id="login-btn" class="text-slate-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors duration-200">Login</a>
+                    <a href="{basePath}auth/login.html" id="login-btn" class="text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 text-sm font-medium transition-colors duration-200">Login</a>
 
-                    <!-- Get Started Free Button - More Prominent -->
-                    <a href="/auth/register.html" id="register-btn" class="bg-gradient-to-r from-emerald-500 to-blue-600 hover:from-emerald-600 hover:to-blue-700 text-white px-8 py-3 rounded-full text-sm font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 ring-2 ring-white/20">
-                        Get Started Free
+                    <!-- Get Started Button - More Prominent -->
+                    <a href="{basePath}auth/register.html" id="register-btn" class="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-6 py-3 rounded-full text-sm font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 ring-2 ring-white/20">
+                        Get Started
                         <svg class="w-4 h-4 ml-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
                         </svg>
@@ -143,9 +150,9 @@ window.ArdonieNavigation = {
 
                     <!-- User Profile (shown when authenticated) -->
                     <div id="user-profile" class="hidden relative group">
-                        <button class="flex items-center space-x-2 text-slate-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors duration-200"
+                        <button class="flex items-center space-x-2 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 text-sm font-medium transition-colors duration-200"
                                 aria-expanded="false" aria-haspopup="true">
-                            <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center relative overflow-hidden ring-2 ring-white shadow-sm">
+                            <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center relative overflow-hidden ring-2 ring-white dark:ring-slate-600 shadow-sm">
                                 <!-- User Avatar Image -->
                                 <img id="user-avatar-nav"
                                      class="w-full h-full object-cover rounded-full hidden"
@@ -158,13 +165,13 @@ window.ArdonieNavigation = {
                             </div>
                             <span id="user-name">User</span>
                         </button>
-                        <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                        <div class="absolute right-0 mt-2 w-48 bg-white dark:bg-slate-800 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                             <div class="py-1" role="menu">
-                                <a href="#" onclick="navigateToDashboard()" class="block px-4 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150" role="menuitem">Dashboard</a>
-                                <a href="#" onclick="navigateToProfile()" class="block px-4 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150" role="menuitem">Profile</a>
-                                <a href="#" onclick="navigateToSettings()" class="block px-4 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150" role="menuitem">Settings</a>
-                                <hr class="my-1">
-                                <button onclick="logout()" class="block w-full text-left px-4 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150" role="menuitem">Logout</button>
+                                <a href="#" onclick="navigateToDashboard()" class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-150" role="menuitem">Dashboard</a>
+                                <a href="#" onclick="navigateToProfile()" class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-150" role="menuitem">Profile</a>
+                                <a href="#" onclick="navigateToSettings()" class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-150" role="menuitem">Settings</a>
+                                <hr class="my-1 border-slate-200 dark:border-slate-600">
+                                <button onclick="logout()" class="block w-full text-left px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-150" role="menuitem">Logout</button>
                             </div>
                         </div>
                     </div>
@@ -173,9 +180,9 @@ window.ArdonieNavigation = {
 
             <!-- Mobile menu button -->
             <div class="lg:hidden">
-                <button type="button" 
-                        class="mobile-menu-toggle inline-flex items-center justify-center p-2 rounded-md text-slate-700 hover:text-blue-600 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500 transition-colors duration-200" 
-                        aria-controls="mobile-menu" 
+                <button type="button"
+                        class="mobile-menu-toggle inline-flex items-center justify-center p-2 rounded-md text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-100 dark:hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500 transition-colors duration-200"
+                        aria-controls="mobile-menu"
                         aria-expanded="false"
                         aria-label="Toggle main menu">
                     <span class="sr-only">Open main menu</span>
@@ -194,96 +201,96 @@ window.ArdonieNavigation = {
 
     <!-- Mobile menu -->
     <div class="mobile-menu lg:hidden hidden" id="mobile-menu">
-        <div class="px-2 pt-2 pb-3 space-y-1 bg-white border-t border-slate-200 shadow-lg">
+        <div class="px-2 pt-2 pb-3 space-y-1 bg-white dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 shadow-lg">
             <!-- Home -->
-            <a href="/" class="block px-3 py-2 text-base font-medium text-slate-700 hover:text-blue-600 hover:bg-slate-50 rounded-md transition-colors duration-200">Home</a>
+            <a href="{basePath}index.html" id="mobile-nav-home-link" class="block px-3 py-2 text-base font-medium text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-md transition-colors duration-200">Home</a>
 
             <!-- For Buyers Mobile -->
             <div class="mobile-dropdown">
-                <button type="button" class="mobile-dropdown-toggle w-full flex items-center justify-between px-3 py-2 text-base font-medium text-slate-700 hover:text-blue-600 hover:bg-slate-50 rounded-md transition-colors duration-200">
+                <button type="button" class="mobile-dropdown-toggle w-full flex items-center justify-between px-3 py-2 text-base font-medium text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-md transition-colors duration-200">
                     <span>For Buyers</span>
                     <svg class="mobile-dropdown-icon w-5 h-5 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                 </button>
                 <div class="mobile-dropdown-content hidden pl-4 space-y-1">
-                    <a href="/for-buyers.html" class="block px-3 py-2 text-sm text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-150">Buyer Overview</a>
-                    <a href="/marketplace/listings.html" class="block px-3 py-2 text-sm text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-150">Browse Listings</a>
-                    <a href="/express-deal.html" class="block px-3 py-2 text-sm text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-150">Express Deal Program</a>
-                    <a href="/dashboard/buyer-dashboard.html" class="block px-3 py-2 text-sm text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-150">Buyer Dashboard</a>
+                    <a href="/for-buyers.html" class="block px-3 py-2 text-sm text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-slate-700 rounded-md transition-colors duration-150">Buyer Overview</a>
+                    <a href="/marketplace/listings.html" class="block px-3 py-2 text-sm text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-slate-700 rounded-md transition-colors duration-150">Browse Listings</a>
+                    <a href="/express-deal.html" class="block px-3 py-2 text-sm text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-slate-700 rounded-md transition-colors duration-150">Express Deal Program</a>
+                    <a href="/dashboard/buyer-dashboard.html" class="block px-3 py-2 text-sm text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-slate-700 rounded-md transition-colors duration-150">Buyer Dashboard</a>
                 </div>
             </div>
 
             <!-- For Sellers Mobile -->
             <div class="mobile-dropdown">
-                <button type="button" class="mobile-dropdown-toggle w-full flex items-center justify-between px-3 py-2 text-base font-medium text-slate-700 hover:text-blue-600 hover:bg-slate-50 rounded-md transition-colors duration-200">
+                <button type="button" class="mobile-dropdown-toggle w-full flex items-center justify-between px-3 py-2 text-base font-medium text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-md transition-colors duration-200">
                     <span>For Sellers</span>
                     <svg class="mobile-dropdown-icon w-5 h-5 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                 </button>
                 <div class="mobile-dropdown-content hidden pl-4 space-y-1">
-                    <a href="/for-sellers.html" class="block px-3 py-2 text-sm text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-150">Seller Overview</a>
-                    <a href="/marketplace/list-business.html" class="block px-3 py-2 text-sm text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-150">List Your Business</a>
-                    <a href="/dashboard/seller-dashboard.html" class="block px-3 py-2 text-sm text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-150">Seller Dashboard</a>
+                    <a href="/for-sellers.html" class="block px-3 py-2 text-sm text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-slate-700 rounded-md transition-colors duration-150">Seller Overview</a>
+                    <a href="/marketplace/list-business.html" class="block px-3 py-2 text-sm text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-slate-700 rounded-md transition-colors duration-150">List Your Business</a>
+                    <a href="/dashboard/seller-dashboard.html" class="block px-3 py-2 text-sm text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-slate-700 rounded-md transition-colors duration-150">Seller Dashboard</a>
                 </div>
             </div>
 
             <!-- For Vendors Mobile -->
             <div class="mobile-dropdown">
-                <button type="button" class="mobile-dropdown-toggle w-full flex items-center justify-between px-3 py-2 text-base font-medium text-slate-700 hover:text-blue-600 hover:bg-slate-50 rounded-md transition-colors duration-200">
+                <button type="button" class="mobile-dropdown-toggle w-full flex items-center justify-between px-3 py-2 text-base font-medium text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-md transition-colors duration-200">
                     <span>For Vendors</span>
                     <svg class="mobile-dropdown-icon w-5 h-5 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                 </button>
                 <div class="mobile-dropdown-content hidden pl-4 space-y-1">
-                    <a href="/vendor-portal/financial-institutions.html" class="block px-3 py-2 text-sm text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-150">Financial Institutions</a>
-                    <a href="/vendor-portal/legal-firms.html" class="block px-3 py-2 text-sm text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-150">Legal Firms</a>
-                    <a href="/vendor-portal/accounting-firms.html" class="block px-3 py-2 text-sm text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-150">Accounting Firms</a>
-                    <a href="/portals/lender-portal.html" class="block px-3 py-2 text-sm text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-150">Lender Portal</a>
+                    <a href="/vendor-portal/financial-institutions.html" class="block px-3 py-2 text-sm text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-slate-700 rounded-md transition-colors duration-150">Financial Institutions</a>
+                    <a href="/vendor-portal/legal-firms.html" class="block px-3 py-2 text-sm text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-slate-700 rounded-md transition-colors duration-150">Legal Firms</a>
+                    <a href="/vendor-portal/accounting-firms.html" class="block px-3 py-2 text-sm text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-slate-700 rounded-md transition-colors duration-150">Accounting Firms</a>
+                    <a href="/portals/lender-portal.html" class="block px-3 py-2 text-sm text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-slate-700 rounded-md transition-colors duration-150">Lender Portal</a>
                 </div>
             </div>
 
             <!-- Resources Mobile -->
             <div class="mobile-dropdown">
-                <button type="button" class="mobile-dropdown-toggle w-full flex items-center justify-between px-3 py-2 text-base font-medium text-slate-700 hover:text-blue-600 hover:bg-slate-50 rounded-md transition-colors duration-200">
+                <button type="button" class="mobile-dropdown-toggle w-full flex items-center justify-between px-3 py-2 text-base font-medium text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-md transition-colors duration-200">
                     <span>Resources</span>
                     <svg class="mobile-dropdown-icon w-5 h-5 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                 </button>
                 <div class="mobile-dropdown-content hidden pl-4 space-y-1">
-                    <a href="/free-resources.html" class="block px-3 py-2 text-sm text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-150">Free Tools</a>
-                    <a href="/blog/" class="block px-3 py-2 text-sm text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-150">Blog</a>
-                    <a href="/how-it-works.html" class="block px-3 py-2 text-sm text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-150">How It Works</a>
-                    <a href="/about-us.html" class="block px-3 py-2 text-sm text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-150">About Us</a>
+                    <a href="/free-resources.html" class="block px-3 py-2 text-sm text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-slate-700 rounded-md transition-colors duration-150">Free Tools</a>
+                    <a href="/blog/" class="block px-3 py-2 text-sm text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-slate-700 rounded-md transition-colors duration-150">Blog</a>
+                    <a href="/how-it-works.html" class="block px-3 py-2 text-sm text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-slate-700 rounded-md transition-colors duration-150">How It Works</a>
+                    <a href="/about.html" class="block px-3 py-2 text-sm text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-slate-700 rounded-md transition-colors duration-150">About Us</a>
                 </div>
             </div>
 
             <!-- Contact -->
-            <a href="/contact.html" class="block px-3 py-2 text-base font-medium text-slate-700 hover:text-blue-600 hover:bg-slate-50 rounded-md transition-colors duration-200">Contact</a>
+            <a href="/contact.html" class="block px-3 py-2 text-base font-medium text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-md transition-colors duration-200">Contact</a>
 
             <!-- Content Management Mobile (Blog Editors/Contributors Only) -->
             <div id="mobile-cms-navigation" class="mobile-dropdown hidden">
-                <button type="button" class="mobile-dropdown-toggle w-full flex items-center justify-between px-3 py-2 text-base font-medium text-slate-700 hover:text-blue-600 hover:bg-slate-50 rounded-md transition-colors duration-200">
+                <button type="button" class="mobile-dropdown-toggle w-full flex items-center justify-between px-3 py-2 text-base font-medium text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-md transition-colors duration-200">
                     <span>Content Management</span>
                     <svg class="mobile-dropdown-icon w-5 h-5 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                 </button>
                 <div class="mobile-dropdown-content hidden pl-4 space-y-1">
-                    <a href="/dashboard/content-management.html" class="block px-3 py-2 text-sm text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-150">Blog Dashboard</a>
-                    <a href="/dashboard/content-management.html#create" class="block px-3 py-2 text-sm text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-150">Create New Post</a>
-                    <a href="/dashboard/content-management.html#manage" class="block px-3 py-2 text-sm text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-150">Manage Content</a>
-                    <a href="/blog/content-guidelines.html" class="block px-3 py-2 text-sm text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-150">Content Guidelines</a>
+                    <a href="/dashboard/content-management.html" class="block px-3 py-2 text-sm text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-slate-700 rounded-md transition-colors duration-150">Blog Dashboard</a>
+                    <a href="/dashboard/content-management.html#create" class="block px-3 py-2 text-sm text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-slate-700 rounded-md transition-colors duration-150">Create New Post</a>
+                    <a href="/dashboard/content-management.html#manage" class="block px-3 py-2 text-sm text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-slate-700 rounded-md transition-colors duration-150">Manage Content</a>
+                    <a href="/blog/content-guidelines.html" class="block px-3 py-2 text-sm text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-slate-700 rounded-md transition-colors duration-150">Content Guidelines</a>
                 </div>
             </div>
 
             <!-- Dark Mode Toggle Mobile -->
-            <div class="pt-4 border-t border-slate-200">
-                <button type="button" id="mobile-theme-toggle" class="flex items-center w-full px-3 py-2 text-base font-medium text-slate-700 hover:text-blue-600 hover:bg-slate-50 rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500" aria-label="Toggle dark mode">
-                    <svg id="mobile-theme-toggle-light-icon" class="hidden w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <div class="pt-4 border-t border-slate-200 dark:border-slate-600">
+                <button type="button" id="mobile-theme-toggle" class="flex items-center w-full px-3 py-2 text-base font-medium text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500" aria-label="Toggle dark mode">
+                    <svg id="mobile-theme-toggle-light-icon" class="hidden w-5 h-5 mr-3 text-yellow-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path>
                     </svg>
                     <svg id="mobile-theme-toggle-dark-icon" class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -296,22 +303,22 @@ window.ArdonieNavigation = {
             <!-- Authentication Buttons Mobile -->
             <div id="mobile-auth-buttons" class="pt-4 pb-2 space-y-3">
                 <!-- Login Button (shown when not authenticated) -->
-                <a href="/auth/login.html" id="mobile-login-btn" class="block w-full text-center border border-blue-600 text-blue-600 hover:bg-blue-50 px-6 py-3 rounded-md text-base font-medium transition-colors duration-200">
+                <a href="/auth/login.html" id="mobile-login-btn" class="block w-full text-center border border-blue-600 text-blue-600 dark:text-blue-400 dark:border-blue-400 hover:bg-blue-50 dark:hover:bg-slate-700 px-6 py-3 rounded-md text-base font-medium transition-colors duration-200">
                     Login
                 </a>
 
-                <!-- Get Started Free Button - Mobile -->
-                <a href="/auth/register.html" id="mobile-register-btn" class="block w-full text-center bg-gradient-to-r from-emerald-500 to-blue-600 hover:from-emerald-600 hover:to-blue-700 text-white px-6 py-3 rounded-full text-base font-semibold transition-all duration-300 shadow-lg">
-                    Get Started Free
+                <!-- Get Started Button - Mobile -->
+                <a href="/auth/register.html" id="mobile-register-btn" class="block w-full text-center bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-6 py-3 rounded-full text-sm font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                    Get Started
                     <svg class="w-4 h-4 ml-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
                     </svg>
                 </a>
 
                 <!-- User Profile Mobile (shown when authenticated) -->
-                <div id="mobile-user-profile" class="hidden pt-2 border-t border-slate-200">
+                <div id="mobile-user-profile" class="hidden pt-2 border-t border-slate-200 dark:border-slate-600">
                     <div class="flex items-center space-x-3 px-3 py-2 mb-2">
-                        <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center relative overflow-hidden ring-2 ring-white shadow-sm">
+                        <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center relative overflow-hidden ring-2 ring-white dark:ring-slate-600 shadow-sm">
                             <!-- Mobile User Avatar Image -->
                             <img id="mobile-user-avatar-nav"
                                  class="w-full h-full object-cover rounded-full hidden"
@@ -322,12 +329,12 @@ window.ArdonieNavigation = {
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                             </svg>
                         </div>
-                        <span id="mobile-user-name" class="text-base font-medium text-slate-900">User</span>
+                        <span id="mobile-user-name" class="text-base font-medium text-slate-900 dark:text-slate-100">User</span>
                     </div>
-                    <a href="/dashboard/" class="block px-3 py-2 text-base font-medium text-slate-700 hover:text-blue-600 hover:bg-slate-50 rounded-md transition-colors duration-200">Dashboard</a>
-                    <a href="/profile/" class="block px-3 py-2 text-base font-medium text-slate-700 hover:text-blue-600 hover:bg-slate-50 rounded-md transition-colors duration-200">Profile</a>
-                    <a href="/settings/" class="block px-3 py-2 text-base font-medium text-slate-700 hover:text-blue-600 hover:bg-slate-50 rounded-md transition-colors duration-200">Settings</a>
-                    <button onclick="logout()" class="block w-full text-left px-3 py-2 text-base font-medium text-slate-700 hover:text-blue-600 hover:bg-slate-50 rounded-md transition-colors duration-200">Logout</button>
+                    <a href="/dashboard/" class="block px-3 py-2 text-base font-medium text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-md transition-colors duration-200">Dashboard</a>
+                    <a href="/profile/" class="block px-3 py-2 text-base font-medium text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-md transition-colors duration-200">Profile</a>
+                    <a href="/settings/" class="block px-3 py-2 text-base font-medium text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-md transition-colors duration-200">Settings</a>
+                    <button onclick="logout()" class="block w-full text-left px-3 py-2 text-base font-medium text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-md transition-colors duration-200">Logout</button>
                 </div>
             </div>
         </div>
@@ -339,13 +346,24 @@ window.ArdonieNavigation = {
     init: function(containerId = 'main-navigation-container') {
         const container = document.getElementById(containerId);
         if (container) {
-            container.innerHTML = this.template;
+            // Replace path placeholders with actual base path
+            const basePath = this.getBasePath();
+            let processedTemplate = this.template.replace(/{basePath}/g, basePath);
+
+            container.innerHTML = processedTemplate;
             this.bindEvents();
             this.updateAuthState();
             this.initThemeToggle();
             this.setupAuthEventListeners();
+
+            // Update home links visibility after DOM is ready
+            setTimeout(() => {
+                this.updateHomeLinksVisibility();
+            }, 100);
+
+            console.log('✅ Navigation: Initialized successfully with base path:', basePath);
         } else {
-            console.error('Navigation container not found:', containerId);
+            console.error('❌ Navigation: Container not found:', containerId);
         }
     },
 
@@ -1019,6 +1037,65 @@ window.ArdonieNavigation = {
             if (mobileLightIcon) mobileLightIcon.classList.add('hidden');
             if (mobileDarkIcon) mobileDarkIcon.classList.remove('hidden');
             if (mobileText) mobileText.textContent = 'Dark Mode';
+        }
+    },
+
+    // Update home links visibility based on current page
+    updateHomeLinksVisibility: function() {
+        console.log('🏠 Navigation: Updating home links visibility...');
+
+        // Check if we're on the homepage with more robust detection
+        const currentPath = window.location.pathname;
+        const currentFile = currentPath.split('/').pop() || '';
+        const isHomepage = currentPath === '/' ||
+                          currentPath === '/index.html' ||
+                          currentPath.endsWith('/index.html') ||
+                          currentFile === 'index.html' ||
+                          currentFile === '' ||
+                          (currentPath.endsWith('/') && currentPath.length > 1);
+
+        console.log('🔍 Navigation: Current path:', currentPath);
+        console.log('🔍 Navigation: Current file:', currentFile);
+        console.log('🔍 Navigation: Is homepage:', isHomepage);
+
+        // Get home link elements with additional debugging
+        const desktopHomeLink = document.getElementById('nav-home-link');
+        const mobileHomeLink = document.getElementById('mobile-nav-home-link');
+
+        console.log('🔍 Navigation: Desktop home link found:', !!desktopHomeLink);
+        console.log('🔍 Navigation: Mobile home link found:', !!mobileHomeLink);
+
+        // Additional debugging - check if elements exist in DOM
+        const allNavLinks = document.querySelectorAll('nav a');
+        console.log('🔍 Navigation: All nav links found:', allNavLinks.length);
+        allNavLinks.forEach((link, index) => {
+            console.log(`🔍 Navigation: Link ${index}:`, link.textContent.trim(), 'ID:', link.id);
+        });
+
+        if (isHomepage) {
+            // Hide home links on homepage
+            if (desktopHomeLink) {
+                desktopHomeLink.style.cssText = 'display: none !important;';
+                desktopHomeLink.setAttribute('aria-hidden', 'true');
+                console.log('✅ Navigation: Hiding desktop home link on homepage');
+            }
+            if (mobileHomeLink) {
+                mobileHomeLink.style.cssText = 'display: none !important;';
+                mobileHomeLink.setAttribute('aria-hidden', 'true');
+                console.log('✅ Navigation: Hiding mobile home link on homepage');
+            }
+        } else {
+            // Show home links on non-homepage
+            if (desktopHomeLink) {
+                desktopHomeLink.style.cssText = '';
+                desktopHomeLink.removeAttribute('aria-hidden');
+                console.log('✅ Navigation: Showing desktop home link on non-homepage');
+            }
+            if (mobileHomeLink) {
+                mobileHomeLink.style.cssText = '';
+                mobileHomeLink.removeAttribute('aria-hidden');
+                console.log('✅ Navigation: Showing mobile home link on non-homepage');
+            }
         }
     }
 };

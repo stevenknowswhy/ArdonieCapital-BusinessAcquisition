@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//images.unsplash.com">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing Plans - Ardonie Capital</title>
+    <meta name="description" content="Choose the perfect plan for your business acquisition needs. Transparent pricing with no hidden fees.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+    <!-- Tailwind CSS -->
+    <link rel="stylesheet" href="assets/css/tailwind.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" media="print" onload="this.media='all'" href="assets/css/common.css">
+
+    <!-- Navigation Styles -->
+    <link rel="stylesheet" href="components/navigation-styles.css">
+
+    <!-- Security Headers -->
+    <script src="assets/js/security-headers.js" defer></script>
+
+    <!-- Theme System -->
+    <script>
+        // Initialize tailwind config with theme support
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            light: '#3B82F6',
+                            DEFAULT: '#2563EB',
+                            dark: '#1D4ED8'
+                        },
+                        secondary: {
+                            light: '#F8FAFC',
+                            DEFAULT: '#E2E8F0',
+                            dark: '#64748B'
+                        },
+                        accent: {
+                            light: '#10B981',
+                            DEFAULT: '#059669',
+                            dark: '#047857'
+                        }
+                    }
+                }
+            }
+        };
+
+        // Apply saved theme preference immediately to prevent flash
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+</head>
+
+<body class="bg-white dark:bg-slate-900 text-slate-900 dark:text-white">
+    <!-- Navigation Component -->
+    <div id="main-navigation-container"></div>
+
+    <!-- Main Content -->
+    <main class="pt-16 min-h-screen">
+        <!-- Hero Section -->
+        <section class="bg-gradient-to-br from-primary/5 via-white to-accent/5 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 py-20">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-4xl mx-auto">
+                    <h1 class="text-4xl md:text-6xl font-bold text-slate-900 dark:text-white mb-6">
+                        Simple, Transparent
+                        <span class="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Pricing</span>
+                    </h1>
+                    <p class="text-xl text-slate-600 dark:text-slate-300 mb-8 max-w-3xl mx-auto">
+                        Choose the perfect plan for your business acquisition journey. No hidden fees, no surprises.
+                    </p>
+
+                    <!-- Billing Toggle -->
+                    <div class="flex items-center justify-center mb-12">
+                        <span class="text-slate-600 dark:text-slate-300 mr-3">Monthly</span>
+                        <button type="button" id="billing-toggle" aria-label="Toggle between monthly and annual billing" class="relative inline-flex h-6 w-11 items-center rounded-full bg-slate-200 dark:bg-slate-700 transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+                            <span class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform translate-x-1"></span>
+                        </button>
+                        <span class="text-slate-600 dark:text-slate-300 ml-3">Annual</span>
+                        <span class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-accent/10 text-accent-dark">
+                            Save 20%
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Tiers -->
+        <section class="py-20 bg-white dark:bg-slate-900">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+
+                    <!-- Starter Plan -->
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 p-8 relative">
+                        <div class="text-center mb-8">
+                            <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">Starter</h3>
+                            <p class="text-slate-600 dark:text-slate-400 mb-6">Perfect for first-time buyers</p>
+                            <div class="mb-6">
+                                <span class="text-4xl font-bold text-slate-900 dark:text-white">$99</span>
+                                <span class="text-slate-600 dark:text-slate-400">/month</span>
+                            </div>
+                            <button type="button" class="w-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-slate-800 dark:hover:bg-slate-100 py-3 px-6 rounded-lg font-semibold transition-colors">
+                                Get Started
+                            </button>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <svg class="w-5 h-5 text-accent mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span class="text-slate-700 dark:text-slate-300">Access to marketplace listings</span>
+                            </div>
+                            <div class="flex items-center">
+                                <svg class="w-5 h-5 text-accent mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span class="text-slate-700 dark:text-slate-300">Basic valuation tools</span>
+                            </div>
+                            <div class="flex items-center">
+                                <svg class="w-5 h-5 text-accent mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span class="text-slate-700 dark:text-slate-300">Email support</span>
+                            </div>
+                            <div class="flex items-center">
+                                <svg class="w-5 h-5 text-accent mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span class="text-slate-700 dark:text-slate-300">Up to 5 saved searches</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Professional Plan (Most Popular) -->
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border-2 border-primary p-8 relative transform scale-105">
+                        <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                            <span class="bg-primary text-white px-4 py-1 rounded-full text-sm font-medium">Most Popular</span>
+                        </div>
+
+                        <div class="text-center mb-8">
+                            <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">Professional</h3>
+                            <p class="text-slate-600 dark:text-slate-400 mb-6">For serious buyers & sellers</p>
+                            <div class="mb-6">
+                                <span class="text-4xl font-bold text-primary">$299</span>
+                                <span class="text-slate-600 dark:text-slate-400">/month</span>
+                            </div>
+                            <button type="button" class="w-full bg-primary hover:bg-primary-dark text-white py-3 px-6 rounded-lg font-semibold transition-colors">
+                                Start Free Trial
+                            </button>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <svg class="w-5 h-5 text-accent mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span class="text-slate-700 dark:text-slate-300">Everything in Starter</span>
+                            </div>
+                            <div class="flex items-center">
+                                <svg class="w-5 h-5 text-accent mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span class="text-slate-700 dark:text-slate-300">Express Deal eligibility</span>
+                            </div>
+                            <div class="flex items-center">
+                                <svg class="w-5 h-5 text-accent mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span class="text-slate-700 dark:text-slate-300">Advanced analytics & reports</span>
+                            </div>
+                            <div class="flex items-center">
+                                <svg class="w-5 h-5 text-accent mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span class="text-slate-700 dark:text-slate-300">Priority phone support</span>
+                            </div>
+                            <div class="flex items-center">
+                                <svg class="w-5 h-5 text-accent mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span class="text-slate-700 dark:text-slate-300">Unlimited saved searches</span>
+                            </div>
+                            <div class="flex items-center">
+                                <svg class="w-5 h-5 text-accent mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span class="text-slate-700 dark:text-slate-300">Deal Navigator assistance</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Enterprise Plan -->
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 p-8 relative">
+                        <div class="text-center mb-8">
+                            <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">Enterprise</h3>
+                            <p class="text-slate-600 dark:text-slate-400 mb-6">For investment groups & brokers</p>
+                            <div class="mb-6">
+                                <span class="text-4xl font-bold text-slate-900 dark:text-white">$999</span>
+                                <span class="text-slate-600 dark:text-slate-400">/month</span>
+                            </div>
+                            <button type="button" class="w-full bg-accent hover:bg-accent-dark text-white py-3 px-6 rounded-lg font-semibold transition-colors">
+                                Contact Sales
+                            </button>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <svg class="w-5 h-5 text-accent mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span class="text-slate-700 dark:text-slate-300">Everything in Professional</span>
+                            </div>
+                            <div class="flex items-center">
+                                <svg class="w-5 h-5 text-accent mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span class="text-slate-700 dark:text-slate-300">White-label solutions</span>
+                            </div>
+                            <div class="flex items-center">
+                                <svg class="w-5 h-5 text-accent mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span class="text-slate-700 dark:text-slate-300">API access</span>
+                            </div>
+                            <div class="flex items-center">
+                                <svg class="w-5 h-5 text-accent mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span class="text-slate-700 dark:text-slate-300">Dedicated account manager</span>
+                            </div>
+                            <div class="flex items-center">
+                                <svg class="w-5 h-5 text-accent mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span class="text-slate-700 dark:text-slate-300">Custom integrations</span>
+                            </div>
+                            <div class="flex items-center">
+                                <svg class="w-5 h-5 text-accent mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span class="text-slate-700 dark:text-slate-300">24/7 priority support</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="py-20 bg-slate-50 dark:bg-slate-800">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+                        Frequently Asked Questions
+                    </h2>
+                    <p class="text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto">
+                        Everything you need to know about our pricing and plans.
+                    </p>
+                </div>
+
+                <div class="max-w-4xl mx-auto space-y-6">
+                    <div class="bg-white dark:bg-slate-900 rounded-lg p-6 shadow-sm">
+                        <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-2">
+                            Can I change plans at any time?
+                        </h3>
+                        <p class="text-slate-600 dark:text-slate-300">
+                            Yes, you can upgrade or downgrade your plan at any time. Changes take effect immediately, and we'll prorate any billing differences.
+                        </p>
+                    </div>
+
+                    <div class="bg-white dark:bg-slate-900 rounded-lg p-6 shadow-sm">
+                        <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-2">
+                            Is there a free trial available?
+                        </h3>
+                        <p class="text-slate-600 dark:text-slate-300">
+                            Yes, we offer a 14-day free trial for the Professional plan. No credit card required to start.
+                        </p>
+                    </div>
+
+                    <div class="bg-white dark:bg-slate-900 rounded-lg p-6 shadow-sm">
+                        <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-2">
+                            What payment methods do you accept?
+                        </h3>
+                        <p class="text-slate-600 dark:text-slate-300">
+                            We accept all major credit cards, PayPal, and ACH transfers for Enterprise customers.
+                        </p>
+                    </div>
+
+                    <div class="bg-white dark:bg-slate-900 rounded-lg p-6 shadow-sm">
+                        <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-2">
+                            Are there any setup fees?
+                        </h3>
+                        <p class="text-slate-600 dark:text-slate-300">
+                            No setup fees for Starter and Professional plans. Enterprise plans may include a one-time setup fee depending on customization requirements.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="py-20 bg-primary text-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">
+                    Ready to Get Started?
+                </h2>
+                <p class="text-xl mb-8 max-w-2xl mx-auto opacity-90">
+                    Join thousands of successful business buyers and sellers on our platform.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="auth/register.html" class="bg-white text-primary hover:bg-slate-100 px-8 py-3 rounded-lg font-semibold transition-colors">
+                        Start Free Trial
+                    </a>
+                    <a href="contact.html" class="border border-white text-white hover:bg-white hover:text-primary px-8 py-3 rounded-lg font-semibold transition-colors">
+                        Contact Sales
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Container -->
+    <div id="footer-container"></div>
+
+    <!-- Scripts -->
+    <script src="components/main-navigation.js"></script>
+    <script>
+        // Initialize navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof ArdonieNavigation !== 'undefined') {
+                ArdonieNavigation.init();
+            }
+
+            // Billing toggle functionality
+            const billingToggle = document.getElementById('billing-toggle');
+            const toggleButton = billingToggle.querySelector('span');
+            let isAnnual = false;
+
+            billingToggle.addEventListener('click', function() {
+                isAnnual = !isAnnual;
+
+                if (isAnnual) {
+                    toggleButton.classList.add('translate-x-6');
+                    billingToggle.classList.add('bg-primary');
+                    billingToggle.classList.remove('bg-slate-200', 'dark:bg-slate-700');
+                    // Update prices to annual (20% discount)
+                    updatePrices(true);
+                } else {
+                    toggleButton.classList.remove('translate-x-6');
+                    billingToggle.classList.remove('bg-primary');
+                    billingToggle.classList.add('bg-slate-200', 'dark:bg-slate-700');
+                    // Update prices to monthly
+                    updatePrices(false);
+                }
+            });
+
+            function updatePrices(annual) {
+                const prices = document.querySelectorAll('.text-4xl');
+                const originalPrices = [99, 299, 999];
+
+                prices.forEach((price, index) => {
+                    const newPrice = annual ? Math.round(originalPrices[index] * 0.8 * 12) : originalPrices[index];
+                    const period = annual ? '/year' : '/month';
+
+                    price.textContent = `$${newPrice}`;
+                    price.nextElementSibling.textContent = period;
+                });
+            }
+        });
+
+        // Load footer
+        fetch('components/main-footer.js')
+            .then(response => response.text())
+            .then(script => {
+                eval(script);
+                if (typeof ArdonieFooter !== 'undefined') {
+                    ArdonieFooter.init();
+                }
+            })
+            .catch(error => {
+                console.error('Error loading footer:', error);
+            });
+    </script>
+</body>
+</html>
