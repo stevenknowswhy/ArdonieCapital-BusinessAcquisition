@@ -2853,16 +2853,37 @@ svg path[d*="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674"] {
 }
 
 #animated-hero-text h1 {
-    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.8), 0 2px 4px rgba(0, 0, 0, 0.6), 0 1px 2px rgba(0, 0, 0, 0.4) !important;
+    text-shadow: 0 6px 16px rgba(0, 0, 0, 0.9), 0 4px 8px rgba(0, 0, 0, 0.7), 0 2px 4px rgba(0, 0, 0, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3) !important;
     font-weight: 700 !important;
     letter-spacing: -0.025em !important;
     color: #ffffff !important;
     transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    /* Ensure text is always readable with lighter background */
+    -webkit-text-stroke: 0.5px rgba(0, 0, 0, 0.3) !important;
 }
 
-/* Enhanced Hero Section Background Overlay */
-#hero-section .bg-black\/85 {
-    background-color: rgba(0, 0, 0, 0.85) !important;
+/* Further Lightened Hero Section Background Overlay for Maximum Background Visibility */
+#hero-section .bg-black\/50 {
+    background-color: rgba(0, 0, 0, 0.50) !important;
+}
+
+/* Ensure hero background image has high specificity and is visible */
+#hero-section .hero-bg-image {
+    background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80') !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-attachment: fixed !important;
+    z-index: 1 !important;
+}
+
+/* Mobile-specific background image fixes */
+@media (max-width: 768px) {
+    #hero-section .hero-bg-image {
+        background-attachment: scroll !important;
+        background-size: cover !important;
+        background-position: center !important;
+    }
 }
 
 /* Enhanced Button Styling with Blue Gradient Theme */

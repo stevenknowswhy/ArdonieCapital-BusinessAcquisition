@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Dev Auto-Login - Ardonie Capital</title>
+    <meta name="description" content="Simple development auto-login page for testing authentication flows">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Development Warning Banner -->
+    <div class="bg-red-600 text-white px-4 py-2 text-center text-sm font-medium">
+        🚨 DEVELOPMENT ENVIRONMENT ONLY - Simple Auto-Login for Testing
+    </div>
+
+    <!-- Main Container -->
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-900 mb-4">
+                Simple Development Auto-Login
+            </h1>
+            <p class="text-lg text-gray-600 mb-2">
+                Quick access to test user accounts (Password: TestUser123!)
+            </p>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="mb-8 text-center">
+            <button onclick="clearAllSessions()" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md mr-4">
+                Clear All Sessions
+            </button>
+            <button onclick="window.location.href='login.html'" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md">
+                Go to Regular Login
+            </button>
+        </div>
+
+        <!-- Test Users Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <!-- Buyers -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                    <span class="w-3 h-3 bg-blue-500 rounded-full mr-2"></span>
+                    Buyers
+                </h3>
+                <div class="space-y-3">
+                    <button onclick="autoLogin('buyer.free@testuser.ardonie.com')"
+                            class="w-full text-left p-3 bg-blue-50 hover:bg-blue-100 rounded-lg border border-blue-200 transition-colors">
+                        <div class="font-medium text-gray-900">Sarah Johnson</div>
+                        <div class="text-sm text-gray-600">Free Tier • Individual Investor</div>
+                        <div class="text-xs text-gray-500">buyer.free@testuser.ardonie.com</div>
+                    </button>
+
+                    <button onclick="autoLogin('buyer.pro@testuser.ardonie.com')"
+                            class="w-full text-left p-3 bg-blue-50 hover:bg-blue-100 rounded-lg border border-blue-200 transition-colors">
+                        <div class="font-medium text-gray-900">Michael Chen</div>
+                        <div class="text-sm text-gray-600">Pro Tier • Private Equity</div>
+                        <div class="text-xs text-gray-500">buyer.pro@testuser.ardonie.com</div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Sellers -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                    <span class="w-3 h-3 bg-green-500 rounded-full mr-2"></span>
+                    Sellers
+                </h3>
+                <div class="space-y-3">
+                    <button onclick="autoLogin('seller.free@testuser.ardonie.com')"
+                            class="w-full text-left p-3 bg-green-50 hover:bg-green-100 rounded-lg border border-green-200 transition-colors">
+                        <div class="font-medium text-gray-900">Robert Martinez</div>
+                        <div class="text-sm text-gray-600">Free Tier • Auto Repair Shop</div>
+                        <div class="text-xs text-gray-500">seller.free@testuser.ardonie.com</div>
+                    </button>
+
+                    <button onclick="autoLogin('seller.pro@testuser.ardonie.com')"
+                            class="w-full text-left p-3 bg-green-50 hover:bg-green-100 rounded-lg border border-green-200 transition-colors">
+                        <div class="font-medium text-gray-900">Jennifer Williams</div>
+                        <div class="text-sm text-gray-600">Pro Tier • Multi-Location Owner</div>
+                        <div class="text-xs text-gray-500">seller.pro@testuser.ardonie.com</div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Vendors -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                    <span class="w-3 h-3 bg-purple-500 rounded-full mr-2"></span>
+                    Vendors
+                </h3>
+                <div class="space-y-3">
+                    <button onclick="autoLogin('financial.vendor@testuser.ardonie.com')"
+                            class="w-full text-left p-3 bg-purple-50 hover:bg-purple-100 rounded-lg border border-purple-200 transition-colors">
+                        <div class="font-medium text-gray-900">David Thompson</div>
+                        <div class="text-sm text-gray-600">Financial Professional</div>
+                        <div class="text-xs text-gray-500">financial.vendor@testuser.ardonie.com</div>
+                    </button>
+
+                    <button onclick="autoLogin('legal.vendor@testuser.ardonie.com')"
+                            class="w-full text-left p-3 bg-purple-50 hover:bg-purple-100 rounded-lg border border-purple-200 transition-colors">
+                        <div class="font-medium text-gray-900">Amanda Rodriguez</div>
+                        <div class="text-sm text-gray-600">Legal Professional</div>
+                        <div class="text-xs text-gray-500">legal.vendor@testuser.ardonie.com</div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Multi-Role Users -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                    <span class="w-3 h-3 bg-gradient-to-r from-blue-500 to-green-500 rounded-full mr-2"></span>
+                    Multi-Role
+                </h3>
+                <div class="space-y-3">
+                    <button onclick="autoLogin('buyer.seller@testuser.ardonie.com')"
+                            class="w-full text-left p-3 bg-gradient-to-r from-blue-50 to-green-50 hover:from-blue-100 hover:to-green-100 rounded-lg border border-indigo-200 transition-colors">
+                        <div class="font-medium text-gray-900">James Anderson</div>
+                        <div class="text-sm text-gray-600">Buyer + Seller</div>
+                        <div class="text-xs text-gray-500">buyer.seller@testuser.ardonie.com</div>
+                    </button>
+
+                    <button onclick="autoLogin('buyer.financial@testuser.ardonie.com')"
+                            class="w-full text-left p-3 bg-gradient-to-r from-blue-50 to-purple-50 hover:from-blue-100 hover:to-purple-100 rounded-lg border border-indigo-200 transition-colors">
+                        <div class="font-medium text-gray-900">Lisa Parker</div>
+                        <div class="text-sm text-gray-600">Buyer + Vendor</div>
+                        <div class="text-xs text-gray-500">buyer.financial@testuser.ardonie.com</div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Admin Users -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                    <span class="w-3 h-3 bg-red-500 rounded-full mr-2"></span>
+                    Admins
+                </h3>
+                <div class="space-y-3">
+                    <button onclick="autoLogin('super.admin@testuser.ardonie.com')"
+                            class="w-full text-left p-3 bg-red-50 hover:bg-red-100 rounded-lg border border-red-200 transition-colors">
+                        <div class="font-medium text-gray-900">Alex Morgan</div>
+                        <div class="text-sm text-gray-600">Super Administrator</div>
+                        <div class="text-xs text-gray-500">super.admin@testuser.ardonie.com</div>
+                    </button>
+
+                    <button onclick="autoLogin('company.admin@testuser.ardonie.com')"
+                            class="w-full text-left p-3 bg-red-50 hover:bg-red-100 rounded-lg border border-red-200 transition-colors">
+                        <div class="font-medium text-gray-900">Taylor Davis</div>
+                        <div class="text-sm text-gray-600">Company Administrator</div>
+                        <div class="text-xs text-gray-500">company.admin@testuser.ardonie.com</div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Content Users -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                    <span class="w-3 h-3 bg-yellow-500 rounded-full mr-2"></span>
+                    Content
+                </h3>
+                <div class="space-y-3">
+                    <button onclick="autoLogin('blog.editor@testuser.ardonie.com')"
+                            class="w-full text-left p-3 bg-yellow-50 hover:bg-yellow-100 rounded-lg border border-yellow-200 transition-colors">
+                        <div class="font-medium text-gray-900">Morgan Lee</div>
+                        <div class="text-sm text-gray-600">Content Editor</div>
+                        <div class="text-xs text-gray-500">blog.editor@testuser.ardonie.com</div>
+                    </button>
+
+                    <button onclick="autoLogin('blog.contributor@testuser.ardonie.com')"
+                            class="w-full text-left p-3 bg-yellow-50 hover:bg-yellow-100 rounded-lg border border-yellow-200 transition-colors">
+                        <div class="font-medium text-gray-900">Jordan Smith</div>
+                        <div class="text-sm text-gray-600">Content Contributor</div>
+                        <div class="text-xs text-gray-500">blog.contributor@testuser.ardonie.com</div>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Status Panel -->
+        <div id="statusPanel" class="mt-8 bg-white rounded-lg shadow-md p-6 hidden">
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">Status</h3>
+            <div id="statusContent" class="text-sm text-gray-600"></div>
+        </div>
+    </div>
+
+    <!-- Simple JavaScript for auto-login -->
+    <script>
+        // Simple auto-login function that redirects to regular login with pre-filled credentials
+        function autoLogin(email) {
+            showStatus(`Redirecting to login with ${email}...`, 'info');
+
+            // Store the email in sessionStorage for the login page to pick up
+            sessionStorage.setItem('dev_auto_login_email', email);
+            sessionStorage.setItem('dev_auto_login_password', 'TestUser123!');
+
+            // Redirect to login page
+            setTimeout(() => {
+                window.location.href = 'login.html?dev_auto_login=true';
+            }, 1000);
+        }
+
+        function clearAllSessions() {
+            // Clear all storage
+            localStorage.clear();
+            sessionStorage.clear();
+
+            // Clear any cookies (basic approach)
+            document.cookie.split(";").forEach(function(c) {
+                document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+            });
+
+            showStatus('All sessions and storage cleared', 'success');
+            console.log('🧹 All sessions cleared');
+        }
+
+        function showStatus(message, type = 'info') {
+            const panel = document.getElementById('statusPanel');
+            const content = document.getElementById('statusContent');
+
+            // Show panel
+            panel.classList.remove('hidden');
+
+            // Set content
+            content.textContent = message;
+
+            // Apply styling based on type
+            content.className = 'text-sm';
+            switch (type) {
+                case 'success':
+                    content.classList.add('text-green-600');
+                    break;
+                case 'error':
+                    content.classList.add('text-red-600');
+                    break;
+                case 'info':
+                    content.classList.add('text-blue-600');
+                    break;
+                default:
+                    content.classList.add('text-gray-600');
+            }
+
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                panel.classList.add('hidden');
+            }, 5000);
+        }
+
+        // Check if we're returning from a login attempt
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('login_success') === 'true') {
+                showStatus('Login successful! You can now test other accounts.', 'success');
+            } else if (urlParams.get('login_error')) {
+                showStatus(`Login failed: ${urlParams.get('login_error')}`, 'error');
+            }
+        });
+
+        console.log('🚀 Simple Development Auto-Login initialized');
+        console.log('📋 Available test accounts:');
+        console.log('   • buyer.free@testuser.ardonie.com');
+        console.log('   • buyer.pro@testuser.ardonie.com');
+        console.log('   • seller.free@testuser.ardonie.com');
+        console.log('   • seller.pro@testuser.ardonie.com');
+        console.log('   • financial.vendor@testuser.ardonie.com');
+        console.log('   • legal.vendor@testuser.ardonie.com');
+        console.log('   • buyer.seller@testuser.ardonie.com');
+        console.log('   • buyer.financial@testuser.ardonie.com');
+        console.log('   • super.admin@testuser.ardonie.com');
+        console.log('   • company.admin@testuser.ardonie.com');
+        console.log('   • blog.editor@testuser.ardonie.com');
+        console.log('   • blog.contributor@testuser.ardonie.com');
+        console.log('🔑 Password for all accounts: TestUser123!');
+    </script>
+</body>
+</html>

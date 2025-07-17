@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security System Test - BuyMart Job Management</title>
+    <link href="../assets/css/tailwind.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold text-gray-900 mb-8">🔐 Security System Test</h1>
+        
+        <!-- Test Status -->
+        <div id="test-status" class="mb-6">
+            <div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded">
+                <strong>Status:</strong> Initializing security systems...
+            </div>
+        </div>
+        
+        <!-- Test Results -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Security Manager Tests -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <h2 class="text-xl font-bold text-gray-900 mb-4">🛡️ Security Manager</h2>
+                <div id="security-manager-tests" class="space-y-2">
+                    <div class="text-gray-600">Testing initialization...</div>
+                </div>
+            </div>
+            
+            <!-- Security Audit Tests -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <h2 class="text-xl font-bold text-gray-900 mb-4">🔍 Security Audit</h2>
+                <div id="security-audit-tests" class="space-y-2">
+                    <div class="text-gray-600">Testing initialization...</div>
+                </div>
+            </div>
+            
+            <!-- Input Validation Tests -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <h2 class="text-xl font-bold text-gray-900 mb-4">✅ Input Validation</h2>
+                <div id="validation-tests" class="space-y-2">
+                    <div class="text-gray-600">Testing validation...</div>
+                </div>
+            </div>
+            
+            <!-- Integration Tests -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <h2 class="text-xl font-bold text-gray-900 mb-4">🔗 Integration</h2>
+                <div id="integration-tests" class="space-y-2">
+                    <div class="text-gray-600">Testing integration...</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Test Summary -->
+        <div class="mt-8">
+            <div class="bg-white rounded-lg shadow p-6">
+                <h2 class="text-xl font-bold text-gray-900 mb-4">📊 Test Summary</h2>
+                <div id="test-summary" class="grid grid-cols-4 gap-4">
+                    <div class="text-center">
+                        <div id="passed-count" class="text-2xl font-bold text-green-600">0</div>
+                        <div class="text-sm text-gray-600">Passed</div>
+                    </div>
+                    <div class="text-center">
+                        <div id="failed-count" class="text-2xl font-bold text-red-600">0</div>
+                        <div class="text-sm text-gray-600">Failed</div>
+                    </div>
+                    <div class="text-center">
+                        <div id="warning-count" class="text-2xl font-bold text-yellow-600">0</div>
+                        <div class="text-sm text-gray-600">Warnings</div>
+                    </div>
+                    <div class="text-center">
+                        <div id="success-rate" class="text-2xl font-bold text-blue-600">0%</div>
+                        <div class="text-sm text-gray-600">Success Rate</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Security System -->
+    <script src="../assets/js/security-manager.js"></script>
+    <script src="../assets/js/security-audit.js"></script>
+    
+    <!-- Job Management System -->
+    <script src="../assets/js/job-management-supabase.js"></script>
+    <script src="../assets/js/careers.js"></script>
+
+    <script>
+        // Simple Security Test Suite
+        class SimpleSecurityTest {
+            constructor() {
+                this.results = {
+                    passed: 0,
+                    failed: 0,
+                    warnings: 0
+                };
+                this.init();
+            }
+            
+            async init() {
+                this.updateStatus('Running security tests...');
+
+                // Wait for systems to initialize
+                await this.wait(1000);
+
+                // Ensure all systems are initialized
+                await this.ensureSystemsInitialized();
+
+                // Run tests
+                await this.testSecurityManager();
+                await this.testSecurityAudit();
+                await this.testInputValidation();
+                await this.testIntegration();
+
+                this.updateSummary();
+                this.updateStatus('Tests completed!');
+            }
+
+            async ensureSystemsInitialized() {
+                // Try to manually initialize security systems first (highest priority)
+                if (!window.securityManager && window.initializeSecurityManager) {
+                    try {
+                        window.initializeSecurityManager();
+                        console.log('✅ Security Manager manually initialized');
+                    } catch (error) {
+                        console.warn('Failed to initialize Security Manager:', error);
+                    }
+                }
+
+                if (!window.securityAuditService && window.initializeSecurityAuditService) {
+                    try {
+                        window.initializeSecurityAuditService();
+                        console.log('✅ Security Audit Service manually initialized');
+                    } catch (error) {
+                        console.warn('Failed to initialize Security Audit Service:', error);
+                    }
+                }
+
+                // Try to manually initialize other systems if they're not loaded
+                if (!window.jobManagementService && window.initializeJobManagementService) {
+                    try {
+                        window.initializeJobManagementService();
+                    } catch (error) {
+                        console.warn('Failed to initialize Job Management Service:', error);
+                    }
+                }
+
+                if (!window.careersManager && window.initializeCareersManager) {
+                    try {
+                        window.initializeCareersManager();
+                    } catch (error) {
+                        console.warn('Failed to initialize Careers Manager:', error);
+                    }
+                }
+
+                // Wait a bit more for initialization
+                await this.wait(500);
+
+                // Log final status
+                console.log('🔍 Final initialization status:');
+                console.log('  Security Manager:', !!window.securityManager);
+                console.log('  Security Audit Service:', !!window.securityAuditService);
+                console.log('  Job Management Service:', !!window.jobManagementService);
+                console.log('  Careers Manager:', !!window.careersManager);
+            }
+            
+            async testSecurityManager() {
+                const container = document.getElementById('security-manager-tests');
+                container.innerHTML = '';
+                
+                // Test 1: Initialization
+                if (window.securityManager) {
+                    this.addResult(container, 'pass', 'Security Manager initialized');
+                } else {
+                    this.addResult(container, 'fail', 'Security Manager not found');
+                    return;
+                }
+                
+                // Test 2: CSRF Token
+                if (window.securityManager.csrfToken) {
+                    this.addResult(container, 'pass', 'CSRF token generated');
+                } else {
+                    this.addResult(container, 'fail', 'CSRF token missing');
+                }
+                
+                // Test 3: Session validation
+                try {
+                    const session = window.securityManager.validateSession();
+                    this.addResult(container, 'info', `Session: ${session ? 'Active' : 'None'}`);
+                } catch (error) {
+                    this.addResult(container, 'warn', 'Session validation error');
+                }
+                
+                // Test 4: Input sanitization
+                try {
+                    const testInput = 'test&lt;script&gt;alert(1)&lt;/script&gt;';
+                    const sanitized = window.securityManager.sanitizeInput(testInput, 'html');
+                    if (sanitized !== testInput) {
+                        this.addResult(container, 'pass', 'Input sanitization working');
+                    } else {
+                        this.addResult(container, 'warn', 'Input sanitization may not be working');
+                    }
+                } catch (error) {
+                    this.addResult(container, 'fail', 'Input sanitization failed');
+                }
+            }
+            
+            async testSecurityAudit() {
+                const container = document.getElementById('security-audit-tests');
+                container.innerHTML = '';
+                
+                // Test 1: Initialization
+                if (window.securityAuditService) {
+                    this.addResult(container, 'pass', 'Security Audit Service initialized');
+                } else {
+                    this.addResult(container, 'fail', 'Security Audit Service not found');
+                    return;
+                }
+                
+                // Test 2: Audit logging
+                try {
+                    const initialCount = window.securityAuditService.auditLog.length;
+                    window.securityAuditService.directLogSecurityEvent('TEST_EVENT', { test: true });
+                    const finalCount = window.securityAuditService.auditLog.length;
+                    
+                    if (finalCount > initialCount) {
+                        this.addResult(container, 'pass', 'Audit logging functional');
+                    } else {
+                        this.addResult(container, 'fail', 'Audit logging not working');
+                    }
+                } catch (error) {
+                    this.addResult(container, 'fail', 'Audit logging error');
+                }
+                
+                // Test 3: Security metrics
+                if (window.securityAuditService.securityMetrics) {
+                    this.addResult(container, 'pass', 'Security metrics available');
+                } else {
+                    this.addResult(container, 'warn', 'Security metrics missing');
+                }
+                
+                // Test 4: Threat patterns
+                if (window.securityAuditService.threatPatterns && window.securityAuditService.threatPatterns.length > 0) {
+                    this.addResult(container, 'pass', `Threat patterns loaded (${window.securityAuditService.threatPatterns.length})`);
+                } else {
+                    this.addResult(container, 'warn', 'Threat patterns not loaded');
+                }
+            }
+            
+            async testInputValidation() {
+                const container = document.getElementById('validation-tests');
+                container.innerHTML = '';
+                
+                if (!window.securityManager) {
+                    this.addResult(container, 'fail', 'Security Manager required for validation tests');
+                    return;
+                }
+                
+                // Test XSS prevention
+                try {
+                    const xssTest = window.securityManager.sanitizeHTML('&lt;script&gt;alert("xss")&lt;/script&gt;');
+                    if (!xssTest.includes('&lt;script&gt;')) {
+                        this.addResult(container, 'pass', 'XSS prevention working');
+                    } else {
+                        this.addResult(container, 'fail', 'XSS prevention failed');
+                    }
+                } catch (error) {
+                    this.addResult(container, 'warn', 'XSS test error');
+                }
+                
+                // Test email validation
+                try {
+                    const validEmail = window.securityManager.sanitizeEmail('test@example.com');
+                    this.addResult(container, 'pass', 'Email validation working');
+                } catch (error) {
+                    this.addResult(container, 'fail', 'Email validation failed');
+                }
+                
+                // Test SQL sanitization
+                try {
+                    const sqlTest = window.securityManager.sanitizeSQL("'; DROP TABLE users; --");
+                    if (!sqlTest.includes(';') && !sqlTest.includes('DROP')) {
+                        this.addResult(container, 'pass', 'SQL sanitization working');
+                    } else {
+                        this.addResult(container, 'warn', 'SQL sanitization may be incomplete');
+                    }
+                } catch (error) {
+                    this.addResult(container, 'warn', 'SQL sanitization test error');
+                }
+            }
+            
+            async testIntegration() {
+                const container = document.getElementById('integration-tests');
+                container.innerHTML = '';
+                
+                // Test 1: All systems loaded
+                const systems = [
+                    { name: 'Security Manager', obj: window.securityManager },
+                    { name: 'Security Audit', obj: window.securityAuditService },
+                    { name: 'Job Management', obj: window.jobManagementService },
+                    { name: 'Careers Manager', obj: window.careersManager }
+                ];
+                
+                let loadedSystems = 0;
+                systems.forEach(system => {
+                    if (system.obj) {
+                        this.addResult(container, 'pass', `${system.name} loaded`);
+                        loadedSystems++;
+                    } else {
+                        this.addResult(container, 'info', `${system.name} not loaded`);
+                    }
+                });
+                
+                // Test 2: Integration status
+                if (loadedSystems >= 2) {
+                    this.addResult(container, 'pass', `${loadedSystems}/${systems.length} systems integrated`);
+                } else {
+                    this.addResult(container, 'warn', 'Limited system integration');
+                }
+            }
+            
+            addResult(container, type, message) {
+                const div = document.createElement('div');
+                div.className = 'flex items-center space-x-2';
+                
+                const icon = document.createElement('span');
+                const text = document.createElement('span');
+                text.textContent = message;
+                
+                switch (type) {
+                    case 'pass':
+                        icon.textContent = '✅';
+                        text.className = 'text-green-700';
+                        this.results.passed++;
+                        break;
+                    case 'fail':
+                        icon.textContent = '❌';
+                        text.className = 'text-red-700';
+                        this.results.failed++;
+                        break;
+                    case 'warn':
+                        icon.textContent = '⚠️';
+                        text.className = 'text-yellow-700';
+                        this.results.warnings++;
+                        break;
+                    case 'info':
+                        icon.textContent = '📋';
+                        text.className = 'text-blue-700';
+                        break;
+                }
+                
+                div.appendChild(icon);
+                div.appendChild(text);
+                container.appendChild(div);
+            }
+            
+            updateSummary() {
+                const total = this.results.passed + this.results.failed + this.results.warnings;
+                const successRate = total > 0 ? Math.round((this.results.passed / total) * 100) : 0;
+                
+                document.getElementById('passed-count').textContent = this.results.passed;
+                document.getElementById('failed-count').textContent = this.results.failed;
+                document.getElementById('warning-count').textContent = this.results.warnings;
+                document.getElementById('success-rate').textContent = successRate + '%';
+            }
+            
+            updateStatus(message) {
+                const statusDiv = document.getElementById('test-status');
+                const alertClass = this.results.failed > 0 ? 'bg-red-100 border-red-400 text-red-700' :
+                                 this.results.warnings > 0 ? 'bg-yellow-100 border-yellow-400 text-yellow-700' :
+                                 'bg-green-100 border-green-400 text-green-700';
+                
+                statusDiv.innerHTML = `
+                    <div class="${alertClass} px-4 py-3 rounded border">
+                        <strong>Status:</strong> ${message}
+                    </div>
+                `;
+            }
+            
+            wait(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+            }
+        }
+        
+        // Initialize test suite when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new SimpleSecurityTest();
+        });
+    </script>
+</body>
+</html>

@@ -36,6 +36,7 @@ export const supabaseConfig = {
             messages: 'messages',
             notifications: 'notifications',
             saved_listings: 'saved_listings',
+            saved_searches: 'saved_searches',
             search_history: 'search_history',
             analytics_events: 'analytics_events',
             content_pages: 'content_pages',

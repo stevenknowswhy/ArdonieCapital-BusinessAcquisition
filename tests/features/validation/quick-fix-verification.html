@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Fix Verification - BuyMart Security</title>
+    <link href="../assets/css/tailwind.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold text-gray-900 mb-8">⚡ Quick Fix Verification</h1>
+        
+        <div id="results" class="space-y-4">
+            <div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded">
+                <strong>Status:</strong> Testing targeted fixes...
+            </div>
+        </div>
+        
+        <div class="mt-8">
+            <h2 class="text-xl font-bold text-gray-900 mb-4">Test Results</h2>
+            <div id="test-output" class="bg-white rounded-lg shadow p-6 font-mono text-sm">
+                <div class="text-gray-600">Initializing...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Security System -->
+    <script src="../assets/js/security-manager.js"></script>
+    <script src="../assets/js/security-audit.js"></script>
+    
+    <!-- Job Management System -->
+    <script src="../assets/js/job-management-supabase.js"></script>
+    <script src="../assets/js/careers.js"></script>
+
+    <script>
+        class QuickFixVerification {
+            constructor() {
+                this.output = [];
+                this.init();
+            }
+            
+            log(message, type = 'info') {
+                const timestamp = new Date().toLocaleTimeString();
+                this.output.push(`[${timestamp}] ${message}`);
+                this.updateDisplay();
+                
+                const color = {
+                    'success': 'text-green-700',
+                    'error': 'text-red-700',
+                    'warning': 'text-yellow-700',
+                    'info': 'text-blue-700'
+                }[type] || 'text-gray-700';
+                
+                console.log(`%c${message}`, `color: ${color.replace('text-', '').replace('-700', '')}`);
+            }
+            
+            updateDisplay() {
+                const container = document.getElementById('test-output');
+                container.innerHTML = this.output.map(line => `<div>${line}</div>`).join('');
+                container.scrollTop = container.scrollHeight;
+            }
+            
+            async init() {
+                await this.wait(1000);
+                
+                this.log('🔧 Testing targeted security fixes...', 'info');
+                this.log('', 'info');
+                
+                // Test 1: Object Initialization
+                await this.testObjectInitialization();
+                this.log('', 'info');
+                
+                // Test 2: Method Availability
+                await this.testMethodAvailability();
+                this.log('', 'info');
+                
+                // Test 3: SQL Sanitization Fix
+                await this.testSQLSanitizationFix();
+                this.log('', 'info');
+                
+                // Test 4: Audit Logging Fix
+                await this.testAuditLoggingFix();
+                
+                this.displaySummary();
+            }
+            
+            async testObjectInitialization() {
+                this.log('📋 Testing Object Initialization:', 'info');
+                
+                const objects = [
+                    { name: 'window.securityManager', obj: window.securityManager },
+                    { name: 'window.securityAuditService', obj: window.securityAuditService },
+                    { name: 'window.jobManagementService', obj: window.jobManagementService },
+                    { name: 'window.careersManager', obj: window.careersManager }
+                ];
+                
+                objects.forEach(({ name, obj }) => {
+                    if (obj) {
+                        this.log(`✅ ${name} - INITIALIZED`, 'success');
+                    } else {
+                        this.log(`❌ ${name} - NOT FOUND`, 'error');
+                    }
+                });
+            }
+            
+            async testMethodAvailability() {
+                this.log('🔍 Testing Method Availability:', 'info');
+                
+                // Test SecurityManager methods
+                if (window.securityManager) {
+                    const methods = ['sanitizeSQL', 'validateSQLInput', 'sanitizeInput'];
+                    methods.forEach(method => {
+                        if (typeof window.securityManager[method] === 'function') {
+                            this.log(`✅ securityManager.${method} - AVAILABLE`, 'success');
+                        } else {
+                            this.log(`❌ securityManager.${method} - MISSING`, 'error');
+                        }
+                    });
+                } else {
+                    this.log('❌ SecurityManager not available for method testing', 'error');
+                }
+                
+                // Test SecurityAuditService methods
+                if (window.securityAuditService) {
+                    const methods = ['directLogSecurityEvent', 'logSecurityEvent'];
+                    methods.forEach(method => {
+                        if (typeof window.securityAuditService[method] === 'function') {
+                            this.log(`✅ securityAuditService.${method} - AVAILABLE`, 'success');
+                        } else {
+                            this.log(`❌ securityAuditService.${method} - MISSING`, 'error');
+                        }
+                    });
+                } else {
+                    this.log('❌ SecurityAuditService not available for method testing', 'error');
+                }
+            }
+            
+            async testSQLSanitizationFix() {
+                this.log('🛡️ Testing SQL Sanitization Fix:', 'info');
+                
+                if (!window.securityManager || typeof window.securityManager.sanitizeSQL !== 'function') {
+                    this.log('❌ sanitizeSQL method not available', 'error');
+                    return;
+                }
+                
+                const testInput = "'; DROP TABLE users; --";
+                this.log(`Input: "${testInput}"`, 'info');
+                
+                try {
+                    const result = window.securityManager.sanitizeSQL(testInput);
+                    this.log(`Output: "${result}"`, 'info');
+                    
+                    // Check if dangerous keywords are completely removed
+                    const dangerousKeywords = ['DROP', 'TABLE', 'users', ';', '--', "'"];
+                    const foundDangerous = dangerousKeywords.filter(keyword => 
+                        result.toUpperCase().includes(keyword.toUpperCase())
+                    );
+                    
+                    if (foundDangerous.length === 0) {
+                        this.log('✅ SQL sanitization working correctly - all dangerous content removed', 'success');
+                    } else {
+                        this.log(`❌ SQL sanitization incomplete - found: ${foundDangerous.join(', ')}`, 'error');
+                    }
+                    
+                    // Test validateSQLInput
+                    if (typeof window.securityManager.validateSQLInput === 'function') {
+                        const isValid = window.securityManager.validateSQLInput(testInput);
+                        if (!isValid) {
+                            this.log('✅ SQL validation correctly detected dangerous input', 'success');
+                        } else {
+                            this.log('⚠️ SQL validation did not detect dangerous input', 'warning');
+                        }
+                    }
+                } catch (error) {
+                    this.log(`❌ SQL sanitization error: ${error.message}`, 'error');
+                }
+            }
+            
+            async testAuditLoggingFix() {
+                this.log('📝 Testing Audit Logging Fix:', 'info');
+                
+                if (!window.securityAuditService || typeof window.securityAuditService.directLogSecurityEvent !== 'function') {
+                    this.log('❌ directLogSecurityEvent method not available', 'error');
+                    return;
+                }
+                
+                try {
+                    const initialCount = window.securityAuditService.auditLog ? window.securityAuditService.auditLog.length : 0;
+                    this.log(`Initial audit log count: ${initialCount}`, 'info');
+                    
+                    window.securityAuditService.directLogSecurityEvent('TEST_EVENT', { test: true, timestamp: Date.now() });
+                    
+                    const finalCount = window.securityAuditService.auditLog ? window.securityAuditService.auditLog.length : 0;
+                    this.log(`Final audit log count: ${finalCount}`, 'info');
+                    
+                    if (finalCount > initialCount) {
+                        this.log('✅ Audit logging working correctly', 'success');
+                    } else {
+                        this.log('❌ Audit logging not working - count did not increase', 'error');
+                    }
+                } catch (error) {
+                    this.log(`❌ Audit logging error: ${error.message}`, 'error');
+                }
+            }
+            
+            displaySummary() {
+                this.log('', 'info');
+                this.log('🎯 VERIFICATION COMPLETE', 'info');
+                this.log('Check the results above to verify all fixes are working correctly.', 'info');
+                
+                const statusDiv = document.getElementById('results');
+                const hasErrors = this.output.some(line => line.includes('❌'));
+                const hasWarnings = this.output.some(line => line.includes('⚠️'));
+                
+                const alertClass = hasErrors ? 'bg-red-100 border-red-400 text-red-700' :
+                                 hasWarnings ? 'bg-yellow-100 border-yellow-400 text-yellow-700' :
+                                 'bg-green-100 border-green-400 text-green-700';
+                
+                const status = hasErrors ? 'Some fixes need attention' :
+                              hasWarnings ? 'Fixes mostly successful with warnings' :
+                              'All fixes verified successfully!';
+                
+                statusDiv.innerHTML = `
+                    <div class="${alertClass} px-4 py-3 rounded border">
+                        <strong>Verification Complete:</strong> ${status}
+                    </div>
+                `;
+            }
+            
+            wait(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+            }
+        }
+        
+        // Initialize verification when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new QuickFixVerification();
+        });
+    </script>
+</body>
+</html>

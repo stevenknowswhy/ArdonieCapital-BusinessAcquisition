@@ -83,13 +83,13 @@ export class ModalComponent {
     createOverlay() {
         this.overlay = document.createElement('div');
         this.overlay.className = 'modal-overlay absolute inset-0 bg-black transition-opacity duration-300';
-        
+
         if (this.options.backdrop) {
-            this.overlay.classList.add('bg-opacity-50');
+            this.overlay.classList.add('modal-backdrop-enhanced');
         } else {
             this.overlay.classList.add('bg-opacity-0');
         }
-        
+
         this.element.appendChild(this.overlay);
     }
 

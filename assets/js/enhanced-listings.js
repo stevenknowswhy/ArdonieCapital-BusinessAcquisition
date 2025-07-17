@@ -476,14 +476,115 @@ class EnhancedListings {
         // TODO: Implement messaging functionality
     }
 
-    handleSaveSearch() {
+    async handleSaveSearch() {
         if (!this.isAuthenticated) {
             this.showAuthPrompt('Sign up to save search alerts and get notified when new listings match your criteria!');
             return;
         }
 
-        this.showToast('Search alert saved! You\'ll be notified of new matches.', 'success');
-        // TODO: Implement search alert functionality
+        try {
+            // Dynamically import the save search alert modal
+            const { saveSearchAlertModal } = await import('/src/features/search-alerts/components/save-search-alert-modal.js');
+
+            // Extract current search criteria from the page
+            const searchCriteria = this.extractCurrentSearchCriteria();
+
+            // Show the save search alert modal
+            saveSearchAlertModal.show(searchCriteria, (savedAlert) => {
+                // Callback when alert is successfully saved
+                this.showToast(`Search alert "${savedAlert.search_name}" saved successfully!`, 'success');
+
+                // Optional: Track analytics event
+                this.trackEvent('search_alert_saved', {
+                    alert_name: savedAlert.search_name,
+                    notification_frequency: savedAlert.notification_frequency,
+                    has_filters: Object.keys(searchCriteria.filters || {}).length > 0
+                });
+            });
+
+        } catch (error) {
+            console.error('Error loading save search alert modal:', error);
+            this.showToast('Unable to save search alert. Please try again.', 'error');
+        }
+    }
+
+    /**
+     * Extract current search criteria from the page
+     */
+    extractCurrentSearchCriteria() {
+        const criteria = {
+            search_query: '',
+            filters: {}
+        };
+
+        try {
+            // Extract search query from search input
+            const searchInput = document.querySelector('#search-input, [name="search"], .search-input, input[type="search"]');
+            if (searchInput && searchInput.value.trim()) {
+                criteria.search_query = searchInput.value.trim();
+            }
+
+            // Extract filters from various form elements
+            const filterElements = document.querySelectorAll('[data-filter], .filter-input, .filter-select');
+            filterElements.forEach(element => {
+                const filterName = element.dataset.filter || element.name;
+                let filterValue = element.type === 'checkbox' ? element.checked : element.value;
+
+                if (filterName && filterValue !== '' && filterValue !== false && filterValue !== null) {
+                    // Convert string numbers to actual numbers for price fields
+                    if (filterName.includes('price') && !isNaN(filterValue)) {
+                        filterValue = parseFloat(filterValue);
+                    }
+                    criteria.filters[filterName] = filterValue;
+                }
+            });
+
+            // Extract specific business search filters if they exist
+            const businessTypeSelect = document.querySelector('#business-type, [name="business_type"], select[data-filter="business_type"]');
+            if (businessTypeSelect && businessTypeSelect.value) {
+                criteria.filters.business_type = businessTypeSelect.value;
+            }
+
+            const locationInput = document.querySelector('#location, [name="location"], input[data-filter="location"]');
+            if (locationInput && locationInput.value) {
+                criteria.filters.location = locationInput.value;
+            }
+
+            // Extract price range filters
+            const priceMin = document.querySelector('#price-min, [name="price_min"], input[data-filter="price_min"]');
+            const priceMax = document.querySelector('#price-max, [name="price_max"], input[data-filter="price_max"]');
+
+            if (priceMin && priceMin.value) {
+                criteria.filters.price_min = parseFloat(priceMin.value);
+            }
+            if (priceMax && priceMax.value) {
+                criteria.filters.price_max = parseFloat(priceMax.value);
+            }
+
+            // Extract revenue range if available
+            const revenueMin = document.querySelector('[name="revenue_min"], input[data-filter="revenue_min"]');
+            const revenueMax = document.querySelector('[name="revenue_max"], input[data-filter="revenue_max"]');
+
+            if (revenueMin && revenueMin.value) {
+                criteria.filters.revenue_min = parseFloat(revenueMin.value);
+            }
+            if (revenueMax && revenueMax.value) {
+                criteria.filters.revenue_max = parseFloat(revenueMax.value);
+            }
+
+            // Extract industry/category filters
+            const industrySelect = document.querySelector('[name="industry"], select[data-filter="industry"]');
+            if (industrySelect && industrySelect.value) {
+                criteria.filters.industry = industrySelect.value;
+            }
+
+            console.log('Extracted search criteria:', criteria);
+            return criteria;
+
+        } catch (error) {
+            console.error('Error extracting search criteria:', error);
+            return { search_query: '', filters: {} };
+        }
     }
 
     handleDashboardPreview() {

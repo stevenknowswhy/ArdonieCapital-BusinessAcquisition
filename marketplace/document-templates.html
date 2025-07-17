@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//images.unsplash.com">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Templates - Closing Documents - Ardonie Capital</title>
+    <meta name="description" content="Professional document templates for auto repair shop acquisitions and closing processes.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+
+    <!-- Tailwind CSS -->
+    <link rel="stylesheet" href="../assets/css/tailwind.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" media="print" onload="this.media='all'" href="../assets/css/common.css">
+
+    <!-- Navigation Styles -->
+    <link rel="stylesheet" href="../components/navigation-styles.css">
+    <link rel="stylesheet" href="../assets/css/admin-navigation.css">
+
+    <!-- Security Headers -->
+    <script src="../assets/js/security-headers.js" defer></script>
+    
+    <!-- Theme System -->
+    <script>
+        // Apply saved theme preference immediately to prevent flash
+        (function() {
+            const savedTheme = localStorage.getItem('theme');
+            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+            if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        })();
+    </script>
+
+    <!-- Custom Styles -->
+    <style>
+        .template-card {
+            transition: all 0.3s ease;
+        }
+        
+        .template-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+        }
+        
+        .dark .template-card:hover {
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
+        }
+        
+        .category-tab {
+            transition: all 0.2s ease;
+        }
+        
+        .category-tab.active {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white">
+    <!-- Navigation Component -->
+    <div id="main-navigation-container"></div>
+    
+    <!-- Admin Navigation -->
+    <div id="admin-navigation-container"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Breadcrumb -->
+        <nav class="flex mb-6" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                <li class="inline-flex items-center">
+                    <a href="closing-documents.html" class="inline-flex items-center text-sm font-medium text-slate-700 hover:text-primary dark:text-slate-400 dark:hover:text-white">
+                        <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
+                        </svg>
+                        Closing Documents
+                    </a>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <svg class="w-6 h-6 text-slate-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                        </svg>
+                        <span class="ml-1 text-sm font-medium text-slate-500 md:ml-2 dark:text-slate-400">Document Templates</span>
+                    </div>
+                </li>
+            </ol>
+        </nav>
+
+        <!-- Page Header -->
+        <div class="mb-8">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold text-slate-900 dark:text-white mb-2">Document Templates</h1>
+                    <p class="text-slate-600 dark:text-slate-300">Professional templates for auto repair shop acquisitions</p>
+                </div>
+                <div class="flex space-x-3">
+                    <button type="button" id="uploadTemplateBtn" class="bg-primary hover:bg-primary-dark text-white px-4 py-2 rounded-md transition-colors" aria-label="Upload new template">
+                        <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                        </svg>
+                        Upload Template
+                    </button>
+                    <button type="button" id="createTemplateBtn" class="bg-accent hover:bg-accent-dark text-white px-4 py-2 rounded-md transition-colors" aria-label="Create new template">
+                        <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                        </svg>
+                        Create Template
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Category Tabs -->
+        <div class="mb-8">
+            <div class="border-b border-slate-200 dark:border-slate-700">
+                <nav class="-mb-px flex space-x-8" aria-label="Tabs">
+                    <button type="button" class="category-tab active py-2 px-1 border-b-2 border-transparent font-medium text-sm" data-category="all" aria-label="Show all templates">
+                        All Templates
+                    </button>
+                    <button type="button" class="category-tab py-2 px-1 border-b-2 border-transparent font-medium text-sm text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300" data-category="purchase" aria-label="Show purchase agreement templates">
+                        Purchase Agreement
+                    </button>
+                    <button type="button" class="category-tab py-2 px-1 border-b-2 border-transparent font-medium text-sm text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300" data-category="due-diligence" aria-label="Show due diligence templates">
+                        Due Diligence
+                    </button>
+                    <button type="button" class="category-tab py-2 px-1 border-b-2 border-transparent font-medium text-sm text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300" data-category="financing" aria-label="Show financing templates">
+                        Financing
+                    </button>
+                    <button type="button" class="category-tab py-2 px-1 border-b-2 border-transparent font-medium text-sm text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300" data-category="legal" aria-label="Show legal and compliance templates">
+                        Legal & Compliance
+                    </button>
+                    <button type="button" class="category-tab py-2 px-1 border-b-2 border-transparent font-medium text-sm text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300" data-category="employment" aria-label="Show employment templates">
+                        Employment
+                    </button>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Search and Filters -->
+        <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 p-6 mb-8">
+            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0">
+                <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
+                    <div class="relative">
+                        <input type="text" id="searchInput" placeholder="Search templates..." class="w-full sm:w-64 pl-10 pr-4 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary">
+                        <svg class="w-5 h-5 text-slate-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        </svg>
+                    </div>
+                    
+                    <select id="typeFilter" class="px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary" aria-label="Filter templates by document type" title="Filter templates by document type">
+                        <option value="">All Types</option>
+                        <option value="contract">Contracts</option>
+                        <option value="form">Forms</option>
+                        <option value="checklist">Checklists</option>
+                        <option value="letter">Letters</option>
+                    </select>
+
+                    <select id="formatFilter" class="px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary" aria-label="Filter templates by file format" title="Filter templates by file format">
+                        <option value="">All Formats</option>
+                        <option value="pdf">PDF</option>
+                        <option value="docx">Word Document</option>
+                        <option value="html">HTML</option>
+                    </select>
+                </div>
+                
+                <div class="flex space-x-2">
+                    <button type="button" id="gridViewBtn" class="p-2 bg-primary text-white rounded-md" aria-label="Switch to grid view" title="Switch to grid view">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
+                        </svg>
+                    </button>
+                    <button type="button" id="listViewBtn" class="p-2 bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-400 rounded-md" aria-label="Switch to list view" title="Switch to list view">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Templates Grid -->
+        <div id="templatesContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <!-- Templates will be populated by JavaScript -->
+        </div>
+
+        <!-- Empty State -->
+        <div id="emptyState" class="hidden text-center py-12">
+            <svg class="w-16 h-16 text-slate-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            </svg>
+            <h3 class="text-lg font-medium text-slate-900 dark:text-white mb-2">No templates found</h3>
+            <p class="text-slate-500 dark:text-slate-400 mb-4">Try adjusting your search criteria or create a new template.</p>
+            <button type="button" class="bg-primary hover:bg-primary-dark text-white px-4 py-2 rounded-md transition-colors" aria-label="Create new template">
+                Create New Template
+            </button>
+        </div>
+    </div>
+
+    <!-- Template Preview Modal -->
+    <div id="templateModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white dark:bg-slate-800 rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
+                <div class="flex items-center justify-between p-6 border-b border-slate-200 dark:border-slate-700">
+                    <h3 class="text-lg font-semibold text-slate-900 dark:text-white" id="modalTitle">Template Preview</h3>
+                    <button type="button" id="closeModal" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300" aria-label="Close modal" title="Close modal">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="p-6 overflow-y-auto max-h-[70vh]" id="modalContent">
+                    <!-- Template content will be loaded here -->
+                </div>
+                <div class="flex items-center justify-end space-x-3 p-6 border-t border-slate-200 dark:border-slate-700">
+                    <button type="button" id="downloadTemplate" class="bg-accent hover:bg-accent-dark text-white px-4 py-2 rounded-md transition-colors" aria-label="Download template">
+                        Download
+                    </button>
+                    <button type="button" id="useTemplate" class="bg-primary hover:bg-primary-dark text-white px-4 py-2 rounded-md transition-colors" aria-label="Use this template">
+                        Use Template
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Scripts -->
+    <script src="../components/main-navigation.js"></script>
+    <script src="../components/admin-navigation.js"></script>
+    <script src="supabase-closing-docs.js"></script>
+    <script src="document-templates.js"></script>
+
+    <!-- Cleanup on page unload -->
+    <script>
+        window.addEventListener('beforeunload', function() {
+            if (window.templatesManager) {
+                window.templatesManager.destroy();
+            }
+        });
+    </script>

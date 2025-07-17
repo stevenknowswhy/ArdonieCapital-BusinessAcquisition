@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Module Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .result { margin: 10px 0; padding: 10px; border-radius: 5px; }
+        .success { background-color: #d4edda; color: #155724; }
+        .error { background-color: #f8d7da; color: #721c24; }
+        .info { background-color: #d1ecf1; color: #0c5460; }
+    </style>
+</head>
+<body>
+    <h1>Quick Module Test</h1>
+    <div id="results"></div>
+    
+    <script type="module">
+        const results = document.getElementById('results');
+        
+        function addResult(message, type = 'info') {
+            const div = document.createElement('div');
+            div.className = `result ${type}`;
+            div.textContent = message;
+            results.appendChild(div);
+        }
+        
+        async function testModules() {
+            addResult('Starting module tests...', 'info');
+
+            // Test each module individually to catch specific errors
+
+            // Test 1: Search Alert Service
+            try {
+                addResult('Testing search alert service import...', 'info');
+                const { searchAlertService } = await import('/src/features/search-alerts/services/search-alert.service.js');
+                addResult('✅ Search alert service imported successfully', 'success');
+
+                // Test criteria extraction
+                const criteria = searchAlertService.extractCurrentSearchCriteria();
+                addResult(`✅ Criteria extraction works: ${JSON.stringify(criteria)}`, 'success');
+            } catch (error) {
+                addResult(`❌ Search alert service failed: ${error.message}`, 'error');
+            }
+
+            // Test 2: Save Search Alert Modal
+            try {
+                addResult('Testing save search alert modal import...', 'info');
+                const { saveSearchAlertModal } = await import('/src/features/search-alerts/components/save-search-alert-modal.js');
+                addResult('✅ Save search alert modal imported successfully', 'success');
+            } catch (error) {
+                addResult(`❌ Save search alert modal failed: ${error.message}`, 'error');
+            }
+
+            // Test 3: Search Alerts Dashboard
+            try {
+                addResult('Testing search alerts dashboard import...', 'info');
+                const { searchAlertsDashboard } = await import('/src/features/search-alerts/components/search-alerts-dashboard.js');
+                addResult('✅ Search alerts dashboard imported successfully', 'success');
+            } catch (error) {
+                addResult(`❌ Search alerts dashboard failed: ${error.message}`, 'error');
+            }
+
+            // Test 4: Notification Service
+            try {
+                addResult('Testing notification service import...', 'info');
+                const { searchAlertNotificationService } = await import('/src/features/search-alerts/services/search-alert-notification.service.js');
+                addResult('✅ Notification service imported successfully', 'success');
+            } catch (error) {
+                addResult(`❌ Notification service failed: ${error.message}`, 'error');
+            }
+
+            // Test 5: Dependencies
+            try {
+                addResult('Testing supabase service dependency...', 'info');
+                const { supabaseService } = await import('/src/shared/services/supabase/supabase.service.js');
+                addResult('✅ Supabase service imported successfully', 'success');
+            } catch (error) {
+                addResult(`❌ Supabase service failed: ${error.message}`, 'error');
+            }
+
+            try {
+                addResult('Testing notification service dependency...', 'info');
+                const { notificationService } = await import('/src/features/notifications/services/notification.service.js');
+                addResult('✅ Notification service dependency imported successfully', 'success');
+            } catch (error) {
+                addResult(`❌ Notification service dependency failed: ${error.message}`, 'error');
+            }
+
+            addResult('🎉 Module testing completed!', 'success');
+        }
+        
+        // Run tests when page loads
+        testModules();
+    </script>
+</body>
+</html>

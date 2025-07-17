@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Development Auto-Login - Ardonie Capital</title>
+    <meta name="description" content="Development auto-login page for testing all role types and authentication flows">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Custom CSS -->
+    <style>
+        /* Custom animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+
+        /* Role-specific colors */
+        .role-buyer { @apply bg-blue-50 border-blue-200 hover:bg-blue-100; }
+        .role-seller { @apply bg-green-50 border-green-200 hover:bg-green-100; }
+        .role-vendor { @apply bg-purple-50 border-purple-200 hover:bg-purple-100; }
+        .role-admin { @apply bg-red-50 border-red-200 hover:bg-red-100; }
+        .role-content { @apply bg-yellow-50 border-yellow-200 hover:bg-yellow-100; }
+        .role-multi { @apply bg-gradient-to-r from-blue-50 to-green-50 border-indigo-200 hover:from-blue-100 hover:to-green-100; }
+
+        /* Dark mode support */
+        .dark .role-buyer { @apply bg-blue-900/20 border-blue-700 hover:bg-blue-900/30; }
+        .dark .role-seller { @apply bg-green-900/20 border-green-700 hover:bg-green-900/30; }
+        .dark .role-vendor { @apply bg-purple-900/20 border-purple-700 hover:bg-purple-900/30; }
+        .dark .role-admin { @apply bg-red-900/20 border-red-700 hover:bg-red-900/30; }
+        .dark .role-content { @apply bg-yellow-900/20 border-yellow-700 hover:bg-yellow-900/30; }
+        .dark .role-multi { @apply bg-gradient-to-r from-blue-900/20 to-green-900/20 border-indigo-700; }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 min-h-screen">
+    <!-- Development Warning Banner -->
+    <div class="bg-red-600 text-white px-4 py-2 text-center text-sm font-medium">
+        🚨 DEVELOPMENT ENVIRONMENT ONLY - Auto-Login for Testing Purposes
+    </div>
+
+    <!-- Main Container -->
+    <div class="container mx-auto px-4 py-8 max-w-7xl">
+        <!-- Header -->
+        <div class="text-center mb-8 fade-in">
+            <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                Development Auto-Login
+            </h1>
+            <p class="text-lg text-gray-600 dark:text-gray-300 mb-2">
+                Quick access to test all role types and authentication flows
+            </p>
+            <p class="text-sm text-gray-500 dark:text-gray-400">
+                All test accounts use password: <code class="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded">TestUser123!</code>
+            </p>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div id="loadingOverlay" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+            <div class="bg-white dark:bg-gray-800 rounded-lg p-6 text-center">
+                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+                <p class="text-gray-700 dark:text-gray-300">Logging in...</p>
+                <p id="loginStatus" class="text-sm text-gray-500 dark:text-gray-400 mt-2"></p>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="mb-8 text-center">
+            <div class="inline-flex rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-1">
+                <button id="loginAllBtn" class="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md transition-colors">
+                    Test All Roles
+                </button>
+                <button id="clearSessionBtn" class="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md transition-colors">
+                    Clear Session
+                </button>
+                <button id="toggleThemeBtn" class="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md transition-colors">
+                    Toggle Theme
+                </button>
+            </div>
+        </div>
+
+        <!-- User Categories Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
+
+            <!-- Single-Role Users -->
+            <div class="fade-in">
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4 flex items-center">
+                    <span class="w-3 h-3 bg-blue-500 rounded-full mr-3"></span>
+                    Single-Role Users
+                </h2>
+                <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                    Direct dashboard routing - no role selection needed
+                </p>
+
+                <!-- Buyers -->
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3 flex items-center">
+                        <svg class="w-5 h-5 mr-2 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        Buyers
+                    </h3>
+
+                    <div class="space-y-3">
+                        <div class="user-card role-buyer border rounded-lg p-4 cursor-pointer transition-all duration-200 hover:shadow-md"
+                             data-email="buyer.free@testuser.ardonie.com"
+                             data-role="buyer"
+                             data-tier="free">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h4 class="font-medium text-gray-900 dark:text-white">Sarah Johnson</h4>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400">Free Tier • Individual Investor</p>
+                                    <p class="text-xs text-gray-500 dark:text-gray-500">Austin, TX</p>
+                                </div>
+                                <div class="text-right">
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
+                                        Free
+                                    </span>
+                                    <p class="text-xs text-gray-500 mt-1">Onboarding Step 2</p>
+                                </div>
+                            </div>
+                            <div class="mt-2 text-xs text-gray-600 dark:text-gray-400">
+                                Tests: Free tier limitations, onboarding flow
+                            </div>
+                        </div>
+
+                        <div class="user-card role-buyer border rounded-lg p-4 cursor-pointer transition-all duration-200 hover:shadow-md"
+                             data-email="buyer.pro@testuser.ardonie.com"
+                             data-role="buyer"
+                             data-tier="pro">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h4 class="font-medium text-gray-900 dark:text-white">Michael Chen</h4>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400">Pro Tier • Private Equity</p>
+                                    <p class="text-xs text-gray-500 dark:text-gray-500">San Francisco, CA</p>
+                                </div>
+                                <div class="text-right">
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+                                        Pro
+                                    </span>
+                                    <p class="text-xs text-gray-500 mt-1">Experienced User</p>
+                                </div>
+                            </div>
+                            <div class="mt-2 text-xs text-gray-600 dark:text-gray-400">
+                                Tests: Pro features, advanced analytics, unlimited access
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sellers -->
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3 flex items-center">
+                        <svg class="w-5 h-5 mr-2 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
+                        </svg>
+                        Sellers
+                    </h3>
+
+                    <div class="space-y-3">
+                        <div class="user-card role-seller border rounded-lg p-4 cursor-pointer transition-all duration-200 hover:shadow-md"
+                             data-email="seller.free@testuser.ardonie.com"
+                             data-role="seller"
+                             data-tier="free">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h4 class="font-medium text-gray-900 dark:text-white">Robert Martinez</h4>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400">Free Tier • Auto Repair Shop</p>
+                                    <p class="text-xs text-gray-500 dark:text-gray-500">Phoenix, AZ</p>
+                                </div>
+                                <div class="text-right">
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
+                                        Free
+                                    </span>
+                                    <p class="text-xs text-gray-500 mt-1">Onboarding Step 3</p>
+                                </div>
+                            </div>
+                            <div class="mt-2 text-xs text-gray-600 dark:text-gray-400">
+                                Tests: Free tier listing limits, seller onboarding
+                            </div>
+                        </div>
+
+                        <div class="user-card role-seller border rounded-lg p-4 cursor-pointer transition-all duration-200 hover:shadow-md"
+                             data-email="seller.pro@testuser.ardonie.com"
+                             data-role="seller"
+                             data-tier="pro">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h4 class="font-medium text-gray-900 dark:text-white">Jennifer Williams</h4>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400">Pro Tier • Multi-Location Owner</p>
+                                    <p class="text-xs text-gray-500 dark:text-gray-500">Dallas, TX</p>
+                                </div>
+                                <div class="text-right">
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+                                        Pro
+                                    </span>
+                                    <p class="text-xs text-gray-500 mt-1">Multi-location</p>
+                                </div>
+                            </div>
+                            <div class="mt-2 text-xs text-gray-600 dark:text-gray-400">
+                                Tests: Pro seller features, analytics, priority support
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vendor Professionals -->
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3 flex items-center">
+                        <svg class="w-5 h-5 mr-2 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"/>
+                        </svg>
+                        Vendor Professionals
+                    </h3>
+
+                    <div class="space-y-3">
+                        <div class="user-card role-vendor border rounded-lg p-4 cursor-pointer transition-all duration-200 hover:shadow-md"
+                             data-email="financial.vendor@testuser.ardonie.com"
+                             data-role="vendor"
+                             data-tier="professional">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h4 class="font-medium text-gray-900 dark:text-white">David Thompson</h4>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400">Financial Professional • CPA/Broker</p>
+                                    <p class="text-xs text-gray-500 dark:text-gray-500">Chicago, IL</p>
+                                </div>
+                                <div class="text-right">
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">
+                                        Financial
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="mt-2 text-xs text-gray-600 dark:text-gray-400">
+                                Tests: Financial tools, business valuation, client management
+                            </div>
+                        </div>
+
+                        <div class="user-card role-vendor border rounded-lg p-4 cursor-pointer transition-all duration-200 hover:shadow-md"
+                             data-email="legal.vendor@testuser.ardonie.com"
+                             data-role="vendor"
+                             data-tier="professional">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h4 class="font-medium text-gray-900 dark:text-white">Amanda Rodriguez</h4>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400">Legal Professional • Business Attorney</p>
+                                    <p class="text-xs text-gray-500 dark:text-gray-500">Miami, FL</p>
+                                </div>
+                                <div class="text-right">
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">
+                                        Legal
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="mt-2 text-xs text-gray-600 dark:text-gray-400">
+                                Tests: Legal tools, contract management, compliance features
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Multi-Role Users -->
+            <div class="fade-in">
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4 flex items-center">
+                    <span class="w-3 h-3 bg-gradient-to-r from-blue-500 to-green-500 rounded-full mr-3"></span>
+                    Multi-Role Users
+                </h2>
+                <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                    Role selection interface - test multi-role functionality
+                </p>
+
+                <div class="space-y-4">
+                    <div class="user-card role-multi border rounded-lg p-4 cursor-pointer transition-all duration-200 hover:shadow-md"
+                         data-email="buyer.seller@testuser.ardonie.com"
+                         data-role="multi"
+                         data-roles="buyer,seller">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h4 class="font-medium text-gray-900 dark:text-white">James Anderson</h4>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Business Owner • Buying & Selling</p>
+                                <p class="text-xs text-gray-500 dark:text-gray-500">Atlanta, GA</p>
+                            </div>
+                            <div class="text-right">
+                                <div class="flex space-x-1">
+                                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
+                                        Buyer
+                                    </span>
+                                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+                                        Seller
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-2 text-xs text-gray-600 dark:text-gray-400">
+                            Tests: Role selection interface, role switching, dual dashboard access
+                        </div>
+                    </div>
+
+                    <div class="user-card role-multi border rounded-lg p-4 cursor-pointer transition-all duration-200 hover:shadow-md"
+                         data-email="buyer.financial@testuser.ardonie.com"
+                         data-role="multi"
+                         data-roles="buyer,vendor">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h4 class="font-medium text-gray-900 dark:text-white">Lisa Parker</h4>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Investment Advisor • Buyer</p>
+                                <p class="text-xs text-gray-500 dark:text-gray-500">Denver, CO</p>
+                            </div>
+                            <div class="text-right">
+                                <div class="flex space-x-1">
+                                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
+                                        Buyer
+                                    </span>
+                                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">
+                                        Vendor
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-2 text-xs text-gray-600 dark:text-gray-400">
+                            Tests: Multi-role vendor profile, investment tools, buyer features
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Admin & Content Users -->
+            <div class="fade-in">
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4 flex items-center">
+                    <span class="w-3 h-3 bg-red-500 rounded-full mr-3"></span>
+                    Admin & Content Users
+                </h2>
+                <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                    Administrative and content management access
+                </p>
+
+                <!-- Admin Users -->
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3 flex items-center">
+                        <svg class="w-5 h-5 mr-2 text-red-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"/>
+                        </svg>
+                        Administrators
+                    </h3>
+
+                    <div class="space-y-3">
+                        <div class="user-card role-admin border rounded-lg p-4 cursor-pointer transition-all duration-200 hover:shadow-md"
+                             data-email="super.admin@testuser.ardonie.com"
+                             data-role="super_admin"
+                             data-tier="admin">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h4 class="font-medium text-gray-900 dark:text-white">Alex Morgan</h4>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400">Platform Super Administrator</p>
+                                    <p class="text-xs text-gray-500 dark:text-gray-500">Austin, TX</p>
+                                </div>
+                                <div class="text-right">
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">
+                                        Super Admin
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="mt-2 text-xs text-gray-600 dark:text-gray-400">
+                                Tests: Full system access, user management, system settings, audit logs
+                            </div>
+                        </div>
+
+                        <div class="user-card role-admin border rounded-lg p-4 cursor-pointer transition-all duration-200 hover:shadow-md"
+                             data-email="company.admin@testuser.ardonie.com"
+                             data-role="company_admin"
+                             data-tier="admin">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h4 class="font-medium text-gray-900 dark:text-white">Taylor Davis</h4>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400">Company Administrator</p>
+                                    <p class="text-xs text-gray-500 dark:text-gray-500">Austin, TX</p>
+                                </div>
+                                <div class="text-right">
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200">
+                                        Company Admin
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="mt-2 text-xs text-gray-600 dark:text-gray-400">
+                                Tests: Company-level user management, company settings, limited admin scope
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content Users -->
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3 flex items-center">
+                        <svg class="w-5 h-5 mr-2 text-yellow-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
+                            <path fill-rule="evenodd" d="M4 5a2 2 0 012-2v1a1 1 0 102 0V3a2 2 0 012 2v6a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 2a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"/>
+                        </svg>
+                        Content Management
+                    </h3>
+
+                    <div class="space-y-3">
+                        <div class="user-card role-content border rounded-lg p-4 cursor-pointer transition-all duration-200 hover:shadow-md"
+                             data-email="blog.editor@testuser.ardonie.com"
+                             data-role="blog_editor"
+                             data-tier="content">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h4 class="font-medium text-gray-900 dark:text-white">Morgan Lee</h4>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400">Content Editor</p>
+                                    <p class="text-xs text-gray-500 dark:text-gray-500">Austin, TX</p>
+                                </div>
+                                <div class="text-right">
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200">
+                                        Editor
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="mt-2 text-xs text-gray-600 dark:text-gray-400">
+                                Tests: Full content management, publishing, SEO tools
+                            </div>
+                        </div>
+
+                        <div class="user-card role-content border rounded-lg p-4 cursor-pointer transition-all duration-200 hover:shadow-md"
+                             data-email="blog.contributor@testuser.ardonie.com"
+                             data-role="blog_contributor"
+                             data-tier="content">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h4 class="font-medium text-gray-900 dark:text-white">Jordan Smith</h4>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400">Content Contributor</p>
+                                    <p class="text-xs text-gray-500 dark:text-gray-500">Remote</p>
+                                </div>
+                                <div class="text-right">
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200">
+                                        Contributor
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="mt-2 text-xs text-gray-600 dark:text-gray-400">
+                                Tests: Draft creation, content editing (no publishing rights)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Testing Information Panel -->
+        <div class="mt-12 bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 fade-in">
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4 flex items-center">
+                <svg class="w-6 h-6 mr-3 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+                </svg>
+                Testing Information
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Authentication Flow Testing -->
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3">Authentication Flow Testing</h3>
+                    <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-2">
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            Single-Role Users → Direct dashboard redirect
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            Multi-Role Users → Role selection interface
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            Admin Users → Admin dashboard access
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-yellow-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            Content Users → Content management dashboard
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Dashboard Features -->
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3">Dashboard Features</h3>
+                    <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-2">
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            KPI cards with real data
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            Role-specific navigation
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-purple-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            Feature access controls
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-orange-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            Subscription tier restrictions
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Multi-Role Functionality -->
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3">Multi-Role Functionality</h3>
+                    <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-2">
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-indigo-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            Role selection interface
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-pink-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            Seamless role switching
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-teal-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            Dashboard adaptation
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-gray-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            Permission management
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Status Panel -->
+        <div id="statusPanel" class="mt-8 bg-gray-100 dark:bg-gray-800 rounded-lg p-4 hidden">
+            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">Login Status</h3>
+            <div id="statusContent" class="text-sm text-gray-600 dark:text-gray-400"></div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script type="module">
+        // Import authentication services
+        import { EnhancedAuthService } from '../src/features/authentication/services/enhanced-auth.service.js';
+
+        class DevAutoLogin {
+            constructor() {
+                this.authService = new EnhancedAuthService();
+                this.testUsers = {
+                    // Single-Role Users
+                    'buyer.free@testuser.ardonie.com': {
+                        email: 'buyer.free@testuser.ardonie.com',
+                        password: 'TestUser123!',
+                        role: 'buyer',
+                        tier: 'free',
+                        name: 'Sarah Johnson',
+                        expectedDashboard: '../dashboard/buyer-dashboard.html'
+                    },
+                    'buyer.pro@testuser.ardonie.com': {
+                        email: 'buyer.pro@testuser.ardonie.com',
+                        password: 'TestUser123!',
+                        role: 'buyer',
+                        tier: 'pro',
+                        name: 'Michael Chen',
+                        expectedDashboard: '../dashboard/buyer-dashboard.html'
+                    },
+                    'seller.free@testuser.ardonie.com': {
+                        email: 'seller.free@testuser.ardonie.com',
+                        password: 'TestUser123!',
+                        role: 'seller',
+                        tier: 'free',
+                        name: 'Robert Martinez',
+                        expectedDashboard: '../dashboard/seller-dashboard.html'
+                    },
+                    'seller.pro@testuser.ardonie.com': {
+                        email: 'seller.pro@testuser.ardonie.com',
+                        password: 'TestUser123!',
+                        role: 'seller',
+                        tier: 'pro',
+                        name: 'Jennifer Williams',
+                        expectedDashboard: '../dashboard/seller-dashboard.html'
+                    },
+                    'financial.vendor@testuser.ardonie.com': {
+                        email: 'financial.vendor@testuser.ardonie.com',
+                        password: 'TestUser123!',
+                        role: 'vendor',
+                        tier: 'professional',
+                        name: 'David Thompson',
+                        expectedDashboard: '../dashboard/vendor-dashboard.html'
+                    },
+                    'legal.vendor@testuser.ardonie.com': {
+                        email: 'legal.vendor@testuser.ardonie.com',
+                        password: 'TestUser123!',
+                        role: 'vendor',
+                        tier: 'professional',
+                        name: 'Amanda Rodriguez',
+                        expectedDashboard: '../dashboard/vendor-dashboard.html'
+                    },
+                    // Multi-Role Users
+                    'buyer.seller@testuser.ardonie.com': {
+                        email: 'buyer.seller@testuser.ardonie.com',
+                        password: 'TestUser123!',
+                        roles: ['buyer', 'seller'],
+                        name: 'James Anderson',
+                        expectedDashboard: '../dashboard/role-selection.html'
+                    },
+                    'buyer.financial@testuser.ardonie.com': {
+                        email: 'buyer.financial@testuser.ardonie.com',
+                        password: 'TestUser123!',
+                        roles: ['buyer', 'vendor'],
+                        name: 'Lisa Parker',
+                        expectedDashboard: '../dashboard/role-selection.html'
+                    },
+                    // Admin Users
+                    'super.admin@testuser.ardonie.com': {
+                        email: 'super.admin@testuser.ardonie.com',
+                        password: 'TestUser123!',
+                        role: 'super_admin',
+                        tier: 'admin',
+                        name: 'Alex Morgan',
+                        expectedDashboard: '../dashboard/admin-dashboard.html'
+                    },
+                    'company.admin@testuser.ardonie.com': {
+                        email: 'company.admin@testuser.ardonie.com',
+                        password: 'TestUser123!',
+                        role: 'company_admin',
+                        tier: 'admin',
+                        name: 'Taylor Davis',
+                        expectedDashboard: '../dashboard/admin-dashboard.html'
+                    },
+                    // Content Users
+                    'blog.editor@testuser.ardonie.com': {
+                        email: 'blog.editor@testuser.ardonie.com',
+                        password: 'TestUser123!',
+                        role: 'blog_editor',
+                        tier: 'content',
+                        name: 'Morgan Lee',
+                        expectedDashboard: '../dashboard/content-dashboard.html'
+                    },
+                    'blog.contributor@testuser.ardonie.com': {
+                        email: 'blog.contributor@testuser.ardonie.com',
+                        password: 'TestUser123!',
+                        role: 'blog_contributor',
+                        tier: 'content',
+                        name: 'Jordan Smith',
+                        expectedDashboard: '../dashboard/content-dashboard.html'
+                    }
+                };
+
+                this.init();
+            }
+
+            async init() {
+                console.log('🚀 Development Auto-Login initialized');
+
+                // Initialize auth service
+                try {
+                    await this.authService.init();
+                    console.log('✅ Auth service initialized');
+                } catch (error) {
+                    console.error('❌ Failed to initialize auth service:', error);
+                    this.showStatus('Failed to initialize authentication service', 'error');
+                }
+
+                // Set up event listeners
+                this.setupEventListeners();
+
+                // Initialize theme
+                this.initTheme();
+
+                // Check if already logged in
+                this.checkCurrentSession();
+            }
+
+            setupEventListeners() {
+                // User card clicks
+                document.querySelectorAll('.user-card').forEach(card => {
+                    card.addEventListener('click', (e) => {
+                        const email = card.dataset.email;
+                        this.loginUser(email);
+                    });
+                });
+
+                // Quick action buttons
+                document.getElementById('loginAllBtn').addEventListener('click', () => {
+                    this.testAllRoles();
+                });
+
+                document.getElementById('clearSessionBtn').addEventListener('click', () => {
+                    this.clearSession();
+                });
+
+                document.getElementById('toggleThemeBtn').addEventListener('click', () => {
+                    this.toggleTheme();
+                });
+            }
+
+            async loginUser(email) {
+                const user = this.testUsers[email];
+                if (!user) {
+                    this.showStatus(`User not found: ${email}`, 'error');
+                    return;
+                }
+
+                this.showLoading(true, `Logging in as ${user.name}...`);
+
+                try {
+                    console.log(`🔐 Attempting login for: ${user.name} (${email})`);
+
+                    // Perform login
+                    const result = await this.authService.login(user.email, user.password, true);
+
+                    if (result.success) {
+                        console.log('✅ Login successful:', result);
+
+                        // Update status
+                        this.showStatus(`Successfully logged in as ${user.name}`, 'success');
+
+                        // Determine redirect URL
+                        let redirectUrl = result.redirectUrl || user.expectedDashboard;
+
+                        // For multi-role users, check if they should go to role selection
+                        if (user.roles && user.roles.length > 1) {
+                            redirectUrl = '../dashboard/role-selection.html';
+                        }
+
+                        console.log(`🎯 Redirecting to: ${redirectUrl}`);
+
+                        // Show success message and redirect
+                        setTimeout(() => {
+                            window.location.href = redirectUrl;
+                        }, 2000);
+
+                    } else {
+                        throw new Error(result.error || 'Login failed');
+                    }
+
+                } catch (error) {
+                    console.error('❌ Login failed:', error);
+                    this.showStatus(`Login failed for ${user.name}: ${error.message}`, 'error');
+                    this.showLoading(false);
+                }
+            }
+
+            async testAllRoles() {
+                this.showStatus('Testing all role types...', 'info');
+
+                const testResults = [];
+
+                for (const [email, user] of Object.entries(this.testUsers)) {
+                    try {
+                        console.log(`🧪 Testing: ${user.name} (${email})`);
+
+                        // Clear any existing session
+                        await this.authService.logout();
+
+                        // Attempt login
+                        const result = await this.authService.login(user.email, user.password, false);
+
+                        if (result.success) {
+                            testResults.push({
+                                email: email,
+                                name: user.name,
+                                role: user.role || user.roles.join(', '),
+                                status: 'success',
+                                redirectUrl: result.redirectUrl
+                            });
+                            console.log(`✅ ${user.name}: Login successful`);
+                        } else {
+                            testResults.push({
+                                email: email,
+                                name: user.name,
+                                role: user.role || user.roles.join(', '),
+                                status: 'failed',
+                                error: result.error
+                            });
+                            console.log(`❌ ${user.name}: Login failed - ${result.error}`);
+                        }
+
+                        // Logout after test
+                        await this.authService.logout();
+
+                    } catch (error) {
+                        testResults.push({
+                            email: email,
+                            name: user.name,
+                            role: user.role || user.roles.join(', '),
+                            status: 'error',
+                            error: error.message
+                        });
+                        console.error(`💥 ${user.name}: Test error - ${error.message}`);
+                    }
+                }
+
+                // Display test results
+                this.displayTestResults(testResults);
+            }
+
+            displayTestResults(results) {
+                const successCount = results.filter(r => r.status === 'success').length;
+                const totalCount = results.length;
+
+                let statusHtml = `<h4 class="font-semibold mb-2">Test Results: ${successCount}/${totalCount} successful</h4>`;
+                statusHtml += '<div class="space-y-2">';
+
+                results.forEach(result => {
+                    const statusIcon = result.status === 'success' ? '✅' : '❌';
+                    const statusColor = result.status === 'success' ? 'text-green-600' : 'text-red-600';
+
+                    statusHtml += `
+                        <div class="flex items-center justify-between text-sm">
+                            <span>${statusIcon} ${result.name} (${result.role})</span>
+                            <span class="${statusColor}">${result.status}</span>
+                        </div>
+                    `;
+
+                    if (result.error) {
+                        statusHtml += `<div class="text-xs text-red-500 ml-6">${result.error}</div>`;
+                    }
+                });
+
+                statusHtml += '</div>';
+
+                this.showStatus(statusHtml, 'info', false);
+            }
+
+            async clearSession() {
+                try {
+                    await this.authService.logout();
+                    localStorage.clear();
+                    sessionStorage.clear();
+                    this.showStatus('Session cleared successfully', 'success');
+                    console.log('🧹 Session cleared');
+                } catch (error) {
+                    console.error('❌ Failed to clear session:', error);
+                    this.showStatus('Failed to clear session', 'error');
+                }
+            }
+
+            checkCurrentSession() {
+                if (this.authService.isAuthenticated()) {
+                    const userData = this.authService.getCurrentUser();
+                    if (userData) {
+                        this.showStatus(`Currently logged in as: ${userData.email}`, 'info');
+                    }
+                }
+            }
+
+            initTheme() {
+                const savedTheme = localStorage.getItem('theme') || 'light';
+                if (savedTheme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                }
+            }
+
+            toggleTheme() {
+                const isDark = document.documentElement.classList.contains('dark');
+                if (isDark) {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('theme', 'dark');
+                }
+            }
+
+            showLoading(show, message = 'Loading...') {
+                const overlay = document.getElementById('loadingOverlay');
+                const status = document.getElementById('loginStatus');
+
+                if (show) {
+                    status.textContent = message;
+                    overlay.classList.remove('hidden');
+                } else {
+                    overlay.classList.add('hidden');
+                }
+            }
+
+            showStatus(message, type = 'info', escape = true) {
+                const panel = document.getElementById('statusPanel');
+                const content = document.getElementById('statusContent');
+
+                // Show panel
+                panel.classList.remove('hidden');
+
+                // Set content
+                if (escape) {
+                    content.textContent = message;
+                } else {
+                    content.innerHTML = message;
+                }
+
+                // Apply styling based on type
+                content.className = 'text-sm';
+                switch (type) {
+                    case 'success':
+                        content.classList.add('text-green-600', 'dark:text-green-400');
+                        break;
+                    case 'error':
+                        content.classList.add('text-red-600', 'dark:text-red-400');
+                        break;
+                    case 'info':
+                        content.classList.add('text-blue-600', 'dark:text-blue-400');
+                        break;
+                    default:
+                        content.classList.add('text-gray-600', 'dark:text-gray-400');
+                }
+
+                // Auto-hide after 10 seconds for success/error messages
+                if (type === 'success' || type === 'error') {
+                    setTimeout(() => {
+                        panel.classList.add('hidden');
+                    }, 10000);
+                }
+            }
+        }
+
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            new DevAutoLogin();
+        });
+
+        // Also initialize immediately if DOM is already loaded
+        if (document.readyState === 'loading') {
+            // DOM is still loading
+        } else {
+            // DOM is already loaded
+            new DevAutoLogin();
+        }
+    </script>
+</body>
+</html>

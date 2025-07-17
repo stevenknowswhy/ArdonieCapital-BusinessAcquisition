@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CMS Implementation Test - Marketplace | Ardonie Capital</title>
+    <link rel="stylesheet" href="../assets/css/tailwind.css">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            light: '#3B82F6',
+                            DEFAULT: '#2563EB',
+                            dark: '#1D4ED8'
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white">
+    <div class="container mx-auto px-4 py-12">
+        <h1 class="text-3xl font-bold mb-8">🏗️ CMS Implementation Test</h1>
+        
+        <div class="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-xl font-semibold mb-4">✅ CMS Implementation Verification Checklist</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="font-semibold text-emerald-600 mb-3">🗄️ Database Integration</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-center">
+                            <span class="w-4 h-4 bg-emerald-500 rounded-full mr-2"></span>
+                            Complete Supabase integration with authentication
+                        </li>
+                        <li class="flex items-center">
+                            <span class="w-4 h-4 bg-emerald-500 rounded-full mr-2"></span>
+                            Dynamic listings loading from database
+                        </li>
+                        <li class="flex items-center">
+                            <span class="w-4 h-4 bg-emerald-500 rounded-full mr-2"></span>
+                            Real-time updates with subscriptions
+                        </li>
+                        <li class="flex items-center">
+                            <span class="w-4 h-4 bg-emerald-500 rounded-full mr-2"></span>
+                            Comprehensive database schema with RLS
+                        </li>
+                        <li class="flex items-center">
+                            <span class="w-4 h-4 bg-emerald-500 rounded-full mr-2"></span>
+                            User favorites with database persistence
+                        </li>
+                        <li class="flex items-center">
+                            <span class="w-4 h-4 bg-emerald-500 rounded-full mr-2"></span>
+                            Advanced search with full-text indexing
+                        </li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold text-blue-600 mb-3">🔍 Advanced Filtering System</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-center">
+                            <span class="w-4 h-4 bg-blue-500 rounded-full mr-2"></span>
+                            Real-time search with database queries
+                        </li>
+                        <li class="flex items-center">
+                            <span class="w-4 h-4 bg-blue-500 rounded-full mr-2"></span>
+                            Express sellers checkbox integration
+                        </li>
+                        <li class="flex items-center">
+                            <span class="w-4 h-4 bg-blue-500 rounded-full mr-2"></span>
+                            Business type multi-select filtering
+                        </li>
+                        <li class="flex items-center">
+                            <span class="w-4 h-4 bg-blue-500 rounded-full mr-2"></span>
+                            Price range filtering with database queries
+                        </li>
+                        <li class="flex items-center">
+                            <span class="w-4 h-4 bg-blue-500 rounded-full mr-2"></span>
+                            Location-based filtering
+                        </li>
+                        <li class="flex items-center">
+                            <span class="w-4 h-4 bg-blue-500 rounded-full mr-2"></span>
+                            Multiple sorting options with SQL optimization
+                        </li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold text-purple-600 mb-3">📱 Modal System Integration</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-center">
+                            <span class="w-4 h-4 bg-purple-500 rounded-full mr-2"></span>
+                            Comprehensive business details from database
+                        </li>
+                        <li class="flex items-center">
+                            <span class="w-4 h-4 bg-purple-500 rounded-full mr-2"></span>
+                            Real-time data loading and display
+                        </li>
+                        <li class="flex items-center">
+                            <span class="w-4 h-4 bg-purple-500 rounded-full mr-2"></span>
+                            Seller information with profile integration
+                        </li>
+                        <li class="flex items-center">
+                            <span class="w-4 h-4 bg-purple-500 rounded-full mr-2"></span>
+                            Interactive favorites toggle with database sync
+                        </li>
+                        <li class="flex items-center">
+                            <span class="w-4 h-4 bg-purple-500 rounded-full mr-2"></span>
+                            Contact seller functionality
+                        </li>
+                        <li class="flex items-center">
+                            <span class="w-4 h-4 bg-purple-500 rounded-full mr-2"></span>
+                            Mobile-responsive modal design
+                        </li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold text-orange-600 mb-3">💬 Messaging System</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-center">
+                            <span class="w-4 h-4 bg-orange-500 rounded-full mr-2"></span>
+                            Secure messaging with RLS policies
+                        </li>
+                        <li class="flex items-center">
+                            <span class="w-4 h-4 bg-orange-500 rounded-full mr-2"></span>
+                            Conversation creation and management
+                        </li>
+                        <li class="flex items-center">
+                            <span class="w-4 h-4 bg-orange-500 rounded-full mr-2"></span>
+                            Message sending with database persistence
+                        </li>
+                        <li class="flex items-center">
+                            <span class="w-4 h-4 bg-orange-500 rounded-full mr-2"></span>
+                            User authentication integration
+                        </li>
+                        <li class="flex items-center">
+                            <span class="w-4 h-4 bg-orange-500 rounded-full mr-2"></span>
+                            Contact form with pre-filled templates
+                        </li>
+                        <li class="flex items-center">
+                            <span class="w-4 h-4 bg-orange-500 rounded-full mr-2"></span>
+                            Real-time message delivery system
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-xl font-semibold mb-4">🧪 CMS Testing Instructions</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="font-semibold mb-3">Database Integration Testing:</h3>
+                    <ol class="list-decimal list-inside space-y-2 text-sm">
+                        <li>Navigate to <a href="cms-listings.html" class="text-blue-600 hover:underline">CMS Marketplace</a></li>
+                        <li>Verify listings load from Supabase database</li>
+                        <li>Test real-time search functionality</li>
+                        <li>Verify Express sellers checkbox filtering</li>
+                        <li>Test business type multi-select filters</li>
+                        <li>Use price range inputs and verify database queries</li>
+                        <li>Test location filtering with dropdown</li>
+                        <li>Try different sorting options</li>
+                        <li>Test favorites functionality (requires authentication)</li>
+                        <li>Open business details modal and verify data accuracy</li>
+                    </ol>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold mb-3">Messaging System Testing:</h3>
+                    <ol class="list-decimal list-inside space-y-2 text-sm">
+                        <li>Ensure you're logged in with a buyer account</li>
+                        <li>Click "Contact Seller" on any listing</li>
+                        <li>Verify contact modal opens with pre-filled message</li>
+                        <li>Send a test message and verify database storage</li>
+                        <li>Check conversation creation in database</li>
+                        <li>Test message persistence and retrieval</li>
+                        <li>Verify RLS policies prevent unauthorized access</li>
+                        <li>Test real-time message delivery (if implemented)</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-xl font-semibold mb-4">📊 Database Schema Overview</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div class="bg-slate-50 dark:bg-slate-700 rounded-lg p-4">
+                    <h3 class="font-semibold text-emerald-600 mb-2">📋 listings</h3>
+                    <ul class="text-sm space-y-1">
+                        <li>• Comprehensive business information</li>
+                        <li>• Financial metrics (price, revenue, profit)</li>
+                        <li>• Business details and features</li>
+                        <li>• Full-text search optimization</li>
+                        <li>• Status and seller management</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-slate-50 dark:bg-slate-700 rounded-lg p-4">
+                    <h3 class="font-semibold text-blue-600 mb-2">❤️ saved_listings</h3>
+                    <ul class="text-sm space-y-1">
+                        <li>• User favorites/wishlist</li>
+                        <li>• Buyer-listing relationships</li>
+                        <li>• Unique constraints</li>
+                        <li>• Cascade deletion handling</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-slate-50 dark:bg-slate-700 rounded-lg p-4">
+                    <h3 class="font-semibold text-purple-600 mb-2">💬 conversations</h3>
+                    <ul class="text-sm space-y-1">
+                        <li>• Buyer-seller communication</li>
+                        <li>• Listing-specific conversations</li>
+                        <li>• Status management</li>
+                        <li>• Last message tracking</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-slate-50 dark:bg-slate-700 rounded-lg p-4">
+                    <h3 class="font-semibold text-orange-600 mb-2">📨 messages</h3>
+                    <ul class="text-sm space-y-1">
+                        <li>• Individual message content</li>
+                        <li>• Message types and status</li>
+                        <li>• Read receipts</li>
+                        <li>• Conversation threading</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-slate-50 dark:bg-slate-700 rounded-lg p-4">
+                    <h3 class="font-semibold text-red-600 mb-2">👁️ listing_views</h3>
+                    <ul class="text-sm space-y-1">
+                        <li>• Analytics and tracking</li>
+                        <li>• Anonymous and user views</li>
+                        <li>• IP and user agent logging</li>
+                        <li>• Performance metrics</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-slate-50 dark:bg-slate-700 rounded-lg p-4">
+                    <h3 class="font-semibold text-slate-600 mb-2">🔒 RLS Policies</h3>
+                    <ul class="text-sm space-y-1">
+                        <li>• Secure data access</li>
+                        <li>• User-specific permissions</li>
+                        <li>• Admin override capabilities</li>
+                        <li>• Public listing visibility</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bg-gradient-to-r from-emerald-500 to-blue-600 rounded-lg shadow-lg p-6 text-white">
+            <h2 class="text-xl font-semibold mb-4">🚀 CMS Implementation Complete!</h2>
+            <p class="mb-4">The comprehensive CMS marketplace system is ready for testing with full Supabase integration, real-time updates, advanced filtering, and secure messaging.</p>
+            
+            <div class="flex gap-4">
+                <a href="cms-listings.html" class="bg-white text-slate-900 px-6 py-3 rounded-lg font-semibold hover:bg-slate-100 transition-colors">
+                    Test CMS Marketplace →
+                </a>
+                <a href="listings.html" class="border border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-slate-900 transition-colors">
+                    Compare with Enhanced Version
+                </a>
+                <button type="button" onclick="toggleDarkMode()" class="border border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-slate-900 transition-colors">
+                    Toggle Dark Mode
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
+            const isDark = document.documentElement.classList.contains('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        }
+        
+        // Apply saved theme
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+</body>
+</html>

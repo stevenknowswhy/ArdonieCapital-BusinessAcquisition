@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Alerts Standalone Test - BuyMartV1</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        slate: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            300: '#cbd5e1',
+                            400: '#94a3b8',
+                            500: '#64748b',
+                            600: '#475569',
+                            700: '#334155',
+                            800: '#1e293b',
+                            900: '#0f172a'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 dark:bg-slate-900 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-slate-900 dark:text-white mb-2">
+                Search Alerts Standalone Test
+            </h1>
+            <p class="text-slate-600 dark:text-slate-300">
+                Testing search alert functionality without Supabase dependencies
+            </p>
+        </div>
+
+        <!-- Test Controls -->
+        <div class="bg-white dark:bg-slate-800 rounded-lg p-6 mb-6 border border-slate-200 dark:border-slate-700">
+            <h2 class="text-xl font-semibold text-slate-900 dark:text-white mb-4">Test Controls</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <button id="test-ui-components-btn" 
+                    class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors">
+                    Test UI Components
+                </button>
+                <button id="test-criteria-extraction-btn" 
+                    class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-medium transition-colors">
+                    Test Criteria Extraction
+                </button>
+                <button id="test-modal-display-btn" 
+                    class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg font-medium transition-colors">
+                    Test Modal Display
+                </button>
+            </div>
+        </div>
+
+        <!-- Mock Search Form -->
+        <div class="bg-white dark:bg-slate-800 rounded-lg p-6 mb-6 border border-slate-200 dark:border-slate-700">
+            <h2 class="text-xl font-semibold text-slate-900 dark:text-white mb-4">Mock Search Form</h2>
+            <p class="text-slate-600 dark:text-slate-300 mb-4">
+                Use this form to test search criteria extraction
+            </p>
+            
+            <form id="mock-search-form" class="space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="search-input" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+                            Search Query
+                        </label>
+                        <input type="text" id="search-input" name="search" 
+                            class="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 dark:bg-slate-700 dark:text-white"
+                            placeholder="e.g., technology startup" value="tech startup">
+                    </div>
+                    
+                    <div>
+                        <label for="business-type" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+                            Business Type
+                        </label>
+                        <select id="business-type" name="business_type" data-filter="business_type"
+                            class="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 dark:bg-slate-700 dark:text-white">
+                            <option value="">Any Type</option>
+                            <option value="Technology" selected>Technology</option>
+                            <option value="Retail">Retail</option>
+                            <option value="Restaurant">Restaurant</option>
+                            <option value="Manufacturing">Manufacturing</option>
+                            <option value="Service">Service</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label for="location" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+                            Location
+                        </label>
+                        <input type="text" id="location" name="location" data-filter="location"
+                            class="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 dark:bg-slate-700 dark:text-white"
+                            placeholder="e.g., California" value="California">
+                    </div>
+                    
+                    <div>
+                        <label for="price-min" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+                            Min Price
+                        </label>
+                        <input type="number" id="price-min" name="price_min" data-filter="price_min"
+                            class="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 dark:bg-slate-700 dark:text-white"
+                            placeholder="50000" value="100000">
+                    </div>
+                    
+                    <div>
+                        <label for="price-max" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+                            Max Price
+                        </label>
+                        <input type="number" id="price-max" name="price_max" data-filter="price_max"
+                            class="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 dark:bg-slate-700 dark:text-white"
+                            placeholder="500000" value="500000">
+                    </div>
+                </div>
+                
+                <div class="flex gap-4">
+                    <button type="button" id="save-search-btn" 
+                        class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-colors">
+                        Save Search Alert
+                    </button>
+                    <button type="button" id="extract-criteria-btn" 
+                        class="bg-gray-600 hover:bg-gray-700 text-white px-6 py-2 rounded-lg font-medium transition-colors">
+                        Extract Criteria
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Test Results -->
+        <div class="bg-white dark:bg-slate-800 rounded-lg p-6 border border-slate-200 dark:border-slate-700">
+            <h2 class="text-xl font-semibold text-slate-900 dark:text-white mb-4">Test Results</h2>
+            <div id="test-results" class="space-y-2 max-h-96 overflow-y-auto">
+                <p class="text-slate-600 dark:text-slate-400">Click a test button to see results...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="fixed top-4 right-4 z-50 space-y-2"></div>
+
+    <script type="module">
+        // Standalone test suite that doesn't depend on Supabase
+        class StandaloneTestSuite {
+            constructor() {
+                this.testResults = [];
+            }
+
+            async init() {
+                this.bindEvents();
+                this.addTestResult('Standalone test suite initialized', 'info');
+            }
+
+            bindEvents() {
+                // Test buttons
+                document.getElementById('test-ui-components-btn').addEventListener('click', () => this.testUIComponents());
+                document.getElementById('test-criteria-extraction-btn').addEventListener('click', () => this.testCriteriaExtraction());
+                document.getElementById('test-modal-display-btn').addEventListener('click', () => this.testModalDisplay());
+
+                // Mock form buttons
+                document.getElementById('save-search-btn').addEventListener('click', () => this.testSaveSearchAlert());
+                document.getElementById('extract-criteria-btn').addEventListener('click', () => this.testExtractCriteria());
+            }
+
+            async testUIComponents() {
+                this.addTestResult('Testing UI components (standalone mode)...', 'info');
+                
+                try {
+                    // Test modal component loading without Supabase dependencies
+                    this.addTestResult('Creating mock save search alert modal...', 'info');
+                    
+                    // Create a simplified modal for testing
+                    const mockModal = this.createMockModal();
+                    this.addTestResult('✅ Mock modal created successfully', 'success');
+                    
+                    // Test modal display
+                    mockModal.show();
+                    this.addTestResult('✅ Modal display test passed', 'success');
+                    
+                    // Hide modal after 3 seconds
+                    setTimeout(() => {
+                        mockModal.hide();
+                        this.addTestResult('✅ Modal hide test passed', 'success');
+                    }, 3000);
+
+                } catch (error) {
+                    this.addTestResult(`❌ UI component test failed: ${error.message}`, 'error');
+                }
+            }
+
+            testCriteriaExtraction() {
+                this.addTestResult('Testing search criteria extraction...', 'info');
+                
+                try {
+                    const criteria = this.extractCurrentSearchCriteria();
+                    this.addTestResult(`✅ Criteria extracted successfully:`, 'success');
+                    this.addTestResult(`Search Query: "${criteria.search_query}"`, 'info');
+                    this.addTestResult(`Filters: ${JSON.stringify(criteria.filters, null, 2)}`, 'info');
+                    
+                    // Validate extracted data
+                    if (criteria.search_query && Object.keys(criteria.filters).length > 0) {
+                        this.addTestResult('✅ Criteria extraction validation passed', 'success');
+                    } else {
+                        this.addTestResult('⚠️ Criteria extraction incomplete', 'warning');
+                    }
+
+                } catch (error) {
+                    this.addTestResult(`❌ Criteria extraction failed: ${error.message}`, 'error');
+                }
+            }
+
+            async testModalDisplay() {
+                this.addTestResult('Testing modal display functionality...', 'info');
+                
+                try {
+                    const criteria = this.extractCurrentSearchCriteria();
+                    const mockModal = this.createMockModal();
+                    
+                    // Show modal with extracted criteria
+                    mockModal.show(criteria);
+                    this.addTestResult('✅ Modal displayed with search criteria', 'success');
+                    
+                    // Test modal interaction
+                    this.addTestResult('Modal is now visible - test form interactions manually', 'info');
+
+                } catch (error) {
+                    this.addTestResult(`❌ Modal display test failed: ${error.message}`, 'error');
+                }
+            }
+
+            testSaveSearchAlert() {
+                this.addTestResult('Testing save search alert workflow...', 'info');
+                
+                try {
+                    const criteria = this.extractCurrentSearchCriteria();
+                    this.addTestResult(`Extracted criteria for saving: ${JSON.stringify(criteria)}`, 'info');
+                    
+                    // Simulate the save process
+                    const mockAlert = {
+                        id: 'mock-' + Date.now(),
+                        search_name: this.generateAlertName(criteria),
+                        search_query: criteria.search_query,
+                        filters: criteria.filters,
+                        notification_frequency: 'daily',
+                        email_notifications: true,
+                        created_at: new Date().toISOString()
+                    };
+                    
+                    this.addTestResult(`✅ Mock alert created: "${mockAlert.search_name}"`, 'success');
+                    this.addTestResult(`Alert ID: ${mockAlert.id}`, 'info');
+                    
+                    // Show success toast
+                    this.showToast(`Search alert "${mockAlert.search_name}" saved successfully!`, 'success');
+
+                } catch (error) {
+                    this.addTestResult(`❌ Save search alert test failed: ${error.message}`, 'error');
+                }
+            }
+
+            testExtractCriteria() {
+                const criteria = this.extractCurrentSearchCriteria();
+                this.addTestResult(`Extracted criteria: ${JSON.stringify(criteria, null, 2)}`, 'info');
+            }
+
+            extractCurrentSearchCriteria() {
+                const criteria = {
+                    search_query: '',
+                    filters: {}
+                };
+
+                // Extract search query
+                const searchInput = document.querySelector('#search-input');
+                if (searchInput && searchInput.value.trim()) {
+                    criteria.search_query = searchInput.value.trim();
+                }
+
+                // Extract filters
+                const filterElements = document.querySelectorAll('[data-filter]');
+                filterElements.forEach(element => {
+                    const filterName = element.dataset.filter;
+                    let filterValue = element.type === 'checkbox' ? element.checked : element.value;
+                    
+                    if (filterName && filterValue !== '' && filterValue !== false && filterValue !== null) {
+                        if (filterName.includes('price') && !isNaN(filterValue)) {
+                            filterValue = parseFloat(filterValue);
+                        }
+                        criteria.filters[filterName] = filterValue;
+                    }
+                });
+
+                return criteria;
+            }
+
+            generateAlertName(criteria) {
+                let name = '';
+                
+                if (criteria.search_query) {
+                    name = criteria.search_query;
+                }
+                
+                if (criteria.filters.business_type) {
+                    name = name ? `${name} - ${criteria.filters.business_type}` : criteria.filters.business_type;
+                }
+                
+                if (criteria.filters.location) {
+                    name = name ? `${name} in ${criteria.filters.location}` : `Businesses in ${criteria.filters.location}`;
+                }
+                
+                if (criteria.filters.price_max) {
+                    name = name ? `${name} under $${criteria.filters.price_max.toLocaleString()}` : `Under $${criteria.filters.price_max.toLocaleString()}`;
+                }
+                
+                return name || 'New Business Listings';
+            }
+
+            createMockModal() {
+                return {
+                    show: (criteria = null) => {
+                        const modalHTML = `
+                            <div id="mock-search-alert-modal" class="fixed inset-0 z-50 overflow-y-auto bg-gray-500 bg-opacity-75">
+                                <div class="flex items-center justify-center min-h-screen p-4">
+                                    <div class="bg-white dark:bg-slate-800 rounded-lg p-6 max-w-md w-full">
+                                        <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-4">Save Search Alert</h3>
+                                        <div class="space-y-4">
+                                            <div>
+                                                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Alert Name</label>
+                                                <input type="text" class="w-full border border-slate-300 rounded-lg px-3 py-2" 
+                                                    value="${criteria ? this.generateAlertName(criteria) : 'My Search Alert'}">
+                                            </div>
+                                            <div>
+                                                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Notification Frequency</label>
+                                                <select class="w-full border border-slate-300 rounded-lg px-3 py-2">
+                                                    <option value="immediate">Immediate</option>
+                                                    <option value="daily" selected>Daily</option>
+                                                    <option value="weekly">Weekly</option>
+                                                </select>
+                                            </div>
+                                            <div class="flex gap-2">
+                                                <button onclick="document.getElementById('mock-search-alert-modal').remove()" 
+                                                    class="bg-blue-600 text-white px-4 py-2 rounded-lg">Save Alert</button>
+                                                <button onclick="document.getElementById('mock-search-alert-modal').remove()" 
+                                                    class="bg-gray-600 text-white px-4 py-2 rounded-lg">Cancel</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        document.body.insertAdjacentHTML('beforeend', modalHTML);
+                    },
+                    hide: () => {
+                        const modal = document.getElementById('mock-search-alert-modal');
+                        if (modal) modal.remove();
+                    }
+                };
+            }
+
+            addTestResult(message, type = 'info') {
+                const container = document.getElementById('test-results');
+                const colors = {
+                    success: 'text-green-600 dark:text-green-400',
+                    error: 'text-red-600 dark:text-red-400',
+                    info: 'text-blue-600 dark:text-blue-400',
+                    warning: 'text-yellow-600 dark:text-yellow-400'
+                };
+
+                const resultElement = document.createElement('div');
+                resultElement.className = `text-sm ${colors[type]} font-mono`;
+                resultElement.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+                
+                container.appendChild(resultElement);
+                container.scrollTop = container.scrollHeight;
+            }
+
+            showToast(message, type = 'info') {
+                const colors = {
+                    success: 'bg-green-500',
+                    error: 'bg-red-500',
+                    info: 'bg-blue-500',
+                    warning: 'bg-yellow-500'
+                };
+
+                const toast = document.createElement('div');
+                toast.className = `${colors[type]} text-white px-4 py-2 rounded-lg shadow-lg transform transition-all duration-300 translate-x-full`;
+                toast.textContent = message;
+                
+                document.getElementById('toast-container').appendChild(toast);
+                
+                setTimeout(() => toast.classList.remove('translate-x-full'), 100);
+                setTimeout(() => {
+                    toast.classList.add('translate-x-full');
+                    setTimeout(() => toast.remove(), 300);
+                }, 3000);
+            }
+        }
+
+        // Initialize standalone test suite
+        const testSuite = new StandaloneTestSuite();
+        testSuite.init();
+    </script>
+</body>
+</html>

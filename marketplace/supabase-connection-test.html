@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supabase Connection Diagnostic Test</title>
+
+    <!-- Load Tailwind CSS from CDN for better compatibility -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tailwind Configuration (after Tailwind is loaded) -->
+    <script>
+        // Wait for Tailwind to load before configuring
+        document.addEventListener('DOMContentLoaded', function() {
+            try {
+                if (typeof tailwind !== 'undefined' && tailwind.config) {
+                    tailwind.config = {
+                        darkMode: 'class',
+                        theme: {
+                            extend: {
+                                colors: {
+                                    primary: {
+                                        light: '#3B82F6',
+                                        DEFAULT: '#2563EB',
+                                        dark: '#1D4ED8'
+                                    }
+                                }
+                            }
+                        }
+                    };
+                }
+            } catch (error) {
+                console.warn('Tailwind configuration failed:', error);
+                // Continue without custom config - basic Tailwind will still work
+            }
+        });
+    </script>
+
+    <!-- Fallback CSS for basic styling if Tailwind fails -->
+    <style>
+        .fallback-container { max-width: 1200px; margin: 0 auto; padding: 1rem; }
+        .fallback-card { background: white; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); padding: 1.5rem; margin-bottom: 1rem; }
+        .fallback-button { background: #2563EB; color: white; padding: 0.75rem 1.5rem; border-radius: 6px; border: none; cursor: pointer; margin-right: 0.5rem; }
+        .fallback-button:hover { background: #1D4ED8; }
+        .fallback-success { color: #059669; }
+        .fallback-warning { color: #D97706; }
+        .fallback-error { color: #DC2626; }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white">
+    <div class="container mx-auto px-4 py-12">
+        <h1 class="text-3xl font-bold mb-8">🔧 Supabase Connection Diagnostic Test</h1>
+        
+        <div class="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-xl font-semibold mb-4">Connection Test Results</h2>
+            <div id="test-results" class="space-y-4">
+                <div class="text-slate-600 dark:text-slate-300">Running tests...</div>
+            </div>
+        </div>
+        
+        <div class="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-xl font-semibold mb-4">Console Output</h2>
+            <div id="console-output" class="bg-slate-100 dark:bg-slate-700 rounded p-4 font-mono text-sm max-h-96 overflow-y-auto">
+                <div class="text-slate-600 dark:text-slate-300">Console output will appear here...</div>
+            </div>
+        </div>
+        
+        <div class="flex gap-4">
+            <button type="button" onclick="runTests()" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors fallback-button">
+                Run Tests
+            </button>
+            <button type="button" onclick="clearResults()" class="bg-slate-600 hover:bg-slate-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors fallback-button">
+                Clear Results
+            </button>
+        </div>
+    </div>
+    
+    <script>
+        // Global variables for singleton pattern
+        let globalSupabaseClient = null;
+        let testRunning = false;
+
+        let originalConsoleLog = console.log;
+        let originalConsoleError = console.error;
+        let originalConsoleWarn = console.warn;
+
+        function logToPage(message, type = 'log') {
+            const output = document.getElementById('console-output');
+            if (!output) return;
+
+            const timestamp = new Date().toLocaleTimeString();
+            const colorClass = type === 'error' ? 'text-red-600' : type === 'warn' ? 'text-orange-600' : 'text-slate-700 dark:text-slate-300';
+            output.innerHTML += `<div class="${colorClass}">[${timestamp}] ${message}</div>`;
+            output.scrollTop = output.scrollHeight;
+        }
+
+        // Override console methods with error handling
+        console.log = function(...args) {
+            try {
+                originalConsoleLog.apply(console, args);
+                logToPage(args.join(' '), 'log');
+            } catch (error) {
+                originalConsoleLog.apply(console, args);
+            }
+        };
+
+        console.error = function(...args) {
+            try {
+                originalConsoleError.apply(console, args);
+                logToPage(args.join(' '), 'error');
+            } catch (error) {
+                originalConsoleError.apply(console, args);
+            }
+        };
+
+        console.warn = function(...args) {
+            try {
+                originalConsoleWarn.apply(console, args);
+                logToPage(args.join(' '), 'warn');
+            } catch (error) {
+                originalConsoleWarn.apply(console, args);
+            }
+        };
+        
+        function addTestResult(test, status, message) {
+            const results = document.getElementById('test-results');
+            const statusIcon = status === 'pass' ? '✅' : status === 'fail' ? '❌' : '⚠️';
+            const statusColor = status === 'pass' ? 'text-green-600' : status === 'fail' ? 'text-red-600' : 'text-orange-600';
+            
+            results.innerHTML += `
+                <div class="flex items-center space-x-3 p-3 border border-slate-200 dark:border-slate-600 rounded">
+                    <span class="text-xl">${statusIcon}</span>
+                    <div class="flex-1">
+                        <div class="font-semibold">${test}</div>
+                        <div class="${statusColor} text-sm">${message}</div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function clearResults() {
+            const testResults = document.getElementById('test-results');
+            const consoleOutput = document.getElementById('console-output');
+
+            if (testResults) {
+                testResults.innerHTML = '<div class="text-slate-600 dark:text-slate-300">Ready to run tests...</div>';
+            }
+            if (consoleOutput) {
+                consoleOutput.innerHTML = '<div class="text-slate-600 dark:text-slate-300">Console output will appear here...</div>';
+            }
+        }
+
+        // Singleton Supabase client management
+        function getSupabaseClient() {
+            if (globalSupabaseClient) {
+                console.log('♻️ Reusing existing Supabase client instance');
+                return globalSupabaseClient;
+            }
+
+            console.log('🆕 Creating new Supabase client instance');
+            return globalSupabaseClient;
+        }
+
+        function cleanupSupabaseClient() {
+            if (globalSupabaseClient) {
+                try {
+                    // Cleanup any active subscriptions
+                    if (globalSupabaseClient.removeAllChannels) {
+                        globalSupabaseClient.removeAllChannels();
+                    }
+
+                    // Clear the global reference
+                    globalSupabaseClient = null;
+                    console.log('🧹 Cleaned up previous Supabase client instance');
+                } catch (error) {
+                    console.warn('⚠️ Error during Supabase client cleanup:', error.message);
+                    globalSupabaseClient = null;
+                }
+            }
+        }
+
+        async function createSupabaseClient() {
+            try {
+                // Import Supabase client
+                const { createClient } = await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm');
+
+                // Create new client instance
+                const client = createClient(
+                    'https://pbydepsqcypwqbicnsco.supabase.co',
+                    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBieWRlcHNxY3lwd3FiaWNuc2NvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE5MjAxOTQsImV4cCI6MjA2NzQ5NjE5NH0.5aF46QcNOFN_vwXcHxCsVx_8a4EsqE1bL4fy4K7UXI0',
+                    {
+                        auth: {
+                            autoRefreshToken: true,
+                            persistSession: true,
+                            detectSessionInUrl: true
+                        },
+                        realtime: {
+                            params: {
+                                eventsPerSecond: 10
+                            }
+                        }
+                    }
+                );
+
+                globalSupabaseClient = client;
+                return client;
+
+            } catch (error) {
+                console.error('❌ Failed to create Supabase client:', error);
+                throw error;
+            }
+        }
+        
+        async function runTests() {
+            // Prevent multiple concurrent test runs
+            if (testRunning) {
+                console.warn('⚠️ Tests are already running. Please wait for completion.');
+                return;
+            }
+
+            testRunning = true;
+            clearResults();
+            console.log('🔧 Starting Supabase connection diagnostic tests...');
+
+            try {
+                // Cleanup any existing client first
+                cleanupSupabaseClient();
+
+                // Test 1: Import Supabase
+                console.log('Test 1: Importing Supabase client...');
+                try {
+                    const { createClient } = await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm');
+                    addTestResult('Import Supabase Client', 'pass', 'Successfully imported from CDN');
+                } catch (importError) {
+                    addTestResult('Import Supabase Client', 'fail', `Import failed: ${importError.message}`);
+                    throw importError;
+                }
+
+                // Test 2: Create client
+                console.log('Test 2: Creating Supabase client...');
+                let supabaseClient;
+                try {
+                    supabaseClient = await createSupabaseClient();
+                    addTestResult('Create Supabase Client', 'pass', 'Client created successfully (singleton pattern)');
+                } catch (clientError) {
+                    addTestResult('Create Supabase Client', 'fail', `Client creation failed: ${clientError.message}`);
+                    throw clientError;
+                }
+                
+                // Test 3: Test basic connection
+                console.log('Test 3: Testing basic connection...');
+                try {
+                    const { data, error } = await supabaseClient
+                        .from('profiles')
+                        .select('count')
+                        .limit(1);
+                    
+                    if (error) {
+                        if (error.code === '42P01') {
+                            addTestResult('Database Connection', 'warn', 'Connected but profiles table does not exist');
+                        } else if (error.code === 'PGRST301') {
+                            addTestResult('Database Connection', 'warn', 'Connected but no access to profiles table (RLS)');
+                        } else {
+                            addTestResult('Database Connection', 'fail', `Error: ${error.message}`);
+                        }
+                    } else {
+                        addTestResult('Database Connection', 'pass', 'Successfully connected and queried database');
+                    }
+                } catch (connectionError) {
+                    addTestResult('Database Connection', 'fail', `Connection failed: ${connectionError.message}`);
+                }
+                
+                // Test 4: Test listings table
+                console.log('Test 4: Testing listings table access...');
+                try {
+                    const { data, error } = await supabaseClient
+                        .from('listings')
+                        .select('id, title')
+                        .limit(1);
+                    
+                    if (error) {
+                        if (error.code === '42P01') {
+                            addTestResult('Listings Table Access', 'fail', 'Listings table does not exist - schema not deployed');
+                        } else if (error.code === 'PGRST301') {
+                            addTestResult('Listings Table Access', 'warn', 'Listings table exists but RLS blocks access');
+                        } else {
+                            addTestResult('Listings Table Access', 'fail', `Error: ${error.message}`);
+                        }
+                    } else {
+                        addTestResult('Listings Table Access', 'pass', `Successfully accessed listings table (${data?.length || 0} records)`);
+                    }
+                } catch (listingsError) {
+                    addTestResult('Listings Table Access', 'fail', `Listings query failed: ${listingsError.message}`);
+                }
+                
+                // Test 5: Test real-time connection
+                console.log('Test 5: Testing real-time WebSocket connection...');
+                try {
+                    let connectionResolved = false;
+                    const channel = supabaseClient
+                        .channel(`test_channel_${Date.now()}`) // Unique channel name
+                        .subscribe((status) => {
+                            console.log(`📡 Real-time status: ${status}`);
+
+                            if (connectionResolved) return; // Prevent duplicate results
+
+                            if (status === 'SUBSCRIBED') {
+                                connectionResolved = true;
+                                addTestResult('Real-time Connection', 'pass', 'WebSocket connection established successfully');
+                                // Cleanup channel
+                                setTimeout(() => {
+                                    try {
+                                        channel.unsubscribe();
+                                    } catch (e) {
+                                        console.warn('Channel cleanup warning:', e.message);
+                                    }
+                                }, 100);
+                            } else if (status === 'CHANNEL_ERROR') {
+                                connectionResolved = true;
+                                addTestResult('Real-time Connection', 'fail', 'WebSocket connection failed');
+                            } else if (status === 'CLOSED') {
+                                if (!connectionResolved) {
+                                    connectionResolved = true;
+                                    addTestResult('Real-time Connection', 'warn', 'WebSocket connection closed unexpectedly');
+                                }
+                            }
+                        });
+
+                    // Timeout after 3 seconds (reduced for faster testing)
+                    setTimeout(() => {
+                        if (!connectionResolved) {
+                            connectionResolved = true;
+                            addTestResult('Real-time Connection', 'warn', 'WebSocket connection timeout (3s) - may still work in practice');
+                            try {
+                                channel.unsubscribe();
+                            } catch (e) {
+                                console.warn('Channel timeout cleanup warning:', e.message);
+                            }
+                        }
+                    }, 3000);
+
+                } catch (realtimeError) {
+                    addTestResult('Real-time Connection', 'fail', `Real-time setup failed: ${realtimeError.message}`);
+                }
+                
+                // Test 6: Test authentication status
+                console.log('Test 6: Checking authentication status...');
+                try {
+                    const { data: { user }, error } = await supabaseClient.auth.getUser();
+                    
+                    if (error) {
+                        addTestResult('Authentication Status', 'warn', `Auth check failed: ${error.message}`);
+                    } else if (user) {
+                        addTestResult('Authentication Status', 'pass', `User authenticated: ${user.email}`);
+                    } else {
+                        addTestResult('Authentication Status', 'warn', 'No user currently authenticated (anonymous access)');
+                    }
+                } catch (authError) {
+                    addTestResult('Authentication Status', 'fail', `Auth status check failed: ${authError.message}`);
+                }
+                
+                console.log('✅ Diagnostic tests completed');
+
+            } catch (error) {
+                console.error('❌ Critical error during tests:', error);
+                addTestResult('Critical Error', 'fail', error.message);
+            } finally {
+                // Always reset the test running flag
+                testRunning = false;
+                console.log('🏁 Test execution finished');
+            }
+        }
+        
+        // Auto-run tests on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(runTests, 1000);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Alerts Production Test - BuyMartV1</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900 mb-2">
+                Search Alerts Production Test
+            </h1>
+            <p class="text-gray-600">
+                Test the complete Search Alert functionality with real Supabase database
+            </p>
+        </div>
+
+        <!-- Connection Status -->
+        <div class="bg-white rounded-lg p-6 mb-6 border">
+            <h2 class="text-xl font-semibold mb-4">Database Connection Status</h2>
+            <div id="connection-status" class="space-y-2">
+                <p class="text-gray-600">Checking connection...</p>
+            </div>
+        </div>
+
+        <!-- Authentication Test -->
+        <div class="bg-white rounded-lg p-6 mb-6 border">
+            <h2 class="text-xl font-semibold mb-4">Authentication Test</h2>
+            <div class="space-y-4">
+                <div>
+                    <button id="test-auth-btn" class="bg-blue-600 text-white px-4 py-2 rounded-lg">
+                        Test Authentication
+                    </button>
+                </div>
+                <div id="auth-status" class="text-sm text-gray-600">
+                    Click button to test authentication
+                </div>
+            </div>
+        </div>
+
+        <!-- Database Schema Test -->
+        <div class="bg-white rounded-lg p-6 mb-6 border">
+            <h2 class="text-xl font-semibold mb-4">Database Schema Test</h2>
+            <div class="space-y-4">
+                <div>
+                    <button id="test-schema-btn" class="bg-green-600 text-white px-4 py-2 rounded-lg">
+                        Test saved_searches Table
+                    </button>
+                </div>
+                <div id="schema-status" class="text-sm text-gray-600">
+                    Click button to test database schema
+                </div>
+            </div>
+        </div>
+
+        <!-- Search Alert CRUD Test -->
+        <div class="bg-white rounded-lg p-6 mb-6 border">
+            <h2 class="text-xl font-semibold mb-4">Search Alert CRUD Test</h2>
+            <div class="space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <button id="test-create-btn" class="bg-purple-600 text-white px-4 py-2 rounded-lg">
+                        Test Create Alert
+                    </button>
+                    <button id="test-read-btn" class="bg-indigo-600 text-white px-4 py-2 rounded-lg">
+                        Test Read Alerts
+                    </button>
+                    <button id="test-update-btn" class="bg-yellow-600 text-white px-4 py-2 rounded-lg">
+                        Test Update Alert
+                    </button>
+                    <button id="test-delete-btn" class="bg-red-600 text-white px-4 py-2 rounded-lg">
+                        Test Delete Alert
+                    </button>
+                </div>
+                <div id="crud-status" class="text-sm text-gray-600">
+                    Click buttons to test CRUD operations
+                </div>
+            </div>
+        </div>
+
+        <!-- Test Results -->
+        <div class="bg-white rounded-lg p-6 border">
+            <h2 class="text-xl font-semibold mb-4">Test Results</h2>
+            <div id="test-results" class="space-y-2 max-h-96 overflow-y-auto">
+                <p class="text-gray-600">Test results will appear here...</p>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        // Production test suite with real Supabase connection
+        class ProductionTestSuite {
+            constructor() {
+                this.supabase = null;
+                this.currentUser = null;
+                this.testAlertId = null;
+            }
+
+            async init() {
+                try {
+                    // Initialize Supabase client
+                    this.supabase = window.supabase.createClient(
+                        'https://pbydepsqcypwqbicnsco.supabase.co',
+                        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBieWRlcHNxY3lwd3FiaWNuc2NvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE5MjAxOTQsImV4cCI6MjA2NzQ5NjE5NH0.5aF46QcNOFN_vwXcHxCsVx_8a4EsqE1bL4fy4K7UXI0'
+                    );
+
+                    this.bindEvents();
+                    await this.testConnection();
+                    this.addTestResult('Production test suite initialized', 'info');
+
+                } catch (error) {
+                    this.addTestResult(`Initialization failed: ${error.message}`, 'error');
+                }
+            }
+
+            bindEvents() {
+                document.getElementById('test-auth-btn').addEventListener('click', () => this.testAuthentication());
+                document.getElementById('test-schema-btn').addEventListener('click', () => this.testDatabaseSchema());
+                document.getElementById('test-create-btn').addEventListener('click', () => this.testCreateAlert());
+                document.getElementById('test-read-btn').addEventListener('click', () => this.testReadAlerts());
+                document.getElementById('test-update-btn').addEventListener('click', () => this.testUpdateAlert());
+                document.getElementById('test-delete-btn').addEventListener('click', () => this.testDeleteAlert());
+            }
+
+            async testConnection() {
+                try {
+                    const { data, error } = await this.supabase.from('profiles').select('count').limit(1);
+                    
+                    if (error) {
+                        document.getElementById('connection-status').innerHTML = `
+                            <p class="text-red-600">❌ Connection failed: ${error.message}</p>
+                        `;
+                        return false;
+                    }
+
+                    document.getElementById('connection-status').innerHTML = `
+                        <p class="text-green-600">✅ Connected to Supabase successfully</p>
+                        <p class="text-gray-600">Project: pbydepsqcypwqbicnsco</p>
+                    `;
+                    return true;
+
+                } catch (error) {
+                    document.getElementById('connection-status').innerHTML = `
+                        <p class="text-red-600">❌ Connection error: ${error.message}</p>
+                    `;
+                    return false;
+                }
+            }
+
+            async testAuthentication() {
+                try {
+                    // Get current session
+                    const { data: { session }, error } = await this.supabase.auth.getSession();
+                    
+                    if (error) {
+                        document.getElementById('auth-status').innerHTML = `
+                            <p class="text-red-600">❌ Auth error: ${error.message}</p>
+                            <p class="text-gray-600">Note: Authentication may not be required for testing</p>
+                        `;
+                        return;
+                    }
+
+                    if (session) {
+                        this.currentUser = session.user;
+                        document.getElementById('auth-status').innerHTML = `
+                            <p class="text-green-600">✅ User authenticated: ${session.user.email}</p>
+                        `;
+                    } else {
+                        document.getElementById('auth-status').innerHTML = `
+                            <p class="text-yellow-600">⚠️ No active session (testing with anonymous access)</p>
+                        `;
+                    }
+
+                } catch (error) {
+                    document.getElementById('auth-status').innerHTML = `
+                        <p class="text-red-600">❌ Authentication test failed: ${error.message}</p>
+                    `;
+                }
+            }
+
+            async testDatabaseSchema() {
+                try {
+                    // Test if saved_searches table exists
+                    const { data, error } = await this.supabase
+                        .from('saved_searches')
+                        .select('count')
+                        .limit(1);
+
+                    if (error) {
+                        if (error.code === '42P01') {
+                            document.getElementById('schema-status').innerHTML = `
+                                <p class="text-red-600">❌ saved_searches table does not exist</p>
+                                <p class="text-gray-600">Please deploy the schema first: database/saved-searches-schema.sql</p>
+                            `;
+                        } else {
+                            document.getElementById('schema-status').innerHTML = `
+                                <p class="text-red-600">❌ Schema test failed: ${error.message}</p>
+                            `;
+                        }
+                        return false;
+                    }
+
+                    document.getElementById('schema-status').innerHTML = `
+                        <p class="text-green-600">✅ saved_searches table exists and is accessible</p>
+                    `;
+                    this.addTestResult('✅ Database schema test passed', 'success');
+                    return true;
+
+                } catch (error) {
+                    document.getElementById('schema-status').innerHTML = `
+                        <p class="text-red-600">❌ Schema test error: ${error.message}</p>
+                    `;
+                    return false;
+                }
+            }
+
+            async testCreateAlert() {
+                try {
+                    // First, get a user profile to use
+                    const { data: profiles, error: profileError } = await this.supabase
+                        .from('profiles')
+                        .select('id')
+                        .limit(1);
+
+                    if (profileError || !profiles || profiles.length === 0) {
+                        this.addTestResult('❌ No user profiles found for testing', 'error');
+                        return;
+                    }
+
+                    const userId = profiles[0].id;
+
+                    // Create a test alert
+                    const testAlert = {
+                        user_id: userId,
+                        search_name: `Test Alert ${Date.now()}`,
+                        search_query: 'technology startup',
+                        filters: {
+                            business_type: 'Technology',
+                            location: 'California',
+                            price_max: 500000
+                        },
+                        notification_frequency: 'daily',
+                        email_notifications: true
+                    };
+
+                    const { data, error } = await this.supabase
+                        .from('saved_searches')
+                        .insert(testAlert)
+                        .select()
+                        .single();
+
+                    if (error) {
+                        this.addTestResult(`❌ Create alert failed: ${error.message}`, 'error');
+                        return;
+                    }
+
+                    this.testAlertId = data.id;
+                    this.addTestResult(`✅ Alert created successfully: ${data.search_name}`, 'success');
+                    this.addTestResult(`Alert ID: ${data.id}`, 'info');
+
+                } catch (error) {
+                    this.addTestResult(`❌ Create alert error: ${error.message}`, 'error');
+                }
+            }
+
+            async testReadAlerts() {
+                try {
+                    const { data, error } = await this.supabase
+                        .from('saved_searches')
+                        .select('*')
+                        .limit(5);
+
+                    if (error) {
+                        this.addTestResult(`❌ Read alerts failed: ${error.message}`, 'error');
+                        return;
+                    }
+
+                    this.addTestResult(`✅ Read alerts successful: ${data.length} alerts found`, 'success');
+                    
+                    if (data.length > 0) {
+                        data.forEach(alert => {
+                            this.addTestResult(`  - ${alert.search_name} (${alert.notification_frequency})`, 'info');
+                        });
+                    }
+
+                } catch (error) {
+                    this.addTestResult(`❌ Read alerts error: ${error.message}`, 'error');
+                }
+            }
+
+            async testUpdateAlert() {
+                try {
+                    if (!this.testAlertId) {
+                        this.addTestResult('❌ No test alert to update (create one first)', 'error');
+                        return;
+                    }
+
+                    const { data, error } = await this.supabase
+                        .from('saved_searches')
+                        .update({
+                            notification_frequency: 'weekly',
+                            is_active: false
+                        })
+                        .eq('id', this.testAlertId)
+                        .select()
+                        .single();
+
+                    if (error) {
+                        this.addTestResult(`❌ Update alert failed: ${error.message}`, 'error');
+                        return;
+                    }
+
+                    this.addTestResult(`✅ Alert updated successfully: ${data.search_name}`, 'success');
+                    this.addTestResult(`New frequency: ${data.notification_frequency}, Active: ${data.is_active}`, 'info');
+
+                } catch (error) {
+                    this.addTestResult(`❌ Update alert error: ${error.message}`, 'error');
+                }
+            }
+
+            async testDeleteAlert() {
+                try {
+                    if (!this.testAlertId) {
+                        this.addTestResult('❌ No test alert to delete (create one first)', 'error');
+                        return;
+                    }
+
+                    const { error } = await this.supabase
+                        .from('saved_searches')
+                        .delete()
+                        .eq('id', this.testAlertId);
+
+                    if (error) {
+                        this.addTestResult(`❌ Delete alert failed: ${error.message}`, 'error');
+                        return;
+                    }
+
+                    this.addTestResult(`✅ Alert deleted successfully: ${this.testAlertId}`, 'success');
+                    this.testAlertId = null;
+
+                } catch (error) {
+                    this.addTestResult(`❌ Delete alert error: ${error.message}`, 'error');
+                }
+            }
+
+            addTestResult(message, type = 'info') {
+                const container = document.getElementById('test-results');
+                const colors = {
+                    success: 'text-green-600',
+                    error: 'text-red-600',
+                    info: 'text-blue-600',
+                    warning: 'text-yellow-600'
+                };
+
+                const resultElement = document.createElement('div');
+                resultElement.className = `text-sm ${colors[type]} font-mono`;
+                resultElement.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+                
+                container.appendChild(resultElement);
+                container.scrollTop = container.scrollHeight;
+            }
+        }
+
+        // Initialize production test suite
+        const testSuite = new ProductionTestSuite();
+        testSuite.init();
+    </script>
+</body>
+</html>

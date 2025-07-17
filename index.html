@@ -53,7 +53,7 @@
     <link rel="stylesheet" media="print" onload="this.media='all'" href="assets/css/common.css">
 
     <!-- Homepage Enhancements -->
-    <link rel="stylesheet" href="assets/css/homepage-enhancements.css?v=2025071601">
+    <link rel="stylesheet" href="assets/css/homepage-enhancements.css?v=2025071602">
 
     <!-- Hero Background Images -->
     <link rel="stylesheet" href="assets/css/hero-background.css">
@@ -336,6 +336,59 @@
         }
     </script>
     <link rel="stylesheet" href="assets/css/admin-navigation.css">
+
+    <!-- Enhanced Admin Input Styles for Search Interface -->
+    <style>
+        /* Enhanced Input Field Formatting */
+        .admin-input {
+            padding: 0.75rem 1rem !important;
+            border: 2px solid #e2e8f0 !important;
+            border-radius: 0.5rem !important;
+            background-color: #ffffff !important;
+            color: #1e293b !important;
+            font-size: 0.875rem !important;
+            line-height: 1.25rem !important;
+            transition: all 0.2s ease-in-out !important;
+            min-height: 44px !important; /* WCAG AA touch target */
+        }
+
+        .admin-input:focus {
+            outline: none !important;
+            border-color: #3b82f6 !important;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+            background-color: #ffffff !important;
+        }
+
+        .admin-input:hover {
+            border-color: #cbd5e1 !important;
+        }
+
+        /* Dark Mode Input Styles */
+        .dark .admin-input {
+            background-color: #334155 !important;
+            border-color: #475569 !important;
+            color: #f1f5f9 !important;
+        }
+
+        .dark .admin-input:focus {
+            border-color: #60a5fa !important;
+            box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1) !important;
+            background-color: #334155 !important;
+        }
+
+        .dark .admin-input:hover {
+            border-color: #64748b !important;
+        }
+
+        .dark .admin-input::placeholder {
+            color: #94a3b8 !important;
+        }
+
+        /* Custom dropdown arrow for dark mode */
+        .dark select.admin-input {
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTQgNkw4IDEwTDEyIDYiIHN0cm9rZT0iIzk0YTNiOCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPC9zdmc+') !important;
+        }
+    </style>
 </head>
 
 <body>
@@ -352,6 +405,46 @@
     <script src="assets/js/global-avatar-manager.js"></script>
     <!-- Load BizBuySell-Style Hero -->
     <script src="assets/js/bizbuysell-hero.js"></script>
+
+    <!-- Hero Background Image Loader -->
+    <script>
+        // Ensure hero background image loads properly
+        document.addEventListener('DOMContentLoaded', function() {
+            const heroBackground = document.getElementById('hero-background-image');
+            if (heroBackground) {
+                // Force background image application
+                const imageUrl = 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80';
+
+                // Test if image loads
+                const testImage = new Image();
+                testImage.onload = function() {
+                    console.log('✅ Hero background image loaded successfully');
+                    // Verify CSS is applied correctly
+                    const computedStyle = window.getComputedStyle(heroBackground);
+                    if (computedStyle.backgroundImage === 'none') {
+                        console.log('🔧 Applying fallback background image styles');
+                        heroBackground.style.backgroundImage = `url('${imageUrl}')`;
+                        heroBackground.style.backgroundSize = 'cover';
+                        heroBackground.style.backgroundPosition = 'center';
+                        heroBackground.style.backgroundRepeat = 'no-repeat';
+                        heroBackground.style.backgroundAttachment = 'fixed';
+                    } else {
+                        console.log('✅ Background image applied via CSS successfully');
+                    }
+                };
+                testImage.onerror = function() {
+                    console.warn('⚠️ Primary image failed, trying fallback');
+                    const fallbackUrl = 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80';
+                    heroBackground.style.backgroundImage = `url('${fallbackUrl}')`;
+                    heroBackground.style.backgroundSize = 'cover';
+                    heroBackground.style.backgroundPosition = 'center';
+                    heroBackground.style.backgroundRepeat = 'no-repeat';
+                    heroBackground.style.backgroundAttachment = 'fixed';
+                };
+                testImage.src = imageUrl;
+            }
+        });
+    </script>
 
     <!-- Enhanced Animated Hero Text Component -->
     <script>
@@ -459,12 +552,12 @@
         <!-- Background Image - Business District -->
         <div class="absolute inset-0">
             <!-- High-quality business district background image -->
-            <div class="absolute inset-0 hero-bg-image"></div>
-            <!-- Enhanced dark overlay for superior text readability -->
-            <div class="absolute inset-0 bg-black/85"></div>
-            <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-black/60 to-black/80"></div>
+            <div class="absolute inset-0 hero-bg-image" id="hero-background-image"></div>
+            <!-- Further lightened overlay for maximum background visibility while maintaining text readability -->
+            <div class="absolute inset-0 bg-black/50"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-black/10 via-black/30 to-black/50"></div>
             <!-- Additional overlay for better contrast -->
-            <div class="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/20"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-black/10 via-transparent to-black/10"></div>
         </div>
 
         <!-- Main Hero Content -->
@@ -488,46 +581,57 @@
                 <!-- Search Interface -->
                 <div class="max-w-4xl mx-auto">
 
-                    <!-- Search Form -->
-                    <div class="bg-white rounded-lg shadow-2xl p-2 flex flex-col md:flex-row gap-2">
-                        <!-- Location Input -->
-                        <div class="flex-1">
-                            <input type="text"
-                                   id="location-search"
-                                   placeholder="Enter city, state, or zip code"
-                                   aria-label="Location search"
-                                   class="w-full px-4 py-4 text-gray-700 bg-transparent border-0 focus:outline-none focus:ring-0 text-lg placeholder-gray-500">
+                    <!-- Enhanced Two-Column Search Form -->
+                    <div class="bg-white dark:bg-slate-800 rounded-lg shadow-2xl p-6 transition-all duration-300">
+                        <!-- Search Grid Container -->
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
+                            <!-- Location Input Column -->
+                            <div class="space-y-2">
+                                <label for="location-search" class="block text-sm font-medium text-slate-700 dark:text-slate-300">
+                                    Location
+                                </label>
+                                <input type="text"
+                                       id="location-search"
+                                       placeholder="Enter city, state, or zip code"
+                                       aria-label="Location search"
+                                       class="admin-input w-full px-4 py-3 text-slate-900 dark:text-white bg-white dark:bg-slate-700 border-2 border-slate-300 dark:border-slate-600 rounded-lg focus:border-blue-500 dark:focus:border-blue-400 focus:ring-2 focus:ring-blue-500/20 transition-all duration-200 text-base placeholder-slate-500 dark:placeholder-slate-400 min-h-[44px]">
+                            </div>
+
+                            <!-- Industry Dropdown Column -->
+                            <div class="space-y-2">
+                                <label for="industry-select" class="block text-sm font-medium text-slate-700 dark:text-slate-300">
+                                    Industry
+                                </label>
+                                <select id="industry-select"
+                                        title="Select industry"
+                                        aria-label="Industry selection"
+                                        class="admin-input w-full px-4 py-3 text-slate-900 dark:text-white bg-white dark:bg-slate-700 border-2 border-slate-300 dark:border-slate-600 rounded-lg focus:border-blue-500 dark:focus:border-blue-400 focus:ring-2 focus:ring-blue-500/20 transition-all duration-200 text-base cursor-pointer min-h-[44px] appearance-none bg-no-repeat bg-right bg-[length:16px] bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTQgNkw4IDEwTDEyIDYiIHN0cm9rZT0iIzY0NzQ4YiIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPC9zdmc+')]">
+                                    <option value="">All Industries</option>
+                                    <option value="automotive">Automotive & Auto Repair</option>
+                                    <option value="restaurant">Restaurant & Food Service</option>
+                                    <option value="retail">Retail & E-commerce</option>
+                                    <option value="healthcare">Healthcare & Medical</option>
+                                    <option value="manufacturing">Manufacturing</option>
+                                    <option value="technology">Technology & Software</option>
+                                    <option value="construction">Construction & Real Estate</option>
+                                    <option value="services">Professional Services</option>
+                                </select>
+                            </div>
                         </div>
 
-                        <!-- Industry Dropdown -->
-                        <div class="flex-1 md:border-l border-gray-200">
-                            <select id="industry-select"
-                                    title="Select industry"
-                                    aria-label="Industry selection"
-                                    class="w-full px-4 py-4 text-gray-700 bg-transparent border-0 focus:outline-none focus:ring-0 text-lg appearance-none cursor-pointer">
-                                <option value="">All Industries</option>
-                                <option value="automotive">Automotive & Auto Repair</option>
-                                <option value="restaurant">Restaurant & Food Service</option>
-                                <option value="retail">Retail & E-commerce</option>
-                                <option value="healthcare">Healthcare & Medical</option>
-                                <option value="manufacturing">Manufacturing</option>
-                                <option value="technology">Technology & Software</option>
-                                <option value="construction">Construction & Real Estate</option>
-                                <option value="services">Professional Services</option>
-                            </select>
+                        <!-- Search Button Row -->
+                        <div class="flex justify-center">
+                            <button type="button"
+                                    id="hero-search-btn"
+                                    class="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 dark:from-blue-600 dark:to-blue-700 dark:hover:from-blue-700 dark:hover:to-blue-800 text-white font-bold px-8 py-3 rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl text-base shadow-lg min-h-[44px] min-w-[140px] focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-slate-800">
+                                <span class="flex items-center justify-center">
+                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                    </svg>
+                                    Search
+                                </span>
+                            </button>
                         </div>
-
-                        <!-- Enhanced Search Button -->
-                        <button type="button"
-                                id="hero-search-btn"
-                                class="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold px-8 py-4 rounded-md transition-all duration-300 transform hover:scale-105 hover:shadow-xl text-lg shadow-lg min-h-[44px] min-w-[120px]">
-                            <span class="flex items-center justify-center">
-                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                                </svg>
-                                Search
-                            </span>
-                        </button>
                     </div>
                 </div>
             </div>

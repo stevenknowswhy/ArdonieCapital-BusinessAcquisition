@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//images.unsplash.com">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deal Details - Closing Documents - Ardonie Capital</title>
+    <meta name="description" content="Detailed view and management of closing documents for auto repair shop acquisition deals.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+
+    <!-- Tailwind CSS -->
+    <link rel="stylesheet" href="../assets/css/tailwind.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" media="print" onload="this.media='all'" href="../assets/css/common.css">
+
+    <!-- Navigation Styles -->
+    <link rel="stylesheet" href="../components/navigation-styles.css">
+    <link rel="stylesheet" href="../assets/css/admin-navigation.css">
+
+    <!-- Security Headers -->
+    <script src="../assets/js/security-headers.js" defer></script>
+    
+    <!-- Theme System -->
+    <script>
+        // Apply saved theme preference immediately to prevent flash
+        (function() {
+            const savedTheme = localStorage.getItem('theme');
+            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+            if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        })();
+    </script>
+
+    <!-- Custom Styles -->
+    <style>
+        .document-item {
+            transition: all 0.3s ease;
+        }
+        
+        .document-item:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .dark .document-item:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        .timeline-step {
+            position: relative;
+        }
+        
+        .timeline-step::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 40px;
+            bottom: -20px;
+            width: 2px;
+            background: #e2e8f0;
+        }
+        
+        .dark .timeline-step::before {
+            background: #475569;
+        }
+        
+        .timeline-step:last-child::before {
+            display: none;
+        }
+        
+        .progress-circle {
+            transition: stroke-dasharray 0.3s ease;
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white">
+    <!-- Navigation Component -->
+    <div id="main-navigation-container"></div>
+    
+    <!-- Admin Navigation -->
+    <div id="admin-navigation-container"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Breadcrumb -->
+        <nav class="flex mb-6" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                <li class="inline-flex items-center">
+                    <a href="closing-documents.html" class="inline-flex items-center text-sm font-medium text-slate-700 hover:text-primary dark:text-slate-400 dark:hover:text-white">
+                        <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
+                        </svg>
+                        Closing Documents
+                    </a>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <svg class="w-6 h-6 text-slate-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                        </svg>
+                        <span class="ml-1 text-sm font-medium text-slate-500 md:ml-2 dark:text-slate-400" id="dealBreadcrumb">Deal Details</span>
+                    </div>
+                </li>
+            </ol>
+        </nav>
+
+        <!-- Deal Header -->
+        <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 p-6 mb-8">
+            <div class="flex items-start justify-between">
+                <div class="flex-1">
+                    <div class="flex items-center space-x-3 mb-2">
+                        <h1 class="text-2xl font-bold text-slate-900 dark:text-white" id="businessName">Premier Auto Service</h1>
+                        <span class="px-3 py-1 text-sm font-medium rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-400" id="statusBadge">
+                            In Progress
+                        </span>
+                        <span class="px-2 py-1 text-xs font-medium rounded bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-400" id="priorityBadge">
+                            HIGH PRIORITY
+                        </span>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-slate-600 dark:text-slate-400">
+                        <div>
+                            <span class="font-medium">Deal ID:</span> <span id="dealId">DEAL-001</span>
+                        </div>
+                        <div>
+                            <span class="font-medium">Location:</span> <span id="location">Dallas, TX</span>
+                        </div>
+                        <div>
+                            <span class="font-medium">Purchase Price:</span> <span id="purchasePrice">$850,000</span>
+                        </div>
+                        <div>
+                            <span class="font-medium">Buyer:</span> <span id="buyer">John Smith</span>
+                        </div>
+                        <div>
+                            <span class="font-medium">Seller:</span> <span id="seller">Mike Johnson</span>
+                        </div>
+                        <div>
+                            <span class="font-medium">Assigned To:</span> <span id="assignedTo">Sarah Wilson</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <div class="text-3xl font-bold text-slate-900 dark:text-white" id="daysToClosing">12</div>
+                    <div class="text-sm text-slate-600 dark:text-slate-400">days to closing</div>
+                    <div class="mt-2">
+                        <button class="bg-primary hover:bg-primary-dark text-white px-4 py-2 rounded-md text-sm transition-colors">
+                            Update Status
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Documents Section -->
+            <div class="lg:col-span-2 space-y-6">
+                <!-- Progress Overview -->
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 p-6">
+                    <h2 class="text-lg font-semibold text-slate-900 dark:text-white mb-4">Document Progress</h2>
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center space-x-4">
+                            <div class="relative w-16 h-16">
+                                <svg class="w-16 h-16 transform -rotate-90" viewBox="0 0 36 36">
+                                    <path class="text-slate-200 dark:text-slate-700" stroke="currentColor" stroke-width="3" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                                    <path class="text-primary progress-circle" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-dasharray="75, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                                </svg>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <span class="text-lg font-semibold text-slate-900 dark:text-white" id="progressPercentage">75%</span>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="text-sm text-slate-600 dark:text-slate-400">Overall Progress</p>
+                                <p class="text-lg font-semibold text-slate-900 dark:text-white" id="documentsProgress">11 of 15 documents completed</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <button class="bg-accent hover:bg-accent-dark text-white px-4 py-2 rounded-md text-sm transition-colors">
+                                Generate Package
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Document Categories -->
+                <div class="space-y-4">
+                    <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700">
+                        <div class="p-4 border-b border-slate-200 dark:border-slate-700">
+                            <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Purchase Agreement Documents</h3>
+                            <p class="text-sm text-slate-600 dark:text-slate-400">Core transaction documents</p>
+                        </div>
+                        <div id="purchaseDocuments" class="divide-y divide-slate-200 dark:divide-slate-700">
+                            <!-- Documents will be populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700">
+                        <div class="p-4 border-b border-slate-200 dark:border-slate-700">
+                            <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Due Diligence Documents</h3>
+                            <p class="text-sm text-slate-600 dark:text-slate-400">Financial and operational review materials</p>
+                        </div>
+                        <div id="dueDiligenceDocuments" class="divide-y divide-slate-200 dark:divide-slate-700">
+                            <!-- Documents will be populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700">
+                        <div class="p-4 border-b border-slate-200 dark:border-slate-700">
+                            <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Financing Documents</h3>
+                            <p class="text-sm text-slate-600 dark:text-slate-400">Loan and financing related paperwork</p>
+                        </div>
+                        <div id="financingDocuments" class="divide-y divide-slate-200 dark:divide-slate-700">
+                            <!-- Documents will be populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700">
+                        <div class="p-4 border-b border-slate-200 dark:border-slate-700">
+                            <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Legal & Compliance Documents</h3>
+                            <p class="text-sm text-slate-600 dark:text-slate-400">Legal requirements and compliance materials</p>
+                        </div>
+                        <div id="legalDocuments" class="divide-y divide-slate-200 dark:divide-slate-700">
+                            <!-- Documents will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="space-y-6">
+                <!-- Timeline -->
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 p-6">
+                    <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-4">Deal Timeline</h3>
+                    <div id="dealTimeline" class="space-y-4">
+                        <!-- Timeline items will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 p-6">
+                    <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-4">Quick Actions</h3>
+                    <div class="space-y-3">
+                        <button class="w-full text-left px-4 py-3 bg-slate-50 dark:bg-slate-700 hover:bg-slate-100 dark:hover:bg-slate-600 rounded-md transition-colors">
+                            <div class="flex items-center">
+                                <svg class="w-5 h-5 text-primary mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                                </svg>
+                                <span class="font-medium">Upload Document</span>
+                            </div>
+                        </button>
+                        
+                        <button class="w-full text-left px-4 py-3 bg-slate-50 dark:bg-slate-700 hover:bg-slate-100 dark:hover:bg-slate-600 rounded-md transition-colors">
+                            <div class="flex items-center">
+                                <svg class="w-5 h-5 text-accent mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3a4 4 0 118 0v4m-4 8a2 2 0 100-4 2 2 0 000 4zm0 0v4a2 2 0 002 2h6a2 2 0 002-2v-4a2 2 0 00-2-2H10a2 2 0 00-2 2z"/>
+                                </svg>
+                                <span class="font-medium">Request Signature</span>
+                            </div>
+                        </button>
+                        
+                        <button class="w-full text-left px-4 py-3 bg-slate-50 dark:bg-slate-700 hover:bg-slate-100 dark:hover:bg-slate-600 rounded-md transition-colors">
+                            <div class="flex items-center">
+                                <svg class="w-5 h-5 text-yellow-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                <span class="font-medium">Schedule Review</span>
+                            </div>
+                        </button>
+                        
+                        <button class="w-full text-left px-4 py-3 bg-slate-50 dark:bg-slate-700 hover:bg-slate-100 dark:hover:bg-slate-600 rounded-md transition-colors">
+                            <div class="flex items-center">
+                                <svg class="w-5 h-5 text-red-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.464 0L4.35 16.5c-.77.833.192 2.5 1.732 2.5z"/>
+                                </svg>
+                                <span class="font-medium">Flag Issue</span>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Contact Information -->
+                <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 p-6">
+                    <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-4">Key Contacts</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
+                                <span class="text-white text-sm font-medium">B</span>
+                            </div>
+                            <div>
+                                <p class="font-medium text-slate-900 dark:text-white" id="buyerContact">John Smith</p>
+                                <p class="text-sm text-slate-600 dark:text-slate-400">Buyer</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 bg-accent rounded-full flex items-center justify-center">
+                                <span class="text-white text-sm font-medium">S</span>
+                            </div>
+                            <div>
+                                <p class="font-medium text-slate-900 dark:text-white" id="sellerContact">Mike Johnson</p>
+                                <p class="text-sm text-slate-600 dark:text-slate-400">Seller</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 bg-slate-600 rounded-full flex items-center justify-center">
+                                <span class="text-white text-sm font-medium">A</span>
+                            </div>
+                            <div>
+                                <p class="font-medium text-slate-900 dark:text-white" id="agentContact">Sarah Wilson</p>
+                                <p class="text-sm text-slate-600 dark:text-slate-400">Deal Agent</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Scripts -->
+    <script src="../components/main-navigation.js"></script>
+    <script src="../components/admin-navigation.js"></script>
+    <script src="supabase-closing-docs.js"></script>
+    <script src="deal-details.js"></script>
+
+    <!-- Cleanup on page unload -->
+    <script>
+        window.addEventListener('beforeunload', function() {
+            if (window.dealDetailsManager) {
+                window.dealDetailsManager.destroy();
+            }
+        });
+    </script>

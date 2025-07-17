@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation Test - Deep Directory</title>
+    <link rel="stylesheet" href="../assets/css/tailwind.css">
+    
+    <!-- Navigation Styles -->
+    <link rel="stylesheet" href="../components/navigation-styles.css">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            light: '#3B82F6',
+                            DEFAULT: '#2563EB',
+                            dark: '#1D4ED8'
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+</head>
+<body class="bg-white dark:bg-slate-900 text-slate-900 dark:text-white">
+    <!-- Navigation Component -->
+    <div id="main-navigation-container"></div>
+
+    <main class="pt-16 min-h-screen">
+        <div class="container mx-auto px-4 py-12">
+            <h1 class="text-3xl font-bold mb-8">Navigation Test - Deep Directory</h1>
+            
+            <div class="bg-slate-50 dark:bg-slate-800 rounded-lg p-6">
+                <h2 class="text-xl font-semibold mb-4">Path Resolution Test</h2>
+                <p class="text-slate-600 dark:text-slate-300 mb-4">
+                    This page is located at <code>/test/navigation-test.html</code> (depth: 1)
+                </p>
+                <p class="text-slate-600 dark:text-slate-300 mb-4">
+                    The navigation should automatically detect this depth and use the correct relative paths.
+                </p>
+                
+                <div class="space-y-2">
+                    <p><strong>Expected base path:</strong> <code>../</code></p>
+                    <p><strong>Logo should link to:</strong> <code>../index.html</code></p>
+                    <p><strong>Auth links should work correctly</strong></p>
+                </div>
+                
+                <div class="mt-6">
+                    <h3 class="font-semibold mb-2">Test Navigation Links:</h3>
+                    <ul class="space-y-1 text-sm">
+                        <li>• Click the logo - should go to homepage</li>
+                        <li>• Try dropdown menus - should work properly</li>
+                        <li>• Test mobile menu toggle</li>
+                        <li>• Check dark mode toggle</li>
+                        <li>• Verify auth buttons work</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Load Navigation Component -->
+    <script src="../components/main-navigation.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Log the detected base path for debugging
+            if (window.ArdonieNavigation) {
+                const basePath = window.ArdonieNavigation.getBasePath();
+                console.log('Detected base path:', basePath);
+                
+                // Add debug info to page
+                const debugInfo = document.createElement('div');
+                debugInfo.className = 'fixed bottom-4 right-4 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-3 py-2 rounded text-sm';
+                debugInfo.innerHTML = `Base path: <code>${basePath}</code>`;
+                document.body.appendChild(debugInfo);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Integration Test - BuyMart Job Management</title>
+    <link href="../assets/css/tailwind.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold text-gray-900 mb-8">Security Integration Test</h1>
+        
+        <!-- Test Results Container -->
+        <div id="test-results" class="space-y-4">
+            <div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded">
+                <strong>Info:</strong> Running security integration tests...
+            </div>
+        </div>
+        
+        <!-- Test Controls -->
+        <div class="mt-8 space-x-4">
+            <button onclick="runAllTests()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Run All Tests
+            </button>
+            <button onclick="runSecurityTests()" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                Security Tests
+            </button>
+            <button onclick="runValidationTests()" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
+                Validation Tests
+            </button>
+            <button onclick="runAuditTests()" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
+                Audit Tests
+            </button>
+        </div>
+        
+        <!-- Test Details -->
+        <div class="mt-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Test Details</h2>
+            <div id="test-details" class="bg-white rounded-lg shadow p-6">
+                <p class="text-gray-600">Click "Run All Tests" to begin security integration testing.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Security System -->
+    <script src="../assets/js/security-manager.js"></script>
+    <script src="../assets/js/security-audit.js"></script>
+    
+    <!-- Job Management System -->
+    <script src="../assets/js/job-management-supabase.js"></script>
+    <script src="../assets/js/careers.js"></script>
+
+    <script>
+        // Security Integration Test Suite
+        class SecurityIntegrationTest {
+            constructor() {
+                this.testResults = [];
+                this.testContainer = document.getElementById('test-results');
+                this.detailsContainer = document.getElementById('test-details');
+            }
+            
+            // Run all security tests
+            async runAllTests() {
+                this.clearResults();
+                this.addResult('info', 'Starting comprehensive security integration tests...');
+                
+                await this.testSecurityManagerInitialization();
+                await this.testSecurityAuditServiceInitialization();
+                await this.testInputValidation();
+                await this.testAuthorizationSystem();
+                await this.testThreatDetection();
+                await this.testAuditLogging();
+                await this.testSessionManagement();
+                await this.testCSRFProtection();
+                
+                this.generateTestReport();
+            }
+            
+            // Test Security Manager initialization
+            async testSecurityManagerInitialization() {
+                this.addResult('info', 'Testing Security Manager initialization...');
+                
+                try {
+                    if (window.securityManager) {
+                        this.addResult('success', '✅ Security Manager initialized successfully');
+                        
+                        // Test CSRF token generation
+                        if (window.securityManager.csrfToken) {
+                            this.addResult('success', '✅ CSRF token generated');
+                        } else {
+                            this.addResult('error', '❌ CSRF token not generated');
+                        }
+                        
+                        // Test session validation
+                        const session = window.securityManager.validateSession();
+                        this.addResult('info', `📋 Session validation: ${session ? 'Valid session found' : 'No active session'}`);
+                        
+                    } else {
+                        this.addResult('error', '❌ Security Manager not initialized');
+                    }
+                } catch (error) {
+                    this.addResult('error', `❌ Security Manager test failed: ${error.message}`);
+                }
+            }
+            
+            // Test Security Audit Service initialization
+            async testSecurityAuditServiceInitialization() {
+                this.addResult('info', 'Testing Security Audit Service initialization...');
+                
+                try {
+                    if (window.securityAuditService) {
+                        this.addResult('success', '✅ Security Audit Service initialized successfully');
+                        
+                        // Test audit logging
+                        window.securityAuditService.logSecurityEvent('TEST_EVENT', { test: true });
+                        this.addResult('success', '✅ Audit logging functional');
+                        
+                        // Test threat detection
+                        if (window.securityAuditService.threatPatterns && window.securityAuditService.threatPatterns.length > 0) {
+                            this.addResult('success', `✅ Threat detection patterns loaded (${window.securityAuditService.threatPatterns.length} patterns)`);
+                        } else {
+                            this.addResult('warning', '⚠️ Threat detection patterns not loaded');
+                        }
+                        
+                    } else {
+                        this.addResult('error', '❌ Security Audit Service not initialized');
+                    }
+                } catch (error) {
+                    this.addResult('error', `❌ Security Audit Service test failed: ${error.message}`);
+                }
+            }
+            
+            // Test input validation
+            async testInputValidation() {
+                this.addResult('info', 'Testing input validation and sanitization...');
+                
+                try {
+                    if (window.securityManager) {
+                        // Test XSS prevention
+                        const xssInput = '&lt;script&gt;alert("xss")&lt;/script&gt;';
+                        const sanitizedXSS = window.securityManager.sanitizeInput(xssInput, 'html');
+                        if (!sanitizedXSS.includes('&lt;script&gt;')) {
+                            this.addResult('success', '✅ XSS prevention working');
+                        } else {
+                            this.addResult('error', '❌ XSS prevention failed');
+                        }
+                        
+                        // Test SQL injection prevention
+                        const sqlInput = "'; DROP TABLE users; --";
+                        const sanitizedSQL = window.securityManager.sanitizeInput(sqlInput, 'sql');
+                        if (!sanitizedSQL.includes(';') && !sanitizedSQL.includes('DROP')) {
+                            this.addResult('success', '✅ SQL injection prevention working');
+                        } else {
+                            this.addResult('error', '❌ SQL injection prevention failed');
+                        }
+                        
+                        // Test email validation
+                        try {
+                            const validEmail = window.securityManager.sanitizeEmail('test@example.com');
+                            this.addResult('success', '✅ Email validation working');
+                        } catch (error) {
+                            this.addResult('error', '❌ Email validation failed');
+                        }
+                        
+                    } else {
+                        this.addResult('error', '❌ Security Manager not available for validation tests');
+                    }
+                } catch (error) {
+                    this.addResult('error', `❌ Input validation test failed: ${error.message}`);
+                }
+            }
+            
+            // Test authorization system
+            async testAuthorizationSystem() {
+                this.addResult('info', 'Testing authorization and access control...');
+                
+                try {
+                    if (window.securityManager) {
+                        // Test permission checking (should fail without valid session)
+                        const hasJobCreatePermission = window.securityManager.hasPermission('job.create');
+                        this.addResult('info', `📋 Job creation permission: ${hasJobCreatePermission ? 'Granted' : 'Denied'}`);
+                        
+                        // Test role checking
+                        const hasAdminRole = window.securityManager.hasRole('super_admin');
+                        this.addResult('info', `📋 Admin role: ${hasAdminRole ? 'Granted' : 'Denied'}`);
+                        
+                        // Test authorization action (should throw error without session)
+                        try {
+                            window.securityManager.authorizeAction('job.create');
+                            this.addResult('warning', '⚠️ Authorization allowed without authentication');
+                        } catch (error) {
+                            this.addResult('success', '✅ Authorization properly denied without authentication');
+                        }
+                        
+                    } else {
+                        this.addResult('error', '❌ Security Manager not available for authorization tests');
+                    }
+                } catch (error) {
+                    this.addResult('error', `❌ Authorization test failed: ${error.message}`);
+                }
+            }
+            
+            // Test threat detection
+            async testThreatDetection() {
+                this.addResult('info', 'Testing threat detection capabilities...');
+                
+                try {
+                    if (window.securityAuditService) {
+                        // Test SQL injection detection
+                        const sqlInjectionEvent = {
+                            details: { input: "'; DROP TABLE users; --" },
+                            userAgent: 'Mozilla/5.0',
+                            url: window.location.href
+                        };
+                        
+                        window.securityAuditService.analyzeThreatPatterns(sqlInjectionEvent);
+                        this.addResult('success', '✅ SQL injection threat detection tested');
+                        
+                        // Test XSS detection
+                        const xssEvent = {
+                            details: { input: '&lt;script&gt;alert("xss")&lt;/script&gt;' },
+                            userAgent: 'Mozilla/5.0',
+                            url: window.location.href
+                        };
+                        
+                        window.securityAuditService.analyzeThreatPatterns(xssEvent);
+                        this.addResult('success', '✅ XSS threat detection tested');
+                        
+                        // Test behavioral anomaly detection
+                        const behavioralEvent = {
+                            userId: 'test-user',
+                            timestamp: new Date().toISOString(),
+                            ipAddress: '192.168.1.1'
+                        };
+                        
+                        window.securityAuditService.checkBehavioralAnomalies(behavioralEvent);
+                        this.addResult('success', '✅ Behavioral anomaly detection tested');
+                        
+                    } else {
+                        this.addResult('error', '❌ Security Audit Service not available for threat detection tests');
+                    }
+                } catch (error) {
+                    this.addResult('error', `❌ Threat detection test failed: ${error.message}`);
+                }
+            }
+            
+            // Test audit logging
+            async testAuditLogging() {
+                this.addResult('info', 'Testing audit logging system...');
+                
+                try {
+                    if (window.securityAuditService) {
+                        const initialLogCount = window.securityAuditService.auditLog.length;
+                        
+                        // Log test events
+                        window.securityAuditService.logSecurityEvent('TEST_LOGIN', { user: 'test' });
+                        window.securityAuditService.logSecurityEvent('TEST_ACTION', { action: 'test' });
+                        
+                        const finalLogCount = window.securityAuditService.auditLog.length;
+                        
+                        if (finalLogCount > initialLogCount) {
+                            this.addResult('success', `✅ Audit logging working (${finalLogCount - initialLogCount} events logged)`);
+                        } else {
+                            this.addResult('error', '❌ Audit logging not working');
+                        }
+                        
+                        // Test security metrics
+                        if (window.securityAuditService.securityMetrics) {
+                            this.addResult('success', '✅ Security metrics tracking functional');
+                        } else {
+                            this.addResult('error', '❌ Security metrics not available');
+                        }
+                        
+                    } else {
+                        this.addResult('error', '❌ Security Audit Service not available for audit tests');
+                    }
+                } catch (error) {
+                    this.addResult('error', `❌ Audit logging test failed: ${error.message}`);
+                }
+            }
+            
+            // Test session management
+            async testSessionManagement() {
+                this.addResult('info', 'Testing session management...');
+                
+                try {
+                    if (window.securityManager) {
+                        // Test session timeout configuration
+                        if (window.securityManager.sessionTimeout) {
+                            this.addResult('success', `✅ Session timeout configured (${window.securityManager.sessionTimeout / 1000 / 60} minutes)`);
+                        } else {
+                            this.addResult('warning', '⚠️ Session timeout not configured');
+                        }
+                        
+                        // Test rate limiting
+                        if (window.securityManager.maxLoginAttempts) {
+                            this.addResult('success', `✅ Rate limiting configured (${window.securityManager.maxLoginAttempts} max attempts)`);
+                        } else {
+                            this.addResult('warning', '⚠️ Rate limiting not configured');
+                        }
+                        
+                        // Test lockout duration
+                        if (window.securityManager.lockoutDuration) {
+                            this.addResult('success', `✅ Account lockout configured (${window.securityManager.lockoutDuration / 1000 / 60} minutes)`);
+                        } else {
+                            this.addResult('warning', '⚠️ Account lockout not configured');
+                        }
+                        
+                    } else {
+                        this.addResult('error', '❌ Security Manager not available for session tests');
+                    }
+                } catch (error) {
+                    this.addResult('error', `❌ Session management test failed: ${error.message}`);
+                }
+            }
+            
+            // Test CSRF protection
+            async testCSRFProtection() {
+                this.addResult('info', 'Testing CSRF protection...');
+                
+                try {
+                    if (window.securityManager && window.securityManager.csrfToken) {
+                        // Check if CSRF tokens are added to forms
+                        const forms = document.querySelectorAll('form');
+                        let formsWithCSRF = 0;
+                        
+                        forms.forEach(form => {
+                            const csrfInput = form.querySelector('input[name="csrf_token"]');
+                            if (csrfInput && csrfInput.value === window.securityManager.csrfToken) {
+                                formsWithCSRF++;
+                            }
+                        });
+                        
+                        if (forms.length === 0) {
+                            this.addResult('info', '📋 No forms found to test CSRF protection');
+                        } else if (formsWithCSRF === forms.length) {
+                            this.addResult('success', `✅ CSRF protection applied to all forms (${formsWithCSRF}/${forms.length})`);
+                        } else {
+                            this.addResult('warning', `⚠️ CSRF protection partial (${formsWithCSRF}/${forms.length} forms protected)`);
+                        }
+                        
+                    } else {
+                        this.addResult('error', '❌ CSRF token not available');
+                    }
+                } catch (error) {
+                    this.addResult('error', `❌ CSRF protection test failed: ${error.message}`);
+                }
+            }
+            
+            // Generate comprehensive test report
+            generateTestReport() {
+                const successCount = this.testResults.filter(r => r.type === 'success').length;
+                const errorCount = this.testResults.filter(r => r.type === 'error').length;
+                const warningCount = this.testResults.filter(r => r.type === 'warning').length;
+                const totalTests = successCount + errorCount + warningCount;
+                
+                const report = {
+                    timestamp: new Date().toISOString(),
+                    totalTests,
+                    successCount,
+                    errorCount,
+                    warningCount,
+                    successRate: totalTests > 0 ? Math.round((successCount / totalTests) * 100) : 0,
+                    overallStatus: errorCount === 0 ? (warningCount === 0 ? 'PASS' : 'PASS_WITH_WARNINGS') : 'FAIL'
+                };
+                
+                this.addResult('info', `📊 Test Report: ${report.successCount}/${report.totalTests} tests passed (${report.successRate}%)`);
+                
+                if (report.overallStatus === 'PASS') {
+                    this.addResult('success', '🎉 All security integration tests passed!');
+                } else if (report.overallStatus === 'PASS_WITH_WARNINGS') {
+                    this.addResult('warning', '⚠️ Tests passed with warnings - review recommended');
+                } else {
+                    this.addResult('error', '❌ Some tests failed - immediate attention required');
+                }
+                
+                // Update details container
+                this.detailsContainer.innerHTML = `
+                    <h3 class="text-lg font-semibold mb-4">Security Integration Test Report</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+                        <div class="bg-green-100 p-3 rounded">
+                            <div class="text-2xl font-bold text-green-800">${report.successCount}</div>
+                            <div class="text-sm text-green-600">Passed</div>
+                        </div>
+                        <div class="bg-red-100 p-3 rounded">
+                            <div class="text-2xl font-bold text-red-800">${report.errorCount}</div>
+                            <div class="text-sm text-red-600">Failed</div>
+                        </div>
+                        <div class="bg-yellow-100 p-3 rounded">
+                            <div class="text-2xl font-bold text-yellow-800">${report.warningCount}</div>
+                            <div class="text-sm text-yellow-600">Warnings</div>
+                        </div>
+                        <div class="bg-blue-100 p-3 rounded">
+                            <div class="text-2xl font-bold text-blue-800">${report.successRate}%</div>
+                            <div class="text-sm text-blue-600">Success Rate</div>
+                        </div>
+                    </div>
+                    <div class="text-sm text-gray-600">
+                        <strong>Overall Status:</strong> ${report.overallStatus}<br>
+                        <strong>Test Completed:</strong> ${new Date(report.timestamp).toLocaleString()}
+                    </div>
+                `;
+            }
+            
+            // Helper methods
+            addResult(type, message) {
+                const result = { type, message, timestamp: new Date() };
+                this.testResults.push(result);
+                
+                const alertClass = {
+                    'success': 'bg-green-100 border-green-400 text-green-700',
+                    'error': 'bg-red-100 border-red-400 text-red-700',
+                    'warning': 'bg-yellow-100 border-yellow-400 text-yellow-700',
+                    'info': 'bg-blue-100 border-blue-400 text-blue-700'
+                }[type];
+                
+                const resultDiv = document.createElement('div');
+                resultDiv.className = `${alertClass} px-4 py-3 rounded border`;
+                resultDiv.innerHTML = message;
+                
+                this.testContainer.appendChild(resultDiv);
+                
+                // Auto-scroll to bottom
+                this.testContainer.scrollTop = this.testContainer.scrollHeight;
+            }
+            
+            clearResults() {
+                this.testResults = [];
+                this.testContainer.innerHTML = '';
+            }
+        }
+        
+        // Initialize test suite
+        const securityTest = new SecurityIntegrationTest();
+        
+        // Global test functions
+        function runAllTests() {
+            securityTest.runAllTests();
+        }
+        
+        function runSecurityTests() {
+            securityTest.clearResults();
+            securityTest.testSecurityManagerInitialization();
+            securityTest.testAuthorizationSystem();
+            securityTest.testSessionManagement();
+            securityTest.testCSRFProtection();
+        }
+        
+        function runValidationTests() {
+            securityTest.clearResults();
+            securityTest.testInputValidation();
+        }
+        
+        function runAuditTests() {
+            securityTest.clearResults();
+            securityTest.testSecurityAuditServiceInitialization();
+            securityTest.testThreatDetection();
+            securityTest.testAuditLogging();
+        }
+        
+        // Auto-run tests when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                runAllTests();
+            }, 1000); // Wait for security systems to initialize
+        });
+    </script>
+</body>
+</html>

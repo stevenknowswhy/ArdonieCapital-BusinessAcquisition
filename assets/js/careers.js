@@ -301,7 +301,7 @@ class CareersManager {
 
     createJobDetailsModal(job) {
         const modal = document.createElement('div');
-        modal.className = 'modal-backdrop fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 opacity-0 transition-opacity duration-300';
+        modal.className = 'modal-backdrop modal-backdrop-enhanced fixed inset-0 bg-black flex items-center justify-center p-4 z-50 opacity-0 transition-opacity duration-300';
         
         modal.innerHTML = `
             <div class="modal-content bg-white dark:bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto transform scale-95 transition-transform duration-300">
@@ -377,7 +377,7 @@ class CareersManager {
 
     createApplicationModal(job) {
         const modal = document.createElement('div');
-        modal.className = 'modal-backdrop fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 opacity-0 transition-opacity duration-300';
+        modal.className = 'modal-backdrop modal-backdrop-enhanced fixed inset-0 bg-black flex items-center justify-center p-4 z-50 opacity-0 transition-opacity duration-300';
 
         modal.innerHTML = `
             <div class="modal-content bg-white dark:bg-slate-800 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto transform scale-95 transition-transform duration-300">
@@ -398,19 +398,19 @@ class CareersManager {
                         <div>
                             <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-4">Personal Information</h3>
 
-                            <div class="mb-4">
-                                <label for="fullName" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Full Name *</label>
-                                <input type="text" id="fullName" name="fullName" required class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-dark dark:bg-slate-700 dark:text-white">
+                            <div class="admin-form-group">
+                                <label for="fullName" class="admin-label">Full Name *</label>
+                                <input type="text" id="fullName" name="fullName" required class="admin-input w-full" placeholder="Enter your full name">
                             </div>
 
-                            <div class="mb-4">
-                                <label for="email" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Email Address *</label>
-                                <input type="email" id="email" name="email" required class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-dark dark:bg-slate-700 dark:text-white">
+                            <div class="admin-form-group">
+                                <label for="email" class="admin-label">Email Address *</label>
+                                <input type="email" id="email" name="email" required class="admin-input w-full" placeholder="Enter your email address">
                             </div>
 
-                            <div class="mb-4">
-                                <label for="phone" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Phone Number *</label>
-                                <input type="tel" id="phone" name="phone" required class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-dark dark:bg-slate-700 dark:text-white">
+                            <div class="admin-form-group">
+                                <label for="phone" class="admin-label">Phone Number *</label>
+                                <input type="tel" id="phone" name="phone" required class="admin-input w-full" placeholder="Enter your phone number">
                             </div>
 
                             <div class="mb-4">
@@ -434,20 +434,20 @@ class CareersManager {
                                 </select>
                             </div>
 
-                            <div class="mb-4">
-                                <label for="startDate" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Desired Start Date *</label>
-                                <input type="date" id="startDate" name="startDate" required class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-dark dark:bg-slate-700 dark:text-white">
+                            <div class="admin-form-group">
+                                <label for="startDate" class="admin-label">Desired Start Date *</label>
+                                <input type="date" id="startDate" name="startDate" required class="admin-input w-full">
                             </div>
 
-                            <div class="mb-4">
-                                <label for="salaryExpectation" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Salary Expectations</label>
-                                <input type="text" id="salaryExpectation" name="salaryExpectation" placeholder="e.g., $60,000 - $70,000" class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-dark dark:bg-slate-700 dark:text-white">
+                            <div class="admin-form-group">
+                                <label for="salaryExpectation" class="admin-label">Salary Expectations</label>
+                                <input type="text" id="salaryExpectation" name="salaryExpectation" placeholder="e.g., $60,000 - $70,000" class="admin-input w-full">
                             </div>
 
-                            <div class="mb-4">
-                                <label for="resume" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Resume *</label>
-                                <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" required class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-dark dark:bg-slate-700 dark:text-white">
-                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">PDF or DOC format, max 5MB</p>
+                            <div class="admin-form-group">
+                                <label for="resume" class="admin-label">Resume *</label>
+                                <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" required class="admin-input w-full">
+                                <p class="admin-help-text">PDF or DOC format, max 5MB</p>
                             </div>
                         </div>
                     </div>
@@ -460,10 +460,10 @@ class CareersManager {
 
                     <!-- Terms and Conditions -->
                     <div class="mt-6">
-                        <label class="flex items-start">
-                            <input type="checkbox" id="agreeTerms" name="agreeTerms" required class="mt-1 mr-3">
-                            <span class="text-sm text-slate-700 dark:text-slate-300">
-                                I agree to the <a href="#" class="text-primary-dark hover:text-primary">Terms and Conditions</a> and consent to the processing of my personal data for recruitment purposes.
+                        <label class="flex items-start space-x-3">
+                            <input type="checkbox" id="agreeTerms" name="agreeTerms" required class="admin-checkbox mt-1">
+                            <span class="admin-label mb-0 cursor-pointer">
+                                I agree to the <a href="#" class="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 underline">Terms and Conditions</a> and consent to the processing of my personal data for recruitment purposes.
                             </span>
                         </label>
                     </div>
@@ -606,7 +606,7 @@ Resume attached: ${application.resumeFileName || 'No resume attached'}
 
     createAddJobModal() {
         const modal = document.createElement('div');
-        modal.className = 'modal-backdrop fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 opacity-0 transition-opacity duration-300';
+        modal.className = 'modal-backdrop modal-backdrop-enhanced fixed inset-0 bg-black flex items-center justify-center p-4 z-50 opacity-0 transition-opacity duration-300';
 
         modal.innerHTML = `
             <div class="modal-content bg-white dark:bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto transform scale-95 transition-transform duration-300">
@@ -624,9 +624,9 @@ Resume attached: ${application.resumeFileName || 'No resume attached'}
                 <form id="add-job-form" class="p-6">
                     <div class="grid md:grid-cols-2 gap-6">
                         <div>
-                            <div class="mb-4">
-                                <label for="jobTitle" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Job Title *</label>
-                                <input type="text" id="jobTitle" name="jobTitle" required class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-dark dark:bg-slate-700 dark:text-white">
+                            <div class="admin-form-group">
+                                <label for="jobTitle" class="admin-label">Job Title *</label>
+                                <input type="text" id="jobTitle" name="jobTitle" required class="admin-input w-full" placeholder="Enter job title">
                             </div>
 
                             <div class="mb-4">
@@ -642,9 +642,9 @@ Resume attached: ${application.resumeFileName || 'No resume attached'}
                                 </select>
                             </div>
 
-                            <div class="mb-4">
-                                <label for="location" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Location *</label>
-                                <input type="text" id="location" name="location" required placeholder="e.g., Dallas, TX or Remote" class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-dark dark:bg-slate-700 dark:text-white">
+                            <div class="admin-form-group">
+                                <label for="location" class="admin-label">Location *</label>
+                                <input type="text" id="location" name="location" required placeholder="e.g., Dallas, TX or Remote" class="admin-input w-full">
                             </div>
 
                             <div class="mb-4">
@@ -658,14 +658,14 @@ Resume attached: ${application.resumeFileName || 'No resume attached'}
                                 </select>
                             </div>
 
-                            <div class="mb-4">
-                                <label for="salaryRange" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Salary Range</label>
-                                <input type="text" id="salaryRange" name="salaryRange" placeholder="e.g., $60,000 - $80,000" class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-dark dark:bg-slate-700 dark:text-white">
+                            <div class="admin-form-group">
+                                <label for="salaryRange" class="admin-label">Salary Range</label>
+                                <input type="text" id="salaryRange" name="salaryRange" placeholder="e.g., $60,000 - $80,000" class="admin-input w-full">
                             </div>
 
-                            <div class="mb-4">
-                                <label for="deadline" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Application Deadline *</label>
-                                <input type="date" id="deadline" name="deadline" required class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-dark dark:bg-slate-700 dark:text-white">
+                            <div class="admin-form-group">
+                                <label for="deadline" class="admin-label">Application Deadline *</label>
+                                <input type="date" id="deadline" name="deadline" required class="admin-input w-full">
                             </div>
                         </div>
 
@@ -1295,7 +1295,7 @@ Resume attached: ${application.resumeFileName || 'No resume attached'}
         if (!job) return;
 
         const modal = document.createElement('div');
-        modal.className = 'modal-backdrop fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50';
+        modal.className = 'modal-backdrop modal-backdrop-enhanced fixed inset-0 bg-black flex items-center justify-center p-4 z-50';
 
         modal.innerHTML = `
             <div class="modal-content bg-white dark:bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">

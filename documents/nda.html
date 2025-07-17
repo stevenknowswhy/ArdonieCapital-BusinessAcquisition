@@ -74,9 +74,8 @@
             <p class="text-slate-600 dark:text-slate-300">Generate a customized NDA for your business acquisition discussions.</p>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <!-- Form -->
-            <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 p-6">
+        <!-- Form Section (Top Row) -->
+        <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 p-6 mb-8">
                 <h2 class="text-xl font-semibold text-slate-900 dark:text-white mb-6">NDA Details</h2>
 
                 <form id="ndaForm" class="space-y-6" data-secure="true">
@@ -143,24 +142,23 @@
                 </form>
             </div>
 
-            <!-- Preview -->
-            <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 p-6">
-                <div class="flex items-center justify-between mb-6">
-                    <h2 class="text-xl font-semibold text-slate-900 dark:text-white">Document Preview</h2>
-                    <div class="flex space-x-2">
-                        <button id="downloadBtn" class="bg-accent hover:bg-accent-dark text-white font-medium py-2 px-4 rounded-md transition-all" disabled>
-                            Download PDF
-                        </button>
-                        <button id="emailBtn" class="bg-primary-dark hover:bg-primary text-white font-medium py-2 px-4 rounded-md transition-all" disabled>
-                            Email
-                        </button>
-                    </div>
+        <!-- Preview Section (Bottom Row) -->
+        <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-xl font-semibold text-slate-900 dark:text-white">Document Preview</h2>
+                <div class="flex space-x-2">
+                    <button type="button" id="downloadBtn" class="bg-accent hover:bg-accent-dark text-white font-medium py-2 px-4 rounded-md transition-all" disabled>
+                        Download PDF
+                    </button>
+                    <button type="button" id="emailBtn" class="bg-primary-dark hover:bg-primary text-white font-medium py-2 px-4 rounded-md transition-all" disabled>
+                        Email
+                    </button>
                 </div>
+            </div>
 
-                <div id="documentPreview" class="prose prose-sm max-w-none dark:prose-invert">
-                    <div class="text-center text-slate-500 dark:text-slate-400 py-12">
-                        Fill out the form to generate your NDA preview
-                    </div>
+            <div id="documentPreview" class="prose prose-sm max-w-none dark:prose-invert">
+                <div class="text-center text-slate-500 dark:text-slate-400 py-12">
+                    Fill out the form to generate your NDA preview
                 </div>
             </div>
         </div>
@@ -211,22 +209,35 @@
                         <li>Any other proprietary business information</li>
                     </ul>
 
-                    <h3 class="text-lg font-semibold mt-6 mb-3">3. Obligations of Receiving Party</h3>
-                    <p>Receiving Party agrees to:</p>
+                    <h3 class="text-lg font-semibold mt-6 mb-3">3. Obligations of Both Parties</h3>
+                    <p>Each party agrees to:</p>
                     <ul class="list-disc pl-6 space-y-1">
                         <li>Hold and maintain the Confidential Information in strict confidence</li>
-                        <li>Not disclose the Confidential Information to any third parties</li>
+                        <li>Not disclose the Confidential Information to any third parties without prior written consent</li>
                         <li>Use the Confidential Information solely for the Purpose stated above</li>
                         <li>Take reasonable precautions to protect the confidentiality of the information</li>
+                        <li>Not reverse engineer, disassemble, or decompile any confidential materials</li>
                     </ul>
 
-                    <h3 class="text-lg font-semibold mt-6 mb-3">4. Term</h3>
+                    <h3 class="text-lg font-semibold mt-6 mb-3">4. Exceptions</h3>
+                    <p>The obligations of confidentiality shall not apply to information that:</p>
+                    <ul class="list-disc pl-6 space-y-1">
+                        <li>Is or becomes publicly available through no breach of this Agreement</li>
+                        <li>Was known to the receiving party prior to disclosure</li>
+                        <li>Is independently developed without use of Confidential Information</li>
+                        <li>Is required to be disclosed by law or court order</li>
+                    </ul>
+
+                    <h3 class="text-lg font-semibold mt-6 mb-3">5. Term</h3>
                     <p>This Agreement shall remain in effect for ${data.duration === 'indefinite' ? 'an indefinite period' : data.duration + ' years'} from the date of execution, unless terminated earlier by mutual written consent.</p>
 
-                    <h3 class="text-lg font-semibold mt-6 mb-3">5. Return of Materials</h3>
-                    <p>Upon termination of this Agreement or upon request by the Disclosing Party, Receiving Party shall promptly return or destroy all documents, materials, and other tangible manifestations of Confidential Information.</p>
+                    <h3 class="text-lg font-semibold mt-6 mb-3">6. Return of Materials</h3>
+                    <p>Upon termination of this Agreement or upon request by either party, the receiving party shall promptly return or destroy all documents, materials, and other tangible manifestations of Confidential Information.</p>
 
-                    <h3 class="text-lg font-semibold mt-6 mb-3">6. Governing Law</h3>
+                    <h3 class="text-lg font-semibold mt-6 mb-3">7. Remedies</h3>
+                    <p>Each party acknowledges that any breach of this Agreement may cause irreparable harm to the other party, and that monetary damages may be inadequate. Therefore, either party shall be entitled to seek equitable relief, including injunction and specific performance.</p>
+
+                    <h3 class="text-lg font-semibold mt-6 mb-3">8. Governing Law</h3>
                     <p>This Agreement shall be governed by and construed in accordance with the laws of the State of ${data.governingLaw || 'Texas'}.</p>
 
                     <div class="mt-8 pt-8 border-t border-slate-200 dark:border-slate-600">

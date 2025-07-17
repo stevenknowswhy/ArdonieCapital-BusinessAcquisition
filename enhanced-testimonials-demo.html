@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Testimonials Section - Modern Design Demo</title>
+    <meta name="description" content="Demonstration of enhanced testimonials section with modern design patterns, accessibility features, and responsive layout.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+    <!-- Tailwind CSS -->
+    <link rel="stylesheet" href="assets/css/tailwind.css">
+    
+    <!-- Enhanced Testimonials Styles -->
+    <link rel="stylesheet" href="assets/css/enhanced-testimonials.css">
+
+    <!-- Theme System -->
+    <script>
+        // Apply saved theme preference immediately to prevent flash
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        /* Demo-specific styles */
+        .demo-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .demo-nav {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .dark .demo-nav {
+            background: rgba(15, 23, 42, 0.95);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .theme-toggle {
+            transition: all 0.3s ease;
+        }
+        
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body class="bg-white dark:bg-slate-900 text-slate-900 dark:text-white">
+    <!-- Demo Navigation -->
+    <nav class="demo-nav fixed top-0 left-0 right-0 z-50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <h1 class="text-xl font-bold text-slate-900 dark:text-white">
+                        Enhanced Testimonials Demo
+                    </h1>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <!-- Theme Toggle -->
+                    <button id="theme-toggle" 
+                            class="theme-toggle p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
+                            aria-label="Toggle theme">
+                        <svg class="w-5 h-5 hidden dark:block" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"/>
+                        </svg>
+                        <svg class="w-5 h-5 block dark:hidden" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>
+                        </svg>
+                    </button>
+                    
+                    <!-- Back to Home -->
+                    <a href="index.html" 
+                       class="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                        </svg>
+                        Back to Home
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Demo Header -->
+    <header class="demo-header pt-16 pb-12">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center text-white py-12">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">
+                    Enhanced Testimonials Section
+                </h1>
+                <p class="text-xl md:text-2xl text-purple-100 mb-8 max-w-3xl mx-auto">
+                    A modern, accessible, and responsive testimonials section showcasing advanced design patterns
+                </p>
+                
+                <!-- Feature Highlights -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+                    <div class="bg-white/10 backdrop-blur-sm rounded-lg p-4">
+                        <div class="text-2xl mb-2">🎨</div>
+                        <h3 class="font-semibold mb-1">Modern Design</h3>
+                        <p class="text-sm text-purple-100">Gradient backgrounds, glassmorphism, and smooth animations</p>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-sm rounded-lg p-4">
+                        <div class="text-2xl mb-2">♿</div>
+                        <h3 class="font-semibold mb-1">Accessible</h3>
+                        <p class="text-sm text-purple-100">WCAG 2.1 AA compliant with keyboard navigation support</p>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-sm rounded-lg p-4">
+                        <div class="text-2xl mb-2">📱</div>
+                        <h3 class="font-semibold mb-1">Responsive</h3>
+                        <p class="text-sm text-purple-100">Optimized for all devices with touch-friendly interactions</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Load Enhanced Testimonials Section -->
+        <div id="testimonials-container"></div>
+        
+        <!-- Implementation Details -->
+        <section class="py-16 bg-slate-50 dark:bg-slate-800">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-4xl mx-auto">
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-8 text-center">
+                        Implementation Features
+                    </h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="bg-white dark:bg-slate-900 rounded-lg p-6 shadow-lg">
+                            <h3 class="text-xl font-semibold mb-4 text-slate-900 dark:text-white">Design Patterns</h3>
+                            <ul class="space-y-2 text-slate-600 dark:text-slate-300">
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2">✓</span>
+                                    Glassmorphism effects with backdrop blur
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2">✓</span>
+                                    Gradient backgrounds and text
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2">✓</span>
+                                    Micro-interactions and hover effects
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2">✓</span>
+                                    Staggered animations on scroll
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2">✓</span>
+                                    Modern card layouts with depth
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-white dark:bg-slate-900 rounded-lg p-6 shadow-lg">
+                            <h3 class="text-xl font-semibold mb-4 text-slate-900 dark:text-white">Accessibility Features</h3>
+                            <ul class="space-y-2 text-slate-600 dark:text-slate-300">
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2">✓</span>
+                                    WCAG 2.1 AA color contrast compliance
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2">✓</span>
+                                    Keyboard navigation support
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2">✓</span>
+                                    Reduced motion preferences
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2">✓</span>
+                                    High contrast mode support
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2">✓</span>
+                                    Screen reader optimization
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-white dark:bg-slate-900 rounded-lg p-6 shadow-lg">
+                            <h3 class="text-xl font-semibold mb-4 text-slate-900 dark:text-white">Responsive Design</h3>
+                            <ul class="space-y-2 text-slate-600 dark:text-slate-300">
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2">✓</span>
+                                    Mobile-first approach
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2">✓</span>
+                                    Touch-optimized interactions
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2">✓</span>
+                                    Flexible grid layouts
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2">✓</span>
+                                    Adaptive typography scaling
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2">✓</span>
+                                    Cross-browser compatibility
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-white dark:bg-slate-900 rounded-lg p-6 shadow-lg">
+                            <h3 class="text-xl font-semibold mb-4 text-slate-900 dark:text-white">Performance</h3>
+                            <ul class="space-y-2 text-slate-600 dark:text-slate-300">
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2">✓</span>
+                                    Hardware-accelerated animations
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2">✓</span>
+                                    Optimized image loading
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2">✓</span>
+                                    Intersection Observer API
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2">✓</span>
+                                    Minimal JavaScript footprint
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2">✓</span>
+                                    CSS-based animations
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white py-8">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <p class="text-slate-400">
+                    Enhanced Testimonials Section Demo - Modern Design Patterns Implementation
+                </p>
+                <p class="text-slate-500 text-sm mt-2">
+                    Built with accessibility, performance, and user experience in mind
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Theme toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeToggle = document.getElementById('theme-toggle');
+            
+            themeToggle.addEventListener('click', function() {
+                const isDark = document.documentElement.classList.contains('dark');
+                
+                if (isDark) {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('theme', 'dark');
+                }
+            });
+
+            // Load the enhanced testimonials section
+            loadTestimonialsSection();
+        });
+
+        // Load testimonials section dynamically
+        async function loadTestimonialsSection() {
+            try {
+                const response = await fetch('sections/enhanced-testimonials-section.html');
+                const html = await response.text();
+                document.getElementById('testimonials-container').innerHTML = html;
+                
+                // Add loading animation
+                const section = document.getElementById('enhanced-testimonials');
+                if (section) {
+                    section.classList.add('testimonials-loading');
+                    
+                    // Trigger loaded state after a brief delay
+                    setTimeout(() => {
+                        section.classList.remove('testimonials-loading');
+                        section.classList.add('testimonials-loaded');
+                    }, 100);
+                }
+                
+                console.log('✨ Enhanced testimonials section loaded successfully');
+            } catch (error) {
+                console.error('Error loading testimonials section:', error);
+                document.getElementById('testimonials-container').innerHTML = 
+                    '<div class="py-16 text-center"><p class="text-red-600">Error loading testimonials section</p></div>';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation Test - Very Deep Directory</title>
+    <link rel="stylesheet" href="../../assets/css/tailwind.css">
+    
+    <!-- Navigation Styles -->
+    <link rel="stylesheet" href="../../components/navigation-styles.css">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            light: '#3B82F6',
+                            DEFAULT: '#2563EB',
+                            dark: '#1D4ED8'
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+</head>
+<body class="bg-white dark:bg-slate-900 text-slate-900 dark:text-white">
+    <!-- Navigation Component -->
+    <div id="main-navigation-container"></div>
+
+    <main class="pt-16 min-h-screen">
+        <div class="container mx-auto px-4 py-12">
+            <h1 class="text-3xl font-bold mb-8">Navigation Test - Very Deep Directory</h1>
+            
+            <div class="bg-slate-50 dark:bg-slate-800 rounded-lg p-6">
+                <h2 class="text-xl font-semibold mb-4">Deep Path Resolution Test</h2>
+                <p class="text-slate-600 dark:text-slate-300 mb-4">
+                    This page is located at <code>/test/deep/navigation-deep-test.html</code> (depth: 2)
+                </p>
+                <p class="text-slate-600 dark:text-slate-300 mb-4">
+                    The navigation should automatically detect this depth and use the correct relative paths.
+                </p>
+                
+                <div class="space-y-2">
+                    <p><strong>Expected base path:</strong> <code>../../</code></p>
+                    <p><strong>Logo should link to:</strong> <code>../../index.html</code></p>
+                    <p><strong>All navigation links should work correctly</strong></p>
+                </div>
+                
+                <div class="mt-6 p-4 bg-green-50 dark:bg-green-900/20 rounded">
+                    <h3 class="font-semibold text-green-800 dark:text-green-200 mb-2">✅ Success Criteria:</h3>
+                    <ul class="space-y-1 text-sm text-green-700 dark:text-green-300">
+                        <li>• Navigation loads without errors</li>
+                        <li>• Logo links to homepage correctly</li>
+                        <li>• Dropdown menus work</li>
+                        <li>• Mobile menu functions</li>
+                        <li>• Dark mode toggle works</li>
+                        <li>• All paths resolve correctly</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Load Navigation Component -->
+    <script src="../../components/main-navigation.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Log the detected base path for debugging
+            if (window.ArdonieNavigation) {
+                const basePath = window.ArdonieNavigation.getBasePath();
+                console.log('Detected base path for deep directory:', basePath);
+                
+                // Add debug info to page
+                const debugInfo = document.createElement('div');
+                debugInfo.className = 'fixed bottom-4 right-4 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 px-3 py-2 rounded text-sm';
+                debugInfo.innerHTML = `Deep base path: <code>${basePath}</code>`;
+                document.body.appendChild(debugInfo);
+            }
+        });
+    </script>
+</body>
+</html>

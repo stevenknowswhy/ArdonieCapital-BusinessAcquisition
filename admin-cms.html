@@ -7,6 +7,121 @@
     
     <!-- Tailwind CSS -->
     <link href="assets/css/tailwind.css" rel="stylesheet">
+
+    <!-- Enhanced Admin CMS Styles -->
+    <style>
+        /* Enhanced Input Field Formatting */
+        .admin-input {
+            padding: 0.75rem 1rem !important;
+            border: 2px solid #e2e8f0 !important;
+            border-radius: 0.5rem !important;
+            background-color: #ffffff !important;
+            color: #1e293b !important;
+            font-size: 0.875rem !important;
+            line-height: 1.25rem !important;
+            transition: all 0.2s ease-in-out !important;
+            min-height: 44px !important; /* WCAG AA touch target */
+        }
+
+        .admin-input:focus {
+            outline: none !important;
+            border-color: #3b82f6 !important;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+            background-color: #ffffff !important;
+        }
+
+        .admin-input:hover {
+            border-color: #cbd5e1 !important;
+        }
+
+        /* Dark Mode Input Styles */
+        .dark .admin-input {
+            background-color: #334155 !important;
+            border-color: #475569 !important;
+            color: #f1f5f9 !important;
+        }
+
+        .dark .admin-input:focus {
+            border-color: #60a5fa !important;
+            box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1) !important;
+            background-color: #334155 !important;
+        }
+
+        .dark .admin-input:hover {
+            border-color: #64748b !important;
+        }
+
+        .dark .admin-input::placeholder {
+            color: #94a3b8 !important;
+        }
+
+        /* Enhanced Checkbox Styling */
+        .admin-checkbox {
+            width: 1.125rem !important;
+            height: 1.125rem !important;
+            border: 2px solid #e2e8f0 !important;
+            border-radius: 0.25rem !important;
+            background-color: #ffffff !important;
+            transition: all 0.2s ease-in-out !important;
+        }
+
+        .admin-checkbox:checked {
+            background-color: #3b82f6 !important;
+            border-color: #3b82f6 !important;
+        }
+
+        .admin-checkbox:focus {
+            outline: none !important;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+        }
+
+        .dark .admin-checkbox {
+            background-color: #334155 !important;
+            border-color: #475569 !important;
+        }
+
+        .dark .admin-checkbox:checked {
+            background-color: #60a5fa !important;
+            border-color: #60a5fa !important;
+        }
+
+        /* Reduced Overlay Opacity for Better Readability */
+        .modal-backdrop-enhanced {
+            background-color: rgba(0, 0, 0, 0.35) !important; /* Reduced from 0.5 to 0.35 */
+        }
+
+        .dark .modal-backdrop-enhanced {
+            background-color: rgba(0, 0, 0, 0.4) !important; /* Slightly higher for dark mode */
+        }
+
+        /* Enhanced Form Labels */
+        .admin-label {
+            font-weight: 500 !important;
+            color: #374151 !important;
+            margin-bottom: 0.5rem !important;
+            display: block !important;
+        }
+
+        .dark .admin-label {
+            color: #e5e7eb !important;
+        }
+
+        /* Enhanced Form Groups */
+        .admin-form-group {
+            margin-bottom: 1.5rem !important;
+        }
+
+        /* Enhanced Help Text */
+        .admin-help-text {
+            font-size: 0.75rem !important;
+            color: #6b7280 !important;
+            margin-top: 0.25rem !important;
+        }
+
+        .dark .admin-help-text {
+            color: #9ca3af !important;
+        }
+    </style>
     
     <!-- Theme System -->
     <script>
@@ -55,11 +170,11 @@
                     </div>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <!-- Theme Toggle -->
+                    <!-- Theme Toggle (Desktop) -->
                     <button
                         id="theme-toggle"
                         onclick="toggleTheme()"
-                        class="p-2 rounded-lg text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-slate-800"
+                        class="hidden md:block p-2 rounded-lg text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-slate-800"
                         aria-label="Toggle dark/light theme"
                         aria-pressed="false"
                         type="button">
@@ -71,8 +186,8 @@
                         </svg>
                     </button>
                     
-                    <!-- User Menu -->
-                    <div class="flex items-center space-x-3" role="group" aria-label="User account information">
+                    <!-- User Menu (Desktop) -->
+                    <div class="hidden md:flex items-center space-x-3" role="group" aria-label="User account information">
                         <div class="text-sm text-slate-700 dark:text-slate-300">
                             <span class="font-medium" aria-label="Current user: Admin User">Admin User</span>
                         </div>
@@ -81,14 +196,89 @@
                         </div>
                     </div>
 
-                    <!-- Back to Site -->
-                    <a href="careers.html" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-slate-800" aria-label="Return to main website">
+                    <!-- Back to Site (Desktop) -->
+                    <a href="careers.html" class="hidden md:inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-slate-800" aria-label="Return to main website">
+                        Back to Site
+                    </a>
+
+                    <!-- Mobile Menu Button -->
+                    <button
+                        id="mobile-menu-button"
+                        onclick="toggleMobileMenu()"
+                        class="md:hidden p-2 rounded-lg text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-slate-800"
+                        aria-label="Toggle mobile menu"
+                        aria-expanded="false"
+                        aria-controls="mobile-menu"
+                        type="button">
+                        <!-- Hamburger Icon -->
+                        <svg id="mobile-menu-icon-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                        <!-- Close Icon -->
+                        <svg id="mobile-menu-icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        </nav>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white dark:bg-slate-800 border-b border-gray-200 dark:border-slate-700" role="navigation" aria-label="Mobile navigation menu">
+            <div class="px-4 py-3 space-y-3">
+                <!-- Mobile Navigation Links -->
+                <button type="button" onclick="showDashboard(); closeMobileMenu();" class="mobile-nav-link w-full text-left px-3 py-2 text-base font-medium text-slate-900 dark:text-white bg-blue-50 dark:bg-slate-700 border-l-4 border-blue-500 rounded-r-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-slate-800" aria-label="Navigate to Dashboard">
+                    Dashboard
+                </button>
+                <button type="button" onclick="showJobManagement(); closeMobileMenu();" class="mobile-nav-link w-full text-left px-3 py-2 text-base font-medium text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-slate-800" aria-label="Navigate to Job Management">
+                    Jobs
+                </button>
+                <button type="button" onclick="showApplications(); closeMobileMenu();" class="mobile-nav-link w-full text-left px-3 py-2 text-base font-medium text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-slate-800" aria-label="Navigate to Applications Management">
+                    Applications
+                </button>
+                <button type="button" onclick="showAnalytics(); closeMobileMenu();" class="mobile-nav-link w-full text-left px-3 py-2 text-base font-medium text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-slate-800" aria-label="Navigate to Analytics and Reports">
+                    Analytics
+                </button>
+                <button type="button" onclick="showSettings(); closeMobileMenu();" class="mobile-nav-link w-full text-left px-3 py-2 text-base font-medium text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-slate-800" aria-label="Navigate to System Settings">
+                    Settings
+                </button>
+
+                <!-- Mobile Theme Toggle -->
+                <div class="pt-3 border-t border-gray-200 dark:border-slate-600">
+                    <button
+                        id="mobile-theme-toggle"
+                        onclick="toggleTheme()"
+                        class="w-full flex items-center justify-between px-3 py-2 text-base font-medium text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-slate-800"
+                        aria-label="Toggle dark/light theme"
+                        aria-pressed="false"
+                        type="button">
+                        <span>Dark Mode</span>
+                        <div class="flex items-center">
+                            <svg id="mobile-theme-icon-light" class="w-5 h-5 hidden dark:block text-yellow-500" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+                                <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path>
+                            </svg>
+                            <svg id="mobile-theme-icon-dark" class="w-5 h-5 block dark:hidden" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+                                <path d="M17.293 13.293A8 8 0 716.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                            </svg>
+                        </div>
+                    </button>
+                </div>
+
+                <!-- Mobile User Info & Actions -->
+                <div class="pt-3 border-t border-gray-200 dark:border-slate-600">
+                    <div class="flex items-center space-x-3 px-3 py-2 mb-3">
+                        <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center" role="img" aria-label="User avatar">
+                            <span class="text-white text-sm font-medium" aria-hidden="true">A</span>
+                        </div>
+                        <div class="text-base font-medium text-slate-900 dark:text-white">Admin User</div>
+                    </div>
+                    <a href="careers.html" class="w-full inline-flex items-center justify-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-slate-800" aria-label="Return to main website">
                         Back to Site
                     </a>
                 </div>
             </div>
         </div>
-        </nav>
     </header>
 
     <!-- Main Content -->
@@ -248,20 +438,20 @@
                             <h2 class="text-lg font-medium text-slate-900 dark:text-white mb-4">General Settings</h2>
                             <form role="form" aria-label="General settings form">
                                 <div class="space-y-4">
-                                    <div>
-                                        <label for="company-name" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Company Name</label>
-                                        <input type="text" id="company-name" name="company-name" value="Ardonie Capital" class="mt-1 block w-full border-gray-300 dark:border-slate-600 rounded-md shadow-sm bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500" aria-describedby="company-name-help">
-                                        <p id="company-name-help" class="mt-1 text-xs text-slate-500 dark:text-slate-400">The name of your company as it appears on job postings</p>
+                                    <div class="admin-form-group">
+                                        <label for="company-name" class="admin-label">Company Name</label>
+                                        <input type="text" id="company-name" name="company-name" value="Ardonie Capital" class="admin-input w-full" aria-describedby="company-name-help" placeholder="Enter company name">
+                                        <p id="company-name-help" class="admin-help-text">The name of your company as it appears on job postings</p>
                                     </div>
-                                    <div>
-                                        <label for="contact-email" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Contact Email</label>
-                                        <input type="email" id="contact-email" name="contact-email" value="careers@ardoniecapital.com" class="mt-1 block w-full border-gray-300 dark:border-slate-600 rounded-md shadow-sm bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500" aria-describedby="contact-email-help">
-                                        <p id="contact-email-help" class="mt-1 text-xs text-slate-500 dark:text-slate-400">Email address for job application inquiries</p>
+                                    <div class="admin-form-group">
+                                        <label for="contact-email" class="admin-label">Contact Email</label>
+                                        <input type="email" id="contact-email" name="contact-email" value="careers@ardoniecapital.com" class="admin-input w-full" aria-describedby="contact-email-help" placeholder="Enter contact email">
+                                        <p id="contact-email-help" class="admin-help-text">Email address for job application inquiries</p>
                                     </div>
-                                    <div>
-                                        <label for="auto-archive-days" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Auto-Archive Applications After (days)</label>
-                                        <input type="number" id="auto-archive-days" name="auto-archive-days" value="90" min="1" max="365" class="mt-1 block w-full border-gray-300 dark:border-slate-600 rounded-md shadow-sm bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500" aria-describedby="auto-archive-help">
-                                        <p id="auto-archive-help" class="mt-1 text-xs text-slate-500 dark:text-slate-400">Number of days before applications are automatically archived</p>
+                                    <div class="admin-form-group">
+                                        <label for="auto-archive-days" class="admin-label">Auto-Archive Applications After (days)</label>
+                                        <input type="number" id="auto-archive-days" name="auto-archive-days" value="90" min="1" max="365" class="admin-input w-full" aria-describedby="auto-archive-help" placeholder="Enter number of days">
+                                        <p id="auto-archive-help" class="admin-help-text">Number of days before applications are automatically archived</p>
                                     </div>
                                 </div>
                             </form>
@@ -270,19 +460,19 @@
                         <div class="bg-white dark:bg-slate-800 shadow rounded-lg p-6">
                             <h2 class="text-lg font-medium text-slate-900 dark:text-white mb-4">Notification Settings</h2>
                             <form role="form" aria-label="Notification preferences form">
-                                <fieldset class="space-y-4">
+                                <fieldset class="space-y-6">
                                     <legend class="sr-only">Notification preferences</legend>
-                                    <div class="flex items-center">
-                                        <input type="checkbox" id="email-notifications" name="email-notifications" checked class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-2 focus:ring-blue-500">
-                                        <label for="email-notifications" class="ml-2 block text-sm text-slate-700 dark:text-slate-300">Email notifications for new applications</label>
+                                    <div class="flex items-center space-x-3">
+                                        <input type="checkbox" id="email-notifications" name="email-notifications" checked class="admin-checkbox">
+                                        <label for="email-notifications" class="admin-label mb-0 cursor-pointer">Email notifications for new applications</label>
                                     </div>
-                                    <div class="flex items-center">
-                                        <input type="checkbox" id="weekly-reports" name="weekly-reports" checked class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-2 focus:ring-blue-500">
-                                        <label for="weekly-reports" class="ml-2 block text-sm text-slate-700 dark:text-slate-300">Weekly analytics reports</label>
+                                    <div class="flex items-center space-x-3">
+                                        <input type="checkbox" id="weekly-reports" name="weekly-reports" checked class="admin-checkbox">
+                                        <label for="weekly-reports" class="admin-label mb-0 cursor-pointer">Weekly analytics reports</label>
                                     </div>
-                                    <div class="flex items-center">
-                                        <input type="checkbox" id="sms-notifications" name="sms-notifications" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-2 focus:ring-blue-500">
-                                        <label for="sms-notifications" class="ml-2 block text-sm text-slate-700 dark:text-slate-300">SMS notifications for urgent applications</label>
+                                    <div class="flex items-center space-x-3">
+                                        <input type="checkbox" id="sms-notifications" name="sms-notifications" class="admin-checkbox">
+                                        <label for="sms-notifications" class="admin-label mb-0 cursor-pointer">SMS notifications for urgent applications</label>
                                     </div>
                                 </fieldset>
                             </form>
@@ -335,11 +525,26 @@
         }
         
         // Global functions for navigation
-        function showDashboard() { cmsAdmin.showDashboard(); }
-        function showJobManagement() { cmsAdmin.showJobManagement(); }
-        function showApplications() { cmsAdmin.showApplications(); }
-        function showAnalytics() { cmsAdmin.showAnalytics(); }
-        function showSettings() { cmsAdmin.showSettings(); }
+        function showDashboard() {
+            cmsAdmin.showDashboard();
+            updateMobileNavActiveState('showDashboard');
+        }
+        function showJobManagement() {
+            cmsAdmin.showJobManagement();
+            updateMobileNavActiveState('showJobManagement');
+        }
+        function showApplications() {
+            cmsAdmin.showApplications();
+            updateMobileNavActiveState('showApplications');
+        }
+        function showAnalytics() {
+            cmsAdmin.showAnalytics();
+            updateMobileNavActiveState('showAnalytics');
+        }
+        function showSettings() {
+            cmsAdmin.showSettings();
+            updateMobileNavActiveState('showSettings');
+        }
         
         // Theme toggle function
         function toggleTheme() {
@@ -402,11 +607,90 @@
             });
         }
 
+        // Mobile Menu Functions
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const openIcon = document.getElementById('mobile-menu-icon-open');
+            const closeIcon = document.getElementById('mobile-menu-icon-close');
+
+            if (mobileMenu && mobileMenuButton && openIcon && closeIcon) {
+                const isHidden = mobileMenu.classList.contains('hidden');
+
+                if (isHidden) {
+                    // Show mobile menu
+                    mobileMenu.classList.remove('hidden');
+                    openIcon.classList.add('hidden');
+                    closeIcon.classList.remove('hidden');
+                    mobileMenuButton.setAttribute('aria-expanded', 'true');
+                } else {
+                    // Hide mobile menu
+                    mobileMenu.classList.add('hidden');
+                    openIcon.classList.remove('hidden');
+                    closeIcon.classList.add('hidden');
+                    mobileMenuButton.setAttribute('aria-expanded', 'false');
+                }
+            }
+        }
+
+        function closeMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const openIcon = document.getElementById('mobile-menu-icon-open');
+            const closeIcon = document.getElementById('mobile-menu-icon-close');
+
+            if (mobileMenu && mobileMenuButton && openIcon && closeIcon) {
+                mobileMenu.classList.add('hidden');
+                openIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+                mobileMenuButton.setAttribute('aria-expanded', 'false');
+            }
+        }
+
+        // Update mobile navigation active state
+        function updateMobileNavActiveState(activeSection) {
+            const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+            mobileNavLinks.forEach(link => {
+                link.classList.remove('text-slate-900', 'dark:text-white', 'bg-blue-50', 'dark:bg-slate-700', 'border-l-4', 'border-blue-500', 'rounded-r-md');
+                link.classList.add('text-slate-500', 'hover:text-slate-700', 'dark:text-slate-400', 'dark:hover:text-slate-300', 'hover:bg-slate-50', 'dark:hover:bg-slate-700', 'rounded-md');
+            });
+
+            // Set active state for current section
+            const activeButton = document.querySelector(`.mobile-nav-link[onclick*="${activeSection}"]`);
+            if (activeButton) {
+                activeButton.classList.remove('text-slate-500', 'hover:text-slate-700', 'dark:text-slate-400', 'dark:hover:text-slate-300', 'hover:bg-slate-50', 'dark:hover:bg-slate-700', 'rounded-md');
+                activeButton.classList.add('text-slate-900', 'dark:text-white', 'bg-blue-50', 'dark:bg-slate-700', 'border-l-4', 'border-blue-500', 'rounded-r-md');
+            }
+        }
+
         // Initialize CMS Admin when DOM is loaded
         document.addEventListener('DOMContentLoaded', () => {
             window.cmsAdmin = new CMSAdmin();
             initializeThemeToggle();
             initializeKeyboardNavigation();
+
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', (event) => {
+                const mobileMenu = document.getElementById('mobile-menu');
+                const mobileMenuButton = document.getElementById('mobile-menu-button');
+
+                if (mobileMenu && mobileMenuButton &&
+                    !mobileMenu.contains(event.target) &&
+                    !mobileMenuButton.contains(event.target) &&
+                    !mobileMenu.classList.contains('hidden')) {
+                    closeMobileMenu();
+                }
+            });
+
+            // Close mobile menu on escape key
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape') {
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                        closeMobileMenu();
+                    }
+                }
+            });
         });
     </script>
 </body>
