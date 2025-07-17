@@ -1,0 +1,286 @@
+name: Production Deployment
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      deployment_type:
+        description: 'Type of deployment'
+        required: true
+        default: 'standard'
+        type: choice
+        options:
+        - standard
+        - hotfix
+        - rollback
+      rollback_version:
+        description: 'Version to rollback to (if rollback selected)'
+        required: false
+        type: string
+
+env:
+  NODE_VERSION: '18'
+  PYTHON_VERSION: '3.9'
+
+jobs:
+  pre-deployment-validation:
+    runs-on: ubuntu-latest
+    name: Pre-Deployment Validation
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Run full test suite
+      run: |
+        npm run test:unit
+        npm run test:integration
+        npm run test:e2e
+        npm run test:security
+        npm run test:performance
+        
+    - name: Validate production configuration
+      run: npm run validate:production
+      
+    - name: Security audit
+      run: npm audit --audit-level high
+      
+    - name: Build production assets
+      run: npm run build:production
+      
+    - name: Validate build integrity
+      run: npm run validate:build:production
+
+  database-backup:
+    runs-on: ubuntu-latest
+    name: Database Backup
+    needs: [pre-deployment-validation]
+    
+    environment:
+      name: production_db_backup
+      
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Create production database backup
+      run: npm run backup:db:production
+      env:
+        PRODUCTION_SUPABASE_URL: ${{ secrets.PRODUCTION_SUPABASE_URL }}
+        PRODUCTION_SUPABASE_SERVICE_KEY: ${{ secrets.PRODUCTION_SUPABASE_SERVICE_KEY }}
+        
+    - name: Upload backup to secure storage
+      run: npm run backup:upload:production
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        BACKUP_BUCKET: ${{ secrets.PRODUCTION_BACKUP_BUCKET }}
+
+  production-deployment:
+    runs-on: ubuntu-latest
+    name: Deploy to Production
+    needs: [pre-deployment-validation, database-backup]
+    
+    environment:
+      name: production
+      url: https://buymart.ardonie.com
+      
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Create production environment
+      run: |
+        echo "SUPABASE_URL=${{ secrets.PRODUCTION_SUPABASE_URL }}" > .env.production
+        echo "SUPABASE_ANON_KEY=${{ secrets.PRODUCTION_SUPABASE_ANON_KEY }}" >> .env.production
+        echo "ENVIRONMENT=production" >> .env.production
+        echo "API_BASE_URL=${{ secrets.PRODUCTION_API_BASE_URL }}" >> .env.production
+        echo "OAUTH_GOOGLE_CLIENT_ID=${{ secrets.PRODUCTION_GOOGLE_CLIENT_ID }}" >> .env.production
+        echo "OAUTH_MICROSOFT_CLIENT_ID=${{ secrets.PRODUCTION_MICROSOFT_CLIENT_ID }}" >> .env.production
+        echo "STRIPE_PUBLISHABLE_KEY=${{ secrets.PRODUCTION_STRIPE_PUBLISHABLE_KEY }}" >> .env.production
+        echo "ANALYTICS_ID=${{ secrets.PRODUCTION_ANALYTICS_ID }}" >> .env.production
+        echo "CDN_URL=${{ secrets.PRODUCTION_CDN_URL }}" >> .env.production
+        
+    - name: Build production package
+      run: npm run build:production:package
+      
+    - name: Create Hostinger deployment package
+      run: npm run package:hostinger
+      
+    - name: Deploy to Hostinger
+      run: npm run deploy:hostinger
+      env:
+        HOSTINGER_FTP_HOST: ${{ secrets.HOSTINGER_FTP_HOST }}
+        HOSTINGER_FTP_USER: ${{ secrets.HOSTINGER_FTP_USER }}
+        HOSTINGER_FTP_PASSWORD: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
+        HOSTINGER_DOMAIN: ${{ secrets.HOSTINGER_DOMAIN }}
+        
+    - name: Deploy to AWS (if configured)
+      run: npm run deploy:aws
+      if: ${{ vars.AWS_DEPLOYMENT_ENABLED == 'true' }}
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_REGION: ${{ secrets.AWS_REGION }}
+        AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+        AWS_CLOUDFRONT_DISTRIBUTION: ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION }}
+
+  database-migration:
+    runs-on: ubuntu-latest
+    name: Production Database Migration
+    needs: [production-deployment]
+    
+    environment:
+      name: production_db
+      
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Run production database migrations
+      run: npm run migrate:production
+      env:
+        PRODUCTION_SUPABASE_URL: ${{ secrets.PRODUCTION_SUPABASE_URL }}
+        PRODUCTION_SUPABASE_SERVICE_KEY: ${{ secrets.PRODUCTION_SUPABASE_SERVICE_KEY }}
+        
+    - name: Validate database schema
+      run: npm run validate:db:production
+
+  post-deployment-validation:
+    runs-on: ubuntu-latest
+    name: Post-Deployment Validation
+    needs: [production-deployment, database-migration]
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Wait for deployment propagation
+      run: sleep 60
+      
+    - name: Health check
+      run: |
+        curl -f https://buymart.ardonie.com/health || exit 1
+        curl -f https://buymart.ardonie.com/api/health || exit 1
+        
+    - name: Critical path testing
+      run: npm run test:critical:production
+      env:
+        PRODUCTION_URL: https://buymart.ardonie.com
+        
+    - name: Authentication validation
+      run: npm run test:auth:production
+      
+    - name: OAuth integration validation
+      run: npm run test:oauth:production
+      
+    - name: Payment system validation
+      run: npm run test:payments:production
+      
+    - name: Database connectivity validation
+      run: npm run test:db:production
+      
+    - name: Performance monitoring
+      run: npm run monitor:performance:production
+      
+    - name: Security validation
+      run: npm run test:security:production
+
+  monitoring-setup:
+    runs-on: ubuntu-latest
+    name: Setup Production Monitoring
+    needs: [post-deployment-validation]
+    
+    steps:
+    - name: Configure monitoring alerts
+      run: npm run setup:monitoring:production
+      env:
+        MONITORING_API_KEY: ${{ secrets.MONITORING_API_KEY }}
+        ALERT_EMAIL: ${{ secrets.ALERT_EMAIL }}
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+        
+    - name: Setup performance tracking
+      run: npm run setup:performance:tracking
+      
+    - name: Configure error tracking
+      run: npm run setup:error:tracking
+      env:
+        SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+
+  notification:
+    runs-on: ubuntu-latest
+    name: Deployment Notification
+    needs: [monitoring-setup]
+    if: always()
+    
+    steps:
+    - name: Notify deployment success
+      uses: 8398a7/action-slack@v3
+      with:
+        status: success
+        channel: '#deployments'
+        text: |
+          🚀 **PRODUCTION DEPLOYMENT SUCCESSFUL** 🚀
+
+          **Project:** BuyMartV1
+          **Branch:** ${{ github.ref_name }}
+          **Commit:** ${{ github.sha }}
+          **Production URL:** https://buymart.ardonie.com
+          **Deployment Time:** $(date)
+
+          **Validation Results:**
+          ✅ Health checks passed
+          ✅ Authentication working
+          ✅ Database connectivity confirmed
+          ✅ Performance metrics within targets
+          ✅ Security validation passed
+
+          **Monitoring:** Active and configured
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+      if: success()
+      
+    - name: Notify deployment failure
+      uses: 8398a7/action-slack@v3
+      with:
+        status: failure
+        channel: '#deployments'
+        text: |
+          🚨 **PRODUCTION DEPLOYMENT FAILED** 🚨
+
+          **Project:** BuyMartV1
+          **Branch:** ${{ github.ref_name }}
+          **Commit:** ${{ github.sha }}
+          **Failed Job:** ${{ github.job }}
+
+          **Action Required:** Immediate investigation needed
+          **Rollback:** Consider rollback if critical
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+      if: failure()
+      
+    - name: Update deployment status
+      run: |
+        echo "Production deployment completed"
+        echo "Status: ${{ job.status }}"
+        echo "URL: https://buymart.ardonie.com"
+        echo "Timestamp: $(date)"

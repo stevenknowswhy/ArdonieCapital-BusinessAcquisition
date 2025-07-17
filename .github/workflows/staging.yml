@@ -1,0 +1,229 @@
+name: Staging Environment Deployment
+
+on:
+  push:
+    branches: [ staging ]
+  workflow_dispatch:
+    inputs:
+      deploy_type:
+        description: 'Deployment type'
+        required: true
+        default: 'standard'
+        type: choice
+        options:
+        - standard
+        - hotfix
+        - rollback
+
+env:
+  NODE_VERSION: '18'
+  PYTHON_VERSION: '3.9'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    name: Validate Staging Deployment
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Validate environment configuration
+      run: npm run validate:staging
+      
+    - name: Run comprehensive tests
+      run: |
+        npm run test:unit
+        npm run test:integration
+        npm run test:e2e
+        npm run test:security
+        
+    - name: Build staging assets
+      run: npm run build:staging
+      
+    - name: Validate build integrity
+      run: npm run validate:build
+
+  database-migration:
+    runs-on: ubuntu-latest
+    name: Database Migration
+    needs: [validate]
+    
+    environment:
+      name: staging_db
+      
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup database migration
+      run: |
+        echo "SUPABASE_URL=${{ secrets.STAGING_SUPABASE_URL }}" > .env.staging
+        echo "SUPABASE_SERVICE_KEY=${{ secrets.STAGING_SUPABASE_SERVICE_KEY }}" >> .env.staging
+        
+    - name: Run database migrations
+      run: npm run migrate:staging
+      
+    - name: Seed staging data
+      run: npm run seed:staging
+      
+    - name: Validate database schema
+      run: npm run validate:db:staging
+
+  deploy-staging:
+    runs-on: ubuntu-latest
+    name: Deploy to Staging
+    needs: [validate, database-migration]
+    
+    environment:
+      name: staging
+      url: https://staging.buymart.ardonie.com
+      
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Create staging environment
+      run: |
+        echo "SUPABASE_URL=${{ secrets.STAGING_SUPABASE_URL }}" > .env.staging
+        echo "SUPABASE_ANON_KEY=${{ secrets.STAGING_SUPABASE_ANON_KEY }}" >> .env.staging
+        echo "ENVIRONMENT=staging" >> .env.staging
+        echo "API_BASE_URL=${{ secrets.STAGING_API_BASE_URL }}" >> .env.staging
+        echo "OAUTH_GOOGLE_CLIENT_ID=${{ secrets.STAGING_GOOGLE_CLIENT_ID }}" >> .env.staging
+        echo "OAUTH_MICROSOFT_CLIENT_ID=${{ secrets.STAGING_MICROSOFT_CLIENT_ID }}" >> .env.staging
+        echo "STRIPE_PUBLISHABLE_KEY=${{ secrets.STAGING_STRIPE_PUBLISHABLE_KEY }}" >> .env.staging
+        echo "ANALYTICS_ID=${{ secrets.STAGING_ANALYTICS_ID }}" >> .env.staging
+        
+    - name: Build staging deployment package
+      run: npm run build:staging:package
+      
+    - name: Create deployment backup
+      run: npm run backup:staging
+      
+    - name: Deploy to staging server
+      run: npm run deploy:staging:server
+      env:
+        STAGING_SERVER_HOST: ${{ secrets.STAGING_SERVER_HOST }}
+        STAGING_SERVER_USER: ${{ secrets.STAGING_SERVER_USER }}
+        STAGING_SERVER_KEY: ${{ secrets.STAGING_SERVER_KEY }}
+        STAGING_DEPLOY_PATH: ${{ secrets.STAGING_DEPLOY_PATH }}
+
+  post-deployment-tests:
+    runs-on: ubuntu-latest
+    name: Post-Deployment Testing
+    needs: [deploy-staging]
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Wait for deployment
+      run: sleep 30
+      
+    - name: Health check
+      run: |
+        curl -f https://staging.buymart.ardonie.com/health || exit 1
+        
+    - name: Authentication tests
+      run: npm run test:auth:staging
+      env:
+        STAGING_URL: https://staging.buymart.ardonie.com
+        TEST_USER_EMAIL: ${{ secrets.STAGING_TEST_USER_EMAIL }}
+        TEST_USER_PASSWORD: ${{ secrets.STAGING_TEST_USER_PASSWORD }}
+        
+    - name: OAuth integration tests
+      run: npm run test:oauth:staging
+      
+    - name: Database connectivity tests
+      run: npm run test:db:staging
+      
+    - name: Performance validation
+      run: npm run test:performance:staging
+      
+    - name: Accessibility validation
+      run: npm run test:a11y:staging
+
+  approval-gate:
+    runs-on: ubuntu-latest
+    name: Staging Approval Gate
+    needs: [post-deployment-tests]
+    if: github.event_name == 'push'
+    
+    environment:
+      name: staging_approval
+      
+    steps:
+    - name: Request staging approval
+      uses: trstringer/manual-approval@v1
+      with:
+        secret: ${{ github.TOKEN }}
+        approvers: stevenknowswhy
+        minimum-approvals: 1
+        issue-title: "Staging Deployment Approval Required"
+        issue-body: |
+          **Staging deployment is ready for approval**
+          
+          **Branch:** ${{ github.ref_name }}
+          **Commit:** ${{ github.sha }}
+          **Staging URL:** https://staging.buymart.ardonie.com
+          
+          **Test Results:**
+          - ✅ Unit Tests Passed
+          - ✅ Integration Tests Passed
+          - ✅ Security Scan Passed
+          - ✅ Performance Tests Passed
+          - ✅ Accessibility Tests Passed
+          
+          **Please review the staging environment and approve for production deployment.**
+          
+          **Approval Actions:**
+          - 👍 Approve for production deployment
+          - 👎 Reject and require fixes
+          
+        exclude-workflow-initiator-as-approver: false
+
+  notify-completion:
+    runs-on: ubuntu-latest
+    name: Notify Deployment Completion
+    needs: [approval-gate]
+    if: always()
+    
+    steps:
+    - name: Notify team
+      uses: 8398a7/action-slack@v3
+      with:
+        status: ${{ job.status }}
+        channel: '#deployments'
+        text: |
+          Staging deployment completed for BuyMartV1
+          Branch: ${{ github.ref_name }}
+          Status: ${{ job.status }}
+          Staging URL: https://staging.buymart.ardonie.com
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+      if: always()
+      
+    - name: Update deployment status
+      run: |
+        echo "Staging deployment completed at $(date)"
+        echo "Branch: ${{ github.ref_name }}"
+        echo "Commit: ${{ github.sha }}"
+        echo "Status: ${{ job.status }}"
